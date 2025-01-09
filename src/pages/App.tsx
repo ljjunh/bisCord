@@ -1,9 +1,19 @@
+import { Route, Routes } from "react-router-dom";
 import "../app/App.css";
+import MainPage from "./main";
+import ChannelPage from "./channels";
+import SigninPage from "./signin";
+import SignupPage from "./signup";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline text-gray">hello world</h1>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/channels" element={<ChannelPage />} />
+        <Route path="/signin" element={<SigninPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
     </>
   );
 }
