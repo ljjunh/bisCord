@@ -1,0 +1,1010 @@
+{
+  "/Users/junhee/Desktop/elice/bisCord/biscord_fe": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.18",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "opt": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "service": "biscord-serverless",
+            "provider": {
+              "name": "aws",
+              "region": "ap-northeast-2",
+              "stage": "dev",
+              "runtime": "nodejs18.x",
+              "versionFunctions": true
+            },
+            "plugins": [
+              "serverless-single-page-app-plugin",
+              "serverless-finch"
+            ],
+            "custom": {
+              "client": {
+                "bucketName": "biscord-serverless-dev",
+                "distributionFolder": "dist",
+                "uploadOrder": [
+                  "s3Deploy",
+                  "cloudfront"
+                ]
+              },
+              "s3Sync": [
+                {
+                  "bucketName": "biscord-serverless-dev",
+                  "localDir": "dist",
+                  "deleteRemoved": true,
+                  "acl": "private",
+                  "params": [
+                    {
+                      "index.html": {
+                        "CacheControl": "no-cache"
+                      }
+                    },
+                    {
+                      "*.js": {
+                        "CacheControl": "public, max-age=31536000"
+                      }
+                    },
+                    {
+                      "*.css": {
+                        "CacheControl": "public, max-age=31536000"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "resources": {
+              "Resources": {
+                "WebAppS3Bucket": {
+                  "Type": "AWS::S3::Bucket",
+                  "Properties": {
+                    "BucketName": "biscord-serverless-dev",
+                    "OwnershipControls": {
+                      "Rules": [
+                        {
+                          "ObjectOwnership": "BucketOwnerEnforced"
+                        }
+                      ]
+                    },
+                    "PublicAccessBlockConfiguration": {
+                      "BlockPublicAcls": false,
+                      "IgnorePublicAcls": false,
+                      "BlockPublicPolicy": false,
+                      "RestrictPublicBuckets": false
+                    },
+                    "WebsiteConfiguration": {
+                      "IndexDocument": "index.html",
+                      "ErrorDocument": "index.html"
+                    }
+                  }
+                },
+                "CloudFrontOriginAccessIdentity": {
+                  "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                  "Properties": {
+                    "CloudFrontOriginAccessIdentityConfig": {
+                      "Comment": "OAI for biscord-serverless-dev"
+                    }
+                  }
+                },
+                "WebAppS3BucketPolicy": {
+                  "Type": "AWS::S3::BucketPolicy",
+                  "Properties": {
+                    "Bucket": {
+                      "Ref": "WebAppS3Bucket"
+                    },
+                    "PolicyDocument": {
+                      "Statement": [
+                        {
+                          "Sid": "CloudFrontAccess",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "AWS": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ",
+                                  {
+                                    "Ref": "CloudFrontOriginAccessIdentity"
+                                  }
+                                ]
+                              ]
+                            }
+                          },
+                          "Action": "s3:GetObject",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:aws:s3:::",
+                                {
+                                  "Ref": "WebAppS3Bucket"
+                                },
+                                "/*"
+                              ]
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "CloudFrontDistribution": {
+                  "Type": "AWS::CloudFront::Distribution",
+                  "Properties": {
+                    "DistributionConfig": {
+                      "Enabled": true,
+                      "DefaultRootObject": "index.html",
+                      "Origins": [
+                        {
+                          "DomainName": {
+                            "Fn::GetAtt": [
+                              "WebAppS3Bucket",
+                              "RegionalDomainName"
+                            ]
+                          },
+                          "Id": "S3Origin",
+                          "S3OriginConfig": {
+                            "OriginAccessIdentity": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "origin-access-identity/cloudfront/",
+                                  {
+                                    "Ref": "CloudFrontOriginAccessIdentity"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "DefaultCacheBehavior": {
+                        "TargetOriginId": "S3Origin",
+                        "ViewerProtocolPolicy": "redirect-to-https",
+                        "AllowedMethods": [
+                          "GET",
+                          "HEAD",
+                          "OPTIONS"
+                        ],
+                        "CachedMethods": [
+                          "GET",
+                          "HEAD",
+                          "OPTIONS"
+                        ],
+                        "Compress": true,
+                        "DefaultTTL": 0,
+                        "MaxTTL": 3600,
+                        "MinTTL": 0,
+                        "ForwardedValues": {
+                          "QueryString": false,
+                          "Headers": [],
+                          "Cookies": {
+                            "Forward": "none"
+                          }
+                        }
+                      },
+                      "CustomErrorResponses": [
+                        {
+                          "ErrorCode": 404,
+                          "ResponseCode": 200,
+                          "ResponsePagePath": "/index.html"
+                        },
+                        {
+                          "ErrorCode": 403,
+                          "ResponseCode": 200,
+                          "ResponsePagePath": "/index.html"
+                        }
+                      ],
+                      "PriceClass": "PriceClass_100",
+                      "HttpVersion": "http2"
+                    }
+                  }
+                }
+              },
+              "Outputs": {
+                "CloudFrontDistributionId": {
+                  "Value": {
+                    "Ref": "CloudFrontDistribution"
+                  },
+                  "Export": {
+                    "Name": "biscord-serverless-dev-CloudFrontDistributionId"
+                  }
+                },
+                "CloudFrontDomainName": {
+                  "Value": {
+                    "Fn::GetAtt": [
+                      "CloudFrontDistribution",
+                      "DomainName"
+                    ]
+                  },
+                  "Export": {
+                    "Name": "biscord-serverless-dev-CloudFrontDomainName"
+                  }
+                }
+              }
+            }
+          },
+          "configFileDirPath": "/Users/junhee/Desktop/elice/bisCord/biscord_fe",
+          "config": {
+            "type": "opt"
+          },
+          "options": {
+            "confirm": false
+          },
+          "logger": {
+            "namespace": "s:core:resolver:opt",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      },
+      "default-aws-credential-resolver": "<REDACTED>",
+      "self": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "service": "biscord-serverless",
+            "provider": {
+              "name": "aws",
+              "region": "ap-northeast-2",
+              "stage": "dev",
+              "runtime": "nodejs18.x",
+              "versionFunctions": true
+            },
+            "plugins": [
+              "serverless-single-page-app-plugin",
+              "serverless-finch"
+            ],
+            "custom": {
+              "client": {
+                "bucketName": "biscord-serverless-dev",
+                "distributionFolder": "dist",
+                "uploadOrder": [
+                  "s3Deploy",
+                  "cloudfront"
+                ]
+              },
+              "s3Sync": [
+                {
+                  "bucketName": "biscord-serverless-dev",
+                  "localDir": "dist",
+                  "deleteRemoved": true,
+                  "acl": "private",
+                  "params": [
+                    {
+                      "index.html": {
+                        "CacheControl": "no-cache"
+                      }
+                    },
+                    {
+                      "*.js": {
+                        "CacheControl": "public, max-age=31536000"
+                      }
+                    },
+                    {
+                      "*.css": {
+                        "CacheControl": "public, max-age=31536000"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "resources": {
+              "Resources": {
+                "WebAppS3Bucket": {
+                  "Type": "AWS::S3::Bucket",
+                  "Properties": {
+                    "BucketName": "biscord-serverless-dev",
+                    "OwnershipControls": {
+                      "Rules": [
+                        {
+                          "ObjectOwnership": "BucketOwnerEnforced"
+                        }
+                      ]
+                    },
+                    "PublicAccessBlockConfiguration": {
+                      "BlockPublicAcls": false,
+                      "IgnorePublicAcls": false,
+                      "BlockPublicPolicy": false,
+                      "RestrictPublicBuckets": false
+                    },
+                    "WebsiteConfiguration": {
+                      "IndexDocument": "index.html",
+                      "ErrorDocument": "index.html"
+                    }
+                  }
+                },
+                "CloudFrontOriginAccessIdentity": {
+                  "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                  "Properties": {
+                    "CloudFrontOriginAccessIdentityConfig": {
+                      "Comment": "OAI for biscord-serverless-dev"
+                    }
+                  }
+                },
+                "WebAppS3BucketPolicy": {
+                  "Type": "AWS::S3::BucketPolicy",
+                  "Properties": {
+                    "Bucket": {
+                      "Ref": "WebAppS3Bucket"
+                    },
+                    "PolicyDocument": {
+                      "Statement": [
+                        {
+                          "Sid": "CloudFrontAccess",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "AWS": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ",
+                                  {
+                                    "Ref": "CloudFrontOriginAccessIdentity"
+                                  }
+                                ]
+                              ]
+                            }
+                          },
+                          "Action": "s3:GetObject",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:aws:s3:::",
+                                {
+                                  "Ref": "WebAppS3Bucket"
+                                },
+                                "/*"
+                              ]
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "CloudFrontDistribution": {
+                  "Type": "AWS::CloudFront::Distribution",
+                  "Properties": {
+                    "DistributionConfig": {
+                      "Enabled": true,
+                      "DefaultRootObject": "index.html",
+                      "Origins": [
+                        {
+                          "DomainName": {
+                            "Fn::GetAtt": [
+                              "WebAppS3Bucket",
+                              "RegionalDomainName"
+                            ]
+                          },
+                          "Id": "S3Origin",
+                          "S3OriginConfig": {
+                            "OriginAccessIdentity": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "origin-access-identity/cloudfront/",
+                                  {
+                                    "Ref": "CloudFrontOriginAccessIdentity"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "DefaultCacheBehavior": {
+                        "TargetOriginId": "S3Origin",
+                        "ViewerProtocolPolicy": "redirect-to-https",
+                        "AllowedMethods": [
+                          "GET",
+                          "HEAD",
+                          "OPTIONS"
+                        ],
+                        "CachedMethods": [
+                          "GET",
+                          "HEAD",
+                          "OPTIONS"
+                        ],
+                        "Compress": true,
+                        "DefaultTTL": 0,
+                        "MaxTTL": 3600,
+                        "MinTTL": 0,
+                        "ForwardedValues": {
+                          "QueryString": false,
+                          "Headers": [],
+                          "Cookies": {
+                            "Forward": "none"
+                          }
+                        }
+                      },
+                      "CustomErrorResponses": [
+                        {
+                          "ErrorCode": 404,
+                          "ResponseCode": 200,
+                          "ResponsePagePath": "/index.html"
+                        },
+                        {
+                          "ErrorCode": 403,
+                          "ResponseCode": 200,
+                          "ResponsePagePath": "/index.html"
+                        }
+                      ],
+                      "PriceClass": "PriceClass_100",
+                      "HttpVersion": "http2"
+                    }
+                  }
+                }
+              },
+              "Outputs": {
+                "CloudFrontDistributionId": {
+                  "Value": {
+                    "Ref": "CloudFrontDistribution"
+                  },
+                  "Export": {
+                    "Name": "biscord-serverless-dev-CloudFrontDistributionId"
+                  }
+                },
+                "CloudFrontDomainName": {
+                  "Value": {
+                    "Fn::GetAtt": [
+                      "CloudFrontDistribution",
+                      "DomainName"
+                    ]
+                  },
+                  "Export": {
+                    "Name": "biscord-serverless-dev-CloudFrontDomainName"
+                  }
+                }
+              }
+            }
+          },
+          "configFileDirPath": "/Users/junhee/Desktop/elice/bisCord/biscord_fe",
+          "config": {
+            "type": "self"
+          },
+          "options": {
+            "confirm": false
+          },
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:self",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      },
+      "sls": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "service": "biscord-serverless",
+            "provider": {
+              "name": "aws",
+              "region": "ap-northeast-2",
+              "stage": "dev",
+              "runtime": "nodejs18.x",
+              "versionFunctions": true
+            },
+            "plugins": [
+              "serverless-single-page-app-plugin",
+              "serverless-finch"
+            ],
+            "custom": {
+              "client": {
+                "bucketName": "biscord-serverless-dev",
+                "distributionFolder": "dist",
+                "uploadOrder": [
+                  "s3Deploy",
+                  "cloudfront"
+                ]
+              },
+              "s3Sync": [
+                {
+                  "bucketName": "biscord-serverless-dev",
+                  "localDir": "dist",
+                  "deleteRemoved": true,
+                  "acl": "private",
+                  "params": [
+                    {
+                      "index.html": {
+                        "CacheControl": "no-cache"
+                      }
+                    },
+                    {
+                      "*.js": {
+                        "CacheControl": "public, max-age=31536000"
+                      }
+                    },
+                    {
+                      "*.css": {
+                        "CacheControl": "public, max-age=31536000"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            "resources": {
+              "Resources": {
+                "WebAppS3Bucket": {
+                  "Type": "AWS::S3::Bucket",
+                  "Properties": {
+                    "BucketName": "biscord-serverless-dev",
+                    "OwnershipControls": {
+                      "Rules": [
+                        {
+                          "ObjectOwnership": "BucketOwnerEnforced"
+                        }
+                      ]
+                    },
+                    "PublicAccessBlockConfiguration": {
+                      "BlockPublicAcls": false,
+                      "IgnorePublicAcls": false,
+                      "BlockPublicPolicy": false,
+                      "RestrictPublicBuckets": false
+                    },
+                    "WebsiteConfiguration": {
+                      "IndexDocument": "index.html",
+                      "ErrorDocument": "index.html"
+                    }
+                  }
+                },
+                "CloudFrontOriginAccessIdentity": {
+                  "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+                  "Properties": {
+                    "CloudFrontOriginAccessIdentityConfig": {
+                      "Comment": "OAI for biscord-serverless-dev"
+                    }
+                  }
+                },
+                "WebAppS3BucketPolicy": {
+                  "Type": "AWS::S3::BucketPolicy",
+                  "Properties": {
+                    "Bucket": {
+                      "Ref": "WebAppS3Bucket"
+                    },
+                    "PolicyDocument": {
+                      "Statement": [
+                        {
+                          "Sid": "CloudFrontAccess",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "AWS": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ",
+                                  {
+                                    "Ref": "CloudFrontOriginAccessIdentity"
+                                  }
+                                ]
+                              ]
+                            }
+                          },
+                          "Action": "s3:GetObject",
+                          "Resource": {
+                            "Fn::Join": [
+                              "",
+                              [
+                                "arn:aws:s3:::",
+                                {
+                                  "Ref": "WebAppS3Bucket"
+                                },
+                                "/*"
+                              ]
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "CloudFrontDistribution": {
+                  "Type": "AWS::CloudFront::Distribution",
+                  "Properties": {
+                    "DistributionConfig": {
+                      "Enabled": true,
+                      "DefaultRootObject": "index.html",
+                      "Origins": [
+                        {
+                          "DomainName": {
+                            "Fn::GetAtt": [
+                              "WebAppS3Bucket",
+                              "RegionalDomainName"
+                            ]
+                          },
+                          "Id": "S3Origin",
+                          "S3OriginConfig": {
+                            "OriginAccessIdentity": {
+                              "Fn::Join": [
+                                "",
+                                [
+                                  "origin-access-identity/cloudfront/",
+                                  {
+                                    "Ref": "CloudFrontOriginAccessIdentity"
+                                  }
+                                ]
+                              ]
+                            }
+                          }
+                        }
+                      ],
+                      "DefaultCacheBehavior": {
+                        "TargetOriginId": "S3Origin",
+                        "ViewerProtocolPolicy": "redirect-to-https",
+                        "AllowedMethods": [
+                          "GET",
+                          "HEAD",
+                          "OPTIONS"
+                        ],
+                        "CachedMethods": [
+                          "GET",
+                          "HEAD",
+                          "OPTIONS"
+                        ],
+                        "Compress": true,
+                        "DefaultTTL": 0,
+                        "MaxTTL": 3600,
+                        "MinTTL": 0,
+                        "ForwardedValues": {
+                          "QueryString": false,
+                          "Headers": [],
+                          "Cookies": {
+                            "Forward": "none"
+                          }
+                        }
+                      },
+                      "CustomErrorResponses": [
+                        {
+                          "ErrorCode": 404,
+                          "ResponseCode": 200,
+                          "ResponsePagePath": "/index.html"
+                        },
+                        {
+                          "ErrorCode": 403,
+                          "ResponseCode": 200,
+                          "ResponsePagePath": "/index.html"
+                        }
+                      ],
+                      "PriceClass": "PriceClass_100",
+                      "HttpVersion": "http2"
+                    }
+                  }
+                }
+              },
+              "Outputs": {
+                "CloudFrontDistributionId": {
+                  "Value": {
+                    "Ref": "CloudFrontDistribution"
+                  },
+                  "Export": {
+                    "Name": "biscord-serverless-dev-CloudFrontDistributionId"
+                  }
+                },
+                "CloudFrontDomainName": {
+                  "Value": {
+                    "Fn::GetAtt": [
+                      "CloudFrontDistribution",
+                      "DomainName"
+                    ]
+                  },
+                  "Export": {
+                    "Name": "biscord-serverless-dev-CloudFrontDomainName"
+                  }
+                }
+              }
+            }
+          },
+          "configFileDirPath": "/Users/junhee/Desktop/elice/bisCord/biscord_fe",
+          "config": {
+            "type": "sls"
+          },
+          "options": {
+            "confirm": false
+          },
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:sls",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
+    },
+    "composeServiceName": null,
+    "servicePath": "/Users/junhee/Desktop/elice/bisCord/biscord_fe",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "biscord-serverless",
+      "provider": {
+        "name": "aws",
+        "region": "ap-northeast-2",
+        "stage": "dev",
+        "runtime": "nodejs18.x",
+        "versionFunctions": true
+      },
+      "plugins": [
+        "serverless-single-page-app-plugin",
+        "serverless-finch"
+      ],
+      "custom": {
+        "client": {
+          "bucketName": "biscord-serverless-dev",
+          "distributionFolder": "dist",
+          "uploadOrder": [
+            "s3Deploy",
+            "cloudfront"
+          ]
+        },
+        "s3Sync": [
+          {
+            "bucketName": "biscord-serverless-dev",
+            "localDir": "dist",
+            "deleteRemoved": true,
+            "acl": "private",
+            "params": [
+              {
+                "index.html": {
+                  "CacheControl": "no-cache"
+                }
+              },
+              {
+                "*.js": {
+                  "CacheControl": "public, max-age=31536000"
+                }
+              },
+              {
+                "*.css": {
+                  "CacheControl": "public, max-age=31536000"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "resources": {
+        "Resources": {
+          "WebAppS3Bucket": {
+            "Type": "AWS::S3::Bucket",
+            "Properties": {
+              "BucketName": "biscord-serverless-dev",
+              "OwnershipControls": {
+                "Rules": [
+                  {
+                    "ObjectOwnership": "BucketOwnerEnforced"
+                  }
+                ]
+              },
+              "PublicAccessBlockConfiguration": {
+                "BlockPublicAcls": false,
+                "IgnorePublicAcls": false,
+                "BlockPublicPolicy": false,
+                "RestrictPublicBuckets": false
+              },
+              "WebsiteConfiguration": {
+                "IndexDocument": "index.html",
+                "ErrorDocument": "index.html"
+              }
+            }
+          },
+          "CloudFrontOriginAccessIdentity": {
+            "Type": "AWS::CloudFront::CloudFrontOriginAccessIdentity",
+            "Properties": {
+              "CloudFrontOriginAccessIdentityConfig": {
+                "Comment": "OAI for biscord-serverless-dev"
+              }
+            }
+          },
+          "WebAppS3BucketPolicy": {
+            "Type": "AWS::S3::BucketPolicy",
+            "Properties": {
+              "Bucket": {
+                "Ref": "WebAppS3Bucket"
+              },
+              "PolicyDocument": {
+                "Statement": [
+                  {
+                    "Sid": "CloudFrontAccess",
+                    "Effect": "Allow",
+                    "Principal": {
+                      "AWS": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ",
+                            {
+                              "Ref": "CloudFrontOriginAccessIdentity"
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "Action": "s3:GetObject",
+                    "Resource": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "WebAppS3Bucket"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "CloudFrontDistribution": {
+            "Type": "AWS::CloudFront::Distribution",
+            "Properties": {
+              "DistributionConfig": {
+                "Enabled": true,
+                "DefaultRootObject": "index.html",
+                "Origins": [
+                  {
+                    "DomainName": {
+                      "Fn::GetAtt": [
+                        "WebAppS3Bucket",
+                        "RegionalDomainName"
+                      ]
+                    },
+                    "Id": "S3Origin",
+                    "S3OriginConfig": {
+                      "OriginAccessIdentity": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "origin-access-identity/cloudfront/",
+                            {
+                              "Ref": "CloudFrontOriginAccessIdentity"
+                            }
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ],
+                "DefaultCacheBehavior": {
+                  "TargetOriginId": "S3Origin",
+                  "ViewerProtocolPolicy": "redirect-to-https",
+                  "AllowedMethods": [
+                    "GET",
+                    "HEAD",
+                    "OPTIONS"
+                  ],
+                  "CachedMethods": [
+                    "GET",
+                    "HEAD",
+                    "OPTIONS"
+                  ],
+                  "Compress": true,
+                  "DefaultTTL": 0,
+                  "MaxTTL": 3600,
+                  "MinTTL": 0,
+                  "ForwardedValues": {
+                    "QueryString": false,
+                    "Headers": [],
+                    "Cookies": {
+                      "Forward": "none"
+                    }
+                  }
+                },
+                "CustomErrorResponses": [
+                  {
+                    "ErrorCode": 404,
+                    "ResponseCode": 200,
+                    "ResponsePagePath": "/index.html"
+                  },
+                  {
+                    "ErrorCode": 403,
+                    "ResponseCode": 200,
+                    "ResponsePagePath": "/index.html"
+                  }
+                ],
+                "PriceClass": "PriceClass_100",
+                "HttpVersion": "http2"
+              }
+            }
+          }
+        },
+        "Outputs": {
+          "CloudFrontDistributionId": {
+            "Value": {
+              "Ref": "CloudFrontDistribution"
+            },
+            "Export": {
+              "Name": "biscord-serverless-dev-CloudFrontDistributionId"
+            }
+          },
+          "CloudFrontDomainName": {
+            "Value": {
+              "Fn::GetAtt": [
+                "CloudFrontDistribution",
+                "DomainName"
+              ]
+            },
+            "Export": {
+              "Name": "biscord-serverless-dev-CloudFrontDomainName"
+            }
+          }
+        }
+      }
+    },
+    "serviceRawFile": "service: biscord-serverless\n\nprovider:\n  name: aws\n  region: ap-northeast-2\n  stage: ${opt:stage, 'dev'}\n  runtime: nodejs18.x\n\nplugins:\n  - serverless-single-page-app-plugin\n  - serverless-finch\n\ncustom:\n  client:\n    bucketName: biscord-serverless-${self:provider.stage}\n    distributionFolder: dist\n    uploadOrder:\n      - s3Deploy\n      - cloudfront # CloudFront 캐시 무효화를 위해 추가\n\n  s3Sync:\n    - bucketName: ${self:custom.client.bucketName}\n      localDir: dist\n      deleteRemoved: true # 삭제된 파일도 반영\n      acl: private # OAI를 사용하므로 private으로 변경\n      params: # Cache-Control 설정 추가\n        - index.html:\n            CacheControl: \"no-cache\"\n        - \"*.js\":\n            CacheControl: \"public, max-age=31536000\"\n        - \"*.css\":\n            CacheControl: \"public, max-age=31536000\"\n\nresources:\n  Resources:\n    WebAppS3Bucket:\n      Type: AWS::S3::Bucket\n      Properties:\n        BucketName: ${self:custom.client.bucketName}\n        OwnershipControls:\n          Rules:\n            - ObjectOwnership: BucketOwnerEnforced\n        PublicAccessBlockConfiguration:\n          BlockPublicAcls: false\n          IgnorePublicAcls: false\n          BlockPublicPolicy: false\n          RestrictPublicBuckets: false\n        WebsiteConfiguration:\n          IndexDocument: index.html\n          ErrorDocument: index.html\n\n    CloudFrontOriginAccessIdentity:\n      Type: AWS::CloudFront::CloudFrontOriginAccessIdentity\n      Properties:\n        CloudFrontOriginAccessIdentityConfig:\n          Comment: \"OAI for ${self:custom.client.bucketName}\"\n\n    WebAppS3BucketPolicy:\n      Type: AWS::S3::BucketPolicy\n      Properties:\n        Bucket:\n          Ref: WebAppS3Bucket\n        PolicyDocument:\n          Statement:\n            - Sid: CloudFrontAccess\n              Effect: Allow\n              Principal:\n                AWS:\n                  Fn::Join:\n                    - \"\"\n                    - [\n                        \"arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity \",\n                        { \"Ref\": \"CloudFrontOriginAccessIdentity\" },\n                      ]\n              Action: \"s3:GetObject\"\n              Resource:\n                Fn::Join:\n                  - \"\"\n                  - - \"arn:aws:s3:::\"\n                    - Ref: WebAppS3Bucket\n                    - \"/*\"\n\n    CloudFrontDistribution:\n      Type: AWS::CloudFront::Distribution\n      Properties:\n        DistributionConfig:\n          Enabled: true\n          DefaultRootObject: index.html\n          Origins:\n            - DomainName:\n                Fn::GetAtt: [WebAppS3Bucket, RegionalDomainName]\n              Id: S3Origin\n              S3OriginConfig:\n                OriginAccessIdentity:\n                  Fn::Join:\n                    - \"\"\n                    - [\n                        \"origin-access-identity/cloudfront/\",\n                        { \"Ref\": \"CloudFrontOriginAccessIdentity\" },\n                      ]\n          DefaultCacheBehavior:\n            TargetOriginId: S3Origin\n            ViewerProtocolPolicy: redirect-to-https\n            AllowedMethods:\n              - GET\n              - HEAD\n              - OPTIONS\n            CachedMethods:\n              - GET\n              - HEAD\n              - OPTIONS\n            Compress: true\n            DefaultTTL: 0 # 기본 캐시 시간을 0으로 설정\n            MaxTTL: 3600 # 최대 캐시 시간을 1시간으로 설정\n            MinTTL: 0 # 최소 캐시 시간을 0으로 설정\n            ForwardedValues:\n              QueryString: false\n              Headers: []\n              Cookies:\n                Forward: none\n          CustomErrorResponses:\n            - ErrorCode: 404\n              ResponseCode: 200\n              ResponsePagePath: /index.html\n            - ErrorCode: 403\n              ResponseCode: 200\n              ResponsePagePath: /index.html\n          PriceClass: PriceClass_100\n          HttpVersion: http2\n\n  # CloudFront Distribution ID를 출력값으로 추가\n  Outputs:\n    CloudFrontDistributionId:\n      Value:\n        Ref: CloudFrontDistribution\n      Export:\n        Name: ${self:service}-${self:provider.stage}-CloudFrontDistributionId\n    CloudFrontDomainName:\n      Value:\n        Fn::GetAtt: [CloudFrontDistribution, DomainName]\n      Export:\n        Name: ${self:service}-${self:provider.stage}-CloudFrontDomainName\n",
+    "command": [
+      "client",
+      "deploy"
+    ],
+    "options": {
+      "confirm": false
+    },
+    "error": null,
+    "params": {},
+    "machineId": "d8015896dd55ee42c1b1d0b164a8613e",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "9a433802-d410-4330-8175-8b0f84523840",
+    "orgName": "ljjunh",
+    "userId": "b4J8RrH3T8fjk1hZVQ",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "ljjunh",
+    "subscription": null,
+    "userEmail": "limjunhee4575@gmail.com",
+    "serviceProviderAwsRegion": "ap-northeast-2",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "242201312471",
+    "projectType": "traditional",
+    "versionSf": "4.4.18",
+    "serviceProviderAwsCfStackName": "biscord-serverless-dev",
+    "integrations": {},
+    "serviceUniqueId": "arn:aws:cloudformation:ap-northeast-2:242201312471:stack/biscord-serverless-dev/4e59b200-ce63-11ef-987d-0a0f47117a2d",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:ap-northeast-2:242201312471:stack/biscord-serverless-dev/4e59b200-ce63-11ef-987d-0a0f47117a2d",
+    "serviceProviderAwsCfStackCreated": "2025-01-09T08:25:39.003Z",
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": "CREATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "CloudFrontDistributionId",
+        "OutputValue": "E1H12MJ9YPBLCK",
+        "ExportName": "biscord-serverless-dev-CloudFrontDistributionId"
+      },
+      {
+        "OutputKey": "CloudFrontDomainName",
+        "OutputValue": "dcqbjr2t027cr.cloudfront.net",
+        "ExportName": "biscord-serverless-dev-CloudFrontDomainName"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-framework-deployments-ap-northeast-2-3b049a05-3f19",
+        "ExportName": "sls-biscord-serverless-dev-ServerlessDeploymentBucketName"
+      }
+    ]
+  }
+}
