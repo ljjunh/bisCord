@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import DiscordIcon from "../../shared/icons/DiscordIcon";
 import DiscoveryIcon from "../../shared/icons/DiscoveryIcon";
 import PlusIcon from "../../shared/icons/PlusIcon";
@@ -7,9 +8,11 @@ import ServerAvatar from "./ServerAvatar";
 const SideNav = () => {
   return (
     <div className="flex flex-col items-center h-[100vh] gap-3 bg-black overflow-hidden p-3">
+      {/* 다이렉트 메세지 부분 */}
       <ServerAvatar>
-        {/* 다이렉트 메세지 부분 */}
-        <DiscordIcon size={30} color="#ffffff" />
+        <Link to={"/directmessage"}>
+          <DiscordIcon size={30} color="#ffffff" />
+        </Link>
       </ServerAvatar>
 
       <div className="w-[30px] h-1 bg-dark-gray rounded-md" />

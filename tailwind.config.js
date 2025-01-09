@@ -2,7 +2,19 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        keyframes: {
+          avatarHover: {
+            "0%": { borderRadius: "100%" },
+            "100%": { borderRadius: "50%" },
+          },
+        },
+        animation: {
+          avatarHover: "avatarHover .5s ease-in-out",
+        },
+      },
+    },
     colors: {
       primary: "	#7289da",
       blue: "#5865f2",

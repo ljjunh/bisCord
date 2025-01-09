@@ -12,6 +12,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/directmessage" element={<MainPage />} />
           <Route path="/channels" element={<ChannelPage />} />
           <Route path="/signin" element={<SigninPage />} />
           <Route path="/signup" element={<SignupPage />} />
