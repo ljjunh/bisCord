@@ -7,6 +7,7 @@ export default {
       primary: "	#7289da",
       blue: "#5865f2",
       black: "#1e2124", // 제일 어두운 검정 배경 색
+      "light-gray": "#828391", // 가장 밝은 회색 icon default color
       gray: "#424549", // 기본 hover되었을 때 또는 가장 밝은 배경 및 폰트에 적용
       white: "#fdfdfd", // 흰 글씨
       red: "#da373c", // error 및 삭제, red에 적용
