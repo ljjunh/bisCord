@@ -1,0 +1,142 @@
+service: biscord-serverless
+
+provider:
+  name: aws
+  region: ap-northeast-2
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs18.x
+
+plugins:
+  - serverless-single-page-app-plugin
+  - serverless-finch
+
+custom:
+  client:
+    bucketName: biscord-serverless-${self:provider.stage}
+    distributionFolder: dist
+    uploadOrder:
+      - s3Deploy
+      - cloudfront # CloudFront 캐시 무효화를 위해 추가
+
+  s3Sync:
+    - bucketName: ${self:custom.client.bucketName}
+      localDir: dist
+      deleteRemoved: true # 삭제된 파일도 반영
+      acl: private # OAI를 사용하므로 private으로 변경
+      params: # Cache-Control 설정 추가
+        - index.html:
+            CacheControl: "no-cache"
+        - "*.js":
+            CacheControl: "public, max-age=31536000"
+        - "*.css":
+            CacheControl: "public, max-age=31536000"
+
+resources:
+  Resources:
+    WebAppS3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.client.bucketName}
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: BucketOwnerEnforced
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: false
+          IgnorePublicAcls: false
+          BlockPublicPolicy: false
+          RestrictPublicBuckets: false
+        WebsiteConfiguration:
+          IndexDocument: index.html
+          ErrorDocument: index.html
+
+    CloudFrontOriginAccessIdentity:
+      Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+      Properties:
+        CloudFrontOriginAccessIdentityConfig:
+          Comment: "OAI for ${self:custom.client.bucketName}"
+
+    WebAppS3BucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: WebAppS3Bucket
+        PolicyDocument:
+          Statement:
+            - Sid: CloudFrontAccess
+              Effect: Allow
+              Principal:
+                AWS:
+                  Fn::Join:
+                    - ""
+                    - [
+                        "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ",
+                        { "Ref": "CloudFrontOriginAccessIdentity" },
+                      ]
+              Action: "s3:GetObject"
+              Resource:
+                Fn::Join:
+                  - ""
+                  - - "arn:aws:s3:::"
+                    - Ref: WebAppS3Bucket
+                    - "/*"
+
+    CloudFrontDistribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Enabled: true
+          DefaultRootObject: index.html
+          Origins:
+            - DomainName:
+                Fn::GetAtt: [WebAppS3Bucket, RegionalDomainName]
+              Id: S3Origin
+              S3OriginConfig:
+                OriginAccessIdentity:
+                  Fn::Join:
+                    - ""
+                    - [
+                        "origin-access-identity/cloudfront/",
+                        { "Ref": "CloudFrontOriginAccessIdentity" },
+                      ]
+          DefaultCacheBehavior:
+            TargetOriginId: S3Origin
+            ViewerProtocolPolicy: redirect-to-https
+            AllowedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+            CachedMethods:
+              - GET
+              - HEAD
+              - OPTIONS
+            Compress: true
+            DefaultTTL: 0 # 기본 캐시 시간을 0으로 설정
+            MaxTTL: 3600 # 최대 캐시 시간을 1시간으로 설정
+            MinTTL: 0 # 최소 캐시 시간을 0으로 설정
+            ForwardedValues:
+              QueryString: false
+              Headers: []
+              Cookies:
+                Forward: none
+          CustomErrorResponses:
+            - ErrorCode: 404
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+            - ErrorCode: 403
+              ResponseCode: 200
+              ResponsePagePath: /index.html
+          PriceClass: PriceClass_100
+          HttpVersion: http2
+
+  # CloudFront Distribution ID를 출력값으로 추가
+  Outputs:
+    CloudFrontDistributionId:
+      Value:
+        Ref: CloudFrontDistribution
+      Export:
+        Name: ${self:service}-${self:provider.stage}-CloudFrontDistributionId
+    CloudFrontDomainName:
+      Value:
+        Fn::GetAtt: [CloudFrontDistribution, DomainName]
+      Export:
+        Name: ${self:service}-${self:provider.stage}-CloudFrontDomainName
