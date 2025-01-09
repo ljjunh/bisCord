@@ -20,9 +20,9 @@ const SideNav = () => {
       {/* 서버 커스텀 이미지가 없을 때 기본 아이콘으로 설정 */}
 
       {/* 현재 서버 리스트 */}
-      <div className="w-[50px] h-[50px] bg-light-gray"></div>
-      <div className="w-[50px] h-[50px] bg-light-gray"></div>
-      <div className="w-[50px] h-[50px] bg-light-gray"></div>
+      <ServerAvatar>
+        <div className="w-[50px] h-[50px] bg-light-gray"></div>
+      </ServerAvatar>
 
       {/* 아래 서버 추가 및 찾기 */}
       <ServerAvatar search>

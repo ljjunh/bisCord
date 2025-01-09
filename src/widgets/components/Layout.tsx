@@ -8,7 +8,7 @@ interface ILayoutProps {
 /** Main UI layout */
 const Layout = ({ children }: ILayoutProps) => {
   return (
-    <div className="w-full h-full flex flex-row relative">
+    <div className="w-full h-full flex flex-row relative bg-black">
       <SideNav />
       <ChannelList />
       <div className=" flex-grow">{children}</div>
