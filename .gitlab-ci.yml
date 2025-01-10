@@ -1,0 +1,33 @@
+image: node:18
+
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+    - .npm/
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 1 hour
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  script:
+    - npm install -g serverless
+    - serverless deploy
+    - serverless client deploy --no-confirm
+  dependencies:
+    - build
+  only:
+    - main
