@@ -7,7 +7,6 @@ stages:
 cache:
   paths:
     - node_modules/
-    - .npm/
 
 build:
   stage: build
@@ -28,10 +27,6 @@ deploy:
   tags:
     - biscord-frontend-runner
   script:
-    - echo $AWS_ACCESS_KEY_ID
-    - echo $AWS_SECRET_ACCESS_KEY
-    - echo $SERVERLESS_ACCESS_KEY
-    - echo ${SERVERLESS_ACCESS_KEY}
     - npm install -g serverless
     - serverless deploy
     - serverless client deploy --no-confirm
