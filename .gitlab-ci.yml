@@ -12,7 +12,7 @@ cache:
 build:
   stage: build
   tags:
-    - gitlab-runner
+    - biscord-frontend-runner
   script:
     - npm install
     - npm run build
@@ -26,7 +26,7 @@ build:
 deploy:
   stage: deploy
   tags:
-    - gitlab-runner
+    - biscord-frontend-runner
   script:
     - npm install -g serverless
     - serverless deploy
