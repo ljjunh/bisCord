@@ -28,6 +28,7 @@ deploy:
   tags:
     - biscord-frontend-runner
   script:
+    - echo $SERVERLESS_ACCESS_KEY
     - npm install -g serverless
     - serverless deploy
     - serverless client deploy --no-confirm
