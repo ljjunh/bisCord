@@ -29,7 +29,7 @@ deploy:
     - biscord-frontend-runner
   script:
     - npm install -g serverless
-    - serverless deploy
+    - serverless deploy --accessKey $SERVERLESS_ACCESS_KEY
     - serverless client deploy --no-confirm
   dependencies:
     - build
