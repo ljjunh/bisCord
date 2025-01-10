@@ -8,8 +8,9 @@ const Layout = () => {
     <div className="w-full h-full flex flex-row relative bg-black">
       <SideNav />
       <ChannelList />
-      <Outlet />
-      <div className=" flex-grow"></div>
+      <div className=" flex-grow">
+        <Outlet />
+      </div>
     </div>
   );
 };

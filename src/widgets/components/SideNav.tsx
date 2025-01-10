@@ -3,6 +3,7 @@ import DiscordIcon from "../../shared/icons/DiscordIcon";
 import DiscoveryIcon from "../../shared/icons/DiscoveryIcon";
 import PlusIcon from "../../shared/icons/PlusIcon";
 import ServerAvatar from "./ServerAvatar";
+import { path } from "../../shared/path";
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
@@ -10,7 +11,7 @@ const SideNav = () => {
     <div className="flex flex-col items-center h-[100vh] gap-3 bg-black overflow-hidden p-3">
       {/* 다이렉트 메세지 부분 */}
       <ServerAvatar>
-        <Link to={"/directmessage"}>
+        <Link to={path.directmessage}>
           <DiscordIcon size={30} color="#ffffff" />
         </Link>
       </ServerAvatar>

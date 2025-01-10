@@ -4,7 +4,7 @@ interface IServerAvatarProps {
   children?: React.ReactNode;
   search?: boolean;
 }
-
+/** 좌측 서버 아바타 컴포넌트 */
 const ServerAvatar = ({ children, search }: IServerAvatarProps) => {
   return (
     <div
