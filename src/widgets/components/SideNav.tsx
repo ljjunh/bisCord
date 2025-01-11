@@ -1,36 +1,55 @@
-import { Link } from "react-router-dom";
-import DiscordIcon from "../../shared/icons/DiscordIcon";
-import DiscoveryIcon from "../../shared/icons/DiscoveryIcon";
-import PlusIcon from "../../shared/icons/PlusIcon";
-import ServerAvatar from "./ServerAvatar";
-import { path } from "../../shared/path";
+import DiscordIcon from '../../shared/icons/DiscordIcon';
+import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
+import PlusIcon from '../../shared/icons/PlusIcon';
+import { path } from '../../shared/path';
+import ServerAvatar from './ServerAvatar';
+import { serverDatas } from '@/shared/serverMockData';
+import { Link, NavLink } from 'react-router-dom';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
+  const servers = serverDatas;
+
   return (
-    <div className="flex flex-col items-center h-[100vh] gap-3 bg-black overflow-hidden p-3">
+    <div className="flex h-[100vh] flex-col items-center gap-3 overflow-hidden bg-black p-3">
       {/* 다이렉트 메세지 부분 */}
       <ServerAvatar>
         <Link to={path.directmessage}>
-          <DiscordIcon size={30} color="#ffffff" />
+          <DiscordIcon
+            size={30}
+            color="#ffffff"
+          />
         </Link>
       </ServerAvatar>
 
-      <div className="w-[30px] h-1 bg-dark-gray rounded-md" />
+      <div className="h-1 w-[30px] rounded-md bg-dark-gray" />
 
       {/* 서버 커스텀 이미지가 없을 때 기본 아이콘으로 설정 */}
 
       {/* 현재 서버 리스트 */}
-      <ServerAvatar>
-        <div className="w-[50px] h-[50px] bg-light-gray"></div>
-      </ServerAvatar>
+      {servers.map((server) => (
+        <NavLink to={path.server_id(server.id)}>
+          <ServerAvatar
+            // server={server}
+            key={server.id}
+          >
+            <div className="h-[50px] w-[50px] bg-light-gray"></div>
+          </ServerAvatar>
+        </NavLink>
+      ))}
 
       {/* 아래 서버 추가 및 찾기 */}
       <ServerAvatar search>
-        <PlusIcon size={15} color="#ffffff" />
+        <PlusIcon
+          size={15}
+          color="#ffffff"
+        />
       </ServerAvatar>
       <ServerAvatar search>
-        <DiscoveryIcon size={20} color="#ffffff" />
+        <DiscoveryIcon
+          size={20}
+          color="#ffffff"
+        />
       </ServerAvatar>
     </div>
   );

@@ -1,5 +1,6 @@
 import { IChannelTypes } from "../entities/types/ChannelType";
 
+
 export const ChannelData: IChannelTypes[] = [
   {
     id: 1,

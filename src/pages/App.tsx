@@ -15,7 +15,7 @@ function App() {
         <Route element={<Layout />}>
           {/* 페이지는 여기에 추가하시면 됩니다 (path는 shared디렉토리에 추가해서 사용) */}
           <Route
-            path={'/'}
+            path={path.home}
             element={<MainPage />}
           />
           <Route
@@ -23,7 +23,7 @@ function App() {
             element={<DirectMessagePage />}
           />
           <Route
-            path={path.channels}
+            path={path.server}
             element={<ChannelPage />}
           />
           <Route
