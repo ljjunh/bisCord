@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import fsdImport from 'eslint-plugin-fsd-import';
 import importPlugin from 'eslint-plugin-import';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
@@ -23,10 +24,35 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       '@typescript-eslint': tseslint.plugin,
       import: importPlugin,
+      'fsd-import': fsdImport,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+
+      // fsd 레이어 규칙(상위 레이어에서 하위 레이어로만 import 가능
+      'fsd-import/layer-imports': [
+        'error',
+        {
+          alias: '@',
+          ignoreImportPatterns: [], // 규칙을 무시할 파일 패턴
+        },
+      ],
+      // 각 모듈은 반드시 public API를 통해서만 import 해야 함
+      // 내부 구현 파일로의 직접 import를 방지하여 캡슐화를 강화
+      'fsd-import/public-api-imports': [
+        'error',
+        {
+          alias: '@',
+        },
+      ],
+      // 상대 경로 대신 절대 경로 사용을 강제(같은 레이어에서는 적용 안되지만 절대경로 권장)
+      'fsd-import/fsd-relative-path': [
+        'error',
+        {
+          alias: '@',
+        },
+      ],
 
       '@typescript-eslint/naming-convention': [
         'error',
