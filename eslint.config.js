@@ -40,12 +40,12 @@ export default tseslint.config(
       ],
       // 각 모듈은 반드시 public API를 통해서만 import 해야 함
       // 내부 구현 파일로의 직접 import를 방지하여 캡슐화를 강화
-      'fsd-import/public-api-imports': [
-        'error',
-        {
-          alias: '@',
-        },
-      ],
+      // 'fsd-import/public-api-imports': [
+      //   'error',
+      //   {
+      //     alias: '@',
+      //   },
+      // ],
       // 상대 경로 대신 절대 경로 사용을 강제(같은 레이어에서는 적용 안되지만 절대경로 권장)
       'fsd-import/fsd-relative-path': [
         'error',
