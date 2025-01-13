@@ -28,11 +28,11 @@ const SideNav = () => {
 
       {/* 현재 서버 리스트 */}
       {servers.map((server) => (
-        <NavLink to={path.server_id(server.id)}>
-          <ServerAvatar
-            // server={server}
-            key={server.id}
-          >
+        <NavLink
+          to={path.server_id(server.id)}
+          key={server.id}
+        >
+          <ServerAvatar server={server}>
             <div className="h-[50px] w-[50px] bg-light-gray"></div>
           </ServerAvatar>
         </NavLink>
