@@ -1,5 +1,5 @@
 const ChannelPage = () => {
-  return <div>ChannelPage</div>;
+  return <div>{'channel details'}</div>;
 };
 
 export default ChannelPage;

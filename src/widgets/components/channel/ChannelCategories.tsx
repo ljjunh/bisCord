@@ -3,7 +3,6 @@ import ArrowDown from '../../../shared/icons/ArrowDown';
 import ArrowRight from '../../../shared/icons/ArrowRight';
 import { path } from '../../../shared/path';
 import ChannelItem from './ChannelItem';
-import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 interface IChannelCategoriesProps {
@@ -34,12 +33,12 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
       {open && (
         <>
           {channel.list.map((name) => (
-            <Link to={path.channel_id(name.id)}>
-              <ChannelItem
-                name={name.name}
-                key={name.id}
-              />
-            </Link>
+            // <Link to={path.channel_id(nowServerId.pathname, name.id)}>
+            <ChannelItem
+              name={name.name}
+              key={name.id}
+            />
+            // </Link>
           ))}
         </>
       )}

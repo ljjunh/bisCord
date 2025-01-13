@@ -2,9 +2,11 @@ export const path = {
   home: '/',
   signin: '/signin',
   signup: '/signup',
-  directmessage: '/directmessage/*',
+  directmessage: '/directmessage',
   server: '/server/*',
-  server_id: (id: number) => `/server/${id}`,
+  server_id: (id?: number) => (id ? `/server/${id}` : `/server`),
   channel_id: (serverId: number, channelId?: number) =>
-    channelId ? `/server/${serverId}/${channelId}` : `/server/${serverId}`,
+    channelId ? `/server/${serverId}/channelId=${channelId}` : `/server/${serverId}`,
+
+  notFound: '*',
 };
