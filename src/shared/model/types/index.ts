@@ -1,1 +1,1 @@
-export type { User } from '@/shared/model/types/auth.ts';
+export type { User } from '@/shared/model/types/auth';
