@@ -1,7 +1,7 @@
-import { IChannelTypes } from '../../../entities/types/ChannelType';
-import ArrowDown from '../../../shared/icons/ArrowDown';
-import ArrowRight from '../../../shared/icons/ArrowRight';
-import { path } from '../../../shared/path';
+import { IChannelTypes } from '../../entities/types/ChannelType';
+import ArrowDown from '../../shared/icons/ArrowDown';
+import ArrowRight from '../../shared/icons/ArrowRight';
+import { path } from '../../shared/path';
 import ChannelItem from './ChannelItem';
 import { useState } from 'react';
 
@@ -18,7 +18,7 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col px-2">
       <div
         onClick={handleToggle}
         className="flex items-center gap-2 py-1 text-light-gray hover:text-white"

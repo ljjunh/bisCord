@@ -14,12 +14,12 @@ const SideNav = () => {
     <div className="flex h-[100vh] flex-col items-center gap-3 overflow-hidden bg-black p-3">
       {/* 다이렉트 메세지 부분 */}
       <ServerAvatar>
-        <Link to={path.directmessage}>
+        <NavLink to={path.directmessage}>
           <DiscordIcon
             size={30}
             color="#ffffff"
           />
-        </Link>
+        </NavLink>
       </ServerAvatar>
 
       <div className="h-1 w-[30px] rounded-md bg-dark-gray" />
