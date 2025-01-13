@@ -1,4 +1,4 @@
-import type { User } from '@/shared/model/types';
+import type { User } from '../types/auth';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -8,6 +8,7 @@ interface AuthStore {
   setAuth: (user: User | null) => void;
   logOut: () => void;
 }
+
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
