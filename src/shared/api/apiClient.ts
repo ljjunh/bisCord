@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/shared/model/types/apiResponse';
-import axios, { AxiosInstance, AxiosRequestConfig, Method } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -40,19 +40,25 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-function createApiMethod<T>(method: Method) {
-  return (config: AxiosRequestConfig): Promise<ApiResponse<T>> => {
-    return axiosInstance({
-      ...config,
-      method,
-    }).then((response) => response.data);
-  };
-}
-
 export const apiClient = {
-  get: createApiMethod('GET'),
-  post: createApiMethod('POST'),
-  put: createApiMethod('PUT'),
-  patch: createApiMethod('PATCH'),
-  delete: createApiMethod('DELETE'),
+  get: <T>(config: AxiosRequestConfig) =>
+    axiosInstance.get<ApiResponse<T>>(config.url!, config).then((response) => response.data),
+
+  post: <T>(config: AxiosRequestConfig) =>
+    axiosInstance
+      .post<ApiResponse<T>>(config.url!, config.data, config)
+      .then((response) => response.data),
+
+  put: <T>(config: AxiosRequestConfig) =>
+    axiosInstance
+      .put<ApiResponse<T>>(config.url!, config.data, config)
+      .then((response) => response.data),
+
+  patch: <T>(config: AxiosRequestConfig) =>
+    axiosInstance
+      .patch<ApiResponse<T>>(config.url!, config.data, config)
+      .then((response) => response.data),
+
+  delete: <T>(config: AxiosRequestConfig) =>
+    axiosInstance.delete<ApiResponse<T>>(config.url!, config).then((response) => response.data),
 } as const;
