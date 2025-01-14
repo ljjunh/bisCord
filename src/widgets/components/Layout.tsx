@@ -1,4 +1,4 @@
-import ChannelList from '../channel/ChannelList';
+import ChannelList from '../channel/ui/ChannelList';
 import SideNav from './SideNav';
 import { Outlet } from 'react-router-dom';
 

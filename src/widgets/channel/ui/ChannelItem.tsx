@@ -1,4 +1,4 @@
-import ChannelUnlockedIcon from '../../shared/icons/ChannelUnlockedIcon';
+import ChannelUnlockedIcon from '../../../shared/icons/ChannelUnlockedIcon';
 
 interface IChannelItemProps {
   name: string; // 'name'은 문자열 타입

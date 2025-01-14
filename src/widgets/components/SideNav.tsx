@@ -4,7 +4,7 @@ import PlusIcon from '../../shared/icons/PlusIcon';
 import { path } from '../../shared/path';
 import ServerAvatar from './ServerAvatar';
 import { serverDatas } from '@/shared/serverMockData';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {

@@ -1,7 +1,6 @@
-import { IChannelTypes } from '../../entities/types/ChannelType';
-import ArrowDown from '../../shared/icons/ArrowDown';
-import ArrowRight from '../../shared/icons/ArrowRight';
-import { path } from '../../shared/path';
+import { IChannelTypes } from '../../../entities/types/ChannelType';
+import ArrowDown from '../../../shared/icons/ArrowDown';
+import ArrowRight from '../../../shared/icons/ArrowRight';
 import ChannelItem from './ChannelItem';
 import { useState } from 'react';
 
