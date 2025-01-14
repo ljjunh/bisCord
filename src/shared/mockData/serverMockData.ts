@@ -1,5 +1,5 @@
 import { ChannelData } from './mockData';
-import { IServerDatas } from '@/entities/types/ChannelType';
+import { IServerDatas } from '@/shared/types/ChannelType';
 
 export const serverDatas: IServerDatas[] = [
   {

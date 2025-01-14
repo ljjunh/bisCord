@@ -1,5 +1,11 @@
+import ChannelList from '@/widgets/channel/ui/ChannelList';
+
 const ChannelPage = () => {
-  return <div>{'channel details'}</div>;
+  return (
+    <div className="flex h-full bg-black">
+      <ChannelList />
+    </div>
+  );
 };
 
 export default ChannelPage;

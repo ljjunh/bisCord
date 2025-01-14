@@ -1,4 +1,4 @@
-import { IChannelTypes } from '../entities/types/ChannelType';
+import { IChannelTypes } from '../types/ChannelType';
 
 export const ChannelData: IChannelTypes[] = [
   {

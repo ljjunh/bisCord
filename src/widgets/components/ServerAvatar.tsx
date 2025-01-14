@@ -1,4 +1,4 @@
-import { IServerDatas } from '@/entities/types/ChannelType';
+import { IServerDatas } from '@/shared/types/ChannelType';
 import React from 'react';
 
 interface IServerAvatarProps {

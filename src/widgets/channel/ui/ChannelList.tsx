@@ -1,6 +1,7 @@
 import ChannelCategories from './ChannelCategories';
 import useGetParams from '@/entities/hooks/getParams';
-import { serverDatas } from '@/shared/serverMockData';
+import { serverDatas } from '@/shared/mockData/serverMockData';
+import ListContainer from '@/shared/ui/layout/ListContainer';
 import { useEffect } from 'react';
 
 /** 친구 및 서버 목록 리스트 UI */
@@ -16,7 +17,7 @@ const ChannelList = () => {
   }, [serverId]);
 
   return (
-    <div className="flex w-[250px] flex-col gap-4 rounded-tl-[10px] bg-mid-gray">
+    <ListContainer>
       {/* 서버 헤더 */}
       <div className="flex h-[50px] items-center border-b-2 border-black p-2 text-lg font-bold text-white hover:bg-gray">
         {getServerData ? getServerData.serverName : 'Unknown Server'}
@@ -29,7 +30,7 @@ const ChannelList = () => {
           channel={channel}
         />
       ))}
-    </div>
+    </ListContainer>
   );
 };
 
