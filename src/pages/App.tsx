@@ -1,5 +1,5 @@
 import '../app/App.css';
-import { path } from '../shared/path';
+import { path } from '../shared/constants/path';
 import ChannelPage from './channels';
 import DirectMessagePage from './directMessage';
 import MainPage from './main';

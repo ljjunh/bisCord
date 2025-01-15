@@ -20,3 +20,9 @@ export const SOCIAL_PROVIDERS = [
     href: '/',
   },
 ] as const;
+
+export const AUTH_FORM_STYLES = {
+  input: 'w-full rounded border p-2 focus:outline-none',
+  label: 'text-super-light-gray mb-2 block text-xs font-bold',
+  errorMessage: 'mt-1 text-xs text-red',
+} as const;
