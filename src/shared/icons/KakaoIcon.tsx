@@ -1,4 +1,4 @@
-import IconTypes from '../../entities/types/IconType';
+import IconTypes from '../types/IconType';
 
 export const KakaoIcon = ({ size = 26, color = 'black' }: IconTypes) => {
   return (
