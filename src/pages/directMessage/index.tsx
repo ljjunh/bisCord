@@ -1,3 +1,4 @@
+import { UsersData } from '@/shared/mockData/userData';
 import DmProfile from '@/widgets/directMessage/DmProfile';
 import DmList from '@/widgets/directMessage/ui/DmList';
 

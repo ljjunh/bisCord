@@ -7,7 +7,7 @@ const DmProfile = () => {
       <ProfileHeader />
       <div className=""></div>
       {/* profile contents */}
-      <div></div>
+      <div className="px-4 text-xl font-semibold text-white">정경준</div>
     </div>
   );
 };
