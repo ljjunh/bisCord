@@ -3,7 +3,7 @@ import { path } from '../shared/constants/path';
 import ChannelPage from './channels';
 import DirectMessagePage from './directMessage';
 import MainPage from './main';
-import NotFound from './notFound';
+// import NotFound from './notFound';
 import SigninPage from './signin';
 import SignupPage from './signup';
 import Layout from '@/widgets/components/Layout';
