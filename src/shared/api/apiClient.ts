@@ -1,3 +1,4 @@
+import { useAuthStore } from '../model/store';
 import { ApiResponse } from '@/shared/types/apiResponse';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
@@ -10,8 +11,7 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    // TODO: 토큰 넣어야됨
-    const accessToken = false;
+    const { accessToken } = useAuthStore.getState();
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
