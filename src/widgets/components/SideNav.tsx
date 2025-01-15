@@ -1,4 +1,4 @@
-import { path } from '../../shared/constants/path';
+import { path } from '../../shared/constants/routes';
 import DiscordIcon from '../../shared/icons/DiscordIcon';
 import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';

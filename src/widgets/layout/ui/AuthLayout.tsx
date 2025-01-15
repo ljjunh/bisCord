@@ -1,3 +1,4 @@
+import { ROUTES } from '@/shared/constants/routes';
 import DiscordIcon from '@/shared/icons/DiscordIcon';
 import { Link } from 'react-router-dom';
 
@@ -12,7 +13,7 @@ export const AuthLayout = ({ children, title, subTitle }: AuthLayoutProps) => {
     <main className="flex min-h-screen w-full items-center justify-center bg-blue">
       <header className="absolute left-10 top-10">
         <Link
-          to="/"
+          to={ROUTES.ROOT}
           className="flex items-center gap-3"
         >
           <DiscordIcon
