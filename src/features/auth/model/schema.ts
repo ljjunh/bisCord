@@ -27,8 +27,8 @@ export const SignUpSchema = z
       .nonempty('사용자명은 필수입니다')
       .min(2, { message: '사용자명은 최소 2자 이상이어야 합니다' })
       .max(12, { message: '사용자명은 최대 12자까지 가능합니다' })
-      .regex(/^[A-Za-z0-9]+$/, {
-        message: '사용자명은 영문자와 숫자만 사용할 수 있습니다',
+      .regex(/^[A-Za-z가-힣0-9]+$/, {
+        message: '사용자명은 영문, 한글, 숫자만 사용할 수 있습니다',
       }),
     password: z
       .string()
