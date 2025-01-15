@@ -1,5 +1,5 @@
+import { authQueries } from '../api/queries';
 import { AUTH_FORM_STYLES } from '../model/constants';
-import { authMutations } from '../model/mutations';
 import { type SignInFormData, SignInSchema } from '../model/schema';
 import { ROUTES } from '@/shared/constants/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,7 +20,7 @@ export const SignInForm = () => {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: authMutations.signIn.mutationFn,
+    mutationFn: authQueries.signIn.mutationFn,
     onSuccess: () => {
       toast.success('로그인 되었습니다');
       navigate(ROUTES.ROOT);

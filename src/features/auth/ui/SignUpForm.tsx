@@ -1,5 +1,5 @@
+import { authQueries } from '../api/queries';
 import { AUTH_FORM_STYLES } from '../model/constants';
-import { authMutations } from '../model/mutations';
 import { type SignUpFormData, SignUpSchema } from '../model/schema';
 import { ROUTES } from '@/shared/constants/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -20,7 +20,7 @@ export const SignUpForm = () => {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: authMutations.signUp.mutationFn,
+    mutationFn: authQueries.signUp.mutationFn,
     onSuccess: () => {
       toast.success('회원가입이 완료되었습니다');
       navigate(ROUTES.AUTH.SIGN_IN);
