@@ -11,7 +11,7 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     // TODO: 토큰 넣어야됨
-    const accessToken = '토큰 넣기';
+    const accessToken = false;
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
