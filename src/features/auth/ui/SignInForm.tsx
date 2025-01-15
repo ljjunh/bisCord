@@ -1,3 +1,4 @@
+import { AUTH_FORM_STYLES } from '../model/constants';
 import { type SignInFormData, SignInSchema } from '../model/schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -23,22 +24,34 @@ export const SignInForm = () => {
       className="space-y-4"
     >
       <div>
-        <label className="text-super-light-gray mb-2 block text-xs font-bold">
-          이메일 또는 전화번호
-          <span className="text-red"> *</span>
+        <label
+          htmlFor="email"
+          className={AUTH_FORM_STYLES.label}
+        >
+          이메일
+          <span
+            className="text-red"
+            aria-hidden="true"
+          >
+            *
+          </span>
+          <span className="sr-only">필수 입력</span>
         </label>
         <input
           {...register('email')}
+          id="email"
           type="email"
           autoComplete="email"
-          aria-label="이메일 입력"
+          aria-required
           aria-invalid={errors.email ? 'true' : 'false'}
-          className="w-full rounded border p-2 focus:outline-none"
+          aria-describedby={errors.email ? 'email-error' : undefined}
+          className={AUTH_FORM_STYLES.input}
         />
         {errors.email && (
           <p
+            id="email-error"
             role="alert"
-            className="mt-1 text-xs text-red"
+            className={AUTH_FORM_STYLES.errorMessage}
           >
             {errors.email.message}
           </p>
@@ -46,19 +59,38 @@ export const SignInForm = () => {
       </div>
 
       <div>
-        <label className="text-super-light-gray mb-2 block text-xs font-bold">
+        <label
+          htmlFor="password"
+          className={AUTH_FORM_STYLES.label}
+        >
           비밀번호
-          <span className="text-red"> *</span>
+          <span
+            className="text-red"
+            aria-hidden="true"
+          >
+            *
+          </span>
+          <span className="sr-only">필수 입력</span>
         </label>
         <input
           {...register('password')}
+          id="password"
           type="password"
-          aria-label="비밀번호 입력"
-          aria-invalid={errors.password ? 'true' : 'false'}
           autoComplete="current-password"
-          className="w-full rounded border p-2 focus:outline-none"
+          aria-required
+          aria-invalid={errors.password ? 'true' : 'false'}
+          aria-describedby={errors.password ? 'password-error' : undefined}
+          className={AUTH_FORM_STYLES.input}
         />
-        {errors.password && <p className="mt-1 text-xs text-red">{errors.password.message}</p>}
+        {errors.password && (
+          <p
+            id="password-error"
+            role="alert"
+            className={AUTH_FORM_STYLES.errorMessage}
+          >
+            {errors.password.message}
+          </p>
+        )}
       </div>
 
       <div className="mb-6 mt-2">

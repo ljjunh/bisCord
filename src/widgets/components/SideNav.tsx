@@ -1,7 +1,7 @@
+import { path } from '../../shared/constants/path';
 import DiscordIcon from '../../shared/icons/DiscordIcon';
 import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';
-import { path } from '../../shared/path';
 import ServerAvatar from './ServerAvatar';
 import { serverDatas } from '@/shared/serverMockData';
 import { Link, NavLink } from 'react-router-dom';
