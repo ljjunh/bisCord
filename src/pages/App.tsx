@@ -6,12 +6,13 @@ import MainPage from './main';
 import NotFound from './notFound';
 import SigninPage from './signin';
 import SignupPage from './signup';
+import { useAuthStore } from '@/shared/model/store';
 import Layout from '@/widgets/components/Layout';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 function App() {
   // TODO : 현재 백엔드 로그인쪽이 덜되서 임시값으로 테스트중입니다
-  const token = false;
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
     <Routes>
@@ -19,7 +20,7 @@ function App() {
       <Route
         path={ROUTES.AUTH.SIGN_IN}
         element={
-          !token ? (
+          !isAuthenticated ? (
             <SigninPage />
           ) : (
             <Navigate
@@ -32,7 +33,7 @@ function App() {
       <Route
         path={ROUTES.AUTH.SIGN_UP}
         element={
-          !token ? (
+          !isAuthenticated ? (
             <SignupPage />
           ) : (
             <Navigate
@@ -46,7 +47,7 @@ function App() {
       {/* 인증된 사용자용 라우트 */}
       <Route
         element={
-          token ? (
+          isAuthenticated ? (
             <Layout />
           ) : (
             <Navigate
