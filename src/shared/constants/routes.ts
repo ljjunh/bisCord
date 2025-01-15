@@ -5,10 +5,10 @@ export const ROUTES = {
     SIGN_UP: '/signup',
   },
   CHAT: {
-    DIRECT_MESSAGE: '/directmessage',
+    DIRECT_MESSAGE: { ROOT: '/directmessage/:id', DETAIL: (id: number) => `/directmessage/${id}` },
     SERVER: {
       ROOT: '/server/:serverId',
-      DETAIL: (id: number) => `/server/${id}`,
+      DETAIL: (id?: number | null) => `/server/${id}`,
       CHANNEL: (serverId: number, channelId?: number) =>
         channelId ? `/server/${serverId}/channelId=${channelId}` : `/server/${serverId}`,
     },

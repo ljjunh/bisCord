@@ -61,7 +61,7 @@ function App() {
           element={<MainPage />}
         />
         <Route
-          path={ROUTES.CHAT.DIRECT_MESSAGE}
+          path={ROUTES.CHAT.DIRECT_MESSAGE.ROOT}
           element={<DirectMessagePage />}
         />
         <Route

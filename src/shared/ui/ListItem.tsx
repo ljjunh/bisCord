@@ -1,14 +1,26 @@
+import UserAvatar from './UserAvatar';
+
 interface IUserProps {
   user: {
-    userId: number;
-    userName: string;
-    userState: boolean;
+    userImage?: string;
+    userId?: number;
+    userName?: string;
+    userState?: boolean;
   };
 }
 
 const ListItem = ({ user }: IUserProps) => {
   return (
-    <div className="flex gap-2 rounded-md p-2 text-light-gray hover:bg-gray hover:text-white">
+    <div className="flex items-center gap-2 rounded-md px-2 py-1 text-light-gray hover:bg-gray hover:text-white">
+      {user.userImage ? (
+        <></>
+      ) : (
+        <UserAvatar
+          size={20}
+          image={user.userImage}
+          state={user.userState}
+        ></UserAvatar>
+      )}
       {user.userName}
     </div>
   );
