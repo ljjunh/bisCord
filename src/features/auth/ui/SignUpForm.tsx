@@ -5,9 +5,12 @@ import { ROUTES } from '@/shared/constants/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const SignUpForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -16,10 +19,11 @@ export const SignUpForm = () => {
     resolver: zodResolver(SignUpSchema),
   });
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: authMutations.signUp.mutationFn,
     onSuccess: () => {
-      console.log('회원가입 성공');
+      toast.success('회원가입이 완료되었습니다');
+      navigate(ROUTES.AUTH.SIGN_IN);
     },
   });
 
@@ -152,6 +156,7 @@ export const SignUpForm = () => {
           <span className="sr-only">필수 입력</span>
         </label>
         <input
+          {...register('confirmPassword')}
           id="confirmPassword"
           type="password"
           autoComplete="new-password"
@@ -173,9 +178,10 @@ export const SignUpForm = () => {
 
       <button
         type="submit"
+        disabled={isPending}
         className="bg-blue-purple w-full rounded p-3 font-medium text-white hover:bg-blue"
       >
-        회원가입
+        {isPending ? '처리중' : '가입하기'}
       </button>
 
       <p className="mt-3">
