@@ -1,14 +1,13 @@
 import AddUserIcon from '@/shared/icons/AddUserIcon';
-import DiscordIcon from '@/shared/icons/DiscordIcon';
 import DottedIcon from '@/shared/icons/DottedIcon';
-import UserState from '@/shared/ui/UserState';
+import UserAvatar from '@/shared/ui/UserAvatar';
 
 interface IProfileHeaderProps {
   color?: string;
   image?: string | null;
 }
 
-const ProfileHeader: React.FC<IProfileHeaderProps> = ({ color = '#ffffff', image = null }) => {
+const ProfileHeader: React.FC<IProfileHeaderProps> = ({ image = null }) => {
   return (
     <div className="relative flex aspect-[7/4] w-full flex-col justify-between p-4 before:absolute before:left-0 before:top-0 before:z-0 before:h-[70%] before:w-full before:bg-blue">
       {/* 프로필 상단 버튼 */}
@@ -25,18 +24,10 @@ const ProfileHeader: React.FC<IProfileHeaderProps> = ({ color = '#ffffff', image
       </div>
       {/* 프로필 아바타 */}
       <div className="z-20 flex aspect-[1/1] w-[30%] rounded-[50%] bg-black p-2">
-        <div className="relative flex h-full w-full items-center justify-center rounded-[50%] bg-blue">
-          {/* 이미지가 있으면 렌더링, 없으면 DiscordIcon 렌더링 */}
-          {image ? (
-            <></>
-          ) : (
-            <DiscordIcon
-              color={color}
-              size={50}
-            />
-          )}
-          <UserState />
-        </div>
+        <UserAvatar
+          size={50}
+          image={image}
+        />
       </div>
     </div>
   );
