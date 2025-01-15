@@ -1,5 +1,6 @@
 import { AUTH_FORM_STYLES } from '../model/constants';
 import { type SignInFormData, SignInSchema } from '../model/schema';
+import { ROUTES } from '@/shared/constants/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -94,6 +95,7 @@ export const SignInForm = () => {
       </div>
 
       <div className="mb-6 mt-2">
+        {/** 비밀번호 찾기 기능 할지 안할지 미정 */}
         <Link
           to="/forgotPassword"
           className="text-sky-blue text-sm hover:underline"
@@ -112,7 +114,7 @@ export const SignInForm = () => {
       <p className="text-super-light-gray mb-6 text-sm">
         계정이 필요하신가요?{' '}
         <Link
-          to="/signup"
+          to={ROUTES.AUTH.SIGN_UP}
           className="text-sky-blue hover:underline"
         >
           가입하기
