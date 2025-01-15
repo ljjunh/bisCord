@@ -1,5 +1,4 @@
 import IconTypes from '../types/IconType';
-import React from 'react';
 
 const MemberListIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
   return (
