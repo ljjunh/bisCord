@@ -1,5 +1,6 @@
 import { AUTH_FORM_STYLES } from '../model/constants';
 import { type SignUpFormData, SignUpSchema } from '../model/schema';
+import { ROUTES } from '@/shared/constants/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -171,7 +172,7 @@ export const SignUpForm = () => {
 
       <p className="mt-3">
         <Link
-          to="/signIn"
+          to={ROUTES.AUTH.SIGN_IN}
           className="text-sky-blue text-sm hover:underline"
         >
           이미 계정이 있으신가요?

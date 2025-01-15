@@ -1,9 +1,9 @@
 import '../app/App.css';
-import { path } from '../shared/constants/path';
+import { ROUTES } from '../shared/constants/routes';
 import ChannelPage from './channels';
 import DirectMessagePage from './directMessage';
 import MainPage from './main';
-// import NotFound from './notFound';
+import NotFound from './notFound';
 import SigninPage from './signin';
 import SignupPage from './signup';
 import Layout from '@/widgets/components/Layout';
@@ -17,26 +17,26 @@ function App() {
     <Routes>
       {/* 비인증 사용자용 라우트 */}
       <Route
-        path={path.signin}
+        path={ROUTES.AUTH.SIGN_IN}
         element={
           !token ? (
             <SigninPage />
           ) : (
             <Navigate
-              to={path.home}
+              to={ROUTES.ROOT}
               replace
             />
           )
         }
       />
       <Route
-        path={path.signup}
+        path={ROUTES.AUTH.SIGN_UP}
         element={
           !token ? (
             <SignupPage />
           ) : (
             <Navigate
-              to={path.home}
+              to={ROUTES.ROOT}
               replace
             />
           )
@@ -50,35 +50,30 @@ function App() {
             <Layout />
           ) : (
             <Navigate
-              to={path.signin}
+              to={ROUTES.AUTH.SIGN_IN}
               replace
             />
           )
         }
       >
         <Route
-          path={path.home}
+          path={ROUTES.ROOT}
           element={<MainPage />}
         />
         <Route
-          path={path.directmessage}
+          path={ROUTES.CHAT.DIRECT_MESSAGE}
           element={<DirectMessagePage />}
         />
         <Route
-          path={path.server}
+          path={ROUTES.CHAT.SERVER.ROOT}
           element={<ChannelPage />}
         />
       </Route>
 
       {/* 기본 리다이렉트 */}
       <Route
-        path="*"
-        element={
-          <Navigate
-            to={token ? path.home : path.signin}
-            replace
-          />
-        }
+        path={ROUTES.NOT_FOUND}
+        element={<NotFound />}
       />
     </Routes>
   );
