@@ -1,6 +1,7 @@
 import { UsersData } from '@/shared/mockData/userData';
 import ListItem from '@/shared/ui/ListItem';
 import ListContainer from '@/shared/ui/layout/ListContainer';
+import { NavLink } from 'react-router-dom';
 
 const DmList = () => {
   const users = UsersData;
@@ -9,10 +10,12 @@ const DmList = () => {
     <ListContainer>
       <div className="flex flex-col gap-1 px-2">
         {users.map((user) => (
-          <ListItem
+          <NavLink
+            to={`/directmessage/${user.userId}`}
             key={user.userId}
-            user={user}
-          />
+          >
+            <ListItem user={user}></ListItem>
+          </NavLink>
         ))}
       </div>
     </ListContainer>
