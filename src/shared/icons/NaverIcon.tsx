@@ -1,4 +1,4 @@
-import IconTypes from '../../entities/types/IconType';
+import IconTypes from '../types/IconType';
 
 export const NaverIcon = ({ size = 24, color = '#03C75A' }: IconTypes) => {
   return (

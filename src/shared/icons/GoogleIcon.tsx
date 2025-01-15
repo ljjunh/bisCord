@@ -1,4 +1,4 @@
-import IconTypes from '../../entities/types/IconType';
+import IconTypes from '../types/IconType';
 
 export const GoogleIcon = ({ size = 26 }: IconTypes) => {
   return (
