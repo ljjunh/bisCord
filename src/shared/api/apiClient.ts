@@ -1,4 +1,4 @@
-import { ApiResponse } from '@/shared/model/types/apiResponse';
+import { ApiResponse } from '@/shared/types/apiResponse';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 const axiosInstance: AxiosInstance = axios.create({
