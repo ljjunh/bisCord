@@ -1,8 +1,8 @@
-import { path } from '../../shared/constants/routes';
 import DiscordIcon from '../../shared/icons/DiscordIcon';
 import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';
 import ServerAvatar from './ServerAvatar';
+import { ROUTES } from '@/shared/constants/routes';
 import { serverDatas } from '@/shared/mockData/serverMockData';
 import { NavLink } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ const SideNav = () => {
     <div className="flex h-[100vh] flex-col items-center gap-3 overflow-hidden bg-black p-3">
       {/* 다이렉트 메세지 부분 */}
       <ServerAvatar>
-        <NavLink to={path.directmessage}>
+        <NavLink to={ROUTES.CHAT.DIRECT_MESSAGE}>
           <DiscordIcon
             size={30}
             color="#ffffff"
@@ -29,7 +29,7 @@ const SideNav = () => {
       {/* 현재 서버 리스트 */}
       {servers.map((server) => (
         <NavLink
-          to={path.server_id(server.id)}
+          to={ROUTES.CHAT.SERVER.DETAIL(server.id)}
           key={server.id}
         >
           <ServerAvatar server={server}>
