@@ -1,16 +1,16 @@
-import ChannelList from '../channel/ui/ChannelList';
+// import ChannelList from '../channel/ui/ChannelList';
 import SideNav from './SideNav';
+import ContentsContainer from '@/shared/ui/layout/ContentsContainer';
 import { Outlet } from 'react-router-dom';
 
 /** Main UI layout */
 const Layout = () => {
   return (
-    <div className="relative flex h-full w-full flex-row bg-black">
+    <div className="relative flex h-full w-full flex-row bg-mid-gray">
       <SideNav />
-      <ChannelList />
-      <div className="flex-grow">
+      <ContentsContainer>
         <Outlet />
-      </div>
+      </ContentsContainer>
     </div>
   );
 };

@@ -3,7 +3,7 @@ import DiscordIcon from '../../shared/icons/DiscordIcon';
 import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';
 import ServerAvatar from './ServerAvatar';
-import { serverDatas } from '@/shared/serverMockData';
+import { serverDatas } from '@/shared/mockData/serverMockData';
 import { NavLink } from 'react-router-dom';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */

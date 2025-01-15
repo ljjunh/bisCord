@@ -1,5 +1,16 @@
+import DmProfile from '@/widgets/directMessage/DmProfile';
+import DmList from '@/widgets/directMessage/ui/DmList';
+
 const DirectMessagePage = () => {
-  return <div>DirectMessagePage</div>;
+  return (
+    <div className="flex h-full">
+      <DmList />
+      <div className="flex-grow">채팅 영역</div>
+      <div className="hidden lg:block">
+        <DmProfile />
+      </div>
+    </div>
+  );
 };
 
 export default DirectMessagePage;

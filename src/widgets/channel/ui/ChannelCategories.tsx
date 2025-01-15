@@ -1,5 +1,5 @@
 import { IChannelTypes } from '../../../entities/types/ChannelType';
-import { path } from '../../../shared/constants/path';
+// import { path } from '../../../shared/constants/path';
 import ArrowDown from '../../../shared/icons/ArrowDown';
 import ArrowRight from '../../../shared/icons/ArrowRight';
 import ChannelItem from './ChannelItem';
