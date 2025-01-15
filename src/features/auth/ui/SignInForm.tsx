@@ -1,11 +1,16 @@
 import { AUTH_FORM_STYLES } from '../model/constants';
+import { authMutations } from '../model/mutations';
 import { type SignInFormData, SignInSchema } from '../model/schema';
 import { ROUTES } from '@/shared/constants/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export const SignInForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -14,9 +19,16 @@ export const SignInForm = () => {
     resolver: zodResolver(SignInSchema),
   });
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: authMutations.signIn.mutationFn,
+    onSuccess: () => {
+      toast.success('로그인 되었습니다');
+      navigate(ROUTES.ROOT);
+    },
+  });
+
   const onSubmit = async (data: SignInFormData) => {
-    // TODO: 로그인 API 호출
-    console.log(data);
+    mutate(data);
   };
 
   return (
@@ -106,6 +118,7 @@ export const SignInForm = () => {
 
       <button
         type="submit"
+        disabled={isPending}
         className="bg-blue-purple w-full rounded p-3 font-medium text-white hover:bg-blue"
       >
         로그인
