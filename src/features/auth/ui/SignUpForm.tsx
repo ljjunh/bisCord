@@ -1,7 +1,9 @@
 import { AUTH_FORM_STYLES } from '../model/constants';
+import { authMutations } from '../model/mutations';
 import { type SignUpFormData, SignUpSchema } from '../model/schema';
 import { ROUTES } from '@/shared/constants/routes';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
@@ -14,9 +16,15 @@ export const SignUpForm = () => {
     resolver: zodResolver(SignUpSchema),
   });
 
+  const { mutate } = useMutation({
+    mutationFn: authMutations.signUp.mutationFn,
+    onSuccess: () => {
+      console.log('회원가입 성공');
+    },
+  });
+
   const onSubmit = async (data: SignUpFormData) => {
-    // TODO : 회원가입 API 호출
-    console.log(data);
+    mutate(data);
   };
 
   return (
