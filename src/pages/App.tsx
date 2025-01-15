@@ -11,7 +11,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 function App() {
   // TODO : 현재 백엔드 로그인쪽이 덜되서 임시값으로 테스트중입니다
-  const token = false;
+  const token = true;
 
   return (
     <Routes>
