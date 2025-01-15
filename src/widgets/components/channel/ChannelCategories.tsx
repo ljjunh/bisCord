@@ -1,7 +1,7 @@
 import { IChannelTypes } from '../../../entities/types/ChannelType';
+import { path } from '../../../shared/constants/path';
 import ArrowDown from '../../../shared/icons/ArrowDown';
 import ArrowRight from '../../../shared/icons/ArrowRight';
-import { path } from '../../../shared/path';
 import ChannelItem from './ChannelItem';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
