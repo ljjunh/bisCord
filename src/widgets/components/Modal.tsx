@@ -1,6 +1,8 @@
 import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
+import { useServerStore } from '@/shared/model/server/store';
 import ReactModal from 'react-modal';
+import { useState } from 'react';
 
 interface IModalProps {
   handleModal: () => void;
@@ -8,6 +10,27 @@ interface IModalProps {
 }
 
 const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
+  const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
+  const addServer = useServerStore((state) => state.addServer); // Store의 addServer 함수
+
+  const handleServerCreate = () => {
+    if (!serverName.trim()) {
+      alert('서버 이름을 입력해주세요.');
+      return;
+    }
+
+    // 새로운 서버 객체 생성
+    const newServer = {
+      id: crypto.randomUUID(),
+      name: serverName,
+      channelList: [],
+    };
+
+    addServer(newServer); // Store에 서버 추가
+    setServerName(''); // 입력 필드 초기화
+    handleModal(); // 모달 닫기
+  };
+
   return (
     <ReactModal
       isOpen={isModalOpen}
@@ -43,13 +66,18 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
         <label className="text-xs font-semibold text-light-gray">서버 이름</label>
         <input
           type="text"
+          value={serverName}
+          onChange={(e) => setServerName(e.target.value)}
           className="w-full rounded-md bg-black p-2 text-lg text-white outline-none"
         />
       </div>
       <div className="flex w-full flex-col gap-4 bg-dark-gray p-4">
-        <div className="text-2xl font-semibold">이미 초대장을 받으셨나요?</div>
-        <button className="w-full rounded-md bg-gray py-2 text-white transition-colors hover:bg-light-gray">
-          서버 참가하기
+        <div className="text-xl font-semibold">서버를 생성 하시겠습니까?</div>
+        <button
+          onClick={handleServerCreate}
+          className="w-full rounded-md bg-gray py-2 text-white transition-colors hover:bg-blue"
+        >
+          서버 생성하기
         </button>
       </div>
     </ReactModal>

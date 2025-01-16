@@ -4,19 +4,20 @@ import PlusIcon from '../../shared/icons/PlusIcon';
 import Modal from './Modal';
 import ServerAvatar from './ServerAvatar';
 import { ROUTES } from '@/shared/constants/routes';
-import { serverDatas } from '@/shared/mockData/serverMockData';
-import { useAuthStore } from '@/shared/model/store';
+import { useServerStore } from '@/shared/model/server/store';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
-  const servers = serverDatas;
+  // const servers = serverDatas;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const user = useAuthStore((state) => state.user);
+  const servers = useServerStore((state) => state.servers);
 
-  console.log(user);
+  // localStorage.removeItem('server-storage');
+
+  console.log(servers);
   // 모달 열기/닫기 핸들러
   const handleModal = () => setIsModalOpen(!isModalOpen);
 
