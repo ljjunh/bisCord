@@ -86,22 +86,22 @@ export const SignUpForm = () => {
           <span className="sr-only">필수 입력</span>
         </label>
         <input
-          {...register('username')}
-          id="username"
+          {...register('name')}
+          id="name"
           type="text"
           aria-required
           autoComplete="name"
-          aria-invalid={errors.username ? 'true' : 'false'}
-          aria-describedby={errors.username ? 'username-error' : undefined}
+          aria-invalid={errors.name ? 'true' : 'false'}
+          aria-describedby={errors.name ? 'name-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        {errors.username && (
+        {errors.name && (
           <p
-            id="username-error"
+            id="name-error"
             role="alert"
             className={AUTH_FORM_STYLES.errorMessage}
           >
-            {errors.username.message}
+            {errors.name.message}
           </p>
         )}
       </div>
@@ -179,7 +179,7 @@ export const SignUpForm = () => {
       <button
         type="submit"
         disabled={isPending}
-        className="bg-blue-purple w-full rounded p-3 font-medium text-white hover:bg-blue"
+        className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue"
       >
         {isPending ? '처리중' : '가입하기'}
       </button>
@@ -187,7 +187,7 @@ export const SignUpForm = () => {
       <p className="mt-3">
         <Link
           to={ROUTES.AUTH.SIGN_IN}
-          className="text-sky-blue text-sm hover:underline"
+          className="text-sm text-sky-blue hover:underline"
         >
           이미 계정이 있으신가요?
         </Link>
