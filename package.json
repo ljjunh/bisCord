@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
+    "lint": "eslint . && echo '✨ No ESLint errors found!'",
     "preview": "vite preview",
     "deploy": "npm run build && serverless deploy && serverless client deploy --no-confirm"
   },
