@@ -1,4 +1,4 @@
-import ChannelCategories from './ChannelCategories';
+import ChannelCategories from '../../../features/Server/ChannelCategories';
 import useGetParams from '@/entities/hooks/getParams';
 import ChannelHeader from '@/features/Server/ChannelHeader';
 import { useServerStore } from '@/shared/model/server/store';
@@ -14,8 +14,8 @@ const ChannelList = () => {
   // 현재 서버 정보를 가져옴
   const getServerData = servers.find((server) => server.id === serverId);
 
+  // 디버깅 로직
   useEffect(() => {
-    // 디버깅 로직
     console.log('getServerData:', getServerData);
   }, [getServerData]);
 
@@ -26,10 +26,8 @@ const ChannelList = () => {
 
       {/* 채널 리스트 */}
       {getServerData ? (
-        // getServerData.serverChannelList?.map((channel) => (
         <ChannelCategories channel={getServerData.serverChannelList} />
       ) : (
-        // ))
         <EmptyList />
       )}
     </ListContainer>

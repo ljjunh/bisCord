@@ -1,6 +1,7 @@
-import ArrowDown from '../../../shared/icons/ArrowDown';
-import ArrowRight from '../../../shared/icons/ArrowRight';
+import ArrowDown from '../../shared/icons/ArrowDown';
+import ArrowRight from '../../shared/icons/ArrowRight';
 import ChannelItem from './ChannelItem';
+import PlusIcon from '@/shared/icons/PlusIcon';
 import { Channel } from '@/shared/model/server/types';
 import { useState } from 'react';
 
@@ -20,7 +21,7 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
     <div className="flex flex-col px-2">
       <div
         onClick={handleToggle}
-        className="flex items-center gap-2 py-1 text-light-gray hover:text-white"
+        className="flex cursor-pointer items-center gap-2 py-1 text-light-gray hover:text-white"
       >
         <div className="flex w-[15px] items-center justify-center">
           {open ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
@@ -30,7 +31,9 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
           {/* {channel?.name} */}
           채팅 채널
         </div>
-        <div>+</div>
+        <div className="p-1">
+          <PlusIcon size={10} />
+        </div>
       </div>
       {/* map으로 채널 리스트 작성 */}
       {open && (
