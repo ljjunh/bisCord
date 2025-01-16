@@ -1,14 +1,24 @@
 import DiscordIcon from '../../shared/icons/DiscordIcon';
 import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';
+import Modal from './Modal';
 import ServerAvatar from './ServerAvatar';
 import { ROUTES } from '@/shared/constants/routes';
 import { serverDatas } from '@/shared/mockData/serverMockData';
+import { useAuthStore } from '@/shared/model/store';
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
   const servers = serverDatas;
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const user = useAuthStore((state) => state.user);
+
+  console.log(user);
+  // 모달 열기/닫기 핸들러
+  const handleModal = () => setIsModalOpen(!isModalOpen);
 
   return (
     <div className="flex h-[100vh] flex-col items-center gap-3 overflow-hidden bg-black p-3">
@@ -39,18 +49,24 @@ const SideNav = () => {
       ))}
 
       {/* 아래 서버 추가 및 찾기 */}
-      <ServerAvatar search>
-        <PlusIcon
-          size={15}
-          color="#ffffff"
-        />
-      </ServerAvatar>
+      <div onClick={handleModal}>
+        <ServerAvatar search>
+          <PlusIcon
+            size={15}
+            color="#ffffff"
+          />
+        </ServerAvatar>
+      </div>
       <ServerAvatar search>
         <DiscoveryIcon
           size={20}
           color="#ffffff"
         />
       </ServerAvatar>
+      <Modal
+        handleModal={handleModal}
+        isModalOpen={isModalOpen}
+      ></Modal>
     </div>
   );
 };
