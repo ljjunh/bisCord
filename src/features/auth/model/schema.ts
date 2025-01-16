@@ -22,7 +22,7 @@ export const SignUpSchema = z
       .string()
       .nonempty('이메일은 필수입니다')
       .email({ message: '올바른 이메일 형식이 아닙니다' }),
-    username: z
+    name: z
       .string()
       .nonempty('사용자명은 필수입니다')
       .min(2, { message: '사용자명은 최소 2자 이상이어야 합니다' })
