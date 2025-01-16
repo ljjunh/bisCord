@@ -1,11 +1,25 @@
+import EmptyBgIcon from '@/shared/icons/EmptyBgIcon';
 import React from 'react';
 
 interface IContentsContainerProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 const ContentsContainer = ({ children }: IContentsContainerProps) => {
-  return <div className="relative flex flex-grow flex-col bg-mid-gray">{children}</div>;
+  return (
+    <div className="relative flex flex-grow flex-col bg-mid-gray">
+      {children ? (
+        children
+      ) : (
+        <div className="flex h-full w-full flex-col items-center justify-center gap-4">
+          <EmptyBgIcon />
+          <div className="text-md font-semibold text-light-gray">
+            아무도 비슷코드와 놀고싶지 않나봐요
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default ContentsContainer;

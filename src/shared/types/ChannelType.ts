@@ -1,8 +1,8 @@
 export interface IServerDatas {
-  id: number;
-  serverName: string;
-  serverImage: string;
-  serverChannelList: IChannelTypes[];
+  id: string;
+  name: string;
+  serverUrl?: string;
+  serverChannelList?: IChannelTypes[];
 }
 
 export interface IChannelTypes {

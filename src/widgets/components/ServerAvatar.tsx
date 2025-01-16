@@ -1,10 +1,10 @@
-import { IServerDatas } from '@/shared/types/ChannelType';
+import { Server } from '@/shared/model/server/types';
 import React from 'react';
 
 interface IServerAvatarProps {
   children?: React.ReactNode;
   search?: boolean;
-  server?: IServerDatas;
+  server?: Server;
 }
 /** 좌측 서버 아바타 컴포넌트 */
 const ServerAvatar = ({ children, search, server }: IServerAvatarProps) => {
@@ -14,7 +14,7 @@ const ServerAvatar = ({ children, search, server }: IServerAvatarProps) => {
     >
       {server ? (
         <div className="text-md overflow-hidden text-nowrap break-all text-center text-white">
-          {server.serverName}'s server
+          {server.name}'s server
         </div>
       ) : (
         children

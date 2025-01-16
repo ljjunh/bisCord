@@ -1,11 +1,12 @@
-import ArrowDown from '../../../shared/icons/ArrowDown';
-import ArrowRight from '../../../shared/icons/ArrowRight';
+import ArrowDown from '../../shared/icons/ArrowDown';
+import ArrowRight from '../../shared/icons/ArrowRight';
 import ChannelItem from './ChannelItem';
-import { IChannelTypes } from '@/shared/types/ChannelType';
+import PlusIcon from '@/shared/icons/PlusIcon';
+import { Channel } from '@/shared/model/server/types';
 import { useState } from 'react';
 
 interface IChannelCategoriesProps {
-  channel: IChannelTypes; // 각 카테고리의 데이터를 받아올 타입
+  channel?: Channel[]; // 각 카테고리의 데이터를 받아올 타입
 }
 
 const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
@@ -20,18 +21,24 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
     <div className="flex flex-col px-2">
       <div
         onClick={handleToggle}
-        className="flex items-center gap-2 py-1 text-light-gray hover:text-white"
+        className="flex cursor-pointer items-center gap-2 py-1 text-light-gray hover:text-white"
       >
         <div className="flex w-[15px] items-center justify-center">
           {open ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
         </div>
         {/* channel 카테고리 */}
-        <div className="text-xs">{channel.name}</div>
+        <div className="flex-grow text-xs">
+          {/* {channel?.name} */}
+          채팅 채널
+        </div>
+        <div className="p-1">
+          <PlusIcon size={10} />
+        </div>
       </div>
       {/* map으로 채널 리스트 작성 */}
       {open && (
         <>
-          {channel.list.map((name) => (
+          {channel?.map((name) => (
             // <Link to={path.channel_id(nowServerId.pathname, name.id)}>
             <ChannelItem
               name={name.name}
