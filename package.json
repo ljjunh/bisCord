@@ -22,6 +22,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.2",
+    "react-modal": "^3.16.3",
     "react-router-dom": "^6.28.1",
     "react-toastify": "^11.0.2",
     "serverless-finch": "^4.0.4",
