@@ -14,7 +14,7 @@
 //     serverImage: '',
 //     serverChannelList: ChannelData,
 //   },
-//   {
+// {
 //     id: 30,
 //     serverName: '엘리스',
 //     serverImage: '',
