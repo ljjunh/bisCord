@@ -45,6 +45,7 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
       >
         <CloseIcon size={15} />
       </div>
+
       <div className="px-4">
         <h2 className="text-2xl font-bold">서버를 만들어 보세요</h2>
         <p className="mt-2 text-light-gray">
