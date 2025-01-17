@@ -1,19 +1,30 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: ['class'],
   content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       animation: {
         keyframes: {
           avatarHover: {
-            '0%': { borderRadius: '100%' },
-            '100%': { borderRadius: '50%' },
+            '0%': {
+              borderRadius: '100%',
+            },
+            '100%': {
+              borderRadius: '50%',
+            },
           },
         },
         animation: {
           avatarHover: 'avatarHover .5s ease-in-out',
         },
       },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      colors: {},
     },
     colors: {
       primary: '	#7289da',
@@ -35,5 +46,5 @@ export default {
       'gray-700': '#343439',
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };
