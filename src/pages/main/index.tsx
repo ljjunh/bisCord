@@ -3,7 +3,7 @@ import { FriendView } from '@/features/friend/ui/FriendView';
 
 const MainPage = () => {
   return (
-    <div className="bg-yellow flex h-screen">
+    <div className="flex h-screen bg-yellow">
       <aside className="max-h-screen">
         <DirectMessageList />
       </aside>
