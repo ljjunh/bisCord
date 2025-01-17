@@ -1,5 +1,5 @@
 import type { DirectMessage } from '../model/types';
-import { cn } from '@/shared/lib/cn';
+import { cn } from '@/shared/lib/utils';
 
 interface DirectMessageItemProps {
   name: string;
