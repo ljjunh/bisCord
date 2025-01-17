@@ -1,12 +1,13 @@
 import '../app/App.css';
 import { ROUTES } from '../shared/constants/routes';
+import AuthCallbackPage from './auth';
 import ChannelPage from './channels';
 import DirectMessagePage from './directMessage';
 import MainPage from './main';
 import NotFound from './notFound';
 import SigninPage from './signin';
 import SignupPage from './signup';
-import { useAuthStore } from '@/shared/model/store';
+import { useAuthStore } from '@/shared/model/authStore';
 import Layout from '@/widgets/components/Layout';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
@@ -35,6 +36,19 @@ function App() {
         element={
           !isAuthenticated ? (
             <SignupPage />
+          ) : (
+            <Navigate
+              to={ROUTES.ROOT}
+              replace
+            />
+          )
+        }
+      />
+      <Route
+        path={ROUTES.AUTH.CALLBACK}
+        element={
+          !isAuthenticated ? (
+            <AuthCallbackPage />
           ) : (
             <Navigate
               to={ROUTES.ROOT}
