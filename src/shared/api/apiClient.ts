@@ -1,4 +1,4 @@
-import { useAuthStore } from '../model/store';
+import { useAuthStore } from '../model/authStore';
 import { ApiResponse } from '@/shared/types/apiResponse';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 

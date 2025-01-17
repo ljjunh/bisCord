@@ -7,17 +7,17 @@ export const SOCIAL_PROVIDERS = [
   {
     name: 'Google',
     icon: GoogleIcon,
-    href: '/',
+    href: 'https://kdt-pt-1-pj-1-team06.elicecoding.com/oauth2/authorization/google',
   },
   {
     name: 'Kakao',
     icon: KakaoIcon,
-    href: '/',
+    href: 'https://kdt-pt-1-pj-1-team06.elicecoding.com/oauth2/authorization/kakao',
   },
   {
     name: 'Naver',
     icon: NaverIcon,
-    href: '/',
+    href: 'https://kdt-pt-1-pj-1-team06.elicecoding.com/oauth2/authorization/naver',
   },
 ] as const;
 
