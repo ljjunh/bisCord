@@ -1,7 +1,7 @@
 // import useGetParams from '@/entities/hooks/getParams';
 import Contents from '@/widgets/components/Contents';
 import DmProfile from '@/widgets/directMessage/DmProfile';
-import DmList from '@/widgets/directMessage/ui/DmList';
+// import DmList from '@/widgets/directMessage/ui/DmList';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -14,7 +14,7 @@ const DirectMessagePage = () => {
 
   return (
     <div className="flex h-full">
-      <DmList />
+      {/* <DmList /> */}
       <div className="flex-grow">
         <Contents></Contents>
       </div>
