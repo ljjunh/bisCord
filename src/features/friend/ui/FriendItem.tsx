@@ -3,6 +3,12 @@ import type { Friend } from '@/entities/friend/model/types';
 import { MessageIcon } from '@/shared/icons/MessageIcon';
 import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
 import { cn } from '@/shared/lib/utils';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/shared/ui/dropdown-menu';
 
 interface FriendItemProps {
   friend: Friend;
@@ -35,12 +41,22 @@ export const FriendItem = ({ friend }: FriendItemProps) => {
           delayDuration={100}
           onClick={() => console.log('DM페이지로 이동')}
         />
-        <IconButton
-          icon={<OverflowMenuIcon />}
-          tooltipText="기타"
-          delayDuration={100}
-          onClick={() => console.log('팝오버 show')}
-        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <IconButton
+              icon={<OverflowMenuIcon />}
+              tooltipText="기타"
+              delayDuration={100}
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => console.log('영상 통화 시작하기')}>
+              영상 통화 시작하기
+            </DropdownMenuItem>
+            <DropdownMenuItem>음성 통화 시작하기</DropdownMenuItem>
+            <DropdownMenuItem className="text-red focus:bg-red">친구 삭제하기</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
     </div>
   );
