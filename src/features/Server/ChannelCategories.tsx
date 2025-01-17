@@ -12,6 +12,8 @@ interface IChannelCategoriesProps {
 const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
   const [open, isOpen] = useState<boolean>(true);
 
+  // 어라
+
   /** 채널 목록 토글 핸들러 */
   const handleToggle = () => {
     isOpen(!open);
