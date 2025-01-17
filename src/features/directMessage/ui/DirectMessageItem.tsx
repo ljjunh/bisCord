@@ -31,7 +31,7 @@ export const DirectMessageItem = ({ name, status, hasUnread }: DirectMessageItem
           />
         </div>
         <span
-          className={cn('ml-3 text-sm group-hover:text-white', {
+          className={cn('text-md ml-3 group-hover:text-white', {
             'font-semibold text-white': hasUnread,
             'text-super-light-gray': !hasUnread,
           })}
