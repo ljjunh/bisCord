@@ -1,12 +1,16 @@
-import { ModalForm } from '@/entities/server/ui/form';
-import ReactModal from 'react-modal';
+// import { ModalForm } from '@/entities/server/ui/form';
+// import ReactModal from 'react-modal';
 
-const Modal = () => {
-  return (
-    <ReactModal isOpen={true}>
-      <ModalForm.Input name="server" />
-    </ReactModal>
-  );
-};
+// interface IModalProps {
+//   handleModal: () => void;
+// }
 
-export default Modal;
+// const Modal = ({ handleModal }: IModalProps) => {
+//   return (
+//     <ReactModal isOpen={true}>
+//       <ModalForm.Input name="server" />
+//     </ReactModal>
+//   );
+// };
+
+// export default Modal;
