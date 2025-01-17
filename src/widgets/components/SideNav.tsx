@@ -3,6 +3,7 @@ import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';
 import Modal from './Modal';
 import ServerAvatar from './ServerAvatar';
+// import { ServerApi } from '@/shared/api/server/serverApi';
 import { ROUTES } from '@/shared/constants/routes';
 import { useServerStore } from '@/shared/model/server/store';
 import { NavLink } from 'react-router-dom';
@@ -14,8 +15,6 @@ const SideNav = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const servers = useServerStore((state) => state.servers);
-
-  // localStorage.removeItem('server-storage');
 
   console.log(servers);
   // 모달 열기/닫기 핸들러

@@ -13,6 +13,7 @@ interface IModalProps {
 
 const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
+
   const onSubmit = (data: FormType) => {
     console.log(data);
   };
