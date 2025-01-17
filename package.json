@@ -9,7 +9,9 @@
     "lint": "eslint . && echo '✨ No ESLint errors found!'",
     "preview": "vite preview",
     "deploy": "npm run build && serverless deploy && serverless client deploy --no-confirm",
-    "prepare": "husky install"
+    "prepare": "husky && husky install",
+    "format": "prettier --write --cache src/**/*.{ts,tsx}",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -61,12 +63,10 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "prettier --write",
-      "eslint --fix",
-      "eslint"
+      "prettier --fix --cache",
+      "eslint --fix --cache"
     ],
-    "*.{json,css,md}": [
-      "prettier --write"
-    ]
+    "*.js": "eslint --cache --fix",
+    "*.{ts,tsx}": "prettier --write"
   }
 }
