@@ -62,8 +62,8 @@
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "prettier --write",
-      "eslint --fix",
-      "eslint"
+      "eslint --max-warnings=0",
+      "bash -c 'npm run lint'" 
     ],
     "*.{json,css,md}": [
       "prettier --write"

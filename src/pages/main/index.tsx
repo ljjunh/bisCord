@@ -1,5 +1,6 @@
 import { DirectMessageList } from '@/features/directMessage/ui/DirectMessageList';
 import { FriendView } from '@/features/friend/ui/FriendView';
+import { useState } from 'react';
 
 const MainPage = () => {
   return (
