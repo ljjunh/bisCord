@@ -6,7 +6,8 @@ interface AuthStore {
   accessToken: string | null;
   user: User | null;
   isAuthenticated: boolean;
-  setAuth: (token: string, user: User | null) => void;
+  setInitialAuth: (token: string) => void;
+  setCompleteAuth: (token: string, user: User) => void;
   clearAuth: () => void;
 }
 
@@ -17,7 +18,14 @@ export const useAuthStore = create<AuthStore>()(
       user: null,
       isAuthenticated: false,
 
-      setAuth: (token, user) =>
+      setInitialAuth: (token) =>
+        set({
+          accessToken: token,
+          user: null,
+          isAuthenticated: false,
+        }),
+
+      setCompleteAuth: (token, user) =>
         set({
           accessToken: token,
           user,
