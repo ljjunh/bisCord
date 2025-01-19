@@ -1,4 +1,4 @@
-import { GetFriendsDTO, GetFriendsResponseDTO } from './dto';
+import type { GetFriendsDTO, GetFriendsResponseDTO } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
 
 export const friendService = {
