@@ -15,7 +15,15 @@ const UserAvatar = ({ image, size, state = false, bg }: IUserAvatarProps) => {
     >
       {/* 이미지가 있으면 렌더링, 없으면 DiscordIcon 렌더링 */}
       {image ? (
-        <></>
+        // <img
+        //   src={image}
+        //   alt="User Avatar"
+        //   className="h-full w-full object-cover"
+        // />
+        <DiscordIcon
+          color={'#ffffff'}
+          size={size}
+        />
       ) : (
         <DiscordIcon
           color={'#ffffff'}

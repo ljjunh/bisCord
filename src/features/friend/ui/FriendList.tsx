@@ -1,31 +1,58 @@
 import { FriendItem } from './FriendItem';
 import type { Friend } from '@/entities/friend/model/types';
+import { LoadingSpinner } from '@/shared/ui/LoadingSpinner';
+import { useEffect, useRef } from 'react';
 
 interface FriendListProps {
   friends: Friend[];
-  emptyMessage?: string;
+  fetchNextPage: () => void;
+  hasNextPage: boolean | undefined;
+  isLoading: boolean;
 }
 
-export const FriendList = ({ friends, emptyMessage }: FriendListProps) => {
-  if (friends.length === 0) {
-    return (
-      <div className="flex h-full flex-col items-center justify-center text-super-light-gray">
-        <div className="text-center">
-          <p>{emptyMessage || '표시할 친구가 없습니다.'}</p>
-          <p>그래도 옆에 Wumpus는 있네요.</p>
-        </div>
-      </div>
+export const FriendList = ({ friends, fetchNextPage, hasNextPage, isLoading }: FriendListProps) => {
+  const observerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isLoading) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 0.1 },
     );
-  }
+
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [fetchNextPage, hasNextPage, isLoading]);
 
   return (
-    <div className="flex flex-col space-y-1 overflow-y-auto">
+    <ul
+      role="list"
+      className="mb-12 flex h-full flex-col space-y-1 overflow-y-auto pb-10"
+    >
       {friends.map((friend) => (
-        <FriendItem
-          key={friend.id}
-          friend={friend}
-        />
+        <li key={friend.id}>
+          <FriendItem
+            key={friend.id}
+            friend={friend}
+          />
+        </li>
       ))}
-    </div>
+      {isLoading && (
+        <li aria-live="polite">
+          <LoadingSpinner />
+        </li>
+      )}
+
+      <div
+        ref={observerRef}
+        className="h-20"
+      />
+    </ul>
   );
 };
