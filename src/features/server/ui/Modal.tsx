@@ -1,5 +1,5 @@
+import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../useModalForm';
 import { ModalForm } from './form';
-import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from './useModalForm';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import ReactModal from 'react-modal';
 

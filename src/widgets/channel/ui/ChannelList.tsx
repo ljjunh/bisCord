@@ -1,6 +1,6 @@
 import useGetParams from '@/entities/hooks/getParams';
-import ChannelCategories from '@/features/server/ChannelCategories';
-import ChannelHeader from '@/features/server/ChannelHeader';
+import ChannelCategories from '@/features/server/ui/ChannelCategories';
+import ChannelHeader from '@/features/server/ui/ChannelHeader';
 import { useServerStore } from '@/shared/model/server/store';
 import EmptyList from '@/shared/ui/EmptyList';
 import ListContainer from '@/shared/ui/layout/ListContainer';

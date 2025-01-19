@@ -1,4 +1,4 @@
-import { FormType } from './useModalForm';
+import { FormType } from '../useModalForm';
 import { FormProvider, UseFormReturn, useFormContext } from 'react-hook-form';
 import { BaseSyntheticEvent, ReactNode, useState } from 'react';
 

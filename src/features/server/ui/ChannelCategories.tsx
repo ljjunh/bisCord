@@ -1,5 +1,5 @@
-import ArrowDown from '../../shared/icons/ArrowDown';
-import ArrowRight from '../../shared/icons/ArrowRight';
+import ArrowDown from '../../../shared/icons/ArrowDown';
+import ArrowRight from '../../../shared/icons/ArrowRight';
 import ChannelItem from './ChannelItem';
 import Modal from './Modal';
 import PlusIcon from '@/shared/icons/PlusIcon';

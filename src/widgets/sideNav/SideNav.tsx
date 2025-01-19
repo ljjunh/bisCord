@@ -1,8 +1,8 @@
 import DiscordIcon from '../../shared/icons/DiscordIcon';
 import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';
+import ServerAvatar from '../components/ServerAvatar';
 import Modal from './Modal';
-import ServerAvatar from './ServerAvatar';
 // import { ServerApi } from '@/shared/api/server/serverApi';
 import { ROUTES } from '@/shared/constants/routes';
 import { useServerStore } from '@/shared/model/server/store';
@@ -17,6 +17,8 @@ const SideNav = () => {
   const servers = useServerStore((state) => state.servers);
 
   console.log(servers);
+  // localStorage.clear();
+
   // 모달 열기/닫기 핸들러
   const handleModal = () => setIsModalOpen(!isModalOpen);
 
