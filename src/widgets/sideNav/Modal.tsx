@@ -1,3 +1,4 @@
+import { serverService } from '@/features/server/api/service';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import { useServerStore } from '@/shared/model/server/store';
@@ -12,6 +13,9 @@ interface IModalProps {
 const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
   const addServer = useServerStore((state) => state.addServer); // Store의 addServer 함수
+
+  const data = serverService.getServer();
+  console.log(data);
 
   const handleServerCreate = () => {
     if (!serverName.trim()) {
@@ -45,6 +49,7 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
       >
         <CloseIcon size={15} />
       </div>
+
       <div className="px-4">
         <h2 className="text-2xl font-bold">서버를 만들어 보세요</h2>
         <p className="mt-2 text-light-gray">

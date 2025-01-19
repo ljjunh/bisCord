@@ -1,8 +1,10 @@
-import ArrowDown from '../../shared/icons/ArrowDown';
-import ArrowRight from '../../shared/icons/ArrowRight';
+import ArrowDown from '../../../shared/icons/ArrowDown';
+import ArrowRight from '../../../shared/icons/ArrowRight';
 import ChannelItem from './ChannelItem';
+import Modal from './Modal';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import { Channel } from '@/shared/model/server/types';
+import EmptyList from '@/shared/ui/EmptyList';
 import { useState } from 'react';
 
 interface IChannelCategoriesProps {
@@ -11,8 +13,12 @@ interface IChannelCategoriesProps {
 
 const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
   const [open, isOpen] = useState<boolean>(true);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  // 어라
+  /** 모달 토글 */
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   /** 채널 목록 토글 핸들러 */
   const handleToggle = () => {
@@ -21,6 +27,10 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
 
   return (
     <div className="flex flex-col px-2">
+      <Modal
+        handleModal={handleModal}
+        isModalOpen={isModalOpen}
+      />
       <div
         onClick={handleToggle}
         className="flex cursor-pointer items-center gap-2 py-1 text-light-gray hover:text-white"
@@ -33,21 +43,28 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
           {/* {channel?.name} */}
           채팅 채널
         </div>
-        <div className="p-1">
+        <div
+          className="p-1"
+          onClick={handleModal}
+        >
           <PlusIcon size={10} />
         </div>
       </div>
       {/* map으로 채널 리스트 작성 */}
       {open && (
         <>
-          {channel?.map((name) => (
-            // <Link to={path.channel_id(nowServerId.pathname, name.id)}>
-            <ChannelItem
-              name={name.name}
-              key={name.id}
-            />
-            // </Link>
-          ))}
+          {channel ? (
+            channel.map((name) => (
+              // <Link to={path.channel_id(nowServerId.pathname, name.id)}>
+              <ChannelItem
+                name={name.name}
+                key={name.id}
+              />
+              // </Link>
+            ))
+          ) : (
+            <EmptyList />
+          )}
         </>
       )}
     </div>
