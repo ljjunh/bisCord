@@ -1,38 +1,78 @@
 import { friendQuery } from '../api/queries';
-import { DUMMY_FRIENDS, EMPTY_STATE_MESSAGES } from '../model/constants';
 import { FriendList } from './FriendList';
-import SearchIcon from '@/shared/icons/SearchIcon';
-import { useQuery } from '@tanstack/react-query';
+import { useDebounce } from '@/shared/lib/useDebounce';
+import { EmptyView } from '@/shared/ui/EmptyView';
+import { SearchInput } from '@/shared/ui/SearchInput';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 
 export const AllFriendsView = () => {
-  const { data } = useQuery(friendQuery.getFriends({ type: 'ACCEPTED' }));
+  const [keyword, setKeyword] = useState('');
+  const debouncedKeyword = useDebounce(keyword);
 
-  console.log(data);
+  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+    friendQuery.getFriends({
+      type: 'ACCEPTED',
+      keyword: debouncedKeyword || undefined,
+    }),
+  );
+
+  const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
+  const totalFriends = data?.pages[0].pageInfo.totalElements ?? 0;
+
+  // Case 1: 친구가 한 명도 없는 경우
+  if (totalFriends === 0 && !keyword) {
+    return (
+      <section
+        role="tabpanel"
+        id="all-panel"
+        aria-labelledby="all-tab"
+        className="bg-darker-gray flex h-full flex-col items-center justify-center"
+      >
+        <EmptyView message="아무도 비슷코드와 놀고 싶지 않은가 봐요." />
+      </section>
+    );
+  }
 
   return (
-    <div className="flex max-h-screen flex-col">
-      {/* 검색창 온라인상태를 백에서 처리 할 수 있다면 분리해서 사용*/}
-      <div className="p-4">
-        <div className="relative">
-          <input
-            type="text"
-            placeholder="검색하기"
-            className="w-full rounded-md bg-black px-4 py-1.5 text-white focus:outline-none"
-          />
-          <div className="absolute right-3 top-2 h-5 w-5">
-            <SearchIcon />
-          </div>
+    <section
+      role="tabpanel"
+      id="all-panel"
+      aria-labelledby="all-tab"
+      className="flex max-h-screen flex-col"
+    >
+      <header className="p-4">
+        <SearchInput
+          value={keyword}
+          onChange={setKeyword}
+        />
+      </header>
+
+      <h2 className="px-4 py-2 pb-4 text-xs font-bold text-super-light-gray">
+        모든 친구 — {totalFriends}명
+      </h2>
+
+      {/* Case 2: 검색 결과가 없는 경우 */}
+      {keyword && !isFetching && allFriends.length === 0 ? (
+        <div className="bg-darker-gray flex flex-1 flex-col items-center justify-center p-4">
+          <section
+            role="tabpanel"
+            id="all-panel"
+            aria-labelledby="all-tab"
+            className="bg-darker-gray flex h-full flex-col items-center justify-center"
+          >
+            <EmptyView message="Biscord가 찾아봤지만 이 이름을 쓰는 이용자는 없어요." />
+          </section>
         </div>
-      </div>
-
-      <div className="px-4 py-2 pb-4 text-xs font-bold text-super-light-gray">
-        모든 친구 — {DUMMY_FRIENDS.length}명
-      </div>
-
-      <FriendList
-        emptyMessage={EMPTY_STATE_MESSAGES['all'] || EMPTY_STATE_MESSAGES.default}
-        friends={DUMMY_FRIENDS}
-      />
-    </div>
+      ) : (
+        /* Case 3: 검색 결과가 있는 경우 */
+        <FriendList
+          friends={allFriends}
+          fetchNextPage={fetchNextPage}
+          hasNextPage={hasNextPage}
+          isLoading={isFetchingNextPage}
+        />
+      )}
+    </section>
   );
 };

@@ -2,7 +2,7 @@ import { IconButton } from './IconButton';
 import type { Friend } from '@/entities/friend/model/types';
 import { MessageIcon } from '@/shared/icons/MessageIcon';
 import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
-import { cn } from '@/shared/lib/utils';
+import UserAvatar from '@/shared/ui/UserAvatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,25 +16,26 @@ interface FriendItemProps {
 
 export const FriendItem = ({ friend }: FriendItemProps) => {
   return (
-    <div className="group mx-2 flex cursor-pointer items-center gap-4 rounded border-t border-gray bg-mid-gray p-2 hover:bg-gray-700">
-      <div className="relative">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dark-gray text-sm text-white">
-          {friend.profileImageURL || friend.name.charAt(0)}
-        </div>
-        <div
-          className={cn('absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-gray', {
-            'bg-green': friend.status === 'online',
-            'bg-gray': friend.status === 'offline',
-            'bg-yellow': friend.status === 'away',
-            'bg-red': friend.status === 'busy',
-          })}
+    <article className="group mx-2 flex cursor-pointer items-center gap-4 rounded border-t border-gray bg-mid-gray p-2 hover:bg-gray-700">
+      <figure>
+        <UserAvatar
+          image={friend.profileImageURL}
+          size={20}
+          state={friend.loginStatus === 'LOGIN' ? true : false}
         />
-      </div>
+      </figure>
       <div className="flex-1">
-        <div className="font-bold text-white">{friend.name}</div>
-        {friend.status && <div className="font-regular text-super-light-gray">{friend.status}</div>}
+        <h3 className="font-bold text-white">{friend.name}</h3>
+        {friend.status && (
+          <div className="font-regular text-super-light-gray">
+            {friend.loginStatus === 'LOGIN' ? '온라인' : '오프라인'}
+          </div>
+        )}
       </div>
-      <div className="flex gap-3">
+      <nav
+        className="flex gap-3"
+        aria-label="친구 관련 작업"
+      >
         <IconButton
           icon={<MessageIcon />}
           tooltipText="메시지 보내기"
@@ -57,7 +58,7 @@ export const FriendItem = ({ friend }: FriendItemProps) => {
             <DropdownMenuItem className="text-red focus:bg-red">친구 삭제하기</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </div>
-    </div>
+      </nav>
+    </article>
   );
 };
