@@ -11,4 +11,4 @@ export interface Friend {
 
 export type FriendLoginStatus = (typeof FRIEND_LOGIN_STATUS)[keyof typeof FRIEND_LOGIN_STATUS];
 
-export type FriendStatus = 'ACCEPTED' | 'PENDING' | 'REJECTED';
+export type FriendStatus = 'ACCEPTED' | 'INVITED' | 'RECEIVED';

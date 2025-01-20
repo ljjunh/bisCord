@@ -20,7 +20,7 @@ export const SignUpForm = () => {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: authQueries.signUp.mutationFn,
+    ...authQueries.signUp,
     onSuccess: () => {
       toast.success('회원가입이 완료되었습니다');
       navigate(ROUTES.AUTH.SIGN_IN);

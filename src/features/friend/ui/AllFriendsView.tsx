@@ -1,4 +1,4 @@
-import { friendQuery } from '../api/queries';
+import { friendQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendList } from './FriendList';
 import { useDebounce } from '@/shared/lib/useDebounce';
@@ -12,7 +12,7 @@ export const AllFriendsView = () => {
   const debouncedKeyword = useDebounce(keyword);
 
   const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    friendQuery.getFriends({
+    friendQueries.getFriends({
       type: FRIEND_REQUEST_TYPE.ACCEPTED,
       keyword: debouncedKeyword || undefined,
     }),
