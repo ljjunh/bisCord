@@ -1,4 +1,4 @@
-import { friendQuery } from '../api/queries';
+import { friendQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendList } from './FriendList';
 import { useDebounce } from '@/shared/lib/useDebounce';
@@ -12,7 +12,7 @@ export const PendingFriendsView = () => {
   const debouncedKeyword = useDebounce(keyword);
 
   const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    friendQuery.getFriends({
+    friendQueries.getFriends({
       type: FRIEND_REQUEST_TYPE.PENDING,
       keyword: debouncedKeyword || undefined,
     }),
@@ -30,7 +30,7 @@ export const PendingFriendsView = () => {
         aria-labelledby="all-tab"
         className="bg-darker-gray flex h-full flex-col items-center justify-center"
       >
-        <EmptyView message="아무도 비슷코드와 놀고 싶지 않은가 봐요." />
+        <EmptyView message="대기 중인 친구 요청이 없네요. 그래도 옆에 Biscord는 있네요." />
       </section>
     );
   }
@@ -50,7 +50,7 @@ export const PendingFriendsView = () => {
       </header>
 
       <h2 className="px-4 py-2 pb-4 text-xs font-bold text-super-light-gray">
-        모든 친구 — {totalFriends}명
+        대기 중 — {totalFriends}명
       </h2>
 
       {/* Case 2: 검색 결과가 없는 경우 */}

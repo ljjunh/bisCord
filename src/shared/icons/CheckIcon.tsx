@@ -1,6 +1,6 @@
 import IconTypes from '../types/IconType';
 
-export const CheckIcon = ({ width = 24, height = 19, color = '#828391' }: IconTypes) => {
+export const CheckIcon = ({ width = 16, height = 12, color = '#828391' }: IconTypes) => {
   return (
     <svg
       width={width}

@@ -1,4 +1,4 @@
-import { friendQuery } from '../api/queries';
+import { friendQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendList } from './FriendList';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
@@ -11,7 +11,7 @@ export const OnlineFriendsView = () => {
   const [keyword, setKeyword] = useState('');
 
   const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    friendQuery.getFriends({
+    friendQueries.getFriends({
       type: FRIEND_REQUEST_TYPE.ACCEPTED,
       status: FRIEND_LOGIN_STATUS.LOGIN,
       keyword: keyword || undefined,
