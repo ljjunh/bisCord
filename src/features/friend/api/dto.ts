@@ -21,3 +21,15 @@ export interface GetFriendsResponseDTO {
   numberOfElements: number;
   empty: boolean;
 }
+
+export interface PostFriendRequestDTO {
+  invitedUserId: number;
+}
+
+export interface PostFriendAcceptDTO {
+  invitingUserId: number;
+}
+
+export interface PostFriendDeclineDTO {
+  userId: number;
+}

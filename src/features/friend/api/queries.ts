@@ -3,7 +3,7 @@ import { friendService } from './service';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { infiniteQueryOptions } from '@tanstack/react-query';
 
-export const friendQuery = {
+export const friendQueries = {
   getFriends: (params: GetFriendsDTO) =>
     // 첫 쿼리 실행시 pageParam은 initialPageParam에 설정한 값(1)을 사용
     // queryFn이 이 값으로 첫 페이지 요청
@@ -21,4 +21,13 @@ export const friendQuery = {
         return undefined;
       },
     }),
+  postFriendRequest: {
+    mutationFn: friendService.postFriendRequest,
+  },
+  postFriendAccept: {
+    mutationFn: friendService.postFriendAccept,
+  },
+  PostFriendDecline: {
+    mutationFn: friendService.postFriendDecline,
+  },
 };

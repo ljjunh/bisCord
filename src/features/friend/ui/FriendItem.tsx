@@ -1,7 +1,9 @@
+import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendRequestType } from '../model/types';
+import { AcceptFriendButton } from './AcceptFriendButton';
 import { IconButton } from './IconButton';
+import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import type { Friend } from '@/entities/friend/model/types';
-import { CheckIcon } from '@/shared/icons/CheckIcon';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import { MessageIcon } from '@/shared/icons/MessageIcon';
 import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
@@ -19,13 +21,27 @@ interface FriendItemProps {
 }
 
 export const FriendItem = ({ mode, friend }: FriendItemProps) => {
+  const getStatusText = () => {
+    if (mode === FRIEND_REQUEST_TYPE.ACCEPTED) {
+      return friend.loginStatus === FRIEND_LOGIN_STATUS.LOGIN ? '온라인' : '오프라인';
+    }
+    if (mode === FRIEND_REQUEST_TYPE.PENDING) {
+      if (friend.status === 'INVITED') {
+        return '보낸 친구 요청';
+      }
+      if (friend.status === 'RECEIVED') {
+        return '받은 친구 요청';
+      }
+    }
+  };
+
   return (
     <article className="group mx-2 flex cursor-pointer items-center gap-4 rounded border-t border-gray bg-mid-gray p-2 hover:bg-gray-700">
       <figure>
         <UserAvatar
           image={friend.profileImageURL}
           size={20}
-          state={friend.loginStatus === 'LOGIN' ? true : false}
+          state={friend.loginStatus === FRIEND_LOGIN_STATUS.LOGIN ? true : false}
         />
       </figure>
       <div className="flex-1">
@@ -33,17 +49,14 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
           <h3 className="font-bold text-white">{friend.name}</h3>
           <span className="hidden text-super-light-gray group-hover:inline">{friend.email}</span>
         </div>
-        {friend.status && (
-          <div className="font-regular text-super-light-gray">
-            {friend.loginStatus === 'LOGIN' ? '온라인' : '오프라인'}
-          </div>
-        )}
+
+        <div className="font-regular text-super-light-gray">{getStatusText()}</div>
       </div>
       <nav
         className="flex gap-3"
         aria-label="친구 관련 작업"
       >
-        {mode === 'ACCEPTED' && (
+        {mode === FRIEND_REQUEST_TYPE.ACCEPTED && (
           <>
             <IconButton
               icon={<MessageIcon />}
@@ -69,21 +82,26 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
             </DropdownMenu>
           </>
         )}
-        {mode === 'PENDING' && (
+        {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'RECEIVED' && (
           <>
+            <AcceptFriendButton friendId={friend.id} />
             <IconButton
-              icon={<CheckIcon />}
-              tooltipText="수락"
-              delayDuration={100}
-              onClick={() => console.log('친구 수락')}
-            />
-            <IconButton
-              icon={<CloseIcon />}
+              icon={<CloseIcon size={16} />}
               tooltipText="거절"
               delayDuration={100}
+              hoverColor="red"
               onClick={() => console.log('친구 거절')}
             />
           </>
+        )}
+        {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'INVITED' && (
+          <IconButton
+            icon={<CloseIcon size={16} />}
+            tooltipText="취소"
+            delayDuration={100}
+            hoverColor="red"
+            onClick={() => console.log('요청 취소')}
+          />
         )}
       </nav>
     </article>

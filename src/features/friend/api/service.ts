@@ -1,4 +1,10 @@
-import type { GetFriendsDTO, GetFriendsResponseDTO } from './dto';
+import type {
+  GetFriendsDTO,
+  GetFriendsResponseDTO,
+  PostFriendAcceptDTO,
+  PostFriendDeclineDTO,
+  PostFriendRequestDTO,
+} from './dto';
 import { apiClient } from '@/shared/api/apiClient';
 
 export const friendService = {
@@ -19,8 +25,22 @@ export const friendService = {
         size,
       },
     });
-    // TODO: 데이터 이상한게 너무 많이옴 글고 또 바뀔듯 그냥 매퍼를 쓰자
 
     return response.data;
+  },
+  postFriendRequest: async ({ invitedUserId }: PostFriendRequestDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/friendship/${invitedUserId}`,
+    });
+  },
+  postFriendAccept: async ({ invitingUserId }: PostFriendAcceptDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/friendship/${invitingUserId}/accept`,
+    });
+  },
+  postFriendDecline: async ({ userId }: PostFriendDeclineDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/friendship/${userId}/decline`,
+    });
   },
 };
