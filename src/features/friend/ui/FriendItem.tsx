@@ -1,6 +1,7 @@
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendRequestType } from '../model/types';
 import { AcceptFriendButton } from './AcceptFriendButton';
+import { DeclineFriendButton } from './DeclineFriendButton';
 import { IconButton } from './IconButton';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import type { Friend } from '@/entities/friend/model/types';
@@ -85,13 +86,7 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
         {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'RECEIVED' && (
           <>
             <AcceptFriendButton friendId={friend.id} />
-            <IconButton
-              icon={<CloseIcon size={16} />}
-              tooltipText="거절"
-              delayDuration={100}
-              hoverColor="red"
-              onClick={() => console.log('친구 거절')}
-            />
+            <DeclineFriendButton friendId={friend.id} />
           </>
         )}
         {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'INVITED' && (

@@ -1,32 +1,32 @@
 import { friendQueries } from '../api/queries';
 import { IconButton } from './IconButton';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { CheckIcon } from '@/shared/icons/CheckIcon';
+import CloseIcon from '@/shared/icons/CloseIcon';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 
-interface AcceptFriendButtonProps {
+interface DeclineFriendButtonProps {
   friendId: number;
 }
 
-export const AcceptFriendButton = ({ friendId }: AcceptFriendButtonProps) => {
+export const DeclineFriendButton = ({ friendId }: DeclineFriendButtonProps) => {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    ...friendQueries.postFriendAccept,
+    ...friendQueries.PostFriendDecline,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.friend.base });
-      toast.success('친구 요청을 수락했습니다');
+      toast.success('친구 요청을 거절했습니다');
     },
   });
 
   return (
     <IconButton
-      icon={<CheckIcon />}
-      tooltipText="수락"
+      icon={<CloseIcon size={16} />}
+      tooltipText="거절"
       delayDuration={100}
-      hoverColor="green"
-      onClick={() => mutate({ invitingUserId: friendId })}
+      hoverColor="red"
+      onClick={() => mutate({ userId: friendId })}
       disabled={isPending}
     />
   );
