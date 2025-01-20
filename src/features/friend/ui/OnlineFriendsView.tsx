@@ -1,5 +1,7 @@
 import { friendQuery } from '../api/queries';
+import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendList } from './FriendList';
+import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -10,8 +12,8 @@ export const OnlineFriendsView = () => {
 
   const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     friendQuery.getFriends({
-      type: 'ACCEPTED',
-      status: 'LOGIN',
+      type: FRIEND_REQUEST_TYPE.ACCEPTED,
+      status: FRIEND_LOGIN_STATUS.LOGIN,
       keyword: keyword || undefined,
     }),
   );
@@ -66,6 +68,7 @@ export const OnlineFriendsView = () => {
       ) : (
         /* Case 3: 검색 결과가 있는 경우 */
         <FriendList
+          mode={FRIEND_REQUEST_TYPE.ACCEPTED}
           friends={allFriends}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}

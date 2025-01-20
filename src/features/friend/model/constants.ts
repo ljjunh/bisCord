@@ -7,6 +7,11 @@ export const FRIEND_TABS = [
   { id: 'add', label: '친구 추가하기' },
 ] as const;
 
+export const FRIEND_REQUEST_TYPE = {
+  ACCEPTED: 'ACCEPTED',
+  PENDING: 'PENDING',
+} as const;
+
 export const EMPTY_STATE_MESSAGES: Record<FriendTab | 'default', string> = {
   online: '온라인 친구가 없습니다.',
   all: '친구가 없습니다.',
