@@ -1,5 +1,6 @@
 // import { serverService } from '@/features/server/api/service';
 // import { serverQueries } from '@/entities/server/api/queries';
+import { serverService } from '@/entities/server/api/servive';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import { useServerStore } from '@/shared/model/server/store';
@@ -26,10 +27,13 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
 
     // 새로운 서버 객체 생성
     const newServer = {
-      id: crypto.randomUUID(),
       name: serverName,
-      channelList: [],
+      serverUri: crypto.randomUUID(),
+      serverImageURL: '',
+      serverChannelList: [],
     };
+
+    serverService.addServer(newServer);
 
     addServer(newServer); // Store에 서버 추가
     setServerName(''); // 입력 필드 초기화

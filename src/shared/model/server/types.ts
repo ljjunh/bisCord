@@ -1,7 +1,7 @@
 export interface Server {
-  id: string;
   name: string;
-  serverUrl?: string;
+  serverUri: string;
+  serverImageURL?: string | null;
   serverChannelList?: Channel[];
 }
 

@@ -9,34 +9,32 @@ import { useState } from 'react';
 
 interface IChannelCategoriesProps {
   channel?: Channel[]; // 각 카테고리의 데이터를 받아올 타입
+  serverId: string;
 }
 
-const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
-  const [open, isOpen] = useState<boolean>(true);
+const ChannelCategories = ({ channel, serverId }: IChannelCategoriesProps) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  console.log(channel);
 
   /** 모달 토글 */
   const handleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
 
-  /** 채널 목록 토글 핸들러 */
-  const handleToggle = () => {
-    isOpen(!open);
-  };
-
   return (
     <div className="flex flex-col px-2">
       <Modal
+        serverId={serverId}
         handleModal={handleModal}
         isModalOpen={isModalOpen}
       />
       <div
-        onClick={handleToggle}
+        onClick={handleModal}
         className="flex cursor-pointer items-center gap-2 py-1 text-light-gray hover:text-white"
       >
         <div className="flex w-[15px] items-center justify-center">
-          {open ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
+          {isModalOpen ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
         </div>
         {/* channel 카테고리 */}
         <div className="flex-grow text-xs">
@@ -51,22 +49,21 @@ const ChannelCategories = ({ channel }: IChannelCategoriesProps) => {
         </div>
       </div>
       {/* map으로 채널 리스트 작성 */}
-      {open && (
-        <>
-          {channel ? (
-            channel.map((name) => (
-              // <Link to={path.channel_id(nowServerId.pathname, name.id)}>
-              <ChannelItem
-                name={name.name}
-                key={name.id}
-              />
-              // </Link>
-            ))
-          ) : (
-            <EmptyList />
-          )}
-        </>
-      )}
+      <>
+        {channel ? (
+          channel.map((name) => (
+            // <Link to={path.channel_id(nowServerId.pathname, name.id)}>
+            <ChannelItem
+              // name={name.name}
+              name={name}
+              key={name.id}
+            />
+            // </Link>
+          ))
+        ) : (
+          <EmptyList />
+        )}
+      </>
     </div>
   );
 };

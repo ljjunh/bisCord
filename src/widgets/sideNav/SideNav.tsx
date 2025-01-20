@@ -47,8 +47,8 @@ const SideNav = () => {
       {/* 현재 서버 리스트 */}
       {servers.map((server) => (
         <NavLink
-          to={ROUTES.CHAT.SERVER.DETAIL(server.id)}
-          key={server.id}
+          to={ROUTES.CHAT.SERVER.DETAIL(server.serverUri)}
+          key={server.serverUri}
         >
           <ServerAvatar server={server}>
             <div className="h-[50px] w-[50px] bg-light-gray"></div>
