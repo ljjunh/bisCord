@@ -11,12 +11,12 @@ export const PendingFriendsView = () => {
   const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword);
 
-  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    friendQueries.getFriends({
+  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    ...friendQueries.getFriends({
       type: FRIEND_REQUEST_TYPE.PENDING,
       keyword: debouncedKeyword || undefined,
     }),
-  );
+  });
 
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
   const totalFriends = data?.pages[0].pageInfo.totalElements ?? 0;

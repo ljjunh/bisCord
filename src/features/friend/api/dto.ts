@@ -1,5 +1,6 @@
-import type { FriendRequestType, PageInfo } from './../model/types';
+import type { FriendRequestType } from './../model/types';
 import type { Friend } from '@/entities/friend/model/types';
+import type { PageInfo } from '@/shared/types/PageInfo';
 
 export interface GetFriendsDTO {
   type: FriendRequestType;
@@ -12,14 +13,6 @@ export interface GetFriendsDTO {
 export interface GetFriendsResponseDTO {
   content: Friend[];
   pageInfo: PageInfo;
-  last: boolean;
-  totalElements: number;
-  totalPages: number;
-  first: boolean;
-  size: number;
-  number: number;
-  numberOfElements: number;
-  empty: boolean;
 }
 
 export interface PostFriendRequestDTO {

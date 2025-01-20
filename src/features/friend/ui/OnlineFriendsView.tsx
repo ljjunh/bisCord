@@ -2,6 +2,7 @@ import { friendQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendList } from './FriendList';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
+import { useDebounce } from '@/shared/lib/useDebounce';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -9,14 +10,15 @@ import { useState } from 'react';
 
 export const OnlineFriendsView = () => {
   const [keyword, setKeyword] = useState('');
+  const debouncedKeyword = useDebounce(keyword);
 
-  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
-    friendQueries.getFriends({
+  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    ...friendQueries.getFriends({
       type: FRIEND_REQUEST_TYPE.ACCEPTED,
       status: FRIEND_LOGIN_STATUS.LOGIN,
-      keyword: keyword || undefined,
+      keyword: debouncedKeyword || undefined,
     }),
-  );
+  });
 
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
   const totalFriends = data?.pages[0].pageInfo.totalElements ?? 0;
