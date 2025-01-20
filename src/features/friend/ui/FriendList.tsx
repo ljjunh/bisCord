@@ -1,8 +1,8 @@
 import { FriendRequestType } from '../model/types';
 import { FriendItem } from './FriendItem';
 import type { Friend } from '@/entities/friend/model/types';
+import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { LoadingSpinner } from '@/shared/ui/LoadingSpinner';
-import { useEffect, useRef } from 'react';
 
 interface FriendListProps {
   mode: FriendRequestType;
@@ -19,24 +19,7 @@ export const FriendList = ({
   hasNextPage,
   isLoading,
 }: FriendListProps) => {
-  const observerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isLoading) {
-          fetchNextPage();
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [fetchNextPage, hasNextPage, isLoading]);
+  const observerRef = useInfiniteScroll({ fetchNextPage, hasNextPage, isLoading });
 
   return (
     <ul
@@ -57,11 +40,12 @@ export const FriendList = ({
           <LoadingSpinner />
         </li>
       )}
-
-      <div
-        ref={observerRef}
-        className="h-20"
-      />
+      {hasNextPage && (
+        <div
+          ref={observerRef}
+          className="h-20"
+        />
+      )}
     </ul>
   );
 };
