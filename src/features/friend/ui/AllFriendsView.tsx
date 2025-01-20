@@ -1,4 +1,5 @@
 import { friendQuery } from '../api/queries';
+import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendList } from './FriendList';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { EmptyView } from '@/shared/ui/EmptyView';
@@ -12,7 +13,7 @@ export const AllFriendsView = () => {
 
   const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     friendQuery.getFriends({
-      type: 'ACCEPTED',
+      type: FRIEND_REQUEST_TYPE.ACCEPTED,
       keyword: debouncedKeyword || undefined,
     }),
   );
@@ -67,6 +68,7 @@ export const AllFriendsView = () => {
       ) : (
         /* Case 3: 검색 결과가 있는 경우 */
         <FriendList
+          mode={FRIEND_REQUEST_TYPE.ACCEPTED}
           friends={allFriends}
           fetchNextPage={fetchNextPage}
           hasNextPage={hasNextPage}

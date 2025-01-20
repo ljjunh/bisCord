@@ -1,3 +1,5 @@
+import { FRIEND_LOGIN_STATUS } from './constants';
+
 export interface Friend {
   email: string;
   id: number;
@@ -7,6 +9,6 @@ export interface Friend {
   status: FriendStatus;
 }
 
-export type FriendLoginStatus = 'LOGIN' | 'LOGOUT';
+export type FriendLoginStatus = (typeof FRIEND_LOGIN_STATUS)[keyof typeof FRIEND_LOGIN_STATUS];
 
 export type FriendStatus = 'ACCEPTED' | 'PENDING' | 'REJECTED';
