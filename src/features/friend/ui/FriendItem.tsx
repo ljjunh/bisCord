@@ -1,11 +1,11 @@
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendRequestType } from '../model/types';
 import { AcceptFriendButton } from './AcceptFriendButton';
+import { CancelFriendButton } from './CancelFriendButton';
 import { DeclineFriendButton } from './DeclineFriendButton';
 import { IconButton } from './IconButton';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import type { Friend } from '@/entities/friend/model/types';
-import CloseIcon from '@/shared/icons/CloseIcon';
 import { MessageIcon } from '@/shared/icons/MessageIcon';
 import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
 import UserAvatar from '@/shared/ui/UserAvatar';
@@ -90,13 +90,7 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
           </>
         )}
         {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'INVITED' && (
-          <IconButton
-            icon={<CloseIcon size={16} />}
-            tooltipText="취소"
-            delayDuration={100}
-            hoverColor="red"
-            onClick={() => console.log('요청 취소')}
-          />
+          <CancelFriendButton friendId={friend.id} />
         )}
       </nav>
     </article>
