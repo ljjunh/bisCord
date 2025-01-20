@@ -25,7 +25,10 @@ export const FriendItem = ({ friend }: FriendItemProps) => {
         />
       </figure>
       <div className="flex-1">
-        <h3 className="font-bold text-white">{friend.name}</h3>
+        <div className="flex gap-2">
+          <h3 className="font-bold text-white">{friend.name}</h3>
+          <span className="hidden text-super-light-gray group-hover:inline">{friend.email}</span>
+        </div>
         {friend.status && (
           <div className="font-regular text-super-light-gray">
             {friend.loginStatus === 'LOGIN' ? '온라인' : '오프라인'}
