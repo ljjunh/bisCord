@@ -3,6 +3,7 @@ import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import { userQueries } from '@/entities/user/api/queries';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import UserAvatar from '@/shared/ui/UserAvatar';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/shared/ui/command';
@@ -27,8 +28,8 @@ export const AddFriendView = () => {
   const users = data?.pages.flatMap((page) => page.content) ?? [];
 
   return (
-    <section className="border-b">
-      <div className="space-y-3 px-8 py-4">
+    <section>
+      <div className="space-y-3 border-b border-gray px-8 py-4">
         <h1 className="font-bold text-white">친구 추가하기</h1>
         <p className="text-sm text-super-light-gray">
           Biscord 사용자명과 이메일을 사용하여 친구를 추가할 수 있어요.
@@ -45,7 +46,7 @@ export const AddFriendView = () => {
               <CommandList>
                 {isFetching && <CommandEmpty>검색중...</CommandEmpty>}
                 {!isFetching && users.length === 0 && (
-                  <CommandEmpty>Biscord가 찾아봤지만 이 이름을 쓰는 사용자는 없어요.</CommandEmpty>
+                  <CommandEmpty>비슷코드가 찾아봤지만 이 이름을 쓰는 사용자는 없어요.</CommandEmpty>
                 )}
                 {users.length > 0 && (
                   <>
@@ -86,6 +87,9 @@ export const AddFriendView = () => {
             </Command>
           )}
         </div>
+      </div>
+      <div>
+        <EmptyView message="비슷코드는 친구를 기다리고 있어요." />
       </div>
     </section>
   );
