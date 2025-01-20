@@ -18,7 +18,12 @@ const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
   const addChannel = useServerStore((state) => state.addChannel);
 
   const onSubmit = (data: FormType) => {
-    addChannel(serverId, data.channel);
+    const newChannel = {
+      id: crypto.randomUUID(),
+      name: data.channel,
+    };
+
+    addChannel(serverId, newChannel);
     methods.reset(); // 폼 초기화
     handleModal();
     console.log('채널 데이터:', data.channel);

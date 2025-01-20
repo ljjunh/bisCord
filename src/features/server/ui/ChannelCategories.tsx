@@ -55,7 +55,7 @@ const ChannelCategories = ({ channel, serverId }: IChannelCategoriesProps) => {
             // <Link to={path.channel_id(nowServerId.pathname, name.id)}>
             <ChannelItem
               // name={name.name}
-              name={name}
+              name={name.name}
               key={name.id}
             />
             // </Link>
