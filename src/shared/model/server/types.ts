@@ -2,7 +2,7 @@ export interface Server {
   name: string;
   serverUri: string;
   serverImageURL?: string | null;
-  serverChannelList?: Channel[];
+  serverChannelList: Channel[];
 }
 
 export interface Channel {

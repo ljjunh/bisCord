@@ -31,7 +31,7 @@ export const useServerStore = create<IServerStore>()(
         set((state) => ({
           servers: state.servers.map((server) =>
             server.serverUri === serverId
-              ? { ...server, serverChannelList: [...server.serverChannelList, channel] }
+              ? { ...server, serverChannelList: [...(server.serverChannelList || []), channel] }
               : server,
           ),
         })),
