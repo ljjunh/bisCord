@@ -1,4 +1,5 @@
-import { serverService } from '@/features/server/api/service';
+// import { serverService } from '@/features/server/api/service';
+// import { serverQueries } from '@/entities/server/api/queries';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import { useServerStore } from '@/shared/model/server/store';
@@ -14,8 +15,8 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
   const addServer = useServerStore((state) => state.addServer); // Store의 addServer 함수
 
-  const data = serverService.getServer();
-  console.log(data);
+  // const data = serverQueries.getServerData();
+  // console.log(data);
 
   const handleServerCreate = () => {
     if (!serverName.trim()) {
@@ -64,6 +65,7 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
               color="#ffffff"
             />
           </div>
+          {/* <input type="file" /> */}
           <div className="text-lg font-semibold text-light-gray">UPLOAD</div>
         </div>
       </div>

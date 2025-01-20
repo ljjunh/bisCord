@@ -3,9 +3,11 @@ import DiscoveryIcon from '../../shared/icons/DiscoveryIcon';
 import PlusIcon from '../../shared/icons/PlusIcon';
 import ServerAvatar from '../components/ServerAvatar';
 import Modal from './Modal';
+import { serverQueries } from '@/entities/server/api/queries';
 // import { ServerApi } from '@/shared/api/server/serverApi';
 import { ROUTES } from '@/shared/constants/routes';
 import { useServerStore } from '@/shared/model/server/store';
+import { useQuery } from '@tanstack/react-query';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -16,7 +18,11 @@ const SideNav = () => {
 
   const servers = useServerStore((state) => state.servers);
 
-  console.log(servers);
+  const { data } = useQuery(serverQueries.getServerData());
+
+  console.log(data);
+
+  // console.log(servers);
   // localStorage.clear();
 
   // 모달 열기/닫기 핸들러

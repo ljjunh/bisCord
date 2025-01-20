@@ -6,7 +6,7 @@ export const QUERY_KEYS = {
   },
   server: {
     base: ['server'] as const,
-    detail: () => [...QUERY_KEYS.server.base, 'detail'] as const,
+    servers: () => [...QUERY_KEYS.server.base, 'servers'] as const,
   },
   friend: {
     base: ['friend'] as const,
