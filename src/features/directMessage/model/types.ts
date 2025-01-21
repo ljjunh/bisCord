@@ -1,4 +1,4 @@
-import { UserStatus } from '@/entities/user/model/types';
+import type { UserStatus } from '@/entities/user/model/types';
 
 export interface DirectMessage {
   id: number;

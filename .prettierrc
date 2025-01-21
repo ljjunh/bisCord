@@ -14,8 +14,8 @@
   "importOrder": [
     "^(react|react-dom)$",
     "@[a-zA-Z@]",
+    ".*/types?/.*|.*(types?|dto)$",
     ".*Store",
-    ".*(types?|dto)$",
     "^@/app/(.*)$",
     "^@/pages/(.*)$",
     "^@/widgets/(.*)$",
