@@ -1,11 +1,14 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useAuthStore } from '@/shared/model/authStore';
 import { userService } from '@/entities/user/api/service';
+import { ROUTES } from '@/shared/constants/routes';
 import { authService } from '../api/service';
 
 export const OAuthCallback = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const code = searchParams.get('code');
@@ -19,12 +22,13 @@ export const OAuthCallback = () => {
     try {
       const token = await authService.socialSignIn(code);
 
-      useAuthStore.getState().setInitialAuth(token);
+      useAuthStore.getState().setAccessToken(token);
       const user = await userService.getUser();
 
-      useAuthStore.getState().setCompleteAuth(token, user);
-    } catch (error) {
-      console.log(error);
+      useAuthStore.getState().setAuth(user);
+    } catch {
+      toast.error('로그인에 실패했습니다. 다시 시도해주세요.');
+      navigate(ROUTES.AUTH.SIGN_IN);
     }
   };
 
