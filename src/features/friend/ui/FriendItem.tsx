@@ -1,20 +1,13 @@
 import { FriendRequestType } from '../model/types';
 import type { Friend } from '@/entities/friend/model/types';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
-import { MessageIcon } from '@/shared/icons/MessageIcon';
-import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
 import UserAvatar from '@/shared/ui/UserAvatar';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/shared/ui/dropdown-menu';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { AcceptFriendButton } from './AcceptFriendButton';
 import { CancelFriendButton } from './CancelFriendButton';
 import { DeclineFriendButton } from './DeclineFriendButton';
-import { IconButton } from './IconButton';
+import { MoreActionsButton } from './MoreActionsButton';
+import { SendMessageButton } from './SendMessageButton';
 
 interface FriendItemProps {
   mode: FriendRequestType;
@@ -59,38 +52,18 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
       >
         {mode === FRIEND_REQUEST_TYPE.ACCEPTED && (
           <>
-            <IconButton
-              icon={<MessageIcon />}
-              tooltipText="메시지 보내기"
-              delayDuration={100}
-              onClick={() => console.log('DM페이지로 이동')}
-            />
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <IconButton
-                  icon={<OverflowMenuIcon />}
-                  tooltipText="기타"
-                  delayDuration={100}
-                />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => console.log('영상 통화 시작하기')}>
-                  영상 통화 시작하기
-                </DropdownMenuItem>
-                <DropdownMenuItem>음성 통화 시작하기</DropdownMenuItem>
-                <DropdownMenuItem className="text-red focus:bg-red">친구 삭제하기</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SendMessageButton friendId={friend.id} />
+            <MoreActionsButton userId={friend.id} />
           </>
         )}
         {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'RECEIVED' && (
           <>
-            <AcceptFriendButton friendId={friend.id} />
-            <DeclineFriendButton friendId={friend.id} />
+            <AcceptFriendButton invitingUserId={friend.id} />
+            <DeclineFriendButton userId={friend.id} />
           </>
         )}
         {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'INVITED' && (
-          <CancelFriendButton friendId={friend.id} />
+          <CancelFriendButton userId={friend.id} />
         )}
       </nav>
     </article>
