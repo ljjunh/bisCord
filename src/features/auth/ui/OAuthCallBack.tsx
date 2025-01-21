@@ -1,8 +1,8 @@
-import { authService } from '../api/service';
-import { userService } from '@/entities/user/api/service';
-import { useAuthStore } from '@/shared/model/authStore';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useAuthStore } from '@/shared/model/authStore';
+import { userService } from '@/entities/user/api/service';
+import { authService } from '../api/service';
 
 export const OAuthCallback = () => {
   const [searchParams] = useSearchParams();
