@@ -9,18 +9,20 @@ export const authService = {
     await apiClient.post<void>({ url: '/signup', data });
   },
   signIn: async (data: SignInDTO): Promise<void> => {
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login`, data);
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/login`, data, {
+      withCredentials: true,
+    });
     const token = response.data.data.accessToken;
 
-    useAuthStore.getState().setInitialAuth(token);
+    useAuthStore.getState().setAccessToken(token);
 
     const user = await userService.getUser();
 
-    useAuthStore.getState().setCompleteAuth(token, user);
+    useAuthStore.getState().setAuth(user);
   },
   socialSignIn: async (data: string): Promise<string> => {
     const response = await axios.post(
-      `${import.meta.env.VITE_BASE_URL}/login/code`,
+      `${import.meta.env.VITE_BASE_URL}/api/login/code`,
       {},
       {
         params: {

@@ -1,6 +1,7 @@
-import { useAuthStore } from '../model/authStore';
-import { ApiResponse } from '@/shared/types/apiResponse';
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { toast } from 'react-toastify';
+import { ApiResponse } from '@/shared/types/apiResponse';
+import { useAuthStore } from '../model/authStore';
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -29,10 +30,29 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        // TODO : 리프레시 로직, 새로운 토큰 저장, 요청 헤더 업데이트, 원래 요청 재시도
-      } catch (refreshError) {
-        console.error('리프레시 실패', refreshError);
-        // TODO : 리프레시 토큰도 만료된 경우 로그아웃, 로그인 페이지로 이동
+        // TODO : 이거 너무 비효율적인데 백엔드 수정하면 이쪽 다시 다 바꿔야됨
+        const { accessToken } = useAuthStore.getState();
+
+        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login/refresh`, null, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          withCredentials: true,
+        });
+
+        const newAccessToken = response.data.data.accessToken;
+
+        useAuthStore.getState().setAccessToken(newAccessToken);
+
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+
+        return axiosInstance(originalRequest);
+      } catch {
+        toast.error('인증이 만료되었습니다');
+
+        await useAuthStore.getState().clearAuth();
+
+        window.location.href = '/signin';
       }
     }
 
