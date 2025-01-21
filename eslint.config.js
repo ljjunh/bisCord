@@ -1,10 +1,10 @@
-import js from '@eslint/js';
 import fsdImport from 'eslint-plugin-fsd-import';
 import importPlugin from 'eslint-plugin-import';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import js from '@eslint/js';
 
 export default tseslint.config(
   { ignores: ['dist', 'node_modules', 'public'] },
@@ -46,7 +46,6 @@ export default tseslint.config(
       //     alias: '@',
       //   },
       // ],
-      // 상대 경로 대신 절대 경로 사용을 강제(같은 레이어에서는 적용 안되지만 절대경로 권장)
       'fsd-import/fsd-relative-path': [
         'error',
         {

@@ -1,63 +1,71 @@
-import { IconButton } from './IconButton';
+import { FriendRequestType } from '../model/types';
 import type { Friend } from '@/entities/friend/model/types';
-import { MessageIcon } from '@/shared/icons/MessageIcon';
-import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
-import { cn } from '@/shared/lib/utils';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/shared/ui/dropdown-menu';
+import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
+import UserAvatar from '@/shared/ui/UserAvatar';
+import { FRIEND_REQUEST_TYPE } from '../model/constants';
+import { AcceptFriendButton } from './AcceptFriendButton';
+import { CancelFriendButton } from './CancelFriendButton';
+import { DeclineFriendButton } from './DeclineFriendButton';
+import { MoreActionsButton } from './MoreActionsButton';
+import { SendMessageButton } from './SendMessageButton';
 
 interface FriendItemProps {
+  mode: FriendRequestType;
   friend: Friend;
 }
 
-export const FriendItem = ({ friend }: FriendItemProps) => {
+export const FriendItem = ({ mode, friend }: FriendItemProps) => {
+  const getStatusText = () => {
+    if (mode === FRIEND_REQUEST_TYPE.ACCEPTED) {
+      return friend.loginStatus === FRIEND_LOGIN_STATUS.LOGIN ? '온라인' : '오프라인';
+    }
+    if (mode === FRIEND_REQUEST_TYPE.PENDING) {
+      if (friend.status === 'INVITED') {
+        return '보낸 친구 요청';
+      }
+      if (friend.status === 'RECEIVED') {
+        return '받은 친구 요청';
+      }
+    }
+  };
+
   return (
-    <div className="group mx-2 flex cursor-pointer items-center gap-4 rounded border-t border-gray bg-mid-gray p-2 hover:bg-gray-700">
-      <div className="relative">
-        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dark-gray text-sm text-white">
-          {friend.profileImageURL || friend.name.charAt(0)}
-        </div>
-        <div
-          className={cn('absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-gray', {
-            'bg-green': friend.status === 'online',
-            'bg-gray': friend.status === 'offline',
-            'bg-yellow': friend.status === 'away',
-            'bg-red': friend.status === 'busy',
-          })}
+    <article className="group mx-2 flex cursor-pointer items-center gap-4 rounded border-t border-gray bg-mid-gray p-2 hover:bg-gray-700">
+      <figure>
+        <UserAvatar
+          image={friend.profileImageURL}
+          size={20}
+          state={friend.loginStatus === FRIEND_LOGIN_STATUS.LOGIN ? true : false}
         />
-      </div>
+      </figure>
       <div className="flex-1">
-        <div className="font-bold text-white">{friend.name}</div>
-        {friend.status && <div className="font-regular text-super-light-gray">{friend.status}</div>}
+        <div className="flex gap-2">
+          <h3 className="font-bold text-white">{friend.name}</h3>
+          <span className="hidden text-super-light-gray group-hover:inline">{friend.email}</span>
+        </div>
+
+        <div className="font-regular text-super-light-gray">{getStatusText()}</div>
       </div>
-      <div className="flex gap-3">
-        <IconButton
-          icon={<MessageIcon />}
-          tooltipText="메시지 보내기"
-          delayDuration={100}
-          onClick={() => console.log('DM페이지로 이동')}
-        />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <IconButton
-              icon={<OverflowMenuIcon />}
-              tooltipText="기타"
-              delayDuration={100}
-            />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuItem onClick={() => console.log('영상 통화 시작하기')}>
-              영상 통화 시작하기
-            </DropdownMenuItem>
-            <DropdownMenuItem>음성 통화 시작하기</DropdownMenuItem>
-            <DropdownMenuItem className="text-red focus:bg-red">친구 삭제하기</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-    </div>
+      <nav
+        className="flex gap-3"
+        aria-label="친구 관련 작업"
+      >
+        {mode === FRIEND_REQUEST_TYPE.ACCEPTED && (
+          <>
+            <SendMessageButton friendId={friend.id} />
+            <MoreActionsButton userId={friend.id} />
+          </>
+        )}
+        {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'RECEIVED' && (
+          <>
+            <AcceptFriendButton invitingUserId={friend.id} />
+            <DeclineFriendButton userId={friend.id} />
+          </>
+        )}
+        {mode === FRIEND_REQUEST_TYPE.PENDING && friend.status === 'INVITED' && (
+          <CancelFriendButton userId={friend.id} />
+        )}
+      </nav>
+    </article>
   );
 };

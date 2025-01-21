@@ -1,11 +1,10 @@
+import { useState } from 'react';
 import type { FriendTab } from '../model/types';
 import { AddFriendView } from './AddFriendView';
 import { AllFriendsView } from './AllFriendsView';
-import { FriendList } from './FriendList';
 import { FriendTabs } from './FriendTabs';
 import { OnlineFriendsView } from './OnlineFriendsView';
 import { PendingFriendsView } from './PendingFriendsView';
-import { useState } from 'react';
 
 // 탭과 콘텐츠를 결합하는 상위 컴포넌트
 
@@ -23,17 +22,22 @@ export const FriendView = () => {
       case 'add':
         return <AddFriendView />;
       default:
-        return <FriendList friends={[]} />;
+        return <AllFriendsView />;
     }
   };
 
   return (
-    <div className="flex h-full flex-col bg-mid-gray">
+    <main className="flex h-full flex-col bg-mid-gray">
       <FriendTabs
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
-      <div className="flex-1">{renderContent()}</div>
-    </div>
+      <section
+        aria-live="polite"
+        className="flex-1"
+      >
+        {renderContent()}
+      </section>
+    </main>
   );
 };

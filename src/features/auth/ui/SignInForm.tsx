@@ -1,12 +1,12 @@
-import { authQueries } from '../api/queries';
-import { AUTH_FORM_STYLES } from '../model/constants';
-import { type SignInFormData, SignInSchema } from '../model/schema';
-import { ROUTES } from '@/shared/constants/routes';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { ROUTES } from '@/shared/constants/routes';
+import { authQueries } from '../api/queries';
+import { AUTH_FORM_STYLES } from '../model/constants';
+import { type SignInFormData, SignInSchema } from '../model/schema';
 
 export const SignInForm = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ export const SignInForm = () => {
   });
 
   const { mutate, isPending } = useMutation({
-    mutationFn: authQueries.signIn.mutationFn,
+    ...authQueries.signIn,
     onSuccess: () => {
       toast.success('로그인 되었습니다');
       navigate(ROUTES.ROOT);
@@ -110,7 +110,7 @@ export const SignInForm = () => {
         {/** 비밀번호 찾기 기능 할지 안할지 미정 */}
         <Link
           to="/forgotPassword"
-          className="text-sky-blue text-sm hover:underline"
+          className="text-sm text-sky-blue hover:underline"
         >
           비밀번호를 잊으셨나요?
         </Link>
@@ -119,12 +119,12 @@ export const SignInForm = () => {
       <button
         type="submit"
         disabled={isPending}
-        className="bg-blue-purple w-full rounded p-3 font-medium text-white hover:bg-blue"
+        className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue"
       >
         로그인
       </button>
 
-      <p className="text-super-light-gray mb-6 text-sm">
+      <p className="mb-6 text-sm text-super-light-gray">
         계정이 필요하신가요?{' '}
         <Link
           to={ROUTES.AUTH.SIGN_UP}

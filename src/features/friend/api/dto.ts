@@ -1,23 +1,28 @@
-import { Content, FriendRequestType, Pageable, Sort } from './../model/types';
+import type { FriendRequestType } from './../model/types';
+import type { Friend } from '@/entities/friend/model/types';
+import type { PageInfo } from '@/shared/types/PageInfo';
 
 export interface GetFriendsDTO {
   type: FriendRequestType;
-  status?: Content['loginStatus'];
+  status?: Friend['loginStatus'];
   keyword?: string;
   page?: number;
   size?: number;
 }
 
 export interface GetFriendsResponseDTO {
-  content: Content[];
-  pageable: Pageable;
-  last: boolean;
-  totalElements: number;
-  totalPages: number;
-  first: boolean;
-  size: number;
-  number: number;
-  sort: Sort;
-  numberOfElements: number;
-  empty: boolean;
+  content: Friend[];
+  pageInfo: PageInfo;
+}
+
+export interface PostFriendRequestDTO {
+  invitedUserId: number;
+}
+
+export interface PostFriendAcceptDTO {
+  invitingUserId: number;
+}
+
+export interface PostFriendDeclineDTO {
+  userId: number;
 }
