@@ -1,11 +1,11 @@
-import { friendQueries } from '../api/queries';
-import { FRIEND_REQUEST_TYPE } from '../model/constants';
-import { FriendList } from './FriendList';
+import { useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { friendQueries } from '../api/queries';
+import { FRIEND_REQUEST_TYPE } from '../model/constants';
+import { FriendList } from './FriendList';
 
 export const AllFriendsView = () => {
   const [keyword, setKeyword] = useState('');

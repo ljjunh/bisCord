@@ -1,7 +1,7 @@
 import type { User } from '../model/types';
 import type { GetUserResponseDTO, GetUsersDTO, GetUsersResponseDTO } from './dto';
-import { mapUserResponseDTOToUser } from './mappers';
 import { apiClient } from '@/shared/api/apiClient';
+import { mapUserResponseDTOToUser } from './mappers';
 
 export const userService = {
   getUser: async (): Promise<User> => {
