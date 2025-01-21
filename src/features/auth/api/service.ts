@@ -1,6 +1,5 @@
 import axios from 'axios';
 import type { SignInDTO, SignUpDTO } from './dto';
-import type { ApiResponse } from '@/shared/types/apiResponse';
 import { useAuthStore } from '@/shared/model/authStore';
 import { userService } from '@/entities/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
@@ -11,10 +10,8 @@ export const authService = {
   },
   signIn: async (data: SignInDTO): Promise<void> => {
     const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login`, data);
+    const token = response.data.data.accessToken;
 
-    const token = response.headers.authorization.split(' ')[1];
-
-    // 이렇게 해야하나 맞나... 로그인할때 유저정보 주면 되자나...
     useAuthStore.getState().setInitialAuth(token);
 
     const user = await userService.getUser();
@@ -22,7 +19,7 @@ export const authService = {
     useAuthStore.getState().setCompleteAuth(token, user);
   },
   socialSignIn: async (data: string): Promise<string> => {
-    const response = await axios.post<ApiResponse<null>>(
+    const response = await axios.post(
       `${import.meta.env.VITE_BASE_URL}/login/code`,
       {},
       {
@@ -31,7 +28,7 @@ export const authService = {
         },
       },
     );
-    const token = response.headers.authorization.split(' ')[1];
+    const token = response.data.data.accessToken;
 
     return token;
   },
