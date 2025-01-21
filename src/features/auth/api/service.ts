@@ -1,9 +1,9 @@
+import axios from 'axios';
+import { useAuthStore } from '@/shared/model/authStore';
 import type { SignInDTO, SignUpDTO } from './dto';
 import { userService } from '@/entities/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
-import { useAuthStore } from '@/shared/model/authStore';
 import type { ApiResponse } from '@/shared/types/apiResponse';
-import axios from 'axios';
 
 export const authService = {
   signUp: async (data: SignUpDTO): Promise<void> => {

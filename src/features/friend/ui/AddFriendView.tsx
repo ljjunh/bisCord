@@ -1,4 +1,5 @@
-import { AddFriendButton } from './AddFriendButton';
+import { useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import { userQueries } from '@/entities/user/api/queries';
 import { useDebounce } from '@/shared/lib/useDebounce';
@@ -7,8 +8,7 @@ import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import UserAvatar from '@/shared/ui/UserAvatar';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/shared/ui/command';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { AddFriendButton } from './AddFriendButton';
 
 export const AddFriendView = () => {
   const [searchText, setSearchText] = useState('');

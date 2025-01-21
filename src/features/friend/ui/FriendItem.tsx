@@ -1,11 +1,6 @@
-import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendRequestType } from '../model/types';
-import { AcceptFriendButton } from './AcceptFriendButton';
-import { CancelFriendButton } from './CancelFriendButton';
-import { DeclineFriendButton } from './DeclineFriendButton';
-import { IconButton } from './IconButton';
-import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import type { Friend } from '@/entities/friend/model/types';
+import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import { MessageIcon } from '@/shared/icons/MessageIcon';
 import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
 import UserAvatar from '@/shared/ui/UserAvatar';
@@ -15,6 +10,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
+import { FRIEND_REQUEST_TYPE } from '../model/constants';
+import { AcceptFriendButton } from './AcceptFriendButton';
+import { CancelFriendButton } from './CancelFriendButton';
+import { DeclineFriendButton } from './DeclineFriendButton';
+import { IconButton } from './IconButton';
 
 interface FriendItemProps {
   mode: FriendRequestType;

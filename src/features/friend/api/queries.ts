@@ -1,7 +1,7 @@
-import type { GetFriendsDTO } from './dto';
-import { friendService } from './service';
-import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { infiniteQueryOptions } from '@tanstack/react-query';
+import type { GetFriendsDTO } from './dto';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { friendService } from './service';
 
 export const friendQueries = {
   getFriends: (params: GetFriendsDTO) =>
