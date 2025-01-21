@@ -1,20 +1,22 @@
 // import { serverService } from '@/features/server/api/service';
 // import { serverQueries } from '@/entities/server/api/queries';
+import ReactModal from 'react-modal';
+import { useState } from 'react';
 import { serverService } from '@/entities/server/api/servive';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
-import { useServerStore } from '@/shared/model/server/store';
-import ReactModal from 'react-modal';
-import { useState } from 'react';
+
+// import { useServerStore } from '@/shared/model/server/store';
 
 interface IModalProps {
   handleModal: () => void;
   isModalOpen: boolean;
+  // refetch: () => void;
 }
 
 const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
-  const addServer = useServerStore((state) => state.addServer); // Store의 addServer 함수
+  // const addServer = useServerStore((state) => state.addServer); // Store의 addServer 함수
 
   // const data = serverQueries.getServerData();
   // console.log(data);
@@ -30,14 +32,19 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
       name: serverName,
       serverUri: crypto.randomUUID(),
       serverImageURL: '',
-      serverChannelList: [],
+      // serverChannelList: [],
     };
 
+    // try {
     serverService.addServer(newServer);
 
-    addServer(newServer); // Store에 서버 추가
     setServerName(''); // 입력 필드 초기화
+    // refetch();
     handleModal(); // 모달 닫기
+    // } catch (error) {
+    // console.error('서버 생성 중 에러:', error);
+    // alert('서버 생성에 실패했습니다.');
+    // }
   };
 
   return (

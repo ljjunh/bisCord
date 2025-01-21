@@ -10,8 +10,8 @@ interface ServersDTO {
 }
 
 export const serverService = {
-  getServer: async (): Promise<IServers> => {
-    const response = await apiClient.get<ServersDTO>({ url: '/servers?page=1&size=10' });
+  getServer: async (): Promise<IServers[]> => {
+    const response = await apiClient.get<ServersDTO[]>({ url: '/user/servers' });
 
     return response.data;
   },
@@ -21,7 +21,7 @@ export const serverService = {
     serverImageURL?: string;
   }): Promise<IServers> => {
     const response = await apiClient.post<ServersDTO>({
-      url: '/servers',
+      url: '/server',
       data: serverData, // 요청 본문에 데이터를 포함
     });
 

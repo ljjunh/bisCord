@@ -1,6 +1,6 @@
-import { Channel, Server } from './types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { Channel, Server } from './types';
 
 interface IServerStore {
   servers: Server[];

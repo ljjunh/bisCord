@@ -1,5 +1,5 @@
-import { Server } from '@/shared/model/server/types';
 import React from 'react';
+import { Server } from '@/shared/model/server/types';
 
 interface IServerAvatarProps {
   children?: React.ReactNode;
@@ -10,7 +10,7 @@ interface IServerAvatarProps {
 const ServerAvatar = ({ children, search, server }: IServerAvatarProps) => {
   return (
     <div
-      className={`relative flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-[50%] bg-gray transition-all duration-300 ease-in-out hover:rounded-xl ${search ? `hover:bg-green` : 'hover:bg-blue'} `}
+      className={`relative flex aspect-[1/1] w-[50px] items-center justify-center overflow-hidden rounded-[50%] bg-gray transition-all duration-300 ease-in-out hover:rounded-xl ${search ? `hover:bg-green` : 'hover:bg-blue'} `}
     >
       {server ? (
         <div className="text-md overflow-hidden text-nowrap break-all text-center text-white">
