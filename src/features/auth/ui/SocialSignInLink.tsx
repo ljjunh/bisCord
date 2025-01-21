@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
 
-interface SocialSignInOptionProps {
+interface SocialSignInLinkProps {
   icon: React.FC;
   name: string;
   href: string;
 }
 
-export const SocialSignInOption = ({ icon: Icon, name, href }: SocialSignInOptionProps) => {
+export const SocialSignInLink = ({ icon: Icon, name, href }: SocialSignInLinkProps) => {
   return (
     <Link
       to={href}
