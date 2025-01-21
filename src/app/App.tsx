@@ -1,5 +1,5 @@
 import './App.css';
-import { RouterProvider } from './providers/RouterProvider';
+import { Router } from './Router';
 import { QueryProvider } from './providers/queryProvider';
 import { ToastProvider } from './providers/toastProvider';
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <QueryProvider>
       <ToastProvider>
-        <RouterProvider />
+        <Router />
       </ToastProvider>
     </QueryProvider>
   );
