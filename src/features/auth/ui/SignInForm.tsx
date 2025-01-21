@@ -1,12 +1,12 @@
-import { authQueries } from '../api/queries';
-import { AUTH_FORM_STYLES } from '../model/constants';
-import { type SignInFormData, SignInSchema } from '../model/schema';
-import { ROUTES } from '@/shared/constants/routes';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { ROUTES } from '@/shared/constants/routes';
+import { authQueries } from '../api/queries';
+import { AUTH_FORM_STYLES } from '../model/constants';
+import { type SignInFormData, SignInSchema } from '../model/schema';
 
 export const SignInForm = () => {
   const navigate = useNavigate();
