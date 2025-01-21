@@ -9,7 +9,7 @@ import { ROUTES } from '@/shared/constants/routes';
 import { useServerStore } from '@/shared/model/server/store';
 import { useQuery } from '@tanstack/react-query';
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
@@ -20,7 +20,9 @@ const SideNav = () => {
 
   const { data } = useQuery(serverQueries.getServerData());
 
-  console.log(data);
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
 
   // console.log(servers);
   // localStorage.clear();
