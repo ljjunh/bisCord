@@ -1,6 +1,7 @@
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../useModalForm';
 import { ModalForm } from './form';
 import CloseIcon from '@/shared/icons/CloseIcon';
+import { useServerStore } from '@/shared/model/server/store';
 import ReactModal from 'react-modal';
 
 // import { ReactNode } from 'react';
@@ -8,14 +9,24 @@ import ReactModal from 'react-modal';
 interface IModalProps {
   handleModal: () => void;
   isModalOpen: boolean;
+  serverId: string;
   //   children: ReactNode;
 }
 
-const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
+const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
+  const addChannel = useServerStore((state) => state.addChannel);
 
   const onSubmit = (data: FormType) => {
-    console.log(data);
+    const newChannel = {
+      id: crypto.randomUUID(),
+      name: data.channel,
+    };
+
+    addChannel(serverId, newChannel);
+    methods.reset(); // 폼 초기화
+    handleModal();
+    console.log('채널 데이터:', data.channel);
   };
 
   return (
@@ -47,6 +58,14 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
           name="channel"
           label="채널 이름"
         />
+        <div className="w-full self-end p-2">
+          <button
+            type="submit"
+            className="w-full rounded-md bg-blue p-2 transition-colors hover:bg-primary"
+          >
+            생성하기
+          </button>
+        </div>
       </ModalForm>
     </ReactModal>
   );

@@ -1,4 +1,6 @@
-import { serverService } from '@/features/server/api/service';
+// import { serverService } from '@/features/server/api/service';
+// import { serverQueries } from '@/entities/server/api/queries';
+import { serverService } from '@/entities/server/api/servive';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import { useServerStore } from '@/shared/model/server/store';
@@ -14,8 +16,8 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
   const addServer = useServerStore((state) => state.addServer); // Store의 addServer 함수
 
-  const data = serverService.getServer();
-  console.log(data);
+  // const data = serverQueries.getServerData();
+  // console.log(data);
 
   const handleServerCreate = () => {
     if (!serverName.trim()) {
@@ -25,10 +27,13 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
 
     // 새로운 서버 객체 생성
     const newServer = {
-      id: crypto.randomUUID(),
       name: serverName,
-      channelList: [],
+      serverUri: crypto.randomUUID(),
+      serverImageURL: '',
+      serverChannelList: [],
     };
+
+    serverService.addServer(newServer);
 
     addServer(newServer); // Store에 서버 추가
     setServerName(''); // 입력 필드 초기화
@@ -64,6 +69,7 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
               color="#ffffff"
             />
           </div>
+          {/* <input type="file" /> */}
           <div className="text-lg font-semibold text-light-gray">UPLOAD</div>
         </div>
       </div>

@@ -34,7 +34,7 @@ export const FormContainer = ({
   return (
     <FormProvider {...methods}>
       <form
-        className="flex w-full flex-col"
+        className="flex w-full flex-grow flex-col"
         onSubmit={onSubmit}
       >
         {children}

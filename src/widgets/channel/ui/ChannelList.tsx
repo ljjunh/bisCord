@@ -12,7 +12,7 @@ const ChannelList = () => {
   const servers = useServerStore((state) => state.servers);
 
   // 현재 서버 정보를 가져옴
-  const getServerData = servers.find((server) => server.id === serverId);
+  const getServerData = servers.find((server) => server.serverUri === serverId);
 
   // 디버깅 로직
   useEffect(() => {
@@ -26,7 +26,10 @@ const ChannelList = () => {
 
       {/* 채널 리스트 */}
       {getServerData ? (
-        <ChannelCategories channel={getServerData.serverChannelList} />
+        <ChannelCategories
+          channel={getServerData.serverChannelList}
+          serverId={getServerData.serverUri}
+        />
       ) : (
         <EmptyList />
       )}
