@@ -3,8 +3,15 @@ export interface SignInDTO {
   password: string;
 }
 
+export interface SignInResponseDTO {
+  accessToken: string;
+}
 export interface SignUpDTO {
   email: string;
   password: string;
   name: string;
+}
+
+export interface SocialSignInResponseDTO {
+  accessToken: string;
 }

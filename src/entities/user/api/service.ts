@@ -7,6 +7,8 @@ export const userService = {
   getUser: async (): Promise<User> => {
     const response = await apiClient.get<GetUserResponseDTO>({ url: '/user' });
 
+    console.log('왜안옴?', response.data);
+
     return mapUserResponseDTOToUser(response.data);
   },
   getUsers: async ({ keyword, page = 1, size = 10 }: GetUsersDTO): Promise<GetUsersResponseDTO> => {
