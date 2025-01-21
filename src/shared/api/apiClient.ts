@@ -14,7 +14,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const { accessToken } = useAuthStore.getState();
     if (accessToken) {
-      config.headers['Authorization'] = `Bearer ${accessToken}`;
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
   },
@@ -33,18 +33,22 @@ axiosInstance.interceptors.response.use(
         // TODO : 이거 너무 비효율적인데 백엔드 수정하면 이쪽 다시 다 바꿔야됨
         const { accessToken } = useAuthStore.getState();
 
-        const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login/refresh`, null, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/login/refresh`,
+          null,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+            withCredentials: true,
           },
-          withCredentials: true,
-        });
+        );
 
         const newAccessToken = response.data.data.accessToken;
 
         useAuthStore.getState().setAccessToken(newAccessToken);
 
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
 
         return axiosInstance(originalRequest);
       } catch {
