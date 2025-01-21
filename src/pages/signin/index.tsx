@@ -1,6 +1,6 @@
-import { SignInForm } from '@/features/auth/ui/SignInForm';
-import { SocialSignInOptions } from '@/features/auth/ui/SocialSignInOptions';
 import { AuthLayout } from '@/widgets/layout/ui/AuthLayout';
+import { SignInForm } from '@/features/auth/ui/SignInForm';
+import { SocialSignInLinks } from '@/features/auth/ui/SocialSignInLinks';
 
 export default function SigninPage() {
   return (
@@ -9,7 +9,7 @@ export default function SigninPage() {
       subTitle="다시 만나다니 너무 반가워요!"
     >
       <SignInForm />
-      <SocialSignInOptions />
+      <SocialSignInLinks />
     </AuthLayout>
   );
 }
