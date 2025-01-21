@@ -2,22 +2,24 @@ import { GoogleIcon } from '@/shared/icons/GoogleIcon';
 import { KakaoIcon } from '@/shared/icons/KakaoIcon';
 import { NaverIcon } from '@/shared/icons/NaverIcon';
 
+const SOCIAL_BASE_URL = import.meta.env.VITE_SOCIAL_BASE_URL;
+
 // TODO : 소셜로그인 되면 실제 링크 상수에 넣고 import해오기
 export const SOCIAL_PROVIDERS = [
   {
     name: 'Google',
     icon: GoogleIcon,
-    href: 'https://kdt-pt-1-pj-1-team06.elicecoding.com/api/oauth2/authorization/google',
+    href: `${SOCIAL_BASE_URL}/google`,
   },
   {
     name: 'Kakao',
     icon: KakaoIcon,
-    href: 'https://kdt-pt-1-pj-1-team06.elicecoding.com/api/oauth2/authorization/kakao',
+    href: `${SOCIAL_BASE_URL}/kakao`,
   },
   {
     name: 'Naver',
     icon: NaverIcon,
-    href: 'https://kdt-pt-1-pj-1-team06.elicecoding.com/api/oauth2/authorization/naver',
+    href: `${SOCIAL_BASE_URL}/naver`,
   },
 ] as const;
 
