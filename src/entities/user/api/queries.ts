@@ -1,7 +1,7 @@
-import type { GetUsersDTO } from './dto';
-import { userService } from './service';
-import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
+import type { GetUsersDTO } from './dto';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { userService } from './service';
 
 export const userQueries = {
   getUser: () =>

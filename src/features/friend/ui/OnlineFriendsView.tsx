@@ -1,12 +1,12 @@
-import { friendQueries } from '../api/queries';
-import { FRIEND_REQUEST_TYPE } from '../model/constants';
-import { FriendList } from './FriendList';
+import { useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { friendQueries } from '../api/queries';
+import { FRIEND_REQUEST_TYPE } from '../model/constants';
+import { FriendList } from './FriendList';
 
 export const OnlineFriendsView = () => {
   const [keyword, setKeyword] = useState('');

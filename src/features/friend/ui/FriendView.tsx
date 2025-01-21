@@ -1,10 +1,10 @@
+import { useState } from 'react';
 import type { FriendTab } from '../model/types';
 import { AddFriendView } from './AddFriendView';
 import { AllFriendsView } from './AllFriendsView';
 import { FriendTabs } from './FriendTabs';
 import { OnlineFriendsView } from './OnlineFriendsView';
 import { PendingFriendsView } from './PendingFriendsView';
-import { useState } from 'react';
 
 // 탭과 콘텐츠를 결합하는 상위 컴포넌트
 

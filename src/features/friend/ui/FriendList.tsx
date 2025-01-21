@@ -1,8 +1,8 @@
 import { FriendRequestType } from '../model/types';
-import { FriendItem } from './FriendItem';
 import type { Friend } from '@/entities/friend/model/types';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { LoadingSpinner } from '@/shared/ui/LoadingSpinner';
+import { FriendItem } from './FriendItem';
 
 interface FriendListProps {
   mode: FriendRequestType;

@@ -1,9 +1,9 @@
-import { friendQueries } from '../api/queries';
-import { IconButton } from './IconButton';
+import { toast } from 'react-toastify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import CloseIcon from '@/shared/icons/CloseIcon';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
+import { friendQueries } from '../api/queries';
+import { IconButton } from './IconButton';
 
 interface DeclineFriendButtonProps {
   friendId: number;
