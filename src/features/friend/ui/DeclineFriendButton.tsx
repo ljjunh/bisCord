@@ -6,17 +6,17 @@ import { friendQueries } from '../api/queries';
 import { IconButton } from './IconButton';
 
 interface DeclineFriendButtonProps {
-  friendId: number;
+  userId: number;
 }
 
-export const DeclineFriendButton = ({ friendId }: DeclineFriendButtonProps) => {
+export const DeclineFriendButton = ({ userId }: DeclineFriendButtonProps) => {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
     ...friendQueries.PostFriendDecline,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.friend.base });
-      toast.success('친구 요청을 거절했습니다');
+      toast.info('친구 요청을 거절했습니다');
     },
   });
 
@@ -26,7 +26,7 @@ export const DeclineFriendButton = ({ friendId }: DeclineFriendButtonProps) => {
       tooltipText="거절"
       delayDuration={100}
       hoverColor="red"
-      onClick={() => mutate({ userId: friendId })}
+      onClick={() => mutate({ userId })}
       disabled={isPending}
     />
   );

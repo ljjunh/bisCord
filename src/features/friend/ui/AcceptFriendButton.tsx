@@ -6,10 +6,10 @@ import { friendQueries } from '../api/queries';
 import { IconButton } from './IconButton';
 
 interface AcceptFriendButtonProps {
-  friendId: number;
+  invitingUserId: number;
 }
 
-export const AcceptFriendButton = ({ friendId }: AcceptFriendButtonProps) => {
+export const AcceptFriendButton = ({ invitingUserId }: AcceptFriendButtonProps) => {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
@@ -26,7 +26,7 @@ export const AcceptFriendButton = ({ friendId }: AcceptFriendButtonProps) => {
       tooltipText="수락"
       delayDuration={100}
       hoverColor="green"
-      onClick={() => mutate({ invitingUserId: friendId })}
+      onClick={() => mutate({ invitingUserId })}
       disabled={isPending}
     />
   );

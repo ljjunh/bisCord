@@ -28,6 +28,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
                   'hover:[&>svg>path]:fill-white': hoverColor === 'white',
                   'hover:[&>svg>path]:fill-green': hoverColor === 'green',
                   'hover:[&>svg>path]:fill-red': hoverColor === 'red',
+                  'cursor-not-allowed opacity-50': disabled,
                 },
               )}
               onClick={(e) => {
