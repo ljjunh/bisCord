@@ -1,13 +1,13 @@
-import type { User } from './types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import type { User } from './types';
 
 interface AuthStore {
   accessToken: string | null;
   user: User | null;
   isAuthenticated: boolean;
-  setInitialAuth: (token: string) => void;
-  setCompleteAuth: (token: string, user: User) => void;
+  setAccessToken: (token: string) => void;
+  setAuth: (user: User) => void;
   clearAuth: () => void;
 }
 
@@ -18,16 +18,13 @@ export const useAuthStore = create<AuthStore>()(
       user: null,
       isAuthenticated: false,
 
-      setInitialAuth: (token) =>
+      setAccessToken: (token) =>
         set({
           accessToken: token,
-          user: null,
-          isAuthenticated: false,
         }),
 
-      setCompleteAuth: (token, user) =>
+      setAuth: (user) =>
         set({
-          accessToken: token,
           user,
           isAuthenticated: true,
         }),
