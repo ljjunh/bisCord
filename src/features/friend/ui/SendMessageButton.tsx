@@ -1,5 +1,5 @@
 import { MessageIcon } from '@/shared/icons/MessageIcon';
-import { IconButton } from './IconButton';
+import { TooltipButton } from '@/shared/ui/TooltipButton';
 
 interface SendMessageButtonProps {
   friendId: number;
@@ -7,7 +7,7 @@ interface SendMessageButtonProps {
 
 export const SendMessageButton = ({ friendId }: SendMessageButtonProps) => {
   return (
-    <IconButton
+    <TooltipButton
       icon={<MessageIcon />}
       tooltipText="메시지 보내기"
       delayDuration={100}

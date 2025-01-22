@@ -2,8 +2,8 @@ import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import CloseIcon from '@/shared/icons/CloseIcon';
+import { TooltipButton } from '@/shared/ui/TooltipButton';
 import { friendQueries } from '../api/queries';
-import { IconButton } from './IconButton';
 
 interface DeclineFriendButtonProps {
   userId: number;
@@ -21,7 +21,7 @@ export const DeclineFriendButton = ({ userId }: DeclineFriendButtonProps) => {
   });
 
   return (
-    <IconButton
+    <TooltipButton
       icon={<CloseIcon size={16} />}
       tooltipText="거절"
       delayDuration={100}
