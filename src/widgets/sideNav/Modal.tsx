@@ -1,23 +1,19 @@
-// import { serverService } from '@/features/server/api/service';
-// import { serverQueries } from '@/entities/server/api/queries';
 import ReactModal from 'react-modal';
 import { useState } from 'react';
 import { serverService } from '@/entities/server/api/servive';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
-
-// import { useServerStore } from '@/shared/model/server/store';
+import { useDebounce } from '@/shared/lib/useDebounce';
 
 interface IModalProps {
   handleModal: () => void;
   isModalOpen: boolean;
-  // refetch: () => void;
+  refetch: () => void;
 }
 
-const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
+const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
-  // const addServer = useServerStore((state) => state.addServer); // Store의 addServer 함수
-
+  const debouncedName = useDebounce(serverName);
   // const data = serverQueries.getServerData();
   // console.log(data);
 
@@ -29,7 +25,7 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
 
     // 새로운 서버 객체 생성
     const newServer = {
-      name: serverName,
+      name: debouncedName,
       serverUri: crypto.randomUUID(),
       serverImageURL: '',
       // serverChannelList: [],
@@ -39,12 +35,8 @@ const Modal = ({ handleModal, isModalOpen }: IModalProps) => {
     serverService.addServer(newServer);
 
     setServerName(''); // 입력 필드 초기화
-    // refetch();
     handleModal(); // 모달 닫기
-    // } catch (error) {
-    // console.error('서버 생성 중 에러:', error);
-    // alert('서버 생성에 실패했습니다.');
-    // }
+    refetch();
   };
 
   return (

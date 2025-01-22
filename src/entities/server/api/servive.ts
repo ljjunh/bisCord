@@ -1,29 +1,38 @@
-import { IServers } from '../model/types';
+import { ChannelDTO, IServers, ServersDTO } from '../model/types';
 import { apiClient } from '@/shared/api/apiClient';
 
 // 여기 엔티티
 
-interface ServersDTO {
-  name: string;
-  serverUri: string;
-  serverImageURL: string;
-}
-
 export const serverService = {
-  getServer: async (): Promise<IServers[]> => {
-    const response = await apiClient.get<ServersDTO[]>({ url: '/user/servers' });
+  /** 전체 서버 목록을 가져옵니다 */
+  getServers: async (): Promise<ServersDTO> => {
+    const response = await apiClient.get<ServersDTO>({ url: '/user/servers?page=1&size=100' });
 
     return response.data;
   },
+  /** 서버를 추가합니다 */
   addServer: async (serverData: {
     name: string;
     serverUri: string;
     serverImageURL?: string;
-  }): Promise<IServers> => {
+  }): Promise<ServersDTO> => {
     const response = await apiClient.post<ServersDTO>({
       url: '/server',
       data: serverData, // 요청 본문에 데이터를 포함
     });
+
+    return response.data;
+  },
+  // params에 맞는 해당 서버 정보를 불러옵니다
+  thisServer: async ({ serverUri }: { serverUri: string }): Promise<IServers> => {
+    const response = await apiClient.get<IServers>({ url: `/server/${serverUri}` });
+
+    return response.data;
+  },
+
+  // 해당 서버의 채널을 불러옵니다
+  thisChannel: async ({ serverUri }: { serverUri: string }): Promise<ChannelDTO> => {
+    const response = await apiClient.get<ChannelDTO>({ url: `/server/${serverUri}/channel` });
 
     return response.data;
   },

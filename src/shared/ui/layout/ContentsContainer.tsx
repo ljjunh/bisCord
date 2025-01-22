@@ -1,5 +1,5 @@
-import EmptyBgIcon from '@/shared/icons/EmptyBgIcon';
 import React from 'react';
+import EmptyBgIcon from '@/shared/icons/EmptyBgIcon';
 
 interface IContentsContainerProps {
   children?: React.ReactNode;
@@ -9,7 +9,7 @@ const ContentsContainer = ({ children }: IContentsContainerProps) => {
   return (
     <div className="relative flex flex-grow flex-col bg-mid-gray">
       {children ? (
-        children
+        <>{children}</>
       ) : (
         <div className="flex h-full w-full flex-col items-center justify-center gap-4">
           <EmptyBgIcon />

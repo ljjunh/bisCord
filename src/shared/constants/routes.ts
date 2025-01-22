@@ -8,10 +8,9 @@ export const ROUTES = {
   CHAT: {
     DIRECT_MESSAGE: { ROOT: '/directmessage/:id', DETAIL: (id: number) => `/directmessage/${id}` },
     SERVER: {
-      ROOT: '/server/:serverId',
+      ROOT: '/server/:serverId/*',
       DETAIL: (id?: string | null) => `/server/${id}`,
-      CHANNEL: (serverId: string, channelId?: number) =>
-        channelId ? `/server/${serverId}/channelId=${channelId}` : `/server/${serverId}`,
+      CHANNEL: (serverId: string, channelId: string) => `/server/${serverId}/${channelId}`,
     },
   },
   NOT_FOUND: '*',
