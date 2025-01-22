@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { FriendTab } from '../model/types';
+import { SwitchCase } from '@/shared/ui/SwitchCase';
 import { AddFriendView } from './AddFriendView';
 import { AllFriendsView } from './AllFriendsView';
 import { FriendTabs } from './FriendTabs';
@@ -11,21 +12,6 @@ import { PendingFriendsView } from './PendingFriendsView';
 export const FriendView = () => {
   const [activeTab, setActiveTab] = useState<FriendTab>('online');
 
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'online':
-        return <OnlineFriendsView />;
-      case 'all':
-        return <AllFriendsView />;
-      case 'pending':
-        return <PendingFriendsView />;
-      case 'add':
-        return <AddFriendView />;
-      default:
-        return <AllFriendsView />;
-    }
-  };
-
   return (
     <main className="flex h-full flex-col bg-mid-gray">
       <FriendTabs
@@ -36,7 +22,16 @@ export const FriendView = () => {
         aria-live="polite"
         className="flex-1"
       >
-        {renderContent()}
+        <SwitchCase
+          value={activeTab}
+          caseBy={{
+            online: <OnlineFriendsView />,
+            all: <AllFriendsView />,
+            pending: <PendingFriendsView />,
+            add: <AddFriendView />,
+          }}
+          defaultComponent={<AllFriendsView />}
+        />
       </section>
     </main>
   );
