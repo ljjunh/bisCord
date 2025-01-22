@@ -7,10 +7,15 @@ export const QUERY_KEYS = {
   },
   server: {
     base: ['server'] as const,
-    servers: () => [...QUERY_KEYS.server.base, 'servers'] as const,
+    detail: (params: string) => [...QUERY_KEYS.server.base, 'detail', params] as const,
+    list: () => [...QUERY_KEYS.server.base, 'servers'] as const,
   },
   friend: {
     base: ['friend'] as const,
     list: (params: object) => [...QUERY_KEYS.friend.base, 'list', params] as const,
+  },
+  channel: {
+    base: ['channel'] as const,
+    list: (params: string) => [...QUERY_KEYS.channel.base, 'list', params] as const,
   },
 };
