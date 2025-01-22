@@ -1,3 +1,4 @@
+import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
@@ -45,10 +46,10 @@ export const AddFriendView = () => {
             <Command className="absolute top-full mt-1 h-auto max-h-[300px] w-full rounded-lg border border-gray bg-black">
               <CommandList>
                 {isFetching && <CommandEmpty>검색중...</CommandEmpty>}
-                {!isFetching && users.length === 0 && (
+                {!isFetching && isEmpty(users) && (
                   <CommandEmpty>비슷코드가 찾아봤지만 이 이름을 쓰는 사용자는 없어요.</CommandEmpty>
                 )}
-                {users.length > 0 && (
+                {!isEmpty(users) && (
                   <>
                     <CommandGroup>
                       {users.map((user) => (
