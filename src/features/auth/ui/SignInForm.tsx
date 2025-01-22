@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { ROUTES } from '@/shared/constants/routes';
 import { authQueries } from '../api/queries';
 import { AUTH_FORM_STYLES } from '../model/constants';
-import { type SignInFormData, SignInSchema } from '../model/schema';
+import { type SignInFormData, signInSchema } from '../model/schema';
 
 export const SignInForm = () => {
   const navigate = useNavigate();
@@ -14,9 +15,10 @@ export const SignInForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignInFormData>({
-    resolver: zodResolver(SignInSchema),
+    resolver: zodResolver(signInSchema),
+    mode: 'onChange',
   });
 
   const { mutate, isPending } = useMutation({
@@ -60,15 +62,19 @@ export const SignInForm = () => {
           aria-describedby={errors.email ? 'email-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        {errors.email && (
-          <p
-            id="email-error"
-            role="alert"
-            className={AUTH_FORM_STYLES.errorMessage}
-          >
-            {errors.email.message}
-          </p>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ message }) => (
+            <p
+              id="email-error"
+              role="alert"
+              className={AUTH_FORM_STYLES.errorMessage}
+            >
+              {message}
+            </p>
+          )}
+        />
       </div>
 
       <div>
@@ -95,15 +101,19 @@ export const SignInForm = () => {
           aria-describedby={errors.password ? 'password-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        {errors.password && (
-          <p
-            id="password-error"
-            role="alert"
-            className={AUTH_FORM_STYLES.errorMessage}
-          >
-            {errors.password.message}
-          </p>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ message }) => (
+            <p
+              id="password-error"
+              role="alert"
+              className={AUTH_FORM_STYLES.errorMessage}
+            >
+              {message}
+            </p>
+          )}
+        />
       </div>
 
       <div className="mb-6 mt-2">
@@ -118,8 +128,8 @@ export const SignInForm = () => {
 
       <button
         type="submit"
-        disabled={isPending}
-        className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue"
+        disabled={isPending || !isValid}
+        className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue disabled:cursor-not-allowed disabled:opacity-50"
       >
         로그인
       </button>
