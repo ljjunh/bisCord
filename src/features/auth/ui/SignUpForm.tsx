@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { ROUTES } from '@/shared/constants/routes';
 import { authQueries } from '../api/queries';
 import { AUTH_FORM_STYLES } from '../model/constants';
-import { type SignUpFormData, SignUpSchema } from '../model/schema';
+import { type SignUpFormData, signUpSchema } from '../model/schema';
 
 export const SignUpForm = () => {
   const navigate = useNavigate();
@@ -14,9 +15,10 @@ export const SignUpForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignUpFormData>({
-    resolver: zodResolver(SignUpSchema),
+    resolver: zodResolver(signUpSchema),
+    mode: 'onChange',
   });
 
   const { mutate, isPending } = useMutation({
@@ -60,15 +62,19 @@ export const SignUpForm = () => {
           aria-describedby={errors.email ? 'email-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        {errors.email && (
-          <p
-            id="email-error"
-            role="alert"
-            className={AUTH_FORM_STYLES.errorMessage}
-          >
-            {errors.email.message}
-          </p>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name="email"
+          render={({ message }) => (
+            <p
+              id="email-error"
+              role="alert"
+              className={AUTH_FORM_STYLES.errorMessage}
+            >
+              {message}
+            </p>
+          )}
+        />
       </div>
 
       <div>
@@ -95,15 +101,19 @@ export const SignUpForm = () => {
           aria-describedby={errors.name ? 'name-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        {errors.name && (
-          <p
-            id="name-error"
-            role="alert"
-            className={AUTH_FORM_STYLES.errorMessage}
-          >
-            {errors.name.message}
-          </p>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name="name"
+          render={({ message }) => (
+            <p
+              id="name-error"
+              role="alert"
+              className={AUTH_FORM_STYLES.errorMessage}
+            >
+              {message}
+            </p>
+          )}
+        />
       </div>
 
       <div>
@@ -130,15 +140,19 @@ export const SignUpForm = () => {
           aria-describedby={errors.password ? 'password-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        {errors.password && (
-          <p
-            id="password-error"
-            role="alert"
-            className="mt-1 text-xs text-red"
-          >
-            {errors.password.message}
-          </p>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name="password"
+          render={({ message }) => (
+            <p
+              id="password-error"
+              role="alert"
+              className="mt-1 text-xs text-red"
+            >
+              {message}
+            </p>
+          )}
+        />
       </div>
 
       <div>
@@ -165,21 +179,25 @@ export const SignUpForm = () => {
           aria-describedby={errors.confirmPassword ? 'confirm-password-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        {errors.confirmPassword && (
-          <p
-            id="confirm-password-error"
-            role="alert"
-            className={AUTH_FORM_STYLES.errorMessage}
-          >
-            {errors.confirmPassword.message}
-          </p>
-        )}
+        <ErrorMessage
+          errors={errors}
+          name="confirmPassword"
+          render={({ message }) => (
+            <p
+              id="confirm-password-error"
+              role="alert"
+              className={AUTH_FORM_STYLES.errorMessage}
+            >
+              {message}
+            </p>
+          )}
+        />
       </div>
 
       <button
         type="submit"
-        disabled={isPending}
-        className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue"
+        disabled={isPending || !isValid}
+        className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue disabled:cursor-not-allowed disabled:opacity-50"
       >
         {isPending ? '처리중' : '가입하기'}
       </button>
