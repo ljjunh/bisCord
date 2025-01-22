@@ -10,7 +10,6 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <App />
     </BrowserRouter>
-    ,
   </HelmetProvider>,
   // </StrictMode>,
 );
