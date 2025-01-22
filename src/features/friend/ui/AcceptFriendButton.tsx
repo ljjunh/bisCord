@@ -2,8 +2,8 @@ import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { CheckIcon } from '@/shared/icons/CheckIcon';
+import { TooltipButton } from '@/shared/ui/TooltipButton';
 import { friendQueries } from '../api/queries';
-import { IconButton } from './IconButton';
 
 interface AcceptFriendButtonProps {
   invitingUserId: number;
@@ -21,7 +21,7 @@ export const AcceptFriendButton = ({ invitingUserId }: AcceptFriendButtonProps) 
   });
 
   return (
-    <IconButton
+    <TooltipButton
       icon={<CheckIcon />}
       tooltipText="수락"
       delayDuration={100}

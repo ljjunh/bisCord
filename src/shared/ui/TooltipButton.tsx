@@ -1,18 +1,26 @@
 import { forwardRef } from 'react';
 import { cn } from '@/shared/lib/utils';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './tooltip';
 
-interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: React.ReactNode;
+interface TooltipButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon: React.ReactElement;
   tooltipText: string;
   delayDuration?: number;
   hoverColor?: string;
   disabled?: boolean;
 }
 
-export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+export const TooltipButton = forwardRef<HTMLButtonElement, TooltipButtonProps>(
   (
-    { icon, tooltipText, delayDuration, disabled, hoverColor = 'white', onClick, ...props },
+    {
+      icon,
+      tooltipText,
+      delayDuration,
+      disabled,
+      hoverColor = 'white',
+      onClick,
+      ...buttonAttributes
+    },
     ref,
   ) => {
     return (
@@ -35,7 +43,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
                 e.stopPropagation();
                 onClick?.(e);
               }}
-              {...props}
+              {...buttonAttributes}
             >
               {icon}
             </button>
@@ -49,4 +57,4 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   },
 );
 
-IconButton.displayName = 'IconButton';
+TooltipButton.displayName = 'WithTooltipButton';

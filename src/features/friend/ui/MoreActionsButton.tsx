@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
+import { TooltipButton } from '@/shared/ui/TooltipButton';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,7 +10,6 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
 import { friendQueries } from '../api/queries';
-import { IconButton } from './IconButton';
 
 interface MoreActionsButtonProps {
   userId: number;
@@ -29,7 +29,7 @@ export const MoreActionsButton = ({ userId }: MoreActionsButtonProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <IconButton
+        <TooltipButton
           icon={<OverflowMenuIcon />}
           tooltipText="기타"
           delayDuration={100}

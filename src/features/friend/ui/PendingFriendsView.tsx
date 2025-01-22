@@ -1,3 +1,4 @@
+import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useDebounce } from '@/shared/lib/useDebounce';
@@ -19,10 +20,9 @@ export const PendingFriendsView = () => {
   });
 
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
-  const totalFriends = data?.pages[0].pageInfo.totalElements ?? 0;
 
   // Case 1: 대기중인 요청이 없는 경우
-  if (totalFriends === 0 && !keyword) {
+  if ([allFriends, keyword].every(isEmpty)) {
     return (
       <section
         role="tabpanel"
@@ -50,11 +50,11 @@ export const PendingFriendsView = () => {
       </header>
 
       <h2 className="px-4 py-2 pb-4 text-xs font-bold text-super-light-gray">
-        대기 중 — {totalFriends}명
+        대기 중 — {allFriends.length}명
       </h2>
 
       {/* Case 2: 검색 결과가 없는 경우 */}
-      {keyword && !isFetching && allFriends.length === 0 ? (
+      {keyword && !isFetching && isEmpty(allFriends) ? (
         <div className="bg-darker-gray flex flex-1 flex-col items-center justify-center p-4">
           <section
             role="tabpanel"

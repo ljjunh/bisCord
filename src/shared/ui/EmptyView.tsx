@@ -1,8 +1,7 @@
 import EmptyBgIcon from '../icons/EmptyBgIcon';
-import { ReactNode } from 'react';
 
 interface EmptyViewProps {
-  icon?: ReactNode;
+  icon?: React.ReactElement;
   message: string;
 }
 
