@@ -46,5 +46,5 @@ export default {
       'gray-700': '#343439',
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
 };
