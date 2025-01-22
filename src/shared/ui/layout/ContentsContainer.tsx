@@ -7,7 +7,7 @@ interface IContentsContainerProps {
 
 const ContentsContainer = ({ children }: IContentsContainerProps) => {
   return (
-    <div className="relative flex flex-grow flex-col bg-mid-gray">
+    <div className="relative flex h-full w-full flex-grow flex-col bg-mid-gray">
       {children ? (
         <>{children}</>
       ) : (

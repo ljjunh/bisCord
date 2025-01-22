@@ -18,6 +18,6 @@ export interface ChannelDTO {
 export interface Channel {
   id: string;
   name: string;
-  type: string;
+  type: 'TEXT' | 'VOICE';
   roleId: number;
 }

@@ -1,9 +1,8 @@
-import ReactModal from 'react-modal';
 import { useState } from 'react';
 import { serverService } from '@/entities/server/api/servive';
-import CloseIcon from '@/shared/icons/CloseIcon';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import { useDebounce } from '@/shared/lib/useDebounce';
+import ModalContainer from '@/shared/ui/layout/ModalContainer';
 
 interface IModalProps {
   handleModal: () => void;
@@ -40,26 +39,12 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
   };
 
   return (
-    <ReactModal
+    <ModalContainer
       isOpen={isModalOpen}
       onRequestClose={handleModal}
-      overlayClassName="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center"
-      className="relative flex min-h-[400px] w-full max-w-md flex-col items-center gap-4 rounded-lg bg-gray pt-4 text-center text-white shadow-lg outline-none"
-      ariaHideApp={false} // 이 옵션은 테스트 또는 개발 중에만 사용하세요.
+      title="서버를 만들어 보세요"
+      description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
     >
-      <div
-        className="absolute right-4 top-4 cursor-pointer"
-        onClick={handleModal}
-      >
-        <CloseIcon size={15} />
-      </div>
-
-      <div className="px-4">
-        <h2 className="text-2xl font-bold">서버를 만들어 보세요</h2>
-        <p className="mt-2 text-light-gray">
-          서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요.
-        </p>
-      </div>
       <div className="flex w-full items-center justify-center">
         <div className="relative flex aspect-[1/1] w-[30%] cursor-pointer items-center justify-center rounded-[50%] border-2 border-dashed border-light-gray">
           <div className="absolute right-0 top-0 rounded-[50%] bg-blue p-2">
@@ -90,7 +75,7 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
           서버 생성하기
         </button>
       </div>
-    </ReactModal>
+    </ModalContainer>
   );
 };
 

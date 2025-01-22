@@ -1,7 +1,7 @@
 // import ChannelList from '../channel/ui/ChannelList';
-import SideNav from '../sideNav/SideNav';
-import ContentsContainer from '@/shared/ui/layout/ContentsContainer';
 import { Outlet } from 'react-router-dom';
+import ContentsContainer from '@/shared/ui/layout/ContentsContainer';
+import SideNav from '../sideNav/SideNav';
 
 /** Main UI layout */
 const Layout = () => {

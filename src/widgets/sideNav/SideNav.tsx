@@ -25,7 +25,7 @@ const SideNav = () => {
   if (isLoading) return <></>;
 
   return (
-    <div className="flex h-[100vh] flex-col items-center gap-3 overflow-hidden bg-black p-3">
+    <div className="flex h-[100vh] min-w-[60px] flex-col items-center gap-3 overflow-hidden bg-black p-3">
       {/* 다이렉트 메세지 부분 */}
       <div>
         <ServerAvatar>

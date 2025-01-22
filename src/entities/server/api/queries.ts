@@ -17,8 +17,11 @@ export const serverQueries = {
 
   getChannels: (serverUri: string) =>
     queryOptions({
-      queryKey: QUERY_KEYS.channel.list(serverUri),
+      queryKey: QUERY_KEYS.channel.detail(serverUri),
       queryFn: () => serverService.thisChannel({ serverUri }),
       enabled: !!serverUri,
     }),
+  postChannelCreate: {
+    mutationFn: serverService.createChannel,
+  },
 };
