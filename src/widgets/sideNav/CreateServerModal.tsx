@@ -7,9 +7,6 @@ import { useDebounce } from '@/shared/lib/useDebounce';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 
 interface ModalProps {
-  // onModal: () => void;
-  // isModalOpen: boolean;
-  // refetch: () => void;
   onCreate?: () => void;
 }
 
@@ -17,8 +14,6 @@ const CreateServerModal = ({ onCreate }: ModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
   const { type, onCloseModal } = useModalStore((state) => state);
   const debouncedName = useDebounce(serverName);
-  // const data = serverQueries.getServerData();
-  // console.log(data);
 
   const handleCreateServer = () => {
     if (!serverName.trim()) {
