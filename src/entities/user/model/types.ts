@@ -1,9 +1,10 @@
+import { LoginStatus } from '@/shared/model/types';
+
 export interface User {
   id: number;
   name: string;
+  email: string;
   profileImageURL: string;
   description: string;
-  status?: UserStatus;
+  loginStatus: LoginStatus;
 }
-
-export type UserStatus = 'online' | 'offline' | 'away' | 'busy';
