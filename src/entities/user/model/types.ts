@@ -1,4 +1,4 @@
-import { LoginStatus } from '@/shared/model/types';
+import { LOGIN_STATUS } from './constants';
 
 export interface User {
   id: number;
@@ -8,3 +8,5 @@ export interface User {
   description: string;
   loginStatus: LoginStatus;
 }
+
+export type LoginStatus = keyof typeof LOGIN_STATUS;

@@ -1,14 +1,12 @@
-import { FRIEND_LOGIN_STATUS } from './constants';
+import type { LoginStatus } from '@/entities/user/model/types';
 
 export interface Friend {
   email: string;
   id: number;
-  loginStatus: FriendLoginStatus;
+  loginStatus: LoginStatus;
   name: string;
   profileImageURL: string | null;
   status: FriendStatus;
 }
-
-export type FriendLoginStatus = (typeof FRIEND_LOGIN_STATUS)[keyof typeof FRIEND_LOGIN_STATUS];
 
 export type FriendStatus = 'ACCEPTED' | 'INVITED' | 'RECEIVED';

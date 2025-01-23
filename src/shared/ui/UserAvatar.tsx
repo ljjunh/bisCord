@@ -1,15 +1,16 @@
+import { LoginStatus } from '../model/types';
 import DiscordIcon from '../icons/DiscordIcon';
 import { cn } from '../lib/utils';
 import UserState from './UserState';
 
-interface IUserAvatarProps {
+interface UserAvatarProps {
   image?: string | null;
   size: number;
-  state?: boolean;
+  state?: LoginStatus;
   bg?: string;
 }
 
-const UserAvatar = ({ image, size, state = false, bg }: IUserAvatarProps) => {
+const UserAvatar = ({ image, size, state = 'OFFLINE', bg }: UserAvatarProps) => {
   return (
     <div
       className={cn(
