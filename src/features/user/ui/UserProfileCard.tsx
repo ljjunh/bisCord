@@ -1,6 +1,7 @@
 import { useAuthStore } from '@/shared/model/authStore';
 import { EditIcon } from '@/shared/icons/EditIcon';
 import UserAvatar from '@/shared/ui/UserAvatar';
+import { SignOutButton } from '../../auth/ui/SignOutButton';
 import { UserStatusMenu } from './UserStatusMenu';
 
 export const UserProfileCard = () => {
@@ -32,9 +33,7 @@ export const UserProfileCard = () => {
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
-        <button className="w-full px-2 py-1 text-left hover:rounded hover:bg-mid-gray hover:text-white">
-          로그아웃
-        </button>
+        <SignOutButton />
       </div>
     </div>
   );
