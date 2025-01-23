@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
-import { IServers } from '@/entities/server/model/types';
+import { Servers } from '@/entities/server/model/types';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface IServerAvatar {
   children: ReactNode;
   search?: boolean;
-  server?: IServers;
+  server?: Servers;
 }
 
 const ServerAvatarDiv = ({ children, server, search }: IServerAvatar) => {
