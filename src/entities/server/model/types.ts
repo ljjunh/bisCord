@@ -1,13 +1,13 @@
 import { PageInfo } from '@/shared/types/PageInfo';
 
-export interface IServers {
+export interface Servers {
   name: string;
   serverUri: string;
   serverImageURL: string;
 }
 
 export interface ServersDTO {
-  content: IServers[];
+  content: Servers[];
   pageInfo: PageInfo;
 }
 
@@ -18,6 +18,6 @@ export interface ChannelDTO {
 export interface Channel {
   id: string;
   name: string;
-  type: string;
+  type: 'TEXT' | 'VOICE';
   roleId: number;
 }

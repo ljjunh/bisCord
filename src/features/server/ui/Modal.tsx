@@ -1,8 +1,10 @@
+import { toast } from 'react-toastify';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { serverQueries } from '@/entities/server/api/queries';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../useModalForm';
 import { ModalForm } from './form';
-import CloseIcon from '@/shared/icons/CloseIcon';
-import { useServerStore } from '@/shared/model/server/store';
-import ReactModal from 'react-modal';
 
 // import { ReactNode } from 'react';
 
@@ -10,64 +12,76 @@ interface IModalProps {
   handleModal: () => void;
   isModalOpen: boolean;
   serverId: string;
-  //   children: ReactNode;
 }
 
 const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
-  const addChannel = useServerStore((state) => state.addChannel);
+  const queryClient = useQueryClient();
 
+  const { mutate, isPending } = useMutation({
+    ...serverQueries.postCreateChannel,
+    onSuccess: () => {
+      toast.success('채널을 생성했습니다.');
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.channel.detail(serverId), // 서버 ID 포함
+      });
+
+      methods.reset(); // 폼 초기화
+      handleModal();
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error('채널 생성에 실패했습니다.');
+    },
+  });
+
+  // 모달 submit
   const onSubmit = (data: FormType) => {
     const newChannel = {
-      id: crypto.randomUUID(),
+      serverUri: serverId,
       name: data.channel,
+      type: data.type,
+      roleId: 1,
     };
-
-    addChannel(serverId, newChannel);
-    methods.reset(); // 폼 초기화
-    handleModal();
-    console.log('채널 데이터:', data.channel);
+    if (newChannel.name === '') {
+      return;
+    }
+    mutate(newChannel); // mutate 호출 시 데이터 전달
   };
 
   return (
-    <ReactModal
+    <ModalContainer
       isOpen={isModalOpen}
       onRequestClose={handleModal}
-      overlayClassName="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center"
-      className="relative flex min-h-[400px] w-full max-w-md flex-col items-center gap-4 rounded-lg bg-gray pt-4 text-center text-white shadow-lg outline-none"
+      title="채널 만들기"
+      description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
     >
-      <div
-        className="absolute right-4 top-4 cursor-pointer"
-        onClick={handleModal}
-      >
-        <CloseIcon size={15} />
-      </div>
-      <div className="px-4">
-        <h2 className="text-2xl font-bold">채널를 만들어 보세요</h2>
-        <p className="mt-2 text-light-gray">
-          서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요.
-        </p>
-      </div>
-      {/* {children} */}
-
       <ModalForm
         methods={methods}
         onSubmit={methods.handleSubmit(onSubmit)}
       >
+        <ModalForm.Radio
+          name="type"
+          options={[
+            { label: '텍스트', value: 'TEXT' },
+            { label: '음성', value: 'VOICE' },
+          ]}
+        />
+
         <ModalForm.Input
           name="channel"
           label="채널 이름"
         />
-        <div className="w-full self-end p-2">
+        <div className="w-full self-end bg-dark-gray p-4">
           <button
             type="submit"
-            className="w-full rounded-md bg-blue p-2 transition-colors hover:bg-primary"
+            className="w-full rounded-md bg-gray p-2 transition-colors hover:bg-blue"
           >
-            생성하기
+            {isPending ? '채널을 생성중입니다' : '생성하기'}
           </button>
         </div>
       </ModalForm>
-    </ReactModal>
+    </ModalContainer>
   );
 };
 
