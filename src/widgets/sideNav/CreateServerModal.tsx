@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useModalStore } from '@/shared/model/modalStore';
 import { serverService } from '@/entities/server/api/servive';
@@ -21,7 +22,7 @@ const CreateServerModal = ({ onCreate }: ModalProps) => {
 
   const handleCreateServer = () => {
     if (!serverName.trim()) {
-      alert('서버 이름을 입력해주세요.');
+      toast.error('서버 이름을 입력해주세요.');
       return;
     }
 
