@@ -16,7 +16,7 @@ export const UserStatusMenu = () => {
   return (
     // TODO : 일단 이렇게 쓰고 api 나오면 중복 제거. 많이 바뀔듯
     <DropdownMenuSub>
-      <DropdownMenuSubTrigger className="flex w-full items-center gap-2 px-2 py-1 text-left hover:rounded hover:bg-mid-gray hover:text-white">
+      <DropdownMenuSubTrigger className="flex w-full items-center gap-2.5 px-2 py-1 text-left hover:rounded hover:bg-mid-gray hover:text-white">
         <SwitchCase
           value={currentStatus}
           caseBy={{
