@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User } from './types';
+import type { LoginStatus, User } from './types';
 
 interface AuthStore {
   accessToken: string | null;
@@ -9,6 +9,7 @@ interface AuthStore {
   setAccessToken: (token: string) => void;
   setAuth: (user: User) => void;
   clearAuth: () => void;
+  setLoginStatus: (status: LoginStatus) => void;
 }
 
 export const useAuthStore = create<AuthStore>()(
@@ -35,6 +36,11 @@ export const useAuthStore = create<AuthStore>()(
           user: null,
           isAuthenticated: false,
         }),
+
+      setLoginStatus: (status: LoginStatus) =>
+        set((state) => ({
+          user: state.user ? { ...state.user, loginStatus: status } : null,
+        })),
     }),
     {
       name: 'auth-storage',

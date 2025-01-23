@@ -35,7 +35,7 @@ export const MoreActionsButton = ({ userId }: MoreActionsButtonProps) => {
           delayDuration={100}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="bg-black">
         {/* <DropdownMenuItem onClick={() => console.log('영상 통화 시작하기')}>
           영상 통화 시작하기
         </DropdownMenuItem>
