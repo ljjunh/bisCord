@@ -22,4 +22,9 @@ export const SEO_CONFIG = {
       url: `${BASE_URL}${ROUTES.AUTH.SIGN_UP}`,
     },
   },
+  SERVER: {
+    title: '서버',
+    description: 'Biscord의 다양한 서버에서 친구들과 다함께 소통하세요.',
+    url: `${BASE_URL}${ROUTES.CHAT.SERVER.ROOT}`,
+  },
 } as const;
