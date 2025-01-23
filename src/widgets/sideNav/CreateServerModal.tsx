@@ -1,22 +1,25 @@
 import { useState } from 'react';
+import { useModalStore } from '@/shared/model/modalStore';
 import { serverService } from '@/entities/server/api/servive';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 
-interface IModalProps {
-  handleModal: () => void;
-  isModalOpen: boolean;
-  refetch: () => void;
+interface ModalProps {
+  // onModal: () => void;
+  // isModalOpen: boolean;
+  // refetch: () => void;
+  onCreate?: () => void;
 }
 
-const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
+const CreateServerModal = ({ onCreate }: ModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
+  const { closeModal } = useModalStore((state) => state);
   const debouncedName = useDebounce(serverName);
   // const data = serverQueries.getServerData();
   // console.log(data);
 
-  const handleServerCreate = () => {
+  const handleCreateServer = () => {
     if (!serverName.trim()) {
       alert('서버 이름을 입력해주세요.');
       return;
@@ -34,14 +37,14 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
     serverService.addServer(newServer);
 
     setServerName(''); // 입력 필드 초기화
-    handleModal(); // 모달 닫기
-    refetch();
+
+    onCreate?.();
+
+    closeModal(); // 모달 닫기
   };
 
   return (
     <ModalContainer
-      isOpen={isModalOpen}
-      onRequestClose={handleModal}
       title="서버를 만들어 보세요"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
     >
@@ -69,7 +72,7 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
       <div className="flex w-full flex-col gap-4 bg-dark-gray p-4">
         <div className="text-xl font-semibold">서버를 생성 하시겠습니까?</div>
         <button
-          onClick={handleServerCreate}
+          onClick={handleCreateServer}
           className="w-full rounded-md bg-gray py-2 text-white transition-colors hover:bg-blue"
         >
           서버 생성하기
@@ -79,4 +82,4 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
   );
 };
 
-export default Modal;
+export default CreateServerModal;
