@@ -14,7 +14,7 @@ interface ModalProps {
 
 const CreateServerModal = ({ onCreate }: ModalProps) => {
   const [serverName, setServerName] = useState<string>(''); // 서버 이름 상태
-  const { closeModal } = useModalStore((state) => state);
+  const { type, onCloseModal } = useModalStore((state) => state);
   const debouncedName = useDebounce(serverName);
   // const data = serverQueries.getServerData();
   // console.log(data);
@@ -39,14 +39,15 @@ const CreateServerModal = ({ onCreate }: ModalProps) => {
     setServerName(''); // 입력 필드 초기화
 
     onCreate?.();
-
-    closeModal(); // 모달 닫기
+    onCloseModal(); // 모달 닫기
   };
 
   return (
     <ModalContainer
+      isOpen={type === 'CREATE_SERVER'}
       title="서버를 만들어 보세요"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
+      onClose={onCloseModal}
     >
       <div className="flex w-full items-center justify-center">
         <div className="relative flex aspect-[1/1] w-[30%] cursor-pointer items-center justify-center rounded-[50%] border-2 border-dashed border-light-gray">

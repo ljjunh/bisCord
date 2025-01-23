@@ -10,13 +10,13 @@ import CreateServerModal from './CreateServerModal';
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
   const { data, isLoading, refetch } = useQuery({ ...serverQueries.getServers });
-  const { openModal } = useModalStore((state) => state);
+  const { onOpenModal } = useModalStore((state) => state);
 
   const servers = data?.content;
 
   // 모달 열기/닫기 핸들러
   const handleModal = () => {
-    openModal('CREATE_SERVER');
+    onOpenModal('CREATE_SERVER');
   };
 
   if (isLoading) return <></>;

@@ -7,12 +7,12 @@ const MODAL = {
 
 interface ModalStore {
   type: keyof typeof MODAL;
-  openModal: (type: keyof typeof MODAL) => void;
-  closeModal: () => void;
+  onOpenModal: (type: keyof typeof MODAL) => void;
+  onCloseModal: () => void;
 }
 
 export const useModalStore = create<ModalStore>()((set) => ({
   type: 'NONE',
-  openModal: (type) => set(() => ({ type })),
-  closeModal: () => set(() => ({ type: 'NONE' })),
+  onOpenModal: (type) => set(() => ({ type })),
+  onCloseModal: () => set(() => ({ type: 'NONE' })),
 }));
