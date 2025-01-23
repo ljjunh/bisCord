@@ -7,4 +7,7 @@ export const authQueries = {
   signIn: {
     mutationFn: authService.signIn,
   },
+  signOut: {
+    mutationFn: authService.signOut,
+  },
 };
