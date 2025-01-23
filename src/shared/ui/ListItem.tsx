@@ -18,7 +18,6 @@ const ListItem = ({ user }: IUserProps) => {
         <UserAvatar
           size={20}
           image={user.userImage}
-          state={user.userState}
         ></UserAvatar>
       )}
       {user.userName}

@@ -1,7 +1,7 @@
 import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
+import { LOGIN_STATUS } from '@/entities/user/model/constants';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
@@ -16,7 +16,7 @@ export const OnlineFriendsView = () => {
   const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     ...friendQueries.getFriends({
       type: FRIEND_REQUEST_TYPE.ACCEPTED,
-      status: FRIEND_LOGIN_STATUS.LOGIN,
+      status: LOGIN_STATUS.ONLINE,
       keyword: debouncedKeyword || undefined,
     }),
   });

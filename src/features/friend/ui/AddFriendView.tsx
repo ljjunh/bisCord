@@ -1,7 +1,6 @@
 import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
 import { userQueries } from '@/entities/user/api/queries';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
@@ -62,7 +61,7 @@ export const AddFriendView = () => {
                               <UserAvatar
                                 image={user.profileImageURL}
                                 size={20}
-                                state={user.loginStatus === FRIEND_LOGIN_STATUS.LOGIN}
+                                state={user.loginStatus}
                               />
                               <div className="flex gap-2">
                                 <h3 className="font-bold text-white">{user.name}</h3>

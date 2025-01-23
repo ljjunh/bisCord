@@ -1,6 +1,6 @@
 import { FriendRequestType } from '../model/types';
 import type { Friend } from '@/entities/friend/model/types';
-import { FRIEND_LOGIN_STATUS } from '@/entities/friend/model/constants';
+import { LOGIN_STATUS } from '@/entities/user/model/constants';
 import UserAvatar from '@/shared/ui/UserAvatar';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { AcceptFriendButton } from './AcceptFriendButton';
@@ -17,7 +17,7 @@ interface FriendItemProps {
 export const FriendItem = ({ mode, friend }: FriendItemProps) => {
   const getStatusText = () => {
     if (mode === FRIEND_REQUEST_TYPE.ACCEPTED) {
-      return friend.loginStatus === FRIEND_LOGIN_STATUS.LOGIN ? '온라인' : '오프라인';
+      return friend.loginStatus === LOGIN_STATUS.ONLINE ? '온라인' : '오프라인';
     }
     if (mode === FRIEND_REQUEST_TYPE.PENDING) {
       if (friend.status === 'INVITED') {
@@ -35,7 +35,7 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
         <UserAvatar
           image={friend.profileImageURL}
           size={20}
-          state={friend.loginStatus === FRIEND_LOGIN_STATUS.LOGIN ? true : false}
+          state={friend.loginStatus}
         />
       </figure>
       <div className="flex-1">
