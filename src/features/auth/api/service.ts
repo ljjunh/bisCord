@@ -26,4 +26,7 @@ export const authService = {
 
     return response.data.accessToken;
   },
+  signOut: async (): Promise<void> => {
+    await apiClient.post<void>({ url: '/login/logout' });
+  },
 };
