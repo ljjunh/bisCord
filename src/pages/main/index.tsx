@@ -11,7 +11,7 @@ const MainPage = () => {
         description={SEO_CONFIG.ROOT.description}
         url={SEO_CONFIG.ROOT.url}
       />
-      <div className="flex h-screen bg-yellow">
+      <div className="flex h-screen">
         <aside className="max-h-screen">
           <DirectMessageList />
         </aside>

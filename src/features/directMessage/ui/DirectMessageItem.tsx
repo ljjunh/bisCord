@@ -22,10 +22,10 @@ export const DirectMessageItem = ({ name, status, hasUnread }: DirectMessageItem
             className={cn(
               'border-gray-800 absolute bottom-0 right-0 h-3 w-3 rounded-full border-2',
               {
-                'bg-green': status === 'online',
-                'bg-gray': status === 'offline',
-                'bg-yellow': status === 'away',
-                'bg-red': status === 'busy',
+                'bg-green': status === 'ONLINE',
+                'bg-gray': status === 'OFFLINE',
+                'bg-yellow': status === 'AWAY',
+                'bg-red': status === 'BUSY',
               },
             )}
           />

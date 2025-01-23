@@ -1,8 +1,8 @@
-import type { UserStatus } from '@/entities/user/model/types';
+import type { LoginStatus } from '@/shared/model/types';
 
 export interface DirectMessage {
   id: number;
   name: string;
-  status: UserStatus;
+  status: LoginStatus;
   hasUnread: boolean;
 }
