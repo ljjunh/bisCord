@@ -5,6 +5,7 @@ import useGetParams from '@/entities/hooks/getParams';
 import { serverQueries } from '@/entities/server/api/queries';
 import EmptyList from '@/shared/ui/EmptyList';
 import ListContainer from '@/shared/ui/layout/ListContainer';
+import ChannelMessage from './ChannelMessage';
 
 /** 서버 채널 목록 리스트 UI */
 const ChannelList = () => {
@@ -21,16 +22,19 @@ const ChannelList = () => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <ListContainer>
-      {/* 서버 헤더 */}
-      <ChannelHeader
-        getServerData={getServerData?.name}
-        serverUri={getServerData?.serverUri}
-      />
+    <div className="flex w-full flex-row">
+      <ListContainer>
+        {/* 서버 헤더 */}
+        <ChannelHeader
+          getServerData={getServerData?.name}
+          serverUri={getServerData?.serverUri}
+        />
 
-      {/* 채널 리스트 */}
-      {getServerData ? <ChannelCategories serverId={getServerData.serverUri} /> : <EmptyList />}
-    </ListContainer>
+        {/* 채널 리스트 */}
+        {getServerData ? <ChannelCategories serverId={getServerData.serverUri} /> : <EmptyList />}
+      </ListContainer>
+      <ChannelMessage serverName={getServerData?.name} />
+    </div>
   );
 };
 

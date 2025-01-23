@@ -19,7 +19,7 @@ const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    ...serverQueries.postChannelCreate,
+    ...serverQueries.postCreateChannel,
     onSuccess: () => {
       toast.success('채널을 생성했습니다.');
       queryClient.invalidateQueries({

@@ -1,13 +1,13 @@
 import { PageInfo } from '@/shared/types/PageInfo';
 
-export interface IServers {
+export interface Servers {
   name: string;
   serverUri: string;
   serverImageURL: string;
 }
 
 export interface ServersDTO {
-  content: IServers[];
+  content: Servers[];
   pageInfo: PageInfo;
 }
 

@@ -10,13 +10,13 @@ import Modal from './Modal';
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { data, isLoading, refetch } = useQuery({ ...serverQueries.getServers });
+  const { data, refetch } = useQuery({ ...serverQueries.getServers });
   const servers = data?.content;
 
   // 모달 열기/닫기 핸들러
   const handleModal = () => setIsModalOpen(!isModalOpen);
 
-  if (isLoading) return <></>;
+  // localStorage.clear();
 
   return (
     <div className="flex h-[100vh] min-w-[60px] flex-col items-center gap-3 overflow-hidden bg-black py-3">
@@ -24,7 +24,7 @@ const SideNav = () => {
       <div>
         <DMAvavar link={ROUTES.ROOT} />
       </div>
-
+      <div className="h-[3px] w-[60%] rounded-md bg-gray" />
       {/* 현재 서버 리스트 */}
       <div className="flex flex-col gap-2 overflow-y-scroll scrollbar-hide">
         {servers &&

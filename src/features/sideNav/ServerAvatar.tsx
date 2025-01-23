@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import { ReactNode } from 'react';
-import { IServers } from '@/entities/server/model/types';
+import { Servers } from '@/entities/server/model/types';
 import { ROUTES } from '@/shared/constants/routes';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface IServerAvatarProps {
   children?: ReactNode;
   search?: boolean;
-  server?: IServers;
+  server?: Servers;
   link?: string;
 }
 /** 좌측 서버 아바타 컴포넌트 */
@@ -20,7 +20,7 @@ const ServerAvatar = ({ server }: IServerAvatarProps) => {
         <TooltipTrigger asChild>
           <NavLink
             to={newLink}
-            className={'relative flex items-center px-[10px]'}
+            className={'relative flex items-center px-[15px]'}
           >
             {({ isActive }) => (
               <>
@@ -30,7 +30,7 @@ const ServerAvatar = ({ server }: IServerAvatarProps) => {
                 <div
                   className={`flex h-[48px] w-[48px] items-center justify-center rounded-[50%] transition-all duration-300 ease-in-out ${
                     isActive ? 'rounded-2xl bg-blue' : 'bg-gray hover:rounded-2xl hover:bg-blue'
-                  } hover:before:absolute hover:before:left-0 hover:before:h-[10px] hover:before:w-[6px] hover:before:rounded-br-md hover:before:rounded-tr-md hover:before:bg-white`}
+                  } hover:before:absolute hover:before:left-0 hover:before:h-[10px] hover:before:w-[5px] hover:before:rounded-br-md hover:before:rounded-tr-md hover:before:bg-white`}
                 >
                   {/* 여기 이제 이미지 */}
                   <div className="overflow-hidden text-nowrap break-all text-center text-sm text-white">

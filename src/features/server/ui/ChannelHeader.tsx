@@ -13,6 +13,7 @@ const ChannelHeader = ({
 }) => {
   const [isToggle, setIsToggle] = useState<boolean>(false);
   console.log(serverUri);
+
   return (
     <>
       <DropdownMenu>

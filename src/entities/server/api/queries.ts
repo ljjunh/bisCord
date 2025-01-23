@@ -21,7 +21,10 @@ export const serverQueries = {
       queryFn: () => serverService.thisChannel({ serverUri }),
       enabled: !!serverUri,
     }),
-  postChannelCreate: {
+  postCreateServer: {
+    mutationFn: serverService.createServer,
+  },
+  postCreateChannel: {
     mutationFn: serverService.createChannel,
   },
 };

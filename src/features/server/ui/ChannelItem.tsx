@@ -21,7 +21,7 @@ const ChannelItem = ({ channel, link }: IChannelItemProps) => {
           `rounded-md text-light-gray hover:bg-gray ${isActive ? 'bg-gray text-white' : ''}`
         }
       >
-        <div className="flex flex-row items-center gap-2 p-2">
+        <div className="flex flex-row items-center gap-2 px-2 py-1">
           <ChannelUnlockedIcon size={15} />
           <div className="text-md flex-grow font-normal">{name}</div>
           <ChannelAddBtn

@@ -13,7 +13,7 @@ const DMAvavar = ({ link }: DMAvatar) => {
         <TooltipTrigger asChild>
           <NavLink
             to={link}
-            className={'relative flex items-center px-[10px]'}
+            className={'relative flex items-center px-[15px]'}
           >
             {({ isActive }) => (
               <>
@@ -23,7 +23,7 @@ const DMAvavar = ({ link }: DMAvatar) => {
                 <div
                   className={`flex h-[48px] w-[48px] items-center justify-center rounded-[50%] transition-all duration-300 ease-in-out ${
                     isActive ? 'rounded-2xl bg-blue' : 'bg-gray hover:rounded-2xl hover:bg-blue'
-                  } hover:before:absolute hover:before:left-0 hover:before:h-[10px] hover:before:w-[6px] hover:before:rounded-br-md hover:before:rounded-tr-md hover:before:bg-white`}
+                  } hover:before:absolute hover:before:left-0 hover:before:h-[10px] hover:before:w-[5px] hover:before:rounded-br-md hover:before:rounded-tr-md hover:before:bg-white`}
                 >
                   <DiscordIcon
                     size={30}
