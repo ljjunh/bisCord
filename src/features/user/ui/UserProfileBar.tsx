@@ -18,11 +18,12 @@ export const UserProfileBar = () => {
     <div className="flex h-8 w-full items-center justify-between">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="group flex flex-1 items-center gap-2 rounded-sm hover:bg-mid-gray">
+          <div className="group flex flex-1 cursor-pointer items-center gap-2 rounded-sm hover:bg-mid-gray">
             <UserAvatar
               size={20}
               image={user?.profileImageURL}
               state={currentStatus}
+              bg="light-gray"
             />
             <div className="w-full">
               <div className="font-bold text-white">{user?.name}</div>
