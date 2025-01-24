@@ -21,3 +21,17 @@ export interface Channel {
   type: 'TEXT' | 'VOICE';
   roleId: number;
 }
+
+export interface ChannelMemberDTO {
+  id: number;
+  userId: number;
+  name: string;
+  roleId: number;
+  profileImageURL: string | null;
+  loginStatus: 'LOGOUT';
+}
+
+export interface GetMembersDTO {
+  serverUri: string;
+  channelId: string;
+}

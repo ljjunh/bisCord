@@ -1,21 +1,21 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useModalStore } from '@/shared/model/modalStore';
 import { serverQueries } from '@/entities/server/api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
-import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../useModalForm';
-import { ModalForm } from './form';
+import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
+import { ModalForm } from '../form';
 
 // import { ReactNode } from 'react';
 
 interface IModalProps {
-  handleModal: () => void;
-  isModalOpen: boolean;
   serverId: string;
 }
 
-const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
+const CreateChannelModal = ({ serverId }: IModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
+  const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
@@ -27,7 +27,7 @@ const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
       });
 
       methods.reset(); // 폼 초기화
-      handleModal();
+      onCloseModal();
     },
     onError: (error) => {
       console.log(error);
@@ -51,8 +51,8 @@ const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
 
   return (
     <ModalContainer
-      isOpen={isModalOpen}
-      onRequestClose={handleModal}
+      isOpen={type === 'CREATE_CHANNEL'}
+      onClose={onCloseModal}
       title="채널 만들기"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
     >
@@ -85,4 +85,4 @@ const Modal = ({ handleModal, isModalOpen, serverId }: IModalProps) => {
   );
 };
 
-export default Modal;
+export default CreateChannelModal;
