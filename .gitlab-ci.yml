@@ -13,6 +13,9 @@ build:
   tags:
     - biscord-frontend-runner
   script:
+    - echo "VITE_API_BASE_URL=${API_BASE_URL}" >> .env
+    - echo "VITE_BASE_URL=${BASE_URL}" >> .env
+    - echo "VITE_SOCIAL_BASE_URL=${SOCIAL_BASE_URL}" >> .env
     - npm install
     - npm run build
   artifacts:

@@ -1,6 +1,6 @@
-import IconTypes from "../../entities/types/IconType";
+import IconTypes from '../types/IconType';
 
-const ArrowRight = ({ size = 20, color = "#828391" }: IconTypes) => {
+const ArrowRight = ({ size = 20, color = '#828391' }: IconTypes) => {
   return (
     <svg
       width={size * 0.7}

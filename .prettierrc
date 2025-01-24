@@ -11,11 +11,24 @@
   "useTabs": false,
   "bracketSameLine": false,
   "bracketSpacing": true,
-  "importOrder": ["^(react|react-dom)$"],
+  "importOrder": [
+    "^(react|react-dom)$",
+    "@[a-zA-Z@]",
+    ".*/types?/.*|.*(types?|dto)$",
+    ".*Store",
+    "^@/app/(.*)$",
+    "^@/pages/(.*)$",
+    "^@/widgets/(.*)$",
+    "^@/features/(.*)$",
+    "^@/entities/(.*)$",
+    "^@/shared/(.*)$",
+    ".*service$",
+    ".*queries$",
+    ".*use[A-Z].*$",
+    ".*constants?$",
+    "^[./]"
+  ],
   "importOrderSortSpecifiers": true,
   "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
-  "plugins": [
-    "@trivago/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss"
-  ]
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"]
 }
