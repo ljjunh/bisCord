@@ -1,6 +1,6 @@
-import IconTypes from "../../entities/types/IconType";
+import IconTypes from '../types/IconType';
 
-const ChannelUnlockedIcon = ({ size = 20, color = "#828391" }: IconTypes) => {
+const ChannelUnlockedIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
   return (
     <svg
       width={size}
