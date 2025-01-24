@@ -26,8 +26,8 @@ const ChannelList = () => {
       <ListContainer>
         {/* 서버 헤더 */}
         <ChannelHeader
-          getServerData={getServerData?.name}
-          serverUri={getServerData?.serverUri}
+          getServerData={getServerData}
+          serverUri={getServerData?.serverUri ?? ''}
         />
 
         {/* 채널 리스트 */}

@@ -1,3 +1,4 @@
+import { useModalStore } from '@/shared/model/modalStore';
 import AddUserIcon from '@/shared/icons/AddUserIcon';
 import {
   DropdownMenuGroup,
@@ -7,6 +8,17 @@ import {
 } from '@/shared/ui/dropdown-menu';
 
 const ServerDropDownMenu = () => {
+  const { onOpenModal } = useModalStore((state) => state);
+
+  const handleModal = (type: string) => {
+    if (type === 'create') {
+      onOpenModal('CREATE_CHANNEL');
+    }
+    if (type === 'delete') {
+      onOpenModal('DELETE_DERVER');
+    }
+  };
+
   return (
     <>
       <DropdownMenuLabel>서버 관리</DropdownMenuLabel>
@@ -19,12 +31,15 @@ const ServerDropDownMenu = () => {
         <DropdownMenuItem>
           <span className="mr-auto">서버 설정</span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleModal('create')}>
           <span className="mr-auto">채널 만들기</span>
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator className="bg-gray opacity-50" />
-      <DropdownMenuItem className="text-red focus:bg-red">
+      <DropdownMenuItem
+        className="text-red focus:bg-red"
+        onClick={() => handleModal('delete')}
+      >
         <span className="">서버 삭제하기</span>
       </DropdownMenuItem>
     </>

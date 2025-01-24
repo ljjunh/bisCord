@@ -21,10 +21,17 @@ export const serverQueries = {
       queryFn: () => serverService.thisChannel({ serverUri }),
       enabled: !!serverUri,
     }),
+
+  // 생성 관련 api
   postCreateServer: {
     mutationFn: serverService.createServer,
   },
   postCreateChannel: {
     mutationFn: serverService.createChannel,
+  },
+
+  // 삭제 관련 api
+  deleteServer: {
+    mutationFn: serverService.deleteServer,
   },
 };

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useModalStore } from '@/shared/model/modalStore';
 import { serverQueries } from '@/entities/server/api/queries';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import EmptyList from '@/shared/ui/EmptyList';
@@ -7,7 +8,7 @@ import ArrowDown from '../../../shared/icons/ArrowDown';
 import ArrowRight from '../../../shared/icons/ArrowRight';
 import ChannelAddBtn from './ChannelAddBtn';
 import ChannelItem from './ChannelItem';
-import Modal from './Modal';
+import CreateChannelModal from './CreateChannelModal';
 
 interface IChannelCategoriesProps {
   serverId: string;
@@ -16,7 +17,7 @@ interface IChannelCategoriesProps {
 const ChannelCategories = ({ serverId }: IChannelCategoriesProps) => {
   const [listOpen, setListOpen] = useState<boolean>(true);
   const [voiceListOpen, setVoiceListOpen] = useState<boolean>(true);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const { onOpenModal } = useModalStore((state) => state);
 
   const { data: getChannels } = useQuery({ ...serverQueries.getChannels(serverId) });
   // 채널을 type별로 분리
@@ -25,16 +26,12 @@ const ChannelCategories = ({ serverId }: IChannelCategoriesProps) => {
 
   /** 모달 토글 */
   const handleModal = () => {
-    setIsModalOpen(!isModalOpen);
+    onOpenModal('CREATE_CHANNEL');
   };
 
   return (
     <div className="flex flex-col px-2">
-      <Modal
-        serverId={serverId}
-        handleModal={handleModal}
-        isModalOpen={isModalOpen}
-      />
+      <CreateChannelModal serverId={serverId} />
       <div className="flex cursor-pointer items-center py-1 text-light-gray hover:text-white">
         <div
           className="flex flex-grow gap-2"
@@ -43,11 +40,7 @@ const ChannelCategories = ({ serverId }: IChannelCategoriesProps) => {
           <div className="flex w-[15px] items-center justify-center">
             {listOpen ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
           </div>
-          {/* channel 카테고리 */}
-          <div className={`flex-grow text-xs ${listOpen ? 'text-white' : ''}`}>
-            {/* {channel?.name} */}
-            채팅 채널
-          </div>
+          <div className={`flex-grow text-xs ${listOpen ? 'text-white' : ''}`}>채팅 채널</div>
         </div>
         <ChannelAddBtn
           locate="right"

@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useModalStore } from '@/shared/model/modalStore';
 import { ModalForm } from '@/features/server/ui/form';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '@/features/server/useModalForm';
 import { serverQueries } from '@/entities/server/api/queries';
@@ -7,14 +8,13 @@ import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import PlusIcon from '@/shared/icons/PlusIcon';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 
-interface IModalProps {
-  handleModal: () => void;
-  isModalOpen: boolean;
+interface CreateServerModal {
   refetch: () => void;
 }
 
-const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
+const CreateServerModal = ({ refetch }: CreateServerModal) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
+  const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -25,8 +25,8 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
       });
       methods.reset(); // 폼 초기화
       toast.success('서버를 생성했습니다.');
-      handleModal(); // 모달 닫기
       refetch();
+      onCloseModal();
     },
   });
 
@@ -48,8 +48,8 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
 
   return (
     <ModalContainer
-      isOpen={isModalOpen}
-      onRequestClose={handleModal}
+      isOpen={type === 'CREATE_SERVER'}
+      onClose={onCloseModal}
       title="서버를 만들어 보세요"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
     >
@@ -92,4 +92,4 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
   );
 };
 
-export default Modal;
+export default CreateServerModal;

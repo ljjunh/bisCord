@@ -56,4 +56,11 @@ export const serverService = {
 
     return response.data;
   },
+
+  // 해당 서버를 삭제합니다
+  deleteServer: async (serverUri: string): Promise<Servers> => {
+    const response = await apiClient.delete<Servers>({ url: `/server/${serverUri}` });
+
+    return response.data;
+  },
 };
