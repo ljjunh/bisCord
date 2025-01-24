@@ -1,4 +1,4 @@
-import { Channel, ChannelDTO, Servers, ServersDTO } from '../model/types';
+import { Channel, ChannelDTO, ChannelMemberDTO, Servers, ServersDTO } from '../model/types';
 import { apiClient } from '@/shared/api/apiClient';
 
 // 여기 엔티티
@@ -52,6 +52,28 @@ export const serverService = {
         type: data.type,
         roleId: data.roleId,
       },
+    });
+
+    return response.data;
+  },
+
+  // 해당 서버를 삭제합니다
+  deleteServer: async (serverUri: string): Promise<Servers> => {
+    const response = await apiClient.delete<Servers>({ url: `/server/${serverUri}` });
+
+    return response.data;
+  },
+
+  // 유저 관련
+  getChannelMembers: async ({
+    serverUri,
+    channelId,
+  }: {
+    serverUri: string;
+    channelId: string;
+  }): Promise<ChannelMemberDTO[]> => {
+    const response = await apiClient.get<ChannelMemberDTO[]>({
+      url: `/server/${serverUri}/channel/${channelId}/channel-user`,
     });
 
     return response.data;

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ChannelCategories from '@/features/server/ui/ChannelCategories';
 import ChannelHeader from '@/features/server/ui/ChannelHeader';
@@ -18,6 +19,10 @@ const ChannelList = () => {
     enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
 
+  useEffect(() => {
+    console.log(getServerData);
+  }, [getServerData]);
+
   /** 데이터를 가져오는 중입니다 */
   if (isLoading) return <p>Loading...</p>;
 
@@ -26,14 +31,14 @@ const ChannelList = () => {
       <ListContainer>
         {/* 서버 헤더 */}
         <ChannelHeader
-          getServerData={getServerData?.name}
-          serverUri={getServerData?.serverUri}
+          getServerData={getServerData}
+          serverUri={getServerData?.serverUri ?? ''}
         />
 
         {/* 채널 리스트 */}
         {getServerData ? <ChannelCategories serverId={getServerData.serverUri} /> : <EmptyList />}
       </ListContainer>
-      <ChannelMessage serverName={getServerData?.name} />
+      <ChannelMessage server={getServerData} />
     </div>
   );
 };

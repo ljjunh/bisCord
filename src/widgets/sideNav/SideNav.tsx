@@ -1,20 +1,21 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useModalStore } from '@/shared/model/modalStore';
 import CreateServerAvatar from '@/features/sideNav/CreateServerAvatar';
 import { serverQueries } from '@/entities/server/api/queries';
 import { ROUTES } from '@/shared/constants/routes';
 import DMAvavar from '../../features/sideNav/DMAvavar';
 import ServerAvatar from '../../features/sideNav/ServerAvatar';
-import Modal from './Modal';
+import CreateServerModal from './CreateServerModal';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { data, refetch } = useQuery({ ...serverQueries.getServers });
+  const { onOpenModal } = useModalStore((state) => state);
+
   const servers = data?.content;
 
   // 모달 열기/닫기 핸들러
-  const handleModal = () => setIsModalOpen(!isModalOpen);
+  const handleModal = () => onOpenModal('CREATE_SERVER');
 
   // localStorage.clear();
 
@@ -42,11 +43,7 @@ const SideNav = () => {
       </div>
 
       {/* 모달입니당 */}
-      <Modal
-        refetch={refetch}
-        handleModal={handleModal}
-        isModalOpen={isModalOpen}
-      ></Modal>
+      <CreateServerModal refetch={refetch} />
     </div>
   );
 };
