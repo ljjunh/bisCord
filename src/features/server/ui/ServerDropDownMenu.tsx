@@ -15,7 +15,10 @@ const ServerDropDownMenu = () => {
       onOpenModal('CREATE_CHANNEL');
     }
     if (type === 'delete') {
-      onOpenModal('DELETE_DERVER');
+      onOpenModal('DELETE_SERVER');
+    }
+    if (type === 'invite') {
+      onOpenModal('INVIDE_MEMBER');
     }
   };
 
@@ -24,7 +27,7 @@ const ServerDropDownMenu = () => {
       <DropdownMenuLabel>서버 관리</DropdownMenuLabel>
       <DropdownMenuSeparator className="bg-gray opacity-50" />
       <DropdownMenuGroup>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleModal('invite')}>
           <span className="mr-auto">친구 초대하기</span>
           <AddUserIcon size={15} />
         </DropdownMenuItem>

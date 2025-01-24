@@ -4,8 +4,8 @@ import { useModalStore } from '@/shared/model/modalStore';
 import { serverQueries } from '@/entities/server/api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
-import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../useModalForm';
-import { ModalForm } from './form';
+import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
+import { ModalForm } from '../form';
 
 // import { ReactNode } from 'react';
 

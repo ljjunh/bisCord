@@ -28,6 +28,10 @@ const CreateServerModal = ({ refetch }: CreateServerModal) => {
       refetch();
       onCloseModal();
     },
+    onError: (error) => {
+      console.log(error);
+      toast.error('서버 생성에 실패했습니다. 다시 시도해주세요.');
+    },
   });
 
   const handleCreateServer = (data: FormType) => {

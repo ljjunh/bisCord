@@ -8,7 +8,7 @@ import ArrowDown from '../../../shared/icons/ArrowDown';
 import ArrowRight from '../../../shared/icons/ArrowRight';
 import ChannelAddBtn from './ChannelAddBtn';
 import ChannelItem from './ChannelItem';
-import CreateChannelModal from './CreateChannelModal';
+import CreateChannelModal from './modals/CreateChannelModal';
 
 interface IChannelCategoriesProps {
   serverId: string;
@@ -75,12 +75,12 @@ const ChannelCategories = ({ serverId }: IChannelCategoriesProps) => {
           onClick={() => setVoiceListOpen((prev) => !prev)}
         >
           <div className="flex w-[15px] items-center justify-center">
-            {listOpen ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
+            {voiceListOpen ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
           </div>
           {/* channel 카테고리 */}
           <div className={`flex-grow text-xs ${listOpen ? 'text-white' : ''}`}>
             {/* {channel?.name} */}
-            채팅 채널
+            음성 채널
           </div>
         </div>
         <ChannelAddBtn

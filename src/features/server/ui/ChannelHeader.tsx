@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Servers } from '@/entities/server/model/types';
 import ArrowDown from '@/shared/icons/ArrowDown';
 import CloseIcon from '@/shared/icons/CloseIcon';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
-import CreateChannelModal from './CreateChannelModal';
-import DeleteModal from './DeleteModal';
 import ServerDropDownMenu from './ServerDropDownMenu';
+import CreateChannelModal from './modals/CreateChannelModal';
+import DeleteModal from './modals/DeleteModal';
 
 const ChannelHeader = ({
   getServerData,
@@ -16,10 +16,10 @@ const ChannelHeader = ({
 }) => {
   const [isToggle, setIsToggle] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log(serverUri);
-    console.log(getServerData);
-  }, [serverUri, getServerData]);
+  // useEffect(() => {
+  //   console.log(serverUri);
+  //   console.log(getServerData);
+  // }, [serverUri, getServerData]);
 
   return (
     <>

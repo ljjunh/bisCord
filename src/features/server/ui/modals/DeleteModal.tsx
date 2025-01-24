@@ -6,8 +6,8 @@ import { useModalStore } from '@/shared/model/modalStore';
 import { serverQueries } from '@/entities/server/api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
-import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../useModalForm';
-import { ModalForm } from './form';
+import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
+import { ModalForm } from '../form';
 
 interface IModalProps {
   getServerData: Servers | undefined;
@@ -57,7 +57,7 @@ const DeleteModal = ({ getServerData }: IModalProps) => {
 
   return (
     <ModalContainer
-      isOpen={type === 'DELETE_DERVER'}
+      isOpen={type === 'DELETE_SERVER'}
       onClose={onCloseModal}
       title={`'${getServerData?.name}님의 서버' 삭제`}
       description=""

@@ -34,4 +34,11 @@ export const serverQueries = {
   deleteServer: {
     mutationFn: serverService.deleteServer,
   },
+
+  getMember: ({ serverUri, channelId }: { serverUri: string; channelId: string }) =>
+    queryOptions({
+      queryKey: QUERY_KEYS.channel.members(serverUri, channelId),
+      queryFn: () => serverService.getChannelMembers({ serverUri, channelId }),
+      enabled: !!serverUri && !!channelId, // 두 값 모두 유효할 때만 실행
+    }),
 };
