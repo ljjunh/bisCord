@@ -16,11 +16,6 @@ const ChannelHeader = ({
 }) => {
   const [isToggle, setIsToggle] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   console.log(serverUri);
-  //   console.log(getServerData);
-  // }, [serverUri, getServerData]);
-
   return (
     <>
       <DropdownMenu>

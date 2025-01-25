@@ -5,12 +5,12 @@ import AddUserIcon from '@/shared/icons/AddUserIcon';
 import ChannelUnlockedIcon from '@/shared/icons/ChannelUnlockedIcon';
 import ChannelAddBtn from './ChannelAddBtn';
 
-interface IChannelItemProps {
+interface ChannelItem {
   channel: Channel;
   link: string;
 }
 
-const ChannelItem = ({ channel, link }: IChannelItemProps) => {
+const ChannelItem = ({ channel, link }: ChannelItem) => {
   const { id, name } = channel;
 
   return (

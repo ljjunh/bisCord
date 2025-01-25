@@ -1,4 +1,4 @@
-import { Channel, ChannelDTO, ChannelMemberDTO, Servers, ServersDTO } from '../model/types';
+import { Channel, ChannelDTO, MemberDTO, Servers, ServersDTO } from '../model/types';
 import { apiClient } from '@/shared/api/apiClient';
 
 // 여기 엔티티
@@ -65,15 +65,9 @@ export const serverService = {
   },
 
   // 유저 관련
-  getChannelMembers: async ({
-    serverUri,
-    channelId,
-  }: {
-    serverUri: string;
-    channelId: string;
-  }): Promise<ChannelMemberDTO[]> => {
-    const response = await apiClient.get<ChannelMemberDTO[]>({
-      url: `/server/${serverUri}/channel/${channelId}/channel-user`,
+  getServerMembers: async ({ serverUri }: { serverUri: string }): Promise<MemberDTO> => {
+    const response = await apiClient.get<MemberDTO>({
+      url: `/server/${serverUri}/server-user`,
     });
 
     return response.data;

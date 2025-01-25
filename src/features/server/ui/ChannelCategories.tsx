@@ -10,11 +10,11 @@ import ChannelAddBtn from './ChannelAddBtn';
 import ChannelItem from './ChannelItem';
 import CreateChannelModal from './modals/CreateChannelModal';
 
-interface IChannelCategoriesProps {
+interface ChannelCategories {
   serverId: string;
 }
 
-const ChannelCategories = ({ serverId }: IChannelCategoriesProps) => {
+const ChannelCategories = ({ serverId }: ChannelCategories) => {
   const [listOpen, setListOpen] = useState<boolean>(true);
   const [voiceListOpen, setVoiceListOpen] = useState<boolean>(true);
   const { onOpenModal } = useModalStore((state) => state);
@@ -30,7 +30,7 @@ const ChannelCategories = ({ serverId }: IChannelCategoriesProps) => {
   };
 
   return (
-    <div className="flex flex-col px-2">
+    <div className="flex flex-grow flex-col px-2">
       <CreateChannelModal serverId={serverId} />
       <div className="flex cursor-pointer items-center py-1 text-light-gray hover:text-white">
         <div

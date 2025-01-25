@@ -9,11 +9,11 @@ import { ModalForm } from '../form';
 
 // import { ReactNode } from 'react';
 
-interface IModalProps {
+interface CreateChannelModal {
   serverId: string;
 }
 
-const CreateChannelModal = ({ serverId }: IModalProps) => {
+const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
