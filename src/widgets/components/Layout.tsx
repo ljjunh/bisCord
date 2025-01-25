@@ -1,5 +1,6 @@
 // import ChannelList from '../channel/ui/ChannelList';
 import { Outlet } from 'react-router-dom';
+import { UserProfileModal } from '@/features/user/ui/UserProfileModal';
 import ContentsContainer from '@/shared/ui/layout/ContentsContainer';
 import SideNav from '../sideNav/SideNav';
 
@@ -10,6 +11,7 @@ const Layout = () => {
       <SideNav />
       <ContentsContainer>
         <Outlet />
+        <UserProfileModal />
       </ContentsContainer>
     </div>
   );

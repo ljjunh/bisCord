@@ -11,12 +11,17 @@ import { UserSettingsButton } from './UserSettingsButton';
 export const UserProfileBar = () => {
   const user = useAuthStore((state) => state.user);
   const currentStatus = user?.loginStatus ?? 'OFFLINE';
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMicMuted, setIsMicMuted] = useState(true);
   const [isAudioMuted, setIsAudioMuted] = useState(true);
 
   return (
     <div className="flex h-8 w-full items-center justify-between">
-      <DropdownMenu>
+      <DropdownMenu
+        open={isDropdownOpen}
+        onOpenChange={setIsDropdownOpen}
+      >
         <DropdownMenuTrigger asChild>
           <div className="group flex flex-1 cursor-pointer items-center gap-2 rounded-sm hover:bg-mid-gray">
             <UserAvatar
@@ -46,7 +51,7 @@ export const UserProfileBar = () => {
           align="start"
           sideOffset={15}
         >
-          <UserProfileCard />
+          <UserProfileCard onCloseDropdown={setIsDropdownOpen} />
         </DropdownMenuContent>
       </DropdownMenu>
 
