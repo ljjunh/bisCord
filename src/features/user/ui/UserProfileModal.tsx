@@ -7,34 +7,20 @@ import { useModalStore } from '@/shared/model/modalStore';
 import { userQueries } from '@/entities/user/api/queries';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { userQueries as userMutations } from '../api/queries';
+import { UserImageUploader } from './UserImageUploader';
 
 export const UserProfileModal = () => {
-  // TODO : 분리하자 (이미지, 폼 제출)
   const { type, onCloseModal } = useModalStore((state) => state);
   const { user, setAuth } = useAuthStore((state) => state);
-  const { data: userData, refetch } = useQuery({
-    ...userQueries.getUser(),
-  });
-
-  const { mutate } = useMutation({
-    ...userMutations.putUserProfile,
-    onSuccess: (updatedFields) => {
-      setAuth({ ...user!, ...updatedFields });
-      toast.success('저장되었습니다');
-      refetch();
-    },
-  });
-
   const [profileData, setProfileData] = useState<UserProfile>({
     name: '',
     description: '',
     image: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    mutate(profileData);
-  };
+  const { data: userData, refetch } = useQuery({
+    ...userQueries.getUser(),
+  });
 
   useEffect(() => {
     if (userData) {
@@ -46,14 +32,22 @@ export const UserProfileModal = () => {
     }
   }, [userData]);
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setProfileData((prev) => ({
-        ...prev,
-        image: file,
-      }));
-    }
+  const { mutate } = useMutation({
+    ...userMutations.putUserProfile,
+    onSuccess: (updatedFields) => {
+      setAuth({ ...user!, ...updatedFields });
+      toast.success('저장되었습니다');
+      refetch();
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    mutate(profileData);
+  };
+
+  const handleImageChange = (file: File | string) => {
+    setProfileData((prev) => ({ ...prev, image: file }));
   };
 
   return (
@@ -68,43 +62,10 @@ export const UserProfileModal = () => {
         className="space-y-4 p-2 text-left"
       >
         <div className="flex flex-col items-center gap-2">
-          <div className="relative h-24 w-24">
-            <label className="flex h-full w-full cursor-pointer items-center justify-center rounded-full border-2 border-dashed border-dark-gray hover:border-mid-gray">
-              {profileData.image && (
-                <img
-                  src={
-                    typeof profileData.image === 'object'
-                      ? URL.createObjectURL(profileData.image)
-                      : profileData.image
-                  }
-                  alt="프로필 이미지"
-                  className="absolute h-full w-full rounded-full object-cover"
-                />
-              )}
-              <input
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={handleImageChange}
-              />
-              {!profileData.image && (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="h-8 w-8 text-white"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 4.5v15m7.5-7.5h-15"
-                  />
-                </svg>
-              )}
-            </label>
-          </div>
+          <UserImageUploader
+            image={profileData.image}
+            onImageChange={handleImageChange}
+          />
         </div>
 
         <div className="space-y-2">
