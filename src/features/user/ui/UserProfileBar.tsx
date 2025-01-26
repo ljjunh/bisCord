@@ -24,12 +24,14 @@ export const UserProfileBar = () => {
       >
         <DropdownMenuTrigger asChild>
           <div className="group flex flex-1 cursor-pointer items-center gap-2 rounded-sm hover:bg-mid-gray">
-            <UserAvatar
-              size={20}
-              image={user?.profileImageURL}
-              state={currentStatus}
-              bg="light-gray"
-            />
+            <div className="h-[35px] w-[35px]">
+              <UserAvatar
+                size={20}
+                image={user?.profileImageURL}
+                state={currentStatus}
+                bg="light-gray"
+              />
+            </div>
             <div className="w-full">
               <div className="font-bold text-white">{user?.name}</div>
               <div className="relative h-4 overflow-hidden">
