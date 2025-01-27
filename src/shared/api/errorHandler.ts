@@ -57,6 +57,6 @@ export class TokenExpiredHandler {
   static handleError() {
     toast.error('인증이 만료되었습니다.');
     useAuthStore.getState().clearAuth();
-    // window.location.href = '/signin';
+    window.location.href = '/signin';
   }
 }
