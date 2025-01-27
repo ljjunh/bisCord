@@ -2,6 +2,7 @@ import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { EditIcon } from '@/shared/icons/EditIcon';
 import UserAvatar from '@/shared/ui/UserAvatar';
+import { SignOffButton } from '../../auth/ui/SignOffButton';
 import { SignOutButton } from '../../auth/ui/SignOutButton';
 import { UserStatusMenu } from './UserStatusMenu';
 
@@ -47,9 +48,7 @@ export const UserProfileCard = ({ onCloseDropdown }: UserProfileCardProps) => {
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
-        <button className="w-full px-2 py-1 text-left hover:rounded hover:bg-mid-gray hover:text-white">
-          회원탈퇴
-        </button>
+        <SignOffButton />
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
