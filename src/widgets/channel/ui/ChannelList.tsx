@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import ChannelCategories from '@/features/server/ui/ChannelCategories';
 import ChannelHeader from '@/features/server/ui/ChannelHeader';
+import { UserProfileBar } from '@/features/user/ui/UserProfileBar';
 import useGetParams from '@/entities/hooks/getParams';
 import { serverQueries } from '@/entities/server/api/queries';
 import EmptyList from '@/shared/ui/EmptyList';
@@ -20,7 +21,7 @@ const ChannelList = () => {
   });
 
   useEffect(() => {
-    console.log(getServerData);
+    // console.log(getServerData);
   }, [getServerData]);
 
   /** 데이터를 가져오는 중입니다 */
@@ -37,6 +38,9 @@ const ChannelList = () => {
 
         {/* 채널 리스트 */}
         {getServerData ? <ChannelCategories serverId={getServerData.serverUri} /> : <EmptyList />}
+        <div className="bg-black px-2 py-3">
+          <UserProfileBar />
+        </div>
       </ListContainer>
       <ChannelMessage server={getServerData} />
     </div>

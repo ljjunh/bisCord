@@ -35,10 +35,10 @@ export const serverQueries = {
     mutationFn: serverService.deleteServer,
   },
 
-  getMember: ({ serverUri, channelId }: { serverUri: string; channelId: string }) =>
+  getMembers: ({ serverUri }: { serverUri: string }) =>
     queryOptions({
-      queryKey: QUERY_KEYS.channel.members(serverUri, channelId),
-      queryFn: () => serverService.getChannelMembers({ serverUri, channelId }),
-      enabled: !!serverUri && !!channelId, // 두 값 모두 유효할 때만 실행
+      queryKey: QUERY_KEYS.server.members(serverUri),
+      queryFn: () => serverService.getServerMembers({ serverUri }),
+      enabled: !!serverUri, // 유효할 때만 실행
     }),
 };
