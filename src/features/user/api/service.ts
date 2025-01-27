@@ -3,6 +3,7 @@ import type {
   GetImageUrlResponseDTO,
   PostImageDTO,
   PostImageResponseDTO,
+  PostUserStatusDTO,
   PutImageToS3DTO,
   PutUserDTO,
   PutUserProfileDTO,
@@ -76,5 +77,12 @@ export const userService = {
       description,
       profileImageURL: profileImageURL as string,
     };
+  },
+
+  postUserStatus: async ({ status }: PostUserStatusDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: '/user/status',
+      params: { status },
+    });
   },
 };
