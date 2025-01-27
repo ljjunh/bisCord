@@ -1,5 +1,6 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { toast } from 'react-toastify';
+import type { ApiErrorResponse } from '../types/apiResponse';
 import { useAuthStore } from '../model/authStore';
 import { axiosInstance } from './apiClient';
 
@@ -15,10 +16,14 @@ export class NetworkOfflineError extends Error {
 }
 
 export class TokenExpiredHandler {
-  static validate(error: AxiosError) {
+  static validate(error: AxiosError<ApiErrorResponse>) {
     const request = error.config as CustomAxiosRequestConfig;
 
-    return error.response?.status === 401 && !request._retry;
+    return (
+      error.response?.status === 401 &&
+      !request._retry &&
+      error.response.data.errorDetails.errorName === 'UNAUTHORIZED_USER'
+    );
   }
 
   static async handleRefresh(error: AxiosError) {
@@ -52,6 +57,6 @@ export class TokenExpiredHandler {
   static handleError() {
     toast.error('인증이 만료되었습니다.');
     useAuthStore.getState().clearAuth();
-    window.location.href = '/signin';
+    // window.location.href = '/signin';
   }
 }
