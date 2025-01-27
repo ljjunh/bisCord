@@ -55,6 +55,7 @@ export const UserProfileModal = () => {
       isOpen={type === 'USER_PROFILE'}
       onClose={onCloseModal}
       title="프로필 편집"
+      description=""
     >
       <form
         onSubmit={handleSubmit}

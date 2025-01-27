@@ -5,7 +5,7 @@ import CloseIcon from '@/shared/icons/CloseIcon';
 interface ModalContainer extends PropsWithChildren {
   isOpen: boolean;
   title: string;
-  description?: string;
+  description: string;
   onClose: () => void;
 }
 
@@ -27,7 +27,7 @@ const ModalContainer = ({ isOpen, title, description, children, onClose }: Modal
       </div>
       <div className="px-4">
         <h2 className="text-2xl font-bold">{title}</h2>
-        {description && <p className="mt-2 text-light-gray">{description}</p>}
+        <p className="mt-2 text-light-gray">{description}</p>
       </div>
       {children}
     </ReactModal>
