@@ -60,7 +60,7 @@ export const UserImageUploader = ({ image, onImageChange }: UserImageUploaderPro
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-8 w-8 text-white"
+            className="h-8 w-8 text-dark-gray"
           >
             <path
               strokeLinecap="round"

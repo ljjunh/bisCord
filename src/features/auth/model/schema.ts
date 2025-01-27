@@ -33,3 +33,11 @@ export const signUpSchema = z
   });
 
 export type SignUpFormData = z.infer<typeof signUpSchema>;
+
+export const signOffSchema = z.object({
+  confirmText: z.literal('회원탈퇴', {
+    errorMap: () => ({ message: '회원탈퇴를 정확히 입력해주세요' }),
+  }),
+});
+
+export type SignOffFormData = z.infer<typeof signOffSchema>;
