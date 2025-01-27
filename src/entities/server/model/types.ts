@@ -17,8 +17,16 @@ export interface ChannelDTO {
   pageInfo: PageInfo;
 }
 
+export interface GetmemberDTO {
+  serverUri: string;
+  roleId?: number;
+  keyword?: string;
+  page?: number;
+  size?: number;
+}
+
 export interface MemberDTO {
-  content: Channel[];
+  content: ServerMemberDTO[];
   pageInfo: PageInfo;
 }
 
@@ -33,12 +41,15 @@ export interface ServerMemberDTO {
   id: number;
   userId: number;
   name: string;
-  roleId: number;
+  roleRank: number;
+  roleName: string;
   profileImageURL: string | null;
   loginStatus: FriendStatus;
 }
 
-export interface GetMembersDTO {
+export interface PostInviteServer {
   serverUri: string;
-  channelId: string;
+}
+export interface InviteServer {
+  inviteUrl: string;
 }

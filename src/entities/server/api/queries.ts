@@ -1,4 +1,5 @@
-import { queryOptions } from '@tanstack/react-query';
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
+import { GetmemberDTO } from '../model/types';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { serverService } from './servive';
 
@@ -35,10 +36,23 @@ export const serverQueries = {
     mutationFn: serverService.deleteServer,
   },
 
-  getMembers: ({ serverUri }: { serverUri: string }) =>
+  getMembers: (params: GetmemberDTO) =>
+    infiniteQueryOptions({
+      queryKey: QUERY_KEYS.server.members(params.serverUri),
+      queryFn: ({ pageParam = 1 }) =>
+        serverService.getServerMembers({ ...params, page: pageParam }),
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        if (lastPage.pageInfo.hasNextPage) {
+          return lastPage.pageInfo.currentPage + 1;
+        }
+        return undefined;
+      },
+    }),
+
+  postInvite: (serverUri: string) =>
     queryOptions({
-      queryKey: QUERY_KEYS.server.members(serverUri),
-      queryFn: () => serverService.getServerMembers({ serverUri }),
-      enabled: !!serverUri, // 유효할 때만 실행
+      queryKey: QUERY_KEYS.server.invite(serverUri),
+      queryFn: () => serverService.postInviteServer({ serverUri }),
     }),
 };
