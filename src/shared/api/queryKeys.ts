@@ -26,4 +26,8 @@ export const QUERY_KEYS = {
     base: ['image'] as const,
     detail: (params: string) => [...QUERY_KEYS.image.base, 'detail', params] as const,
   },
+  directMessage: {
+    base: ['directMessage'] as const,
+    members: () => [...QUERY_KEYS.directMessage.base] as const,
+  },
 };
