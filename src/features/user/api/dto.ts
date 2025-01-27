@@ -1,3 +1,5 @@
+import { LoginStatus } from '@/entities/user/model/types';
+
 export interface PutUserDTO {
   name: string;
   profileImageURL: string;
@@ -30,4 +32,8 @@ export interface GetImageUrlResponseDTO {
 
 export interface PutUserProfileDTO extends Omit<PutUserDTO, 'profileImageURL'> {
   image: string | File;
+}
+
+export interface PostUserStatusDTO {
+  status: LoginStatus;
 }
