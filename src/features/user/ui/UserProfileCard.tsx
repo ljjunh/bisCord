@@ -47,6 +47,12 @@ export const UserProfileCard = ({ onCloseDropdown }: UserProfileCardProps) => {
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
+        <button className="w-full px-2 py-1 text-left hover:rounded hover:bg-mid-gray hover:text-white">
+          회원탈퇴
+        </button>
+      </div>
+
+      <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
         <SignOutButton />
       </div>
     </div>

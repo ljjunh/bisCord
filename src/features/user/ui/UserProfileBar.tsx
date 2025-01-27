@@ -6,7 +6,6 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared
 import { AudioToggleButton } from './AudioToggleButton';
 import { MicToggleButton } from './MicToggleButton';
 import { UserProfileCard } from './UserProfileCard';
-import { UserSettingsButton } from './UserSettingsButton';
 
 export const UserProfileBar = () => {
   const user = useAuthStore((state) => state.user);
@@ -66,7 +65,6 @@ export const UserProfileBar = () => {
           isMuted={isAudioMuted}
           onToggle={() => setIsAudioMuted((prev) => !prev)}
         />
-        <UserSettingsButton />
       </div>
     </div>
   );
