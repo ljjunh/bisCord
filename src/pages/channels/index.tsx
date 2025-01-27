@@ -1,5 +1,5 @@
 import ChannelList from '@/widgets/channel/ui/ChannelList';
-import InvitedMemberModal from '@/features/server/ui/modals/InvitedMemberModal';
+import InvitedMemberModal from '@/features/server/ui/InvitedMemberModal';
 // import ChannelMessage from '@/widgets/channel/ui/ChannelMessage';
 import { SEO_CONFIG } from '@/shared/constants/seo';
 import { Seo } from '@/shared/ui/Seo';

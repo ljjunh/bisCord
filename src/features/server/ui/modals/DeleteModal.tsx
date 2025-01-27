@@ -9,12 +9,12 @@ import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
 import { ModalForm } from '../form';
 
-interface IModalProps {
+interface DeleteModal {
   getServerData: Servers | undefined;
   serverUri?: string | undefined;
 }
 
-const DeleteModal = ({ getServerData }: IModalProps) => {
+const DeleteModal = ({ getServerData }: DeleteModal) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();

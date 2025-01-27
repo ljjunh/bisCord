@@ -1,3 +1,4 @@
+import { FriendStatus } from '@/entities/friend/model/types';
 import { PageInfo } from '@/shared/types/PageInfo';
 
 export interface Servers {
@@ -15,6 +16,12 @@ export interface ChannelDTO {
   content: Channel[];
   pageInfo: PageInfo;
 }
+
+export interface MemberDTO {
+  content: Channel[];
+  pageInfo: PageInfo;
+}
+
 export interface Channel {
   id: string;
   name: string;
@@ -22,13 +29,13 @@ export interface Channel {
   roleId: number;
 }
 
-export interface ChannelMemberDTO {
+export interface ServerMemberDTO {
   id: number;
   userId: number;
   name: string;
   roleId: number;
   profileImageURL: string | null;
-  loginStatus: 'LOGOUT';
+  loginStatus: FriendStatus;
 }
 
 export interface GetMembersDTO {

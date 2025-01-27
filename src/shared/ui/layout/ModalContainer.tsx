@@ -4,12 +4,21 @@ import CloseIcon from '@/shared/icons/CloseIcon';
 
 interface ModalContainer extends PropsWithChildren {
   isOpen: boolean;
-  title: string;
+  title?: string;
+  subTitle?: string;
   description: string;
   onClose: () => void;
+  className?: string;
 }
 
-const ModalContainer = ({ isOpen, title, description, children, onClose }: ModalContainer) => {
+const ModalContainer = ({
+  isOpen,
+  title,
+  description,
+  children,
+  onClose,
+  subTitle,
+}: ModalContainer) => {
   return (
     <ReactModal
       isOpen={isOpen}
@@ -25,8 +34,9 @@ const ModalContainer = ({ isOpen, title, description, children, onClose }: Modal
       >
         <CloseIcon size={15} />
       </div>
-      <div className="px-4">
-        <h2 className="text-2xl font-bold">{title}</h2>
+      <div className="w-full px-4">
+        {title && <h2 className="text-2xl font-bold">{title}</h2>}
+        {subTitle && <h2 className="text-start text-xl font-bold">{subTitle}</h2>}
         <p className="mt-2 text-light-gray">{description}</p>
       </div>
       {children}
