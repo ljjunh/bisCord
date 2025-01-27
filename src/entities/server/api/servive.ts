@@ -1,4 +1,13 @@
-import { Channel, ChannelDTO, MemberDTO, Servers, ServersDTO } from '../model/types';
+import {
+  Channel,
+  ChannelDTO,
+  GetmemberDTO,
+  InviteServer,
+  MemberDTO,
+  PostInviteServer,
+  Servers,
+  ServersDTO,
+} from '../model/types';
 import { apiClient } from '@/shared/api/apiClient';
 
 // 여기 엔티티
@@ -65,9 +74,31 @@ export const serverService = {
   },
 
   // 유저 관련
-  getServerMembers: async ({ serverUri }: { serverUri: string }): Promise<MemberDTO> => {
+  getServerMembers: async ({
+    serverUri,
+    roleId,
+    keyword,
+    page = 1,
+    size = 10,
+  }: GetmemberDTO): Promise<MemberDTO> => {
     const response = await apiClient.get<MemberDTO>({
       url: `/server/${serverUri}/server-user`,
+      params: {
+        serverUri,
+        roleId,
+        keyword,
+        page,
+        size,
+      },
+    });
+
+    return response.data;
+  },
+
+  //  해당 서버 초대코드 생성
+  postInviteServer: async ({ serverUri }: PostInviteServer): Promise<InviteServer> => {
+    const response = await apiClient.post<InviteServer>({
+      url: `/server/${serverUri}/invite`,
     });
 
     return response.data;
