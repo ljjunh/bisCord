@@ -1,8 +1,8 @@
 import type { LoginStatus } from '@/shared/model/types';
 
-export interface DirectMessage {
-  id: number;
+export interface DMUser {
+  userId: number;
   name: string;
-  status: LoginStatus;
-  hasUnread: boolean;
+  profileImageURL: string | null;
+  loginStatus: LoginStatus;
 }

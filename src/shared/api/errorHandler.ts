@@ -26,7 +26,7 @@ export class TokenExpiredHandler {
     );
   }
 
-  static async handleRefresh(error: AxiosError) {
+  static async handleRefresh(error: AxiosError<ApiErrorResponse>) {
     const originalRequest = error.config as CustomAxiosRequestConfig;
     originalRequest._retry = true;
 
