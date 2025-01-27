@@ -10,6 +10,7 @@ export const QUERY_KEYS = {
     detail: (params: string) => [...QUERY_KEYS.server.base, 'detail', params] as const,
     list: () => [...QUERY_KEYS.server.base, 'servers'] as const,
     members: (params: string) => [...QUERY_KEYS.server.base, 'members', params] as const,
+    invite: (params: string) => [...QUERY_KEYS.server.base, 'invite', params] as const,
   },
   friend: {
     base: ['friend'] as const,

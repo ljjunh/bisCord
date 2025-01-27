@@ -1,14 +1,16 @@
+import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
 import useGetParams from '@/entities/hooks/getParams';
 import { serverQueries } from '@/entities/server/api/queries';
 import { useDebounce } from '@/shared/lib/useDebounce';
-// import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { friendQueries } from '../../friend/api/queries';
 import { FRIEND_REQUEST_TYPE } from '../../friend/model/constants';
+import { InviteUrlLink } from './InviteUrlLink';
 import MemberList from './MemberList';
 
 const InvitedMemberModal = () => {
@@ -22,28 +24,39 @@ const InvitedMemberModal = () => {
   // 현재 서버 정보를 가져옴
   const { data: getServerData } = useQuery({
     ...serverQueries.getServerDetail(validServerId),
-    enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
+    // enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
   const serverName = getServerData?.name;
 
+  // 친구 목록 가져옴
   const {
     data: getFriends,
-    // isFetching,
-    // fetchNextPage,
-    // hasNextPage,
-    // isFetchingNextPage,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   } = useInfiniteQuery({
     ...friendQueries.getFriends({
       type: FRIEND_REQUEST_TYPE.ACCEPTED,
       keyword: debouncedSearchText || undefined,
     }),
   });
-  // const observerRef = useInfiniteScroll({ fetchNextPage, hasNextPage, isLoading });
-  const allFriends = getFriends?.pages.flatMap((page) => page.content) ?? [];
 
-  // useEffect(() => {
-  //   console.log(allFriends);
-  // }, [allFriends]);
+  const allFriends = getFriends?.pages.flatMap((page) => page.content) ?? [];
+  const isNothingSearched = searchText && isEmpty(allFriends) && !isFetching;
+
+  const observerRef = useInfiniteScroll({
+    fetchNextPage,
+    hasNextPage,
+    isLoading: isFetchingNextPage,
+  });
+
+  // 초대 코드를 받아옴 => 이거 하위로 넘김 필요하면 다시 쓸꺼임;;;;
+  // const { data: inviteUrl } = useQuery({
+  //   ...serverQueries.postInvite(validServerId),
+  // });
+  // const validInviteUrl = inviteUrl?.inviteUrl.split('/');
+  // const lastElement = validInviteUrl?.[validInviteUrl.length - 1];
 
   return (
     <ModalContainer
@@ -61,30 +74,30 @@ const InvitedMemberModal = () => {
         />
       </div>
       <div className="h-[200px] w-full overflow-y-scroll px-2 scrollbar-hide">
-        {allFriends.map((friends) => (
-          <MemberList friends={friends}>
-            <button className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green">
-              초대
-            </button>
-          </MemberList>
-        ))}
+        {isNothingSearched ? (
+          <div className="text-xs">'{searchText}'님은 친구 목록에 없습니다.</div>
+        ) : (
+          allFriends.map((friends) => (
+            <>
+              <MemberList
+                friends={friends}
+                key={friends.id}
+              >
+                <button className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green">
+                  초대
+                </button>
+              </MemberList>
+              <div
+                ref={observerRef}
+                className="h-[1px] w-full"
+              />
+            </>
+          ))
+        )}
       </div>
       {/* {data} */}
 
-      <div className="flex w-full flex-col gap-2 bg-dark-gray p-4 text-start">
-        <p className="text-xs font-semibold text-light-gray">
-          또는 친구에게 서버 초대 링크 전송하기
-        </p>
-        <div className="flex w-full items-center justify-between rounded-md bg-black p-1">
-          <p>link 어쩌구</p>
-          <button
-            className="rounded-md bg-blue px-4 py-2 text-xs"
-            type="submit"
-          >
-            복사
-          </button>
-        </div>
-      </div>
+      <InviteUrlLink validServerId={validServerId} />
     </ModalContainer>
   );
 };
