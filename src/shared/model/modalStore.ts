@@ -10,9 +10,9 @@ export const MODAL = {
   USER_PROFILE: 'USER_PROFILE',
   USER_SIGNOFF: 'USER_SIGNOFF',
   NONE: 'NONE',
-};
+} as const;
 
-interface ModalStore {
+export interface ModalStore {
   type: keyof typeof MODAL;
   onOpenModal: (type: keyof typeof MODAL) => void;
   onCloseModal: () => void;

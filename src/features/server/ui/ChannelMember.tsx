@@ -1,15 +1,15 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { serverQueries } from '../api/queries';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { serverQueries } from '../api/queries';
 import MemberList from './MemberList';
 
 interface ChannelMemberList {
-  server: string | undefined;
+  serverUri: string | undefined;
 }
 
-const ChannelMemberList = ({ server }: ChannelMemberList) => {
+const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    ...serverQueries.getMembers({ serverUri: server || '' }), // 올바른 객체 전달
+    ...serverQueries.getMembers({ serverUri: serverUri || '' }), // 올바른 객체 전달
   });
 
   const allMembers = data?.pages.flatMap((page) => page.content) ?? [];

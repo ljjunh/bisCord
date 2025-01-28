@@ -1,11 +1,11 @@
+import { useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Servers } from '../../model/types';
 import { useModalStore } from '@/shared/model/modalStore';
-import { serverQueries } from '../../api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { serverQueries } from '../../api/queries';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
 import { ModalForm } from '../form';
 
@@ -24,7 +24,6 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.server.list(),
-        // enabled: !!getServerData?.serverUri,
       });
       methods.reset();
       toast.success('서버를 삭제했습니다.');
@@ -35,16 +34,8 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
     },
   });
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false);
-  const serverInputValue = methods.watch('server');
-
-  useEffect(() => {
-    if (serverInputValue?.trim() === getServerData?.name) {
-      setIsButtonDisabled(false);
-    } else {
-      setIsButtonDisabled(true);
-    }
-  }, [isButtonDisabled, serverInputValue]);
+  const serverInputValue = useWatch({ name: 'server', control: methods.control });
+  const isButtonDisabled = serverInputValue.trim() === getServerData?.name;
 
   // 모달 submit
   const onSubmit = (data: FormType) => {
@@ -85,7 +76,8 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
           </button>
           <button
             type="submit"
-            className="w-[150px] rounded-md bg-red p-2 transition-colors hover:bg-red"
+            disabled={!isButtonDisabled}
+            className={`w-[150px] rounded-md p-2 transition-colors ${isButtonDisabled ? 'bg-red hover:bg-red' : 'bg-gray'} `}
           >
             서버 삭제
           </button>

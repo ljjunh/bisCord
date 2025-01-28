@@ -13,7 +13,6 @@ import {
   Servers,
   ServersDTO,
 } from '../model/types';
-// import { userService } from '@/features/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
 
 // 여기 엔티티
