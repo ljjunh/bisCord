@@ -21,7 +21,7 @@ const MemberList = ({ member, children, friends }: MemberList) => {
         <UserAvatar
           size={20}
           image={friends ? friends?.profileImageURL : member?.profileImageURL}
-          // state={member.loginStatus}
+          // state={friends ? friends?.loginStatus : member?.loginStatus}
         />
       </div>
       {member && <div className="text-light-gray">{member.name}</div>}

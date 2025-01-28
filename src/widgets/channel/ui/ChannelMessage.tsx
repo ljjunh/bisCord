@@ -39,7 +39,7 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
           />
         </div>
         <div className="hidden h-full lg:block">
-          <ChannelMemberList server={server?.serverUri} />
+          <ChannelMemberList serverUri={server?.serverUri} />
         </div>
       </div>
     </div>

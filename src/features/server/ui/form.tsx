@@ -12,7 +12,7 @@ const FormInput = ({ name, label }: { name: keyof FormType; label: string }) => 
     <div className="mb-2 flex h-full w-full flex-grow flex-col items-start gap-2 px-4">
       <label className="text-xs font-semibold text-light-gray">{label}</label>
       <input
-        placeholder="이름을 생성해 주세요"
+        placeholder="이름을 입력해 주세요"
         {...register(name)}
         className="text-md w-full rounded-md bg-black p-2 text-white outline-none"
       />
