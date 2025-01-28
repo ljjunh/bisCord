@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
 import useGetParams from '@/entities/hooks/getParams';
-import { serverQueries } from '@/entities/server/api/queries';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { friendQueries } from '../../friend/api/queries';
+import { serverQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../../friend/model/constants';
 import { InviteUrlLink } from './InviteUrlLink';
 import MemberList from './MemberList';
@@ -77,11 +77,11 @@ const InvitedMemberModal = () => {
         {isNothingSearched ? (
           <div className="text-xs">'{searchText}'님은 친구 목록에 없습니다.</div>
         ) : (
-          allFriends.map((friends) => (
+          allFriends.map((friends, index) => (
             <>
               <MemberList
                 friends={friends}
-                key={friends.id}
+                key={index}
               >
                 <button className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green">
                   초대

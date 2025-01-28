@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
+import { serverQueries } from '@/features/server/api/queries';
 import CreateServerAvatar from '@/features/server/ui/CreateServerAvatar';
-import { serverQueries } from '@/entities/server/api/queries';
 import { ROUTES } from '@/shared/constants/routes';
 import DMAvatar from '../../features/directMessage/ui/DMAvatar';
 import ServerAvatar from '../../features/server/ui/ServerAvatar';

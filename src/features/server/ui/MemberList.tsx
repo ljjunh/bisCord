@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
+import { ServerMemberDTO } from '../model/types';
 import { Friend } from '@/entities/friend/model/types';
-import { ServerMemberDTO } from '@/entities/server/model/types';
 // import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import UserAvatar from '@/shared/ui/UserAvatar';
 
