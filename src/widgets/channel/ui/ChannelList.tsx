@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { serverQueries } from '@/features/server/api/queries';
 import ChannelCategories from '@/features/server/ui/ChannelCategories';
 import ChannelHeader from '@/features/server/ui/ChannelHeader';
 import { UserProfileBar } from '@/features/user/ui/UserProfileBar';
 import useGetParams from '@/entities/hooks/getParams';
-import { serverQueries } from '@/entities/server/api/queries';
 import EmptyList from '@/shared/ui/EmptyList';
 import ListContainer from '@/shared/ui/layout/ListContainer';
 import ChannelMessage from './ChannelMessage';

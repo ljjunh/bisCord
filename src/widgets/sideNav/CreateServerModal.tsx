@@ -1,16 +1,19 @@
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
+import { serverQueries } from '@/features/server/api/queries';
 import { UploadImageInput } from '@/features/server/ui/UploadImageInput';
 import { ModalForm } from '@/features/server/ui/form';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '@/features/server/useModalForm';
-import { serverQueries } from '@/entities/server/api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 
 const CreateServerModal = () => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
+  const [imageData, setImageData] = useState<File | string>('');
+
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -34,7 +37,7 @@ const CreateServerModal = () => {
     const newServer = {
       name: data.server,
       // serverUri: crypto.randomUUID(),
-      serverImageURL: '',
+      serverImageURL: imageData ? imageData : '',
     };
     if (newServer.name === '') {
       toast.error('서버 이름을 입력해주세요');
@@ -56,7 +59,7 @@ const CreateServerModal = () => {
         onSubmit={methods.handleSubmit(handleCreateServer)}
       >
         <div className="flex w-full items-center justify-center">
-          <UploadImageInput />
+          <UploadImageInput onChange={setImageData} />
         </div>
         <ModalForm.Input
           name="server"

@@ -1,9 +1,9 @@
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Servers } from '@/entities/server/model/types';
+import { Servers } from '../../model/types';
 import { useModalStore } from '@/shared/model/modalStore';
-import { serverQueries } from '@/entities/server/api/queries';
+import { serverQueries } from '../../api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';

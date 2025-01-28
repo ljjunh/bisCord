@@ -1,13 +1,19 @@
 import {
   Channel,
   ChannelDTO,
+  GetImageUrlDTO,
+  GetImageUrlResponseDTO,
   GetmemberDTO,
   InviteServer,
   MemberDTO,
+  PostImageDTO,
+  PostImageResponseDTO,
   PostInviteServer,
+  PutImageToS3DTO,
   Servers,
   ServersDTO,
 } from '../model/types';
+// import { userService } from '@/features/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
 
 // 여기 엔티티
@@ -19,15 +25,39 @@ export const serverService = {
 
     return response.data;
   },
+
+  // 서버를 추가할때 이미지가 File인 경우에만 s3업로드 실행
   /** 서버를 추가합니다 */
   createServer: async (serverData: {
     name: string;
     // serverUri: string;
-    serverImageURL?: string;
+    serverImageURL: string | File;
   }): Promise<Servers> => {
+    let profileImageURL = serverData.serverImageURL;
+
+    if (serverData.serverImageURL instanceof File) {
+      const imageData = await serverService.postImage({
+        fileName: serverData.serverImageURL.name,
+        contentType: serverData.serverImageURL.type,
+        contentLength: serverData.serverImageURL.size,
+      });
+      console.log(imageData);
+      await serverService.putImageToS3({
+        presignedUrl: imageData.presignedUrl,
+        file: serverData.serverImageURL,
+      });
+      const { imageUrl } = await serverService.getImageUrl({
+        key: imageData.key,
+      });
+      profileImageURL = imageUrl;
+    }
+
     const response = await apiClient.post<Servers>({
       url: '/server',
-      data: serverData, // 요청 본문에 데이터를 포함
+      data: {
+        name: serverData.name,
+        serverImageURL: profileImageURL,
+      }, // 요청 본문에 데이터를 포함
     });
 
     return response.data;
@@ -99,6 +129,30 @@ export const serverService = {
   postInviteServer: async ({ serverUri }: PostInviteServer): Promise<InviteServer> => {
     const response = await apiClient.post<InviteServer>({
       url: `/server/${serverUri}/invite`,
+    });
+
+    return response.data;
+  },
+
+  /** ㅇ
+   * 이미지 관련
+   */
+  postImage: async (data: PostImageDTO): Promise<PostImageResponseDTO> => {
+    const response = await apiClient.post<PostImageResponseDTO>({ url: '/image', data });
+
+    return response.data;
+  },
+
+  putImageToS3: async ({ presignedUrl, file }: PutImageToS3DTO): Promise<void> => {
+    await apiClient.putS3(presignedUrl, file);
+  },
+
+  getImageUrl: async ({ key }: GetImageUrlDTO): Promise<GetImageUrlResponseDTO> => {
+    const response = await apiClient.get<GetImageUrlResponseDTO>({
+      url: '/image',
+      params: {
+        key,
+      },
     });
 
     return response.data;

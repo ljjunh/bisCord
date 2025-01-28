@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
-import { serverQueries } from '@/entities/server/api/queries';
+import { serverQueries } from '../api/queries';
 
 const InviteUrlLink = ({ validServerId }: { validServerId: string }) => {
   const { data: inviteUrl } = useQuery({
