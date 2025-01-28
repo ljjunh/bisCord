@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
-import { serverQueries } from '@/entities/server/api/queries';
+import { serverQueries } from '../../api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';

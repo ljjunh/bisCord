@@ -1,5 +1,7 @@
 import { useModalStore } from '@/shared/model/modalStore';
 import AddUserIcon from '@/shared/icons/AddUserIcon';
+import ChannelUnlockedIcon from '@/shared/icons/ChannelUnlockedIcon';
+import { SettingIcon } from '@/shared/icons/SettingIcon';
 import {
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -20,6 +22,9 @@ const ServerDropDownMenu = () => {
     if (type === 'invite') {
       onOpenModal('INVIDE_MEMBER');
     }
+    if (type === 'edit') {
+      onOpenModal('EDIT_SERVER');
+    }
   };
 
   return (
@@ -31,11 +36,13 @@ const ServerDropDownMenu = () => {
           <span className="mr-auto">친구 초대하기</span>
           <AddUserIcon size={15} />
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleModal('edit')}>
           <span className="mr-auto">서버 설정</span>
+          <SettingIcon size={15} />
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleModal('create')}>
           <span className="mr-auto">채널 만들기</span>
+          <ChannelUnlockedIcon size={15} />
         </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator className="bg-gray opacity-50" />

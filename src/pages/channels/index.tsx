@@ -1,4 +1,5 @@
 import ChannelList from '@/widgets/channel/ui/ChannelList';
+import EditServerModal from '@/features/server/ui/EditServerModal';
 import InvitedMemberModal from '@/features/server/ui/InvitedMemberModal';
 // import ChannelMessage from '@/widgets/channel/ui/ChannelMessage';
 import { SEO_CONFIG } from '@/shared/constants/seo';
@@ -17,6 +18,7 @@ const ChannelPage = () => {
         {/* <ChannelMessage /> */}
       </div>
       <InvitedMemberModal />
+      <EditServerModal />
     </>
   );
 };

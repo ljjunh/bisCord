@@ -1,17 +1,30 @@
 import { PlusIcon } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const UploadImageInput = () => {
-  const [imageFile, setImageFile] = useState<string | ArrayBuffer | null>(null);
+interface UploadImageInputProps {
+  onChange: (imageData: string | File) => void;
+  value?: File | string;
+}
 
-  const handleChaneFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
+  const [imageFile, setImageFile] = useState<string | ArrayBuffer | null>('');
+
+  useEffect(() => {
+    if (typeof value === 'string' && value) {
+      setImageFile(value);
+    }
+  }, [value]);
+
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        setImageFile(reader.result); // 파일의 Base64 데이터 설정
+        const result = reader.result;
+        setImageFile(result); // 이미지 미리보기 설정
+        onChange(file); // 부모 컴포넌트로 이미지 전달
       };
     }
   };
@@ -45,7 +58,7 @@ const UploadImageInput = () => {
           type="file"
           accept="image/*"
           className="hidden"
-          onChange={handleChaneFile}
+          onChange={handleChangeFile}
         />
       </label>
     </div>

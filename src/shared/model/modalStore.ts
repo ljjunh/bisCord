@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 
-const MODAL = {
+export const MODAL = {
   CREATE_SERVER: 'CREATE_SERVER',
+  EDIT_SERVER: 'EDIT_SERVER',
   DELETE_SERVER: 'DELETE_SERVER',
   CREATE_CHANNEL: 'CREATE_CHANNEL',
   DELETE_CHANNEL: 'DELETE_CHANNEL',
