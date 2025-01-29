@@ -1,29 +1,71 @@
+import { NavLink } from 'react-router-dom';
 import { ReactNode } from 'react';
-import { Servers } from '@/entities/server/model/types';
+import { Servers } from '../model/types';
+import { ROUTES } from '@/shared/constants/routes';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
-interface IServerAvatar {
-  children: ReactNode;
+interface ServerAvatar {
+  children?: ReactNode;
   search?: boolean;
   server?: Servers;
+  link?: string;
 }
+/** 좌측 서버 아바타 컴포넌트 */
+const ServerAvatar = ({ server }: ServerAvatar) => {
+  const newLink = ROUTES.CHAT.SERVER.DETAIL(server?.serverUri);
 
-const ServerAvatarDiv = ({ children, server, search }: IServerAvatar) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={100}>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        <TooltipTrigger asChild>
+          <NavLink
+            to={newLink}
+            className={'relative flex items-center px-[15px]'}
+          >
+            {({ isActive }) => (
+              <>
+                {/* 서버 프로필 이미지가 있는 경우 */}
+
+                <>
+                  {isActive && (
+                    <div className="absolute left-0 h-[40px] w-[6px] rounded-br-md rounded-tr-md bg-white transition-all" />
+                  )}
+                  <div
+                    className={`flex h-[48px] w-[48px] items-center justify-center overflow-hidden transition-all duration-300 ease-in-out ${
+                      isActive
+                        ? 'rounded-2xl bg-blue'
+                        : 'rounded-[50%] bg-gray hover:rounded-2xl hover:bg-blue'
+                    } hover:before:absolute hover:before:left-0 hover:before:h-[10px] hover:before:w-[5px] hover:before:rounded-br-md hover:before:rounded-tr-md hover:before:bg-white`}
+                  >
+                    {/* 여기 이제 이미지 */}
+
+                    {server?.serverImageURL ? (
+                      <>
+                        <img
+                          src={server?.serverImageURL}
+                          className="h-full w-full"
+                        ></img>
+                      </>
+                    ) : (
+                      <div className="overflow-hidden text-nowrap break-all text-center text-sm text-white">
+                        {server?.name}'s server
+                      </div>
+                    )}
+                  </div>
+                </>
+              </>
+            )}
+          </NavLink>
+        </TooltipTrigger>
         <TooltipContent
           side="right"
           sideOffset={8}
         >
-          <p className="font-semibold">
-            {server ? server.name : search ? '서버 추가하기' : '다이렉트 메세지'}
-          </p>
+          {server?.name}
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
 };
 
-export default ServerAvatarDiv;
+export default ServerAvatar;

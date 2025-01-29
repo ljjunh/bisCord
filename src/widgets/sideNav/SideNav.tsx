@@ -1,20 +1,21 @@
-import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import CreateServerAvatar from '@/features/sideNav/CreateServerAvatar';
-import { serverQueries } from '@/entities/server/api/queries';
+import { useModalStore } from '@/shared/model/modalStore';
+import { serverQueries } from '@/features/server/api/queries';
+import CreateServerAvatar from '@/features/server/ui/CreateServerAvatar';
 import { ROUTES } from '@/shared/constants/routes';
-import DMAvavar from '../../features/sideNav/DMAvavar';
-import ServerAvatar from '../../features/sideNav/ServerAvatar';
-import Modal from './Modal';
+import DMAvatar from '../../features/directMessage/ui/DMAvatar';
+import ServerAvatar from '../../features/server/ui/ServerAvatar';
+import CreateServerModal from './CreateServerModal';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { data, refetch } = useQuery({ ...serverQueries.getServers });
+  const { data } = useQuery({ ...serverQueries.getServers });
+  const { onOpenModal } = useModalStore((state) => state);
+
   const servers = data?.content;
 
   // 모달 열기/닫기 핸들러
-  const handleModal = () => setIsModalOpen(!isModalOpen);
+  const handleModal = () => onOpenModal('CREATE_SERVER');
 
   // localStorage.clear();
 
@@ -22,7 +23,7 @@ const SideNav = () => {
     <div className="flex h-[100vh] min-w-[60px] flex-col items-center gap-3 overflow-hidden bg-black py-3">
       {/* 다이렉트 메세지 부분 */}
       <div>
-        <DMAvavar link={ROUTES.ROOT} />
+        <DMAvatar link={ROUTES.ROOT} />
       </div>
       <div className="h-[3px] w-[60%] rounded-md bg-gray" />
       {/* 현재 서버 리스트 */}
@@ -30,6 +31,7 @@ const SideNav = () => {
         {servers &&
           servers.map((server) => (
             <ServerAvatar
+              key={server.serverUri}
               server={server}
               link={ROUTES.CHAT.SERVER.DETAIL(server.serverUri)}
             ></ServerAvatar>
@@ -42,11 +44,7 @@ const SideNav = () => {
       </div>
 
       {/* 모달입니당 */}
-      <Modal
-        refetch={refetch}
-        handleModal={handleModal}
-        isModalOpen={isModalOpen}
-      ></Modal>
+      <CreateServerModal />
     </div>
   );
 };

@@ -58,11 +58,13 @@ export const AddFriendView = () => {
                         >
                           <div className="flex w-full items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
-                              <UserAvatar
-                                image={user.profileImageURL}
-                                size={20}
-                                state={user.loginStatus}
-                              />
+                              <div className="h-10 w-10">
+                                <UserAvatar
+                                  image={user.profileImageURL}
+                                  size={20}
+                                  state={user.loginStatus}
+                                />
+                              </div>
                               <div className="flex gap-2">
                                 <h3 className="font-bold text-white">{user.name}</h3>
                                 <span className="hidden text-super-light-gray group-hover:inline">

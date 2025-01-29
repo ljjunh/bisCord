@@ -1,12 +1,24 @@
 import { useAuthStore } from '@/shared/model/authStore';
+import { useModalStore } from '@/shared/model/modalStore';
 import { EditIcon } from '@/shared/icons/EditIcon';
 import UserAvatar from '@/shared/ui/UserAvatar';
+import { SignOffButton } from '../../auth/ui/SignOffButton';
 import { SignOutButton } from '../../auth/ui/SignOutButton';
 import { UserStatusMenu } from './UserStatusMenu';
 
-export const UserProfileCard = () => {
+interface UserProfileCardProps {
+  onCloseDropdown: (value: boolean) => void;
+}
+
+export const UserProfileCard = ({ onCloseDropdown }: UserProfileCardProps) => {
   const user = useAuthStore((state) => state.user);
+  const onOpenModal = useModalStore((state) => state.onOpenModal);
   const currentStatus = user?.loginStatus ?? 'OFFLINE';
+
+  const handleModal = () => {
+    onOpenModal('USER_PROFILE');
+    onCloseDropdown(false);
+  };
 
   return (
     <div className="w-80 rounded-md bg-[#000000] p-4">
@@ -24,12 +36,19 @@ export const UserProfileCard = () => {
         </div>
       </div>
       <div className="space-y-1 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-super-light-gray">
-        <button className="flex w-full items-center gap-2 px-2 py-1 text-left hover:rounded hover:bg-mid-gray hover:text-white">
+        <button
+          onClick={handleModal}
+          className="flex w-full items-center gap-2 px-2 py-1 text-left hover:rounded hover:bg-mid-gray hover:text-white"
+        >
           <EditIcon size={14} />
           프로필 편집
         </button>
         <div className="h-px bg-mid-gray" />
         <UserStatusMenu />
+      </div>
+
+      <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
+        <SignOffButton />
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">

@@ -27,4 +27,11 @@ export const apiClient = {
 
   delete: <T>(config: AxiosRequestConfig) =>
     axiosInstance.delete<ApiResponse<T>>(config.url!, config).then((res) => res.data),
+
+  putS3: async (url: string, file: File) =>
+    axios.put(url, file, {
+      headers: {
+        'Content-Type': file.type,
+      },
+    }),
 } as const;

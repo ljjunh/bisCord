@@ -1,4 +1,4 @@
-import { DirectMessageList } from '@/features/directMessage/ui/DirectMessageList';
+import { DMList } from '@/features/directMessage/ui/DMList';
 import { FriendView } from '@/features/friend/ui/FriendView';
 import { SEO_CONFIG } from '@/shared/constants/seo';
 import { Seo } from '@/shared/ui/Seo';
@@ -13,7 +13,7 @@ const MainPage = () => {
       />
       <div className="flex h-screen">
         <aside className="max-h-screen">
-          <DirectMessageList />
+          <DMList />
         </aside>
         <main className="flex-1 overflow-hidden">
           <FriendView />

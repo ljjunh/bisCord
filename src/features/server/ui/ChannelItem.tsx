@@ -1,17 +1,23 @@
 import { NavLink } from 'react-router-dom';
-import { Channel } from '@/entities/server/model/types';
+import { Channel } from '../model/types';
+import { useModalStore } from '@/shared/model/modalStore';
 import { ROUTES } from '@/shared/constants/routes';
 import AddUserIcon from '@/shared/icons/AddUserIcon';
 import ChannelUnlockedIcon from '@/shared/icons/ChannelUnlockedIcon';
 import ChannelAddBtn from './ChannelAddBtn';
 
-interface IChannelItemProps {
+interface ChannelItem {
   channel: Channel;
   link: string;
 }
 
-const ChannelItem = ({ channel, link }: IChannelItemProps) => {
+const ChannelItem = ({ channel, link }: ChannelItem) => {
   const { id, name } = channel;
+  const { onOpenModal } = useModalStore((state) => state);
+
+  const openInviteModal = () => {
+    onOpenModal('INVIDE_MEMBER');
+  };
 
   return (
     <>
@@ -24,11 +30,13 @@ const ChannelItem = ({ channel, link }: IChannelItemProps) => {
         <div className="flex flex-row items-center gap-2 px-2 py-1">
           <ChannelUnlockedIcon size={15} />
           <div className="text-md flex-grow font-normal">{name}</div>
-          <ChannelAddBtn
-            locate="top"
-            text="친구 초대하기"
-            icon={<AddUserIcon size={15} />}
-          />
+          <div onClick={openInviteModal}>
+            <ChannelAddBtn
+              locate="top"
+              text="친구 초대하기"
+              icon={<AddUserIcon size={15} />}
+            />
+          </div>
         </div>
       </NavLink>
     </>

@@ -29,4 +29,8 @@ export const authService = {
   signOut: async (): Promise<void> => {
     await apiClient.post<void>({ url: '/login/logout' });
   },
+
+  signOff: async (): Promise<void> => {
+    await apiClient.delete<void>({ url: '/user' });
+  },
 };
