@@ -25,9 +25,11 @@ export const serverQueries = {
 
   // 생성 관련 api
   postCreateServer: {
+    // 서버 생성
     mutationFn: serverService.createServer,
   },
   postCreateChannel: {
+    // 채널 생성
     mutationFn: serverService.createChannel,
   },
 
@@ -35,6 +37,11 @@ export const serverQueries = {
   deleteServer: {
     mutationFn: serverService.deleteServer,
   },
+
+  // 수정 관련
+  // putEditServer { // 서버 정보 수정
+  //   mutationFn : serverService.editServer,
+  // },
 
   getMembers: (params: GetmemberDTO) =>
     infiniteQueryOptions({
