@@ -30,7 +30,7 @@ const EditServerModal = () => {
         serverUri: serverData.serverUri ?? '',
         serverImageURL: serverData.serverImageURL ?? '',
       });
-      console.log(profileData);
+      // console.log(profileData);
     }
   }, [serverData]);
 

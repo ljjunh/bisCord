@@ -1,24 +1,11 @@
-// import useGetParams from '@/entities/hooks/getParams';
-// import DmList from '@/widgets/directMessage/ui/DmList';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import DmProfile from '@/widgets/directMessage/DmProfile';
-import DmList from '@/widgets/directMessage/ui/DmList';
+import { DMList } from '@/features/directMessage/ui/DMList';
+import DMMessage from '@/features/directMessage/ui/DMMessage';
 
 const DirectMessagePage = () => {
-  const userId = useParams();
-
-  useEffect(() => {
-    console.log(userId);
-  });
-
   return (
-    <div className="flex h-full">
-      <DmList />
-      <div className="flex-grow">{/* <Contents></Contents> */}</div>
-      <div className="hidden lg:block">
-        <DmProfile />
-      </div>
+    <div className="flex h-full bg-black">
+      <DMList />
+      <DMMessage />
     </div>
   );
 };

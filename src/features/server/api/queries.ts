@@ -1,7 +1,7 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 import { GetmemberDTO } from '../model/types';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { serverService } from './servive';
+import { serverService } from './service';
 
 // 여기더 엔티티
 export const serverQueries = {
