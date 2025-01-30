@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { serverQueries } from '@/features/server/api/queries';
 import ChannelCategories from '@/features/server/ui/ChannelCategories';
 import ChannelHeader from '@/features/server/ui/ChannelHeader';
+import { UserProfileBar } from '@/features/user/ui/UserProfileBar';
 import useGetParams from '@/entities/hooks/getParams';
-import { serverQueries } from '@/entities/server/api/queries';
 import EmptyList from '@/shared/ui/EmptyList';
 import ListContainer from '@/shared/ui/layout/ListContainer';
 import ChannelMessage from './ChannelMessage';
@@ -18,6 +20,10 @@ const ChannelList = () => {
     enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
 
+  useEffect(() => {
+    // console.log(getServerData);
+  }, [getServerData]);
+
   /** 데이터를 가져오는 중입니다 */
   if (isLoading) return <p>Loading...</p>;
 
@@ -26,14 +32,17 @@ const ChannelList = () => {
       <ListContainer>
         {/* 서버 헤더 */}
         <ChannelHeader
-          getServerData={getServerData?.name}
-          serverUri={getServerData?.serverUri}
+          getServerData={getServerData}
+          serverUri={getServerData?.serverUri ?? ''}
         />
 
         {/* 채널 리스트 */}
         {getServerData ? <ChannelCategories serverId={getServerData.serverUri} /> : <EmptyList />}
+        <div className="bg-black px-2 py-3">
+          <UserProfileBar />
+        </div>
       </ListContainer>
-      <ChannelMessage serverName={getServerData?.name} />
+      <ChannelMessage server={getServerData} />
     </div>
   );
 };

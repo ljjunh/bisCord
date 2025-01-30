@@ -1,20 +1,19 @@
 import { toast } from 'react-toastify';
+import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useModalStore } from '@/shared/model/modalStore';
+import { serverQueries } from '@/features/server/api/queries';
+import { UploadImageInput } from '@/features/server/ui/UploadImageInput';
 import { ModalForm } from '@/features/server/ui/form';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '@/features/server/useModalForm';
-import { serverQueries } from '@/entities/server/api/queries';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import PlusIcon from '@/shared/icons/PlusIcon';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 
-interface IModalProps {
-  handleModal: () => void;
-  isModalOpen: boolean;
-  refetch: () => void;
-}
-
-const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
+const CreateServerModal = () => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
+  const { type, onCloseModal } = useModalStore((state) => state);
+  const [imageData, setImageData] = useState<File | string>('');
+
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -25,8 +24,11 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
       });
       methods.reset(); // 폼 초기화
       toast.success('서버를 생성했습니다.');
-      handleModal(); // 모달 닫기
-      refetch();
+      onCloseModal();
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error('서버 생성에 실패했습니다. 다시 시도해주세요.');
     },
   });
 
@@ -35,21 +37,20 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
     const newServer = {
       name: data.server,
       // serverUri: crypto.randomUUID(),
-      serverImageURL: '',
+      serverImageURL: imageData ? imageData : '',
     };
     if (newServer.name === '') {
       toast.error('서버 이름을 입력해주세요');
       return;
     }
-    console.log(newServer);
 
     mutate(newServer);
   };
 
   return (
     <ModalContainer
-      isOpen={isModalOpen}
-      onRequestClose={handleModal}
+      isOpen={type === 'CREATE_SERVER'}
+      onClose={onCloseModal}
       title="서버를 만들어 보세요"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
     >
@@ -58,21 +59,7 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
         onSubmit={methods.handleSubmit(handleCreateServer)}
       >
         <div className="flex w-full items-center justify-center">
-          <div className="relative flex aspect-[1/1] w-[30%] cursor-pointer items-center justify-center rounded-[50%] border-2 border-dashed border-light-gray">
-            <label className="flex h-full w-full items-center justify-center">
-              <div className="absolute right-0 top-0 rounded-[50%] bg-blue p-2">
-                <PlusIcon
-                  size={20}
-                  color="#ffffff"
-                />
-              </div>
-              <div className="text-lg font-semibold text-light-gray">UPLOAD</div>
-              <input
-                type="file"
-                className="hidden"
-              />
-            </label>
-          </div>
+          <UploadImageInput onChange={setImageData} />
         </div>
         <ModalForm.Input
           name="server"
@@ -92,4 +79,4 @@ const Modal = ({ handleModal, isModalOpen, refetch }: IModalProps) => {
   );
 };
 
-export default Modal;
+export default CreateServerModal;

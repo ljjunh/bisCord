@@ -31,7 +31,7 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
 
   return (
     <article className="group mx-2 flex cursor-pointer items-center gap-4 rounded border-t border-gray bg-mid-gray p-2 hover:bg-gray-700">
-      <figure>
+      <figure className="h-10 w-10">
         <UserAvatar
           image={friend.profileImageURL}
           size={20}

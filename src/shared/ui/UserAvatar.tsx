@@ -14,7 +14,7 @@ const UserAvatar = ({ image, size, state = 'OFFLINE', bg }: UserAvatarProps) => 
   return (
     <div
       className={cn(
-        'relative flex aspect-[1/1] h-[100%] min-h-[35px] items-center justify-center rounded-[50%]',
+        'relative flex aspect-[1/1] h-full min-h-[35px] items-center justify-center rounded-[50%]',
         bg ? `bg-${bg}` : 'bg-blue',
       )}
     >
@@ -24,7 +24,7 @@ const UserAvatar = ({ image, size, state = 'OFFLINE', bg }: UserAvatarProps) => 
           width={size}
           height={size}
           alt="User Avatar"
-          className="h-full w-full object-cover"
+          className="h-full w-full rounded-full object-cover"
           onError={(e) => {
             e.currentTarget.src = '/discord-icon.svg';
           }}
