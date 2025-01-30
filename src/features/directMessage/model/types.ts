@@ -6,3 +6,21 @@ export interface DMUser {
   profileImageURL: string | null;
   loginStatus: LoginStatus;
 }
+
+export interface Message {
+  chatId: string;
+  content: string;
+  userId: number;
+  name: string;
+  createdAt: string;
+  updated: boolean;
+}
+
+export interface MessageGroups {
+  user: {
+    id: number;
+    name: string;
+  };
+  messages: Message[];
+  timestamp: string;
+}
