@@ -1,4 +1,4 @@
-import ProfileHeader from '../components/ProfileHeader';
+import ProfileHeader from './ProfileHeader';
 
 const DmProfile = () => {
   return (

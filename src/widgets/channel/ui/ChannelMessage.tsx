@@ -16,7 +16,7 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
 
   const handleSendMessage = (newMessage: string) => {
     if (newMessage.trim() === '') return;
-    setAllMessage((prevMessages) => [...prevMessages, newMessage]); // Add message to the list
+    setAllMessage((prevMessages) => [...prevMessages, newMessage]);
     setMessage('');
   };
 

@@ -95,6 +95,42 @@ export const serverService = {
     return response.data;
   },
 
+  // 서버 정보를 수정합니다
+  // putServerProfile: async (serverData: {
+  //   name: string;
+  //   serverUri : string
+  //   serverImageURL: string | File;
+  // }): Promise<Servers> => {
+  //   let profileImageURL = serverData.serverImageURL;
+
+  //   if (serverData.serverImageURL instanceof File) {
+  //     const imageData = await serverService.postImage({
+  //       fileName: serverData.serverImageURL.name,
+  //       contentType: serverData.serverImageURL.type,
+  //       contentLength: serverData.serverImageURL.size,
+  //     });
+  //     console.log(imageData);
+  //     await serverService.putImageToS3({
+  //       presignedUrl: imageData.presignedUrl,
+  //       file: serverData.serverImageURL,
+  //     });
+  //     const { imageUrl } = await serverService.getImageUrl({
+  //       key: imageData.key,
+  //     });
+  //     profileImageURL = imageUrl;
+
+  //     await serverService.putServerProfile({
+  //       name: serverData.name,
+  //       serverImageURL: serverData.serverImageURL
+  //     })
+
+  //     return {
+  //       name: serverData.name,
+  //       serverImageURL: profileImageURL,
+  //     } as const;
+  //   }
+  // },
+
   // 해당 서버를 삭제합니다
   deleteServer: async (serverUri: string): Promise<Servers> => {
     const response = await apiClient.delete<Servers>({ url: `/server/${serverUri}` });

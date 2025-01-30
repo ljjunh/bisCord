@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { serverQueries } from '@/features/server/api/queries';
 import ChannelCategories from '@/features/server/ui/ChannelCategories';
@@ -20,9 +20,9 @@ const ChannelList = () => {
     enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
 
-  useEffect(() => {
-    // console.log(getServerData);
-  }, [getServerData]);
+  // useEffect(() => {
+  //   // console.log(getServerData);
+  // }, [getServerData]);
 
   /** 데이터를 가져오는 중입니다 */
   if (isLoading) return <p>Loading...</p>;
