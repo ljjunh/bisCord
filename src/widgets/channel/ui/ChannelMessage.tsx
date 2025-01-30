@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Servers } from '@/features/server/model/types';
+import ChMessage from '@/features/channel/ui/ChMessage';
 import { ChannelMemberList } from '@/features/server/ui/ChannelMember';
 import { MessageHeader } from '@/features/server/ui/MessageHeader';
 import { MessageInput } from '@/features/server/ui/MessageInput';
 import ChannelMessageDefault from '@/shared/ui/ChannelMessageDefault';
-import { MessageBox } from '@/shared/ui/MessageBox';
+
+// import { MessageBox } from '@/shared/ui/MessageBox';
 
 interface ChannelMessage {
   server: Servers | undefined;
@@ -13,6 +15,7 @@ interface ChannelMessage {
 const ChannelMessage = ({ server }: ChannelMessage) => {
   const [message, setMessage] = useState<string>('');
   const [allMessage, setAllMessage] = useState<string[]>([]);
+  console.log(allMessage);
 
   const handleSendMessage = (newMessage: string) => {
     if (newMessage.trim() === '') return;
@@ -28,9 +31,8 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
           <ChannelMessageDefault serverName={server?.name}>
             {/* 여기에 친구초대 버튼 */}
           </ChannelMessageDefault>
-          {allMessage.map((text) => (
-            <MessageBox text={text} />
-          ))}
+          <ChMessage />
+
           <MessageInput
             value={message}
             onChange={setMessage}

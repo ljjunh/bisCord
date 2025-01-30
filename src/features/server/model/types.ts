@@ -1,4 +1,4 @@
-import { FriendStatus } from '@/entities/friend/model/types';
+import { LoginStatus } from '@/shared/model/types';
 import { PageInfo } from '@/shared/types/PageInfo';
 
 export interface Servers {
@@ -48,7 +48,7 @@ export interface ServerMemberDTO {
   roleRank: number;
   roleName: string;
   profileImageURL: string | null;
-  loginStatus: FriendStatus;
+  loginStatus: LoginStatus;
 }
 
 export interface PostInviteServer {
