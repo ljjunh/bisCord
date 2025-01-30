@@ -21,7 +21,7 @@ export const DMList = () => {
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
 
   return (
-    <div className="flex h-full flex-col bg-dark-gray pt-5">
+    <div className="flex h-full flex-col rounded-tl-lg bg-dark-gray pt-5">
       <div className="flex-1 overflow-y-auto">
         <div className="mb-3 flex items-center gap-3 rounded px-4 py-3">
           <FriendsIcon />
