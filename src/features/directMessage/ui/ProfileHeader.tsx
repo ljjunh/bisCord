@@ -2,12 +2,12 @@ import AddUserIcon from '@/shared/icons/AddUserIcon';
 import DottedIcon from '@/shared/icons/DottedIcon';
 import UserAvatar from '@/shared/ui/UserAvatar';
 
-interface IProfileHeaderProps {
+interface ProfileHeaderProps {
   color?: string;
   image?: string | null;
 }
 
-const ProfileHeader: React.FC<IProfileHeaderProps> = ({ image = null }) => {
+const ProfileHeader: React.FC<ProfileHeaderProps> = ({ image = null }) => {
   return (
     <div className="relative flex aspect-[7/4] w-full flex-col justify-between p-4 before:absolute before:left-0 before:top-0 before:z-0 before:h-[70%] before:w-full before:bg-blue">
       {/* 프로필 상단 버튼 */}

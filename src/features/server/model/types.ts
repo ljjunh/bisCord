@@ -6,6 +6,10 @@ export interface Servers {
   serverUri: string;
   serverImageURL: string;
 }
+export interface PutServerDTO {
+  name: string;
+  serverImageURL: string;
+}
 
 export interface ServersDTO {
   content: Servers[];
