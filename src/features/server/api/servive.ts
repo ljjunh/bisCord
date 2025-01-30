@@ -98,8 +98,9 @@ export const serverService = {
   // 서버 정보를 수정합니다
   // putServerProfile: async (serverData: {
   //   name: string;
+  //   serverUri : string
   //   serverImageURL: string | File;
-  // }): Promise<PutServerDTO> => {
+  // }): Promise<Servers> => {
   //   let profileImageURL = serverData.serverImageURL;
 
   //   if (serverData.serverImageURL instanceof File) {
@@ -117,6 +118,11 @@ export const serverService = {
   //       key: imageData.key,
   //     });
   //     profileImageURL = imageUrl;
+
+  //     await serverService.putServerProfile({
+  //       name: serverData.name,
+  //       serverImageURL: serverData.serverImageURL
+  //     })
 
   //     return {
   //       name: serverData.name,
