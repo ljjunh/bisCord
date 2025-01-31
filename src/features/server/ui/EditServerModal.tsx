@@ -75,7 +75,7 @@ const EditServerModal = () => {
       description=""
     >
       <form
-        className="flex w-full flex-col gap-2 px-2 pb-4"
+        className="flex w-full flex-col justify-center gap-2 px-2 pb-4"
         onSubmit={handleSubmit}
       >
         <UploadImageInput
@@ -94,7 +94,12 @@ const EditServerModal = () => {
             className="w-full rounded-md bg-dark-gray px-3 py-2 text-white focus:outline-none"
           />
         </label>
-        <button type="submit">수정</button>
+        <button
+          type="submit"
+          className="w-full rounded-md bg-blue p-2"
+        >
+          수정
+        </button>
       </form>
     </ModalContainer>
   );

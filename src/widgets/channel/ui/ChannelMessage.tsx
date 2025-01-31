@@ -54,8 +54,7 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
           <ChannelMessageDefault serverName={server?.name}>
             {/* 여기에 친구초대 버튼 */}
           </ChannelMessageDefault>
-          <ChMessage />
-          <div className="flex flex-col-reverse">
+          <ChMessage>
             {allMessage &&
               allMessage.map((message) => (
                 <div key={message.id}>
@@ -66,7 +65,7 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
               className="h-1 w-full"
               ref={observerRef}
             ></div>
-          </div>
+          </ChMessage>
           <MessageInput
             value={message}
             onChange={setMessage}
