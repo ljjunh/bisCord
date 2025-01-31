@@ -22,6 +22,7 @@ export const QUERY_KEYS = {
     list: () => [...QUERY_KEYS.server.base, 'servers'] as const,
     members: (serverUri: string, channelId: string) =>
       [...QUERY_KEYS.channel.base, 'members', serverUri, channelId] as const, // serverUri와 channelId를 이용한 고유한 키 반환
+    messages: (params: number) => [...QUERY_KEYS.channel.base, 'messages', params] as const,
   },
   image: {
     base: ['image'] as const,

@@ -96,51 +96,6 @@ export const serverService = {
   },
 
   // 서버 정보를 수정합니다
-  // putServerProfile: async (serverData: {
-  //   name: string;
-  //   serverUri: string;
-  //   serverImageURL: string | File;
-  // }): Promise<Servers> => {
-  //   let profileImageURL = serverData.serverImageURL;
-
-  //   if (serverData.serverImageURL instanceof File) {
-  //     // 이미지 데이터 업로드
-  //     const imageData = await serverService.postImage({
-  //       fileName: serverData.serverImageURL.name,
-  //       contentType: serverData.serverImageURL.type,
-  //       contentLength: serverData.serverImageURL.size,
-  //     });
-
-  //     console.log(imageData);
-
-  //     // 이미지 S3 업로드
-  //     await serverService.putImageToS3({
-  //       presignedUrl: imageData.presignedUrl,
-  //       file: serverData.serverImageURL,
-  //     });
-
-  //     // 업로드된 이미지 URL 가져오기
-  //     const { imageUrl } = await serverService.getImageUrl({
-  //       key: imageData.key,
-  //     });
-
-  //     profileImageURL = imageUrl;
-  //   }
-
-  //   // 서버 프로필 정보 수정
-  //   const updatedServer = await serverService.putServerProfile({
-  //     name: serverData.name,
-  //     serverUri: serverData.serverUri,
-  //     serverImageURL: typeof profileImageURL === 'string' ? profileImageURL : '',
-  //   });
-
-  //   return {
-  //     name: updatedServer.name,
-  //     serverUri: updatedServer.serverUri,
-  //     serverImageURL: updatedServer.serverImageURL,
-  //   };
-  // },
-
   putServerProfile: async (serverData: {
     name: string;
     serverUri: string;

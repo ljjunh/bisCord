@@ -69,6 +69,7 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
         />
         <div className="flex w-full justify-end gap-2 self-end bg-dark-gray p-4">
           <button
+            type="button"
             onClick={onCloseModal}
             className="h-[45px] w-[80px] rounded-md hover:underline"
           >
