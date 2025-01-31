@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { useModalStore } from '../model/modalStore';
 import ArrowRight from '../icons/ArrowRight';
+import NewMemberIcon from '../icons/NewMemberIcon';
 
 interface ChannelMessageDefault extends PropsWithChildren {
   serverName: string | undefined;
@@ -27,6 +28,12 @@ const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefault) 
         onClick={handleClick}
         className="mt-4 flex w-full max-w-[350px] cursor-pointer items-center rounded-lg bg-dark-gray p-4 transition-all hover:bg-gray"
       >
+        <div className="bg-pink mr-2 rounded-[50%] p-2">
+          <NewMemberIcon
+            size={20}
+            color="#fff"
+          />
+        </div>
         <div className="text-md flex-grow font-semibold text-white">친구 초대하기</div>
         <ArrowRight size={20} />
       </div>
