@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useModalStore } from '@/shared/model/modalStore';
+import { MODAL, useModalStore } from '@/shared/model/modalStore';
 import { serverQueries } from '@/features/server/api/queries';
 import CreateServerAvatar from '@/features/server/ui/CreateServerAvatar';
 import { ROUTES } from '@/shared/constants/routes';
@@ -15,7 +15,7 @@ const SideNav = () => {
   const servers = data?.content;
 
   // 모달 열기/닫기 핸들러
-  const handleModal = () => onOpenModal('CREATE_SERVER');
+  const handleModal = () => onOpenModal(MODAL.CREATE_SERVER);
 
   // localStorage.clear();
 

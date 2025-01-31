@@ -13,14 +13,13 @@ interface MemberList extends PropsWithChildren {
 }
 
 const MemberList = ({ member, children, friends }: MemberList) => {
-  // console.log(member);
-
   return (
     <div className="flex max-h-[40px] flex-row items-center gap-2 rounded-md p-1 hover:bg-mid-gray">
       <div className="h-[35px]">
         <UserAvatar
           size={20}
           image={friends ? friends?.profileImageURL : member?.profileImageURL}
+          state={friends ? friends?.loginStatus : member?.loginStatus}
           // state={friends ? friends?.loginStatus : member?.loginStatus}
         />
       </div>

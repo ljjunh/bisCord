@@ -39,9 +39,9 @@ export const serverQueries = {
   },
 
   // 수정 관련
-  // putEditServer { // 서버 정보 수정
-  //   mutationFn : serverService.editServer,
-  // },
+  putEditServer: {
+    mutationFn: serverService.putServerProfile,
+  },
 
   getMembers: (params: GetmemberDTO) =>
     infiniteQueryOptions({
