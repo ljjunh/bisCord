@@ -1,11 +1,15 @@
 import { DMList } from '@/features/directMessage/ui/DMList';
-import DMMessage from '@/features/directMessage/ui/DMMessage';
+import { DMView } from '@/features/directMessage/ui/DMView';
 
 const DirectMessagePage = () => {
   return (
-    <div className="flex h-full bg-black">
-      <DMList />
-      <DMMessage />
+    <div className="flex h-screen">
+      <aside className="max-h-screen">
+        <DMList />
+      </aside>
+      <main className="flex-1 overflow-hidden">
+        <DMView />
+      </main>
     </div>
   );
 };
