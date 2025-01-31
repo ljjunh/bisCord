@@ -1,4 +1,9 @@
-import { GetChMessageDTO, GetChMessageResponse } from './dto';
+import {
+  GetChMessageDTO,
+  GetChMessageResponse,
+  PostSendMessageRequest,
+  PostSendMessageResponse,
+} from './dto';
 import { apiClient } from '@/shared/api/apiClient';
 
 export const channelService = {
@@ -11,10 +16,23 @@ export const channelService = {
     const response = await apiClient.get<GetChMessageResponse>({
       url: `/chat/channel/${channelId}`,
       params: {
-        channelId,
         keyword,
         page,
         size,
+      },
+    });
+
+    return response.data;
+  },
+
+  postSendMessage: async ({
+    channelId,
+    content,
+  }: PostSendMessageRequest): Promise<PostSendMessageResponse> => {
+    const response = await apiClient.post<PostSendMessageResponse>({
+      url: `/chat/channel/${channelId}`,
+      data: {
+        content,
       },
     });
 

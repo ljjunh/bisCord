@@ -30,15 +30,16 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
         <div>{allMembers.length}</div>
       </div>
       <div className="flex flex-col gap-2">
-        {allMembers.map((member, index) => (
-          <MemberList
-            key={index}
-            member={member}
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isLoading={isFetchingNextPage}
-          />
-        ))}
+        {allMembers &&
+          allMembers.map((member, index) => (
+            <MemberList
+              key={index}
+              member={member}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isLoading={isFetchingNextPage}
+            />
+          ))}
         <div
           ref={observerRef}
           className="h-[1px] w-full"

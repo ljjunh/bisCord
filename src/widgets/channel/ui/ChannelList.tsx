@@ -8,11 +8,14 @@ import useGetParams from '@/entities/hooks/getParams';
 import EmptyList from '@/shared/ui/EmptyList';
 import ListContainer from '@/shared/ui/layout/ListContainer';
 import ChannelMessage from './ChannelMessage';
+import ServerDefault from './ServerDefault';
 
 /** 서버 채널 목록 리스트 UI */
 const ChannelList = () => {
-  const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
+  const { serverId, '*': channelId } = useGetParams<{ serverId: string; '*': string }>(); // `serverId`를 명시적으로 가져오기
   const validServerId = serverId ?? ''; // 기본값 설정
+
+  // console.log(serverId, channelId);
 
   // 현재 서버 정보를 가져옴
   const { data: getServerData, isLoading } = useQuery({
@@ -20,11 +23,6 @@ const ChannelList = () => {
     enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
 
-  // useEffect(() => {
-  //   // console.log(getServerData);
-  // }, [getServerData]);
-
-  /** 데이터를 가져오는 중입니다 */
   if (isLoading) return <p>Loading...</p>;
 
   return (
@@ -42,7 +40,13 @@ const ChannelList = () => {
           <UserProfileBar />
         </div>
       </ListContainer>
-      <ChannelMessage server={getServerData} />
+      {channelId ? (
+        <ChannelMessage server={getServerData} />
+      ) : (
+        <>
+          <ServerDefault server={getServerData} />
+        </>
+      )}
     </div>
   );
 };

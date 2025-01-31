@@ -96,40 +96,49 @@ export const serverService = {
   },
 
   // 서버 정보를 수정합니다
-  // putServerProfile: async (serverData: {
-  //   name: string;
-  //   serverUri : string
-  //   serverImageURL: string | File;
-  // }): Promise<Servers> => {
-  //   let profileImageURL = serverData.serverImageURL;
+  putServerProfile: async (serverData: {
+    name: string;
+    serverUri: string;
+    serverImageURL: string | File;
+  }): Promise<Servers> => {
+    let profileImageURL = serverData.serverImageURL;
 
-  //   if (serverData.serverImageURL instanceof File) {
-  //     const imageData = await serverService.postImage({
-  //       fileName: serverData.serverImageURL.name,
-  //       contentType: serverData.serverImageURL.type,
-  //       contentLength: serverData.serverImageURL.size,
-  //     });
-  //     console.log(imageData);
-  //     await serverService.putImageToS3({
-  //       presignedUrl: imageData.presignedUrl,
-  //       file: serverData.serverImageURL,
-  //     });
-  //     const { imageUrl } = await serverService.getImageUrl({
-  //       key: imageData.key,
-  //     });
-  //     profileImageURL = imageUrl;
+    // 이미지 파일이 있을 경우
+    if (serverData.serverImageURL instanceof File) {
+      // 이미지 데이터 업로드
+      const imageData = await serverService.postImage({
+        fileName: serverData.serverImageURL.name,
+        contentType: serverData.serverImageURL.type,
+        contentLength: serverData.serverImageURL.size,
+      });
 
-  //     await serverService.putServerProfile({
-  //       name: serverData.name,
-  //       serverImageURL: serverData.serverImageURL
-  //     })
+      console.log(imageData);
 
-  //     return {
-  //       name: serverData.name,
-  //       serverImageURL: profileImageURL,
-  //     } as const;
-  //   }
-  // },
+      // 이미지 S3 업로드
+      await serverService.putImageToS3({
+        presignedUrl: imageData.presignedUrl,
+        file: serverData.serverImageURL,
+      });
+
+      // 업로드된 이미지 URL 가져오기
+      const { imageUrl } = await serverService.getImageUrl({
+        key: imageData.key,
+      });
+
+      profileImageURL = imageUrl; // 업데이트된 이미지 URL을 사용
+    }
+
+    // 서버 프로필 정보 수정
+    const updatedServer = await apiClient.put<Servers>({
+      url: `/server/${serverData.serverUri}`, // serverUri를 URL에 포함
+      data: {
+        name: serverData.name,
+        serverImageURL: typeof profileImageURL === 'string' ? profileImageURL : '', // 문자열로 변환
+      },
+    });
+
+    return updatedServer.data;
+  },
 
   // 해당 서버를 삭제합니다
   deleteServer: async (serverUri: string): Promise<Servers> => {

@@ -1,8 +1,11 @@
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { Servers } from '../model/types';
 import { useModalStore } from '@/shared/model/modalStore';
 import useGetParams from '@/entities/hooks/getParams';
+import { queryClient } from '@/shared/api/queryClient';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import ModalContainer from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../api/queries';
 import { UploadImageInput } from './UploadImageInput';
@@ -11,7 +14,7 @@ const EditServerModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
   const getServerId = serverId ?? ''; // 기본값 설정
-  const [imageData, setImageData] = useState<File | string>('');
+  const [imageData, setImageData] = useState<File | string>(''); // 초기값을 빈 문자열로 설정
   const [profileData, setProfileData] = useState<Servers>({
     name: '',
     serverUri: '',
@@ -19,10 +22,11 @@ const EditServerModal = () => {
   });
 
   // 현재 서버 정보를 가져옴
-  const { data: serverData } = useQuery({
+  const { data: serverData, refetch } = useQuery({
     ...serverQueries.getServerDetail(getServerId),
   });
 
+  // 서버 데이터 설정
   useEffect(() => {
     if (serverData) {
       setProfileData({
@@ -30,13 +34,36 @@ const EditServerModal = () => {
         serverUri: serverData.serverUri ?? '',
         serverImageURL: serverData.serverImageURL ?? '',
       });
-      // console.log(profileData);
+      setImageData(serverData.serverImageURL ?? ''); // 서버 이미지 URL 초기화
     }
   }, [serverData]);
 
+  // 서버 정보 수정 요청
+  const { mutate: updateServerProfile } = useMutation({
+    ...serverQueries.putEditServer,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.server.list(),
+      });
+      toast.success('서버 수정이 완료되었습니다!');
+      refetch();
+      onCloseModal();
+    },
+    onError: () => {
+      toast.error('서버 수정에 실패했습니다.');
+    },
+  });
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // mutate
+
+    // profileData에 이미지가 있다면 URL로 변경 후 제출
+    const updatedProfileData = {
+      ...profileData,
+      serverImageURL: imageData,
+    };
+
+    updateServerProfile(updatedProfileData);
   };
 
   return (
@@ -67,6 +94,7 @@ const EditServerModal = () => {
             className="w-full rounded-md bg-dark-gray px-3 py-2 text-white focus:outline-none"
           />
         </label>
+        <button type="submit">수정</button>
       </form>
     </ModalContainer>
   );

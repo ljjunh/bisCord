@@ -1,5 +1,7 @@
 export interface Message {
-  type: 'SEND' | 'RECEIVE';
+  // type: 'SEND' | 'RECEIVE';
+  profileImageUrl: string;
+  channelId: number;
   id: string;
   content: string;
   userId: number;
