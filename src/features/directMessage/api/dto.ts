@@ -33,3 +33,9 @@ export interface DeleteDMDTO {
   recipientId: number;
   chatId: string;
 }
+
+export interface PatchDMDTO {
+  recipientId: number;
+  chatId: string;
+  content: string;
+}
