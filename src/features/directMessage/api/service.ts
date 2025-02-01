@@ -4,6 +4,7 @@ import type {
   GetDMResponseDTO,
   GetDMUsersDTO,
   GetDMUsersResponseDTO,
+  PatchDMDTO,
   PostDMDTO,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
@@ -43,6 +44,13 @@ export const DMService = {
     await apiClient.delete<void>({
       url: `chat/dm/${recipientId}`,
       data: { chatId },
+    });
+  },
+
+  patchDM: async ({ recipientId, chatId, content }: PatchDMDTO): Promise<void> => {
+    await apiClient.patch<void>({
+      url: `chat/dm/${recipientId}`,
+      data: { chatId, content },
     });
   },
 };

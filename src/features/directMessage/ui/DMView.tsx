@@ -8,20 +8,21 @@ import { groupMessages } from '../lib/utils';
 import { MessageGroup } from './MessageGroup';
 
 export const DMView = () => {
-  const { id } = useParams<{ id: string }>();
+  const otherUserId = Number(useParams().id);
   const queryClient = useQueryClient();
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    ...DMQueries.getDM({ otherUserId: Number(id) }),
+    ...DMQueries.getDM({ otherUserId }),
   });
 
   const { mutate } = useMutation({
     ...DMQueries.postDM,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.directMessage.detail({ otherUserId: 6 }),
+        queryKey: QUERY_KEYS.directMessage.detail({ otherUserId }),
       });
     },
   });
@@ -42,22 +43,22 @@ export const DMView = () => {
 
   const messageGroups = useMemo(() => groupMessages(messages), [messages]);
 
-  useEffect(() => {
-    if (messageContainerRef.current) {
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
-    }
-  }, [messages]);
-
   const [newMessage, setNewMessage] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
 
-    mutate({ recipientId: Number(id), content: newMessage });
+    mutate({ recipientId: otherUserId, content: newMessage });
 
     setNewMessage('');
   };
+
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <div className="flex h-full flex-col px-4 py-2 text-white">
@@ -75,6 +76,8 @@ export const DMView = () => {
           <MessageGroup
             key={`${group.user.id}-${index}`}
             group={group}
+            editingId={editingId}
+            setEditingId={setEditingId}
           />
         ))}
       </div>

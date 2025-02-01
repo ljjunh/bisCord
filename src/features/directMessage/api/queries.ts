@@ -36,4 +36,7 @@ export const DMQueries = {
   deleteDM: {
     mutationFn: DMService.deleteDM,
   },
+  patchDM: {
+    mutationFn: DMService.patchDM,
+  },
 };
