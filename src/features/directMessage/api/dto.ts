@@ -23,3 +23,8 @@ export interface GetDMResponseDTO {
     pageInfo: PageInfo;
   };
 }
+
+export interface PostDMDTO {
+  recipientId: number;
+  content: string;
+}
