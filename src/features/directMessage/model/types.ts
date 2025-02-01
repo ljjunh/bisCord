@@ -12,6 +12,7 @@ export interface Message {
   content: string;
   userId: number;
   name: string;
+  profileImageUrl: string | null;
   createdAt: string;
   updated: boolean;
 }
