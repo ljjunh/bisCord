@@ -1,7 +1,7 @@
 interface MessageInputProps {
   value: string;
   onChange: (value: string) => void;
-  placeholder: string;
+  placeholder?: string;
   onSubmit: (message: string) => void;
 }
 

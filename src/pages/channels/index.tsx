@@ -17,6 +17,7 @@ const ChannelPage = () => {
         <ChannelList />
         {/* <ChannelMessage /> */}
       </div>
+      {}
       <InvitedMemberModal />
       <EditServerModal />
     </>

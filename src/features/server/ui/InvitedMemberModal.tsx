@@ -77,11 +77,11 @@ const InvitedMemberModal = () => {
         {isNothingSearched ? (
           <div className="text-xs">'{searchText}'님은 친구 목록에 없습니다.</div>
         ) : (
-          allFriends.map((friends) => (
+          allFriends.map((friends, index) => (
             <>
               <MemberList
                 friends={friends}
-                key={friends.id}
+                key={index}
               >
                 <button className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green">
                   초대
