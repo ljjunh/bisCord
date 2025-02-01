@@ -1,5 +1,6 @@
 import type { MessageGroups } from '../model/types';
 import { useAuthStore } from '@/shared/model/authStore';
+import DiscordIcon from '@/shared/icons/DiscordIcon';
 import { formatMessageDate } from '@/shared/lib/formatMessageDate';
 import { cn } from '@/shared/lib/utils';
 import { DeleteDMButton } from './DeleteDMButton';
@@ -19,8 +20,24 @@ export const MessageGroup = ({ group, editingId, setEditingId }: MessageGroupPro
     <div className="py-3">
       <div className="flex items-start">
         {/* 프로필 사진 */}
-        <div className="mr-4 h-10 w-10 flex-shrink-0">
-          <div className="h-10 w-10 rounded-full bg-gray-500" />
+        <div className="relative mr-4 flex aspect-[1/1] h-10 h-full min-h-[35px] w-10 items-center justify-center rounded-[50%] bg-blue">
+          {group.user.profileImageURL ? (
+            <img
+              src={group.user.profileImageURL}
+              width={15}
+              height={15}
+              alt="User Avatar"
+              className="h-full w-full rounded-full object-cover"
+              onError={(e) => {
+                e.currentTarget.src = '/discord-icon.svg';
+              }}
+            />
+          ) : (
+            <DiscordIcon
+              color={'#ffffff'}
+              size={20}
+            />
+          )}
         </div>
 
         <div className="flex-1">
