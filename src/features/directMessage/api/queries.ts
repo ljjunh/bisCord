@@ -33,4 +33,7 @@ export const DMQueries = {
   postDM: {
     mutationFn: DMService.postDM,
   },
+  deleteDM: {
+    mutationFn: DMService.deleteDM,
+  },
 };
