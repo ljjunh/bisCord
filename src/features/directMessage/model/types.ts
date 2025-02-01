@@ -21,6 +21,7 @@ export interface MessageGroups {
   user: {
     id: number;
     name: string;
+    profileImageURL: string | null;
   };
   messages: Message[];
   timestamp: string;

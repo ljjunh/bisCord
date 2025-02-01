@@ -17,6 +17,7 @@ export const groupMessages = (messages: Message[]): MessageGroups[] => {
         user: {
           id: message.userId,
           name: message.name,
+          profileImageURL: message.profileImageUrl,
         },
         messages: [message],
         timestamp: message.createdAt,

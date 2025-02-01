@@ -21,7 +21,7 @@ export const DMService = {
 
     return response.data;
   },
-  getDM: async ({ otherUserId, page = 1, size = 10 }: GetDMDTO) => {
+  getDM: async ({ otherUserId, page = 1, size = 12 }: GetDMDTO) => {
     const response = await apiClient.get<GetDMResponseDTO>({
       url: `/chat/dm/${otherUserId}`,
       params: {

@@ -1,21 +1,28 @@
+import { Link, useLocation } from 'react-router-dom';
 import type { DMUser } from '../model/types';
+import { ROUTES } from '@/shared/constants/routes';
+import { cn } from '@/shared/lib/utils';
 import UserAvatar from '@/shared/ui/UserAvatar';
 
-interface DirectMessageItemProps {
-  userId: DMUser['userId'];
-  name: DMUser['name'];
-  profileImageURL: DMUser['profileImageURL'];
-  loginStatus: DMUser['loginStatus'];
-}
+type DirectMessageItemProps = Pick<DMUser, 'userId' | 'name' | 'profileImageURL' | 'loginStatus'>;
 
-export const DMItem = ({ name, profileImageURL, loginStatus }: DirectMessageItemProps) => {
+export const DMItem = ({ userId, name, profileImageURL, loginStatus }: DirectMessageItemProps) => {
+  const location = useLocation();
+  const userDMPath = ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(userId);
+
   const handleRemove = (e: React.MouseEvent) => {
     e.stopPropagation();
     console.log(name, '삭제 요청');
   };
 
   return (
-    <div className="group mx-2 flex cursor-pointer items-center rounded px-2 py-1 hover:bg-mid-gray">
+    <Link
+      to={ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(userId)}
+      className={cn(
+        'group mx-2 flex cursor-pointer items-center rounded px-2 py-1 hover:bg-mid-gray',
+        location.pathname === userDMPath && 'bg-gray',
+      )}
+    >
       <div className="flex flex-1 items-center">
         <div className="relative">
           <div className="flex h-8 w-8 items-center justify-center rounded-full">
@@ -33,6 +40,6 @@ export const DMItem = ({ name, profileImageURL, loginStatus }: DirectMessageItem
         onClick={handleRemove}
         className="hidden h-4 w-4 items-center justify-center text-super-light-gray after:content-['×'] hover:text-white group-hover:flex"
       />
-    </div>
+    </Link>
   );
 };
