@@ -1,4 +1,5 @@
 import type {
+  DeleteDMDTO,
   GetDMDTO,
   GetDMResponseDTO,
   GetDMUsersDTO,
@@ -35,6 +36,13 @@ export const DMService = {
     await apiClient.post<void>({
       url: `/chat/dm/${recipientId}`,
       data: { content },
+    });
+  },
+
+  deleteDM: async ({ recipientId, chatId }: DeleteDMDTO): Promise<void> => {
+    await apiClient.delete<void>({
+      url: `chat/dm/${recipientId}`,
+      data: { chatId },
     });
   },
 };

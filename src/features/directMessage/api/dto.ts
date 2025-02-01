@@ -28,3 +28,8 @@ export interface PostDMDTO {
   recipientId: number;
   content: string;
 }
+
+export interface DeleteDMDTO {
+  recipientId: number;
+  chatId: string;
+}
