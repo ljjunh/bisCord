@@ -1,4 +1,10 @@
-import type { GetDMDTO, GetDMResponseDTO, GetDMUsersDTO, GetDMUsersResponseDTO } from './dto';
+import type {
+  GetDMDTO,
+  GetDMResponseDTO,
+  GetDMUsersDTO,
+  GetDMUsersResponseDTO,
+  PostDMDTO,
+} from './dto';
 import { apiClient } from '@/shared/api/apiClient';
 
 export const DMService = {
@@ -23,5 +29,12 @@ export const DMService = {
     });
 
     return response.data;
+  },
+
+  postDM: async ({ recipientId, content }: PostDMDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/chat/dm/${recipientId}`,
+      data: { content },
+    });
   },
 };

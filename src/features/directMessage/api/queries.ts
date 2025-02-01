@@ -29,4 +29,8 @@ export const DMQueries = {
         return undefined;
       },
     }),
+
+  postDM: {
+    mutationFn: DMService.postDM,
+  },
 };
