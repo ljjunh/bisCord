@@ -2,6 +2,7 @@ import type { SignInDTO, SignInResponseDTO, SignUpDTO, SocialSignInResponseDTO }
 import { useAuthStore } from '@/shared/model/authStore';
 import { userService } from '@/entities/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
+import { notificationService } from '../../notification/api/service';
 
 export const authService = {
   signUp: async (data: SignUpDTO): Promise<void> => {
@@ -17,6 +18,11 @@ export const authService = {
     const user = await userService.getUser();
 
     useAuthStore.getState().setAuth(user);
+
+    const notificationToken = await notificationService.registerFCMToken();
+    if (notificationToken) {
+      await notificationService.PostNotificationToken({ notificationToken });
+    }
   },
   socialSignIn: async (code: string): Promise<string> => {
     const response = await apiClient.post<SocialSignInResponseDTO>({
