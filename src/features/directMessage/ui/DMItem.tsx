@@ -21,11 +21,15 @@ export const DMItem = ({ userId, name, profileImageURL, loginStatus }: DirectMes
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
       toast.success('채팅방을 삭제했습니다');
-      navigate(ROUTES.ROOT);
+      if (location.pathname !== ROUTES.ROOT) {
+        navigate(ROUTES.ROOT);
+      }
     },
   });
 
-  const handleRemove = () => {
+  const handleRemove = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
     mutate({ recipientId: userId });
   };
 

@@ -8,6 +8,7 @@ import { SwitchCase } from '@/shared/ui/SwitchCase';
 import { friendQueries } from '../../friend/api/queries';
 import { FRIEND_REQUEST_TYPE } from '../../friend/model/constants';
 import { SearchedFriendList } from './SearchedFriendList';
+import { StartDMButton } from './StartDMButton';
 
 export const SelectDMFriend = () => {
   const [searchInput, setSearchInput] = useState('');
@@ -68,10 +69,8 @@ export const SelectDMFriend = () => {
         />
         <div ref={observerRef} />
       </div>
-      {!isNotHaveFriends && !isNothingSearched && (
-        <button className="mt-4 w-full rounded-md bg-blue py-2.5 text-sm font-medium text-white hover:bg-blue-purple">
-          DM 생성
-        </button>
+      {!isNotHaveFriends && !isNothingSearched && selectedFriendId && (
+        <StartDMButton selectedFriendId={selectedFriendId} />
       )}
     </>
   );

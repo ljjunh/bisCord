@@ -8,14 +8,14 @@ import { cn } from '@/shared/lib/utils';
 import { LoadingSpinner } from '@/shared/ui/LoadingSpinner';
 import { DMQueries } from '../api/queries';
 import { UserProfileBar } from '../../user/ui/UserProfileBar';
-import { AddDMButton } from './AddDMButton';
+import { CreateDMButton } from './CreateDMButton';
 import { DMItem } from './DMItem';
 
 export const DMList = () => {
   const location = useLocation();
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    ...DMQueries.getDMUsers({ size: 20 }),
+    ...DMQueries.getDMRooms({ size: 20 }),
   });
 
   const observerRef = useInfiniteScroll({
@@ -41,7 +41,7 @@ export const DMList = () => {
         </Link>
         <div className="mb-2 flex items-center justify-between px-4">
           <h2 className="text-xs text-super-light-gray">다이렉트 메시지</h2>
-          <AddDMButton />
+          <CreateDMButton />
         </div>
         <div className="flex min-w-64 flex-col space-y-1">
           {!isEmpty(allFriends) &&

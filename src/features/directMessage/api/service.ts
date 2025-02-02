@@ -7,21 +7,11 @@ import type {
   GetDMRoomsResponseDTO,
   PatchDMDTO,
   PostDMDTO,
+  PostDMRoomDTO,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
 
 export const DMService = {
-  getDMUsers: async ({ page = 1, size = 10 }: GetDMRoomsDTO) => {
-    const response = await apiClient.get<GetDMRoomsResponseDTO>({
-      url: '/dm',
-      params: {
-        page,
-        size,
-      },
-    });
-
-    return response.data;
-  },
   getDM: async ({ otherUserId, page = 1, size = 12 }: GetDMDTO) => {
     const response = await apiClient.get<GetDMResponseDTO>({
       url: `/chat/dm/${otherUserId}`,
@@ -55,8 +45,26 @@ export const DMService = {
     });
   },
 
+  getDMRooms: async ({ page = 1, size = 10 }: GetDMRoomsDTO) => {
+    const response = await apiClient.get<GetDMRoomsResponseDTO>({
+      url: '/dm',
+      params: {
+        page,
+        size,
+      },
+    });
+
+    return response.data;
+  },
+
   deleteDMRoom: async ({ recipientId }: DeleteDMRoomDTO): Promise<void> => {
     await apiClient.delete<void>({
+      url: `/dm/${recipientId}`,
+    });
+  },
+
+  postDMRoom: async ({ recipientId }: PostDMRoomDTO): Promise<void> => {
+    await apiClient.post<void>({
       url: `/dm/${recipientId}`,
     });
   },

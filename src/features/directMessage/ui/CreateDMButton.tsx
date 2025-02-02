@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 import { SelectDMFriend } from './SelectDMFriend';
 
-export const AddDMButton = () => {
+export const CreateDMButton = () => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={0.1}>

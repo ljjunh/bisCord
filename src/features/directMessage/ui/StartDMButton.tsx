@@ -2,36 +2,35 @@ import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { ROUTES } from '@/shared/constants/routes';
-import { MessageIcon } from '@/shared/icons/MessageIcon';
-import { TooltipButton } from '@/shared/ui/TooltipButton';
-import { DMQueries } from '../../directMessage/api/queries';
+import { DMQueries } from '../api/queries';
 
-interface SendMessageButtonProps {
-  friendId: number;
+interface StartDMButtonProps {
+  selectedFriendId: number;
 }
 
-export const SendMessageButton = ({ friendId }: SendMessageButtonProps) => {
+export const StartDMButton = ({ selectedFriendId }: StartDMButtonProps) => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
+
   const { mutate, isPending } = useMutation({
     ...DMQueries.postDMRoom,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
-      navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(friendId));
+      navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(selectedFriendId));
     },
   });
 
   const handleButtonClick = () => {
-    mutate({ recipientId: friendId });
+    mutate({ recipientId: selectedFriendId });
   };
 
   return (
-    <TooltipButton
-      icon={<MessageIcon />}
-      tooltipText="메시지 보내기"
-      delayDuration={100}
+    <button
       onClick={handleButtonClick}
       disabled={isPending}
-    />
+      className="mt-4 w-full rounded-md bg-blue py-2.5 text-sm font-medium text-white hover:bg-blue-purple disabled:cursor-not-allowed disabled:opacity-50"
+    >
+      DM 생성
+    </button>
   );
 };

@@ -43,3 +43,7 @@ export interface PatchDMDTO {
 export interface DeleteDMRoomDTO {
   recipientId: number;
 }
+
+export interface PostDMRoomDTO {
+  recipientId: number;
+}
