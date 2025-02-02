@@ -8,6 +8,7 @@ import { cn } from '@/shared/lib/utils';
 import { LoadingSpinner } from '@/shared/ui/LoadingSpinner';
 import { DMQueries } from '../api/queries';
 import { UserProfileBar } from '../../user/ui/UserProfileBar';
+import { AddDMButton } from './AddDMButton';
 import { DMItem } from './DMItem';
 
 export const DMList = () => {
@@ -38,8 +39,9 @@ export const DMList = () => {
           <FriendsIcon />
           <h2 className="text-lg text-super-light-gray">친구</h2>
         </Link>
-        <div className="mb-2 px-4">
+        <div className="mb-2 flex items-center justify-between px-4">
           <h2 className="text-xs text-super-light-gray">다이렉트 메시지</h2>
+          <AddDMButton />
         </div>
         <div className="flex min-w-64 flex-col space-y-1">
           {!isEmpty(allFriends) &&
