@@ -4,10 +4,10 @@ import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { DMService } from './service';
 
 export const DMQueries = {
-  getDMUsers: (params: GetDMRoomsDTO) =>
+  getDMRooms: (params: GetDMRoomsDTO) =>
     infiniteQueryOptions({
       queryKey: QUERY_KEYS.directMessage.members(),
-      queryFn: ({ pageParam = 1 }) => DMService.getDMUsers({ ...params, page: pageParam }),
+      queryFn: ({ pageParam = 1 }) => DMService.getDMRooms({ ...params, page: pageParam }),
       initialPageParam: 1,
       getNextPageParam: (lastPage) => {
         if (lastPage.pageInfo.hasNextPage) {
@@ -41,5 +41,8 @@ export const DMQueries = {
   },
   deleteDMRoom: {
     mutationFn: DMService.deleteDMRoom,
+  },
+  postDMRoom: {
+    mutationFn: DMService.postDMRoom,
   },
 };
