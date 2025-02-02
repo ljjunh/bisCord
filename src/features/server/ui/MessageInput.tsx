@@ -21,7 +21,7 @@ const MessageInput = ({ value, onChange, placeholder, onSubmit }: MessageInputPr
           type="text"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full bg-gray text-white focus:outline-none"
+          className="w-full bg-gray px-2 text-white focus:outline-none"
           placeholder={`# ${placeholder}에 메세지 보내기`}
         />
         <button type="submit"></button>

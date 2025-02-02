@@ -78,12 +78,14 @@ const EditServerModal = () => {
         className="flex w-full flex-col justify-center gap-2 px-2 pb-4"
         onSubmit={handleSubmit}
       >
-        <UploadImageInput
-          onChange={setImageData}
-          value={imageData}
-        />
-        <div className="flex w-[100px] flex-col break-all text-xs text-light-gray">
-          서버 이미지 해상도는 최소 512x512를 추천해요.
+        <div className="flex flex-col items-center justify-center">
+          <UploadImageInput
+            onChange={setImageData}
+            value={imageData}
+          />
+          <div className="flex w-[100px] flex-col break-all text-xs text-light-gray">
+            서버 이미지 해상도는 최소 512x512를 추천해요.
+          </div>
         </div>
         <label className="flex flex-col text-start">
           <span className="pb-1 text-xs text-light-gray">서버 이름</span>

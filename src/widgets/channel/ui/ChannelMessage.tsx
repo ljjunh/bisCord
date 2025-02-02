@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { Message } from '@/features/channel/model/types';
 import { Servers } from '@/features/server/model/types';
 import { useAuthStore } from '@/shared/model/authStore';
@@ -10,6 +10,8 @@ import ChMessage from '@/features/channel/ui/ChMessage';
 import { ChannelMemberList } from '@/features/server/ui/ChannelMember';
 import { MessageHeader } from '@/features/server/ui/MessageHeader';
 import { MessageInput } from '@/features/server/ui/MessageInput';
+import { queryClient } from '@/shared/api/queryClient';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import ChannelMessageDefault from '@/shared/ui/ChannelMessageDefault';
 import { MessageBox } from '@/shared/ui/MessageBox';
@@ -37,9 +39,21 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
   const token = useAuthStore((state) => state.accessToken);
   const ChNumId = Number(channelId);
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, refetch, hasNextPage, isFetchingNextPage } = useInfiniteQuery(
     channelQueries.getCHMessages({ channelId: ChNumId }),
   );
+
+  const { mutate } = useMutation({
+    ...channelQueries.postCHSendMessage,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.channel.messages(ChNumId),
+      });
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const observerRef = useInfiniteScroll({
     fetchNextPage,
@@ -51,10 +65,10 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
   // console.log(data);
 
   useEffect(() => {
-    // if (data) {
-    //   const newMessages = data.pages.flatMap((page) => page.chats.content);
-    //   setAllMessage(newMessages);
-    // }
+    if (data) {
+      const newMessages = data.pages.flatMap((page) => page.chats.content);
+      setAllMessage(newMessages);
+    }
 
     const channelClient = new Client({
       brokerURL: 'wss://kdt-pt-1-pj-1-team06.elicecoding.com/api/ws',
@@ -65,7 +79,12 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
         console.log('channel 연결 성공', frame);
         channelClient.subscribe(`/topic/channel/${ChNumId}`, (message: IMessage) => {
           const msg: ChatData = JSON.parse(message.body);
-          setAllMessage((prev) => [...prev, msg]);
+          setAllMessage((prev) => {
+            if (!prev.some((m) => m.chatId === msg.chatId)) {
+              return [...prev, msg];
+            }
+            return prev;
+          });
         });
       },
     });
@@ -83,13 +102,12 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
     if (stompClient) {
       // 메시지 전송 시, content만 전송
       const chatMessage = {
+        channelId: ChNumId,
         content: newMessage,
       };
-      stompClient.publish({
-        destination: `/chat/channel/${ChNumId}`,
-        body: JSON.stringify(chatMessage),
-      });
+      mutate(chatMessage);
       setMessage('');
+      refetch();
     }
   };
 
