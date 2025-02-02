@@ -1,12 +1,12 @@
 import type { DMUser, Message } from '../model/types';
 import type { PageInfo } from '@/shared/types/PageInfo';
 
-export interface GetDMUsersDTO {
+export interface GetDMRoomsDTO {
   page?: number;
   size?: number;
 }
 
-export interface GetDMUsersResponseDTO {
+export interface GetDMRoomsResponseDTO {
   content: DMUser[];
   pageInfo: PageInfo;
 }
@@ -38,4 +38,8 @@ export interface PatchDMDTO {
   recipientId: number;
   chatId: string;
   content: string;
+}
+
+export interface DeleteDMRoomDTO {
+  recipientId: number;
 }
