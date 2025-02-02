@@ -1,10 +1,10 @@
 import { infiniteQueryOptions } from '@tanstack/react-query';
-import type { GetDMDTO, GetDMUsersDTO } from './dto';
+import type { GetDMDTO, GetDMRoomsDTO } from './dto';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { DMService } from './service';
 
 export const DMQueries = {
-  getDMUsers: (params: GetDMUsersDTO) =>
+  getDMUsers: (params: GetDMRoomsDTO) =>
     infiniteQueryOptions({
       queryKey: QUERY_KEYS.directMessage.members(),
       queryFn: ({ pageParam = 1 }) => DMService.getDMUsers({ ...params, page: pageParam }),
@@ -38,5 +38,8 @@ export const DMQueries = {
   },
   patchDM: {
     mutationFn: DMService.patchDM,
+  },
+  deleteDMRoom: {
+    mutationFn: DMService.deleteDMRoom,
   },
 };
