@@ -79,9 +79,10 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
         console.log('channel 연결 성공', frame);
         channelClient.subscribe(`/topic/channel/${ChNumId}`, (message: IMessage) => {
           const msg: ChatData = JSON.parse(message.body);
+          console.log(msg);
           setAllMessage((prev) => {
             if (!prev.some((m) => m.chatId === msg.chatId)) {
-              return [...prev, msg];
+              return [msg, ...prev];
             }
             return prev;
           });

@@ -58,6 +58,10 @@ const InvitedMemberModal = () => {
   // const validInviteUrl = inviteUrl?.inviteUrl.split('/');
   // const lastElement = validInviteUrl?.[validInviteUrl.length - 1];
 
+  const handleInviteMember = (member: string) => {
+    console.log(`${member}님 초대`);
+  };
+
   return (
     <ModalContainer
       isOpen={type === 'INVIDE_MEMBER'}
@@ -83,7 +87,10 @@ const InvitedMemberModal = () => {
                 friends={friends}
                 key={index}
               >
-                <button className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green">
+                <button
+                  onClick={() => handleInviteMember(friends.name)}
+                  className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green"
+                >
                   초대
                 </button>
               </MemberList>

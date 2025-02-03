@@ -23,7 +23,7 @@ const ChannelList = () => {
     enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <div className="h-full w-full bg-gray"></div>;
 
   return (
     <div className="flex w-full flex-row">
