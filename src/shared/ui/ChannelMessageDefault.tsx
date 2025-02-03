@@ -28,7 +28,7 @@ const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefault) 
         onClick={handleClick}
         className="mt-4 flex w-full max-w-[350px] cursor-pointer items-center rounded-lg bg-dark-gray p-4 transition-all hover:bg-gray"
       >
-        <div className="bg-pink mr-2 rounded-[50%] p-2">
+        <div className="mr-2 rounded-[50%] bg-pink p-2">
           <NewMemberIcon
             size={20}
             color="#fff"

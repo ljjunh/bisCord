@@ -20,4 +20,10 @@ export const channelQueries = {
   postCHSendMessage: {
     mutationFn: (data: PostSendMessageRequest) => channelService.postSendMessage(data),
   },
+  deleteCHMessage: {
+    mutationFn: channelService.deleteMessage,
+  },
+  editCHMessage: {
+    mutationFn: channelService.editMessage,
+  },
 };

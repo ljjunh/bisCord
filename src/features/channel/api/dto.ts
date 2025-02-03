@@ -42,3 +42,12 @@ export interface PostSendMessageResponse {
   createdAt: string;
   updated: boolean;
 }
+export interface DeleteCHMessage {
+  channelId: number;
+  chatId: string;
+}
+export interface EditMessage {
+  channelId: number;
+  chatId: string;
+  content: string;
+}
