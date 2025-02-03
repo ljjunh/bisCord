@@ -1,7 +1,9 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
+import { getToken } from 'firebase/messaging';
 import { toast } from 'react-toastify';
 import type { ApiErrorResponse } from '../types/apiResponse';
 import { useAuthStore } from '../model/authStore';
+import { messaging } from '../config/firebase/firebase';
 import { axiosInstance } from './apiClient';
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
@@ -31,10 +33,13 @@ export class TokenExpiredHandler {
     originalRequest._retry = true;
 
     try {
+      const notificationToken = await getToken(messaging, {
+        vapidKey: import.meta.env.VITE_VAPID_KEY,
+      });
       const { accessToken } = useAuthStore.getState();
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/login/refresh`,
-        null,
+        { notificationToken },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
           withCredentials: true,

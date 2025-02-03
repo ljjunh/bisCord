@@ -30,6 +30,7 @@ export const QUERY_KEYS = {
   },
   directMessage: {
     base: ['directMessage'] as const,
-    members: () => [...QUERY_KEYS.directMessage.base] as const,
+    members: () => [...QUERY_KEYS.directMessage.base, 'members'] as const,
+    detail: (params: object) => [...QUERY_KEYS.directMessage.base, 'detail', params] as const,
   },
 };

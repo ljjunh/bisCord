@@ -1,15 +1,21 @@
 import { isEmpty } from 'es-toolkit/compat';
+import { Link, useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import { ROUTES } from '@/shared/constants/routes';
 import { FriendsIcon } from '@/shared/icons/FriendsIcon';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { cn } from '@/shared/lib/utils';
 import { LoadingSpinner } from '@/shared/ui/LoadingSpinner';
 import { DMQueries } from '../api/queries';
 import { UserProfileBar } from '../../user/ui/UserProfileBar';
+import { CreateDMButton } from './CreateDMButton';
 import { DMItem } from './DMItem';
 
 export const DMList = () => {
+  const location = useLocation();
+
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    ...DMQueries.getDMUsers({ size: 20 }),
+    ...DMQueries.getDMRooms({ size: 20 }),
   });
 
   const observerRef = useInfiniteScroll({
@@ -23,12 +29,19 @@ export const DMList = () => {
   return (
     <div className="flex h-full flex-col rounded-tl-lg bg-dark-gray pt-5">
       <div className="flex-1 overflow-y-auto">
-        <div className="mb-3 flex items-center gap-3 rounded px-4 py-3">
+        <Link
+          to={ROUTES.ROOT}
+          className={cn(
+            'mx-2 mb-3 flex items-center gap-3 rounded px-4 py-3',
+            location.pathname === ROUTES.ROOT && 'bg-mid-gray',
+          )}
+        >
           <FriendsIcon />
           <h2 className="text-lg text-super-light-gray">친구</h2>
-        </div>
-        <div className="mb-2 px-4">
+        </Link>
+        <div className="mb-2 flex items-center justify-between px-4">
           <h2 className="text-xs text-super-light-gray">다이렉트 메시지</h2>
+          <CreateDMButton />
         </div>
         <div className="flex min-w-64 flex-col space-y-1">
           {!isEmpty(allFriends) &&

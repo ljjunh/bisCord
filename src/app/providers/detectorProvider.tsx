@@ -12,6 +12,8 @@ interface DetectorProviderProps {
 const IDLE_TIMEOUT = 30 * 60 * 1000;
 
 export const DetectorProvider = ({ children }: DetectorProviderProps) => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   const { setLoginStatus } = useAuthStore.getState();
 
   const { mutate } = useMutation({
@@ -22,6 +24,10 @@ export const DetectorProvider = ({ children }: DetectorProviderProps) => {
   });
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
+
     const detector = createActivityDetector({
       timeToIdle: IDLE_TIMEOUT,
     });
@@ -35,7 +41,7 @@ export const DetectorProvider = ({ children }: DetectorProviderProps) => {
     });
 
     return () => detector.stop();
-  }, [mutate]);
+  }, [mutate, isAuthenticated]);
 
   return <>{children}</>;
 };

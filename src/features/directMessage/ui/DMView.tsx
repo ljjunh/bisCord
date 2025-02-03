@@ -1,71 +1,83 @@
-import { useMemo, useState } from 'react';
-import type { Message } from '../model/types';
+import { useParams } from 'react-router-dom';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { DMQueries } from '../api/queries';
 import { groupMessages } from '../lib/utils';
 import { MessageGroup } from './MessageGroup';
 
 export const DMView = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      chatId: '1',
-      content: '안녕하세요!',
-      userId: 1,
-      name: '임준희',
-      createdAt: '2024-01-30T10:00:00Z',
-      updated: false,
+  const otherUserId = Number(useParams().id);
+  const queryClient = useQueryClient();
+  const [editingId, setEditingId] = useState<string | null>(null);
+
+  const messageContainerRef = useRef<HTMLDivElement>(null);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    ...DMQueries.getDM({ otherUserId }),
+  });
+
+  const { mutate } = useMutation({
+    ...DMQueries.postDM,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.directMessage.detail({ otherUserId }),
+      });
     },
-    {
-      chatId: '2',
-      content: '네 안녕하세요~',
-      userId: 2,
-      name: 'User 2',
-      createdAt: '2025-01-29T10:01:00Z',
-      updated: false,
-    },
-    {
-      chatId: '3',
-      content: '오늘 날씨가 좋네요',
-      userId: 2,
-      name: 'User 2',
-      createdAt: '2025-01-30T10:01:30Z',
-      updated: false,
-    },
-    {
-      chatId: '4',
-      content: '네 정말 그러네요!',
-      userId: 1,
-      name: 'User 1',
-      createdAt: '2025-01-30T10:02:00Z',
-      updated: false,
-    },
-  ]);
+  });
+
+  const observerRef = useInfiniteScroll({
+    fetchNextPage,
+    hasNextPage,
+    isLoading: isFetchingNextPage,
+  });
+
+  const messages = useMemo(() => {
+    const flatMessages = data?.pages.flatMap((page) => page.chats.content) ?? [];
+
+    return flatMessages.sort(
+      (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
+    );
+  }, [data]);
+
+  const messageGroups = useMemo(() => groupMessages(messages), [messages]);
 
   const [newMessage, setNewMessage] = useState('');
-  const messageGroups = useMemo(() => groupMessages(messages), [messages]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newMessage.trim()) return;
 
-    const newMsg: Message = {
-      chatId: Date.now().toString(),
-      content: newMessage,
-      userId: 1, // 현재 사용자 ID
-      name: 'currentUser', // 현재 사용자 이름
-      createdAt: new Date().toISOString(),
-      updated: false,
-    };
+    mutate({ recipientId: otherUserId, content: newMessage });
 
-    setMessages((prev) => [...prev, newMsg]);
     setNewMessage('');
   };
 
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className="flex h-full flex-col px-4 py-2 text-white">
-      <div className="flex-1 overflow-y-auto">
+      <div
+        ref={messageContainerRef}
+        className="flex-1 overflow-y-auto"
+      >
+        {hasNextPage && (
+          <div
+            ref={observerRef}
+            className="py-2 text-center text-sm text-white"
+          />
+        )}
         {messageGroups.map((group, index) => (
           <MessageGroup
             key={`${group.user.id}-${index}`}
             group={group}
+            editingId={editingId}
+            setEditingId={setEditingId}
           />
         ))}
       </div>

@@ -12,6 +12,7 @@ export interface Message {
   content: string;
   userId: number;
   name: string;
+  profileImageUrl: string | null;
   createdAt: string;
   updated: boolean;
 }
@@ -20,6 +21,7 @@ export interface MessageGroups {
   user: {
     id: number;
     name: string;
+    profileImageURL: string | null;
   };
   messages: Message[];
   timestamp: string;

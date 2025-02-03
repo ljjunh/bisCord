@@ -9,7 +9,7 @@ export const groupMessages = (messages: Message[]): MessageGroups[] => {
       !lastGroup ||
       lastGroup.user.id !== message.userId ||
       new Date(message.createdAt).getTime() - new Date(lastGroup.timestamp).getTime() >
-        5 * 60 * 1000;
+        1 * 60 * 1000;
 
     if (shouldStartNewGroup) {
       // 새 그룹 추가
@@ -17,6 +17,7 @@ export const groupMessages = (messages: Message[]): MessageGroups[] => {
         user: {
           id: message.userId,
           name: message.name,
+          profileImageURL: message.profileImageUrl,
         },
         messages: [message],
         timestamp: message.createdAt,
