@@ -25,7 +25,10 @@ export const useWebSocket = () => {
         stompClient.subscribe(`/queue/user/${userId}`, (message) => {
           try {
             const { type, data } = JSON.parse(message.body);
-            console.log('DM 수신:', data);
+            const temp = JSON.parse(message.body);
+            console.log('메시지', temp);
+            // console.log('DM 타입', type);
+            // console.log('DM 수신:', data);
             if (type === 'DM') {
               queryClient.invalidateQueries({
                 queryKey: QUERY_KEYS.directMessage.detail({ otherUserId: data.userId }),

@@ -63,7 +63,7 @@ export const MessageGroup = ({ group, editingId, setEditingId }: MessageGroupPro
                   <EditDMForm
                     content={message.content}
                     chatId={message.chatId}
-                    recipientId={message.userId}
+                    recipientId={message.recipientId}
                     onCancel={() => setEditingId(null)}
                   />
                 ) : (
@@ -74,7 +74,7 @@ export const MessageGroup = ({ group, editingId, setEditingId }: MessageGroupPro
                         <EditDMButton onEdit={() => setEditingId(message.chatId)} />
                         <DeleteDMButton
                           chatId={message.chatId}
-                          recipientId={message.userId}
+                          recipientId={message.recipientId}
                         />
                       </div>
                     )}

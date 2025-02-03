@@ -13,6 +13,8 @@ export interface Message {
   userId: number;
   name: string;
   profileImageUrl: string | null;
+  recipientId: number;
+  recipientName: string;
   createdAt: string;
   updated: boolean;
 }
