@@ -1,4 +1,6 @@
 import { PropsWithChildren } from 'react';
+import { EditIcon } from '../icons/EditIcon';
+import { WasteBasketIcon } from '../icons/WasteBasketIcon';
 import { formatTime } from '../lib/dayjs';
 import UserAvatar from './UserAvatar';
 
@@ -32,6 +34,10 @@ const MessageBox = ({ message }: Message) => {
           <p className="text-xs text-light-gray">{formatTime(message.createdAt)}</p>
         </div>
         {message.content}
+      </div>
+      <div className="ml-auto flex">
+        <WasteBasketIcon size={20} />
+        <EditIcon size={20} />
       </div>
     </div>
   );

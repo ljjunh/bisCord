@@ -30,6 +30,9 @@ interface ChatData {
   createdAt: string;
   updated: boolean;
 }
+interface ResChatData {
+  data: ChatData;
+}
 
 const ChannelMessage = ({ server }: ChannelMessage) => {
   const [allMessage, setAllMessage] = useState<Message[]>([]);
@@ -77,12 +80,13 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
       },
       onConnect: (frame) => {
         console.log('channel 연결 성공', frame);
+        console.log(allMessage);
         channelClient.subscribe(`/topic/channel/${ChNumId}`, (message: IMessage) => {
-          const msg: ChatData = JSON.parse(message.body);
-          console.log(msg);
+          const msg: ResChatData = JSON.parse(message.body);
+          console.log(msg.data);
           setAllMessage((prev) => {
-            if (!prev.some((m) => m.chatId === msg.chatId)) {
-              return [msg, ...prev];
+            if (!prev.some((m) => m.chatId === msg.data.chatId)) {
+              return [msg.data, ...prev];
             }
             return prev;
           });

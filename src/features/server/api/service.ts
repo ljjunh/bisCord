@@ -6,6 +6,7 @@ import {
   GetmemberDTO,
   InviteServer,
   MemberDTO,
+  PostDMDTO,
   PostImageDTO,
   PostImageResponseDTO,
   PostInviteServer,
@@ -200,5 +201,11 @@ export const serverService = {
     });
 
     return response.data;
+  },
+  postDM: async ({ recipientId, content }: PostDMDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/chat/dm/${recipientId}`,
+      data: { content },
+    });
   },
 };

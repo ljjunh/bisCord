@@ -1,8 +1,11 @@
 import { isEmpty } from 'es-toolkit/compat';
+import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
 import useGetParams from '@/entities/hooks/getParams';
+import { queryClient } from '@/shared/api/queryClient';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { SearchInput } from '@/shared/ui/SearchInput';
@@ -52,14 +55,28 @@ const InvitedMemberModal = () => {
   });
 
   // 초대 코드를 받아옴 => 이거 하위로 넘김 필요하면 다시 쓸꺼임;;;;
-  // const { data: inviteUrl } = useQuery({
-  //   ...serverQueries.postInvite(validServerId),
-  // });
-  // const validInviteUrl = inviteUrl?.inviteUrl.split('/');
+  const { data: inviteUrl } = useQuery({
+    ...serverQueries.postInvite(validServerId),
+  });
+  const validInviteUrl = inviteUrl?.inviteUrl.split('/');
   // const lastElement = validInviteUrl?.[validInviteUrl.length - 1];
 
-  const handleInviteMember = (member: string) => {
-    console.log(`${member}님 초대`);
+  const { mutate } = useMutation({
+    ...serverQueries.postDM,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.directMessage.detail({ validServerId }),
+      });
+    },
+  });
+  const handleInviteMember = (memberId: number, name: string) => {
+    mutate({
+      recipientId: memberId,
+      content: `${getServerData?.name} 서버에서 초대를 보냈어요!
+      ${validInviteUrl}`,
+    });
+    toast.success(`${name}님께 초대 메세지를 보냈습니다.`);
+    console.log(`${memberId}님 초대`);
   };
 
   return (
@@ -88,7 +105,7 @@ const InvitedMemberModal = () => {
                 key={index}
               >
                 <button
-                  onClick={() => handleInviteMember(friends.name)}
+                  onClick={() => handleInviteMember(friends.id, friends.name)}
                   className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green"
                 >
                   초대

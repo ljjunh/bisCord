@@ -42,6 +42,9 @@ export const serverQueries = {
   putEditServer: {
     mutationFn: serverService.putServerProfile,
   },
+  postDM: {
+    mutationFn: serverService.postDM,
+  },
 
   getMembers: (params: GetmemberDTO) =>
     infiniteQueryOptions({
