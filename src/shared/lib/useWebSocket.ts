@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Client } from '@stomp/stompjs';
+import { WebSocketMessage } from '../model/types';
 import { useAuthStore } from '../model/authStore';
-import { queryClient } from '../api/queryClient';
-import { QUERY_KEYS } from '../api/queryKeys';
+import { useChatStore } from '../model/chatStore';
 
 export const useWebSocket = () => {
   const client = useRef<Client | null>(null);
@@ -10,6 +10,8 @@ export const useWebSocket = () => {
   const token = useAuthStore((state) => state.accessToken);
 
   const userId = useAuthStore((state) => state.user?.id);
+
+  const handleMessage = useChatStore.getState().handleMessage;
 
   useEffect(() => {
     if (!token || !userId) return;
@@ -24,15 +26,10 @@ export const useWebSocket = () => {
       onConnect: () => {
         stompClient.subscribe(`/queue/user/${userId}`, (message) => {
           try {
-            const { type, data } = JSON.parse(message.body);
-            const temp = JSON.parse(message.body);
-            console.log('메시지', temp);
-            // console.log('DM 타입', type);
-            // console.log('DM 수신:', data);
-            if (type === 'DM') {
-              queryClient.invalidateQueries({
-                queryKey: QUERY_KEYS.directMessage.detail({ otherUserId: data.userId }),
-              });
+            const wsMessage = JSON.parse(message.body) as WebSocketMessage;
+            console.log('메시지임', wsMessage);
+            if (wsMessage.type === 'DM') {
+              handleMessage(wsMessage);
             }
           } catch (error) {
             console.error('DM 메시지 파싱 에러:', error);
@@ -54,7 +51,7 @@ export const useWebSocket = () => {
         client.current.deactivate();
       }
     };
-  }, [token, userId]);
+  }, [token, userId, handleMessage]);
 
   return client.current;
 };
