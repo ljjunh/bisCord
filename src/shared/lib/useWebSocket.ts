@@ -25,6 +25,7 @@ export const useWebSocket = () => {
         stompClient.subscribe(`/queue/user/${userId}`, (message) => {
           try {
             const wsMessage = JSON.parse(message.body) as WebSocketMessage;
+            console.log('수신', wsMessage);
             if (wsMessage.type === 'DM') {
               SocketService.handleDM(wsMessage);
             }
