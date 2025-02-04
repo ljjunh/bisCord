@@ -24,7 +24,6 @@ export const DMItem = ({
   const location = useLocation();
   const userDMPath = ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(userId);
   const queryClient = useQueryClient();
-  console.log(read, '리드상태');
 
   const { mutate, isPending } = useMutation({
     ...DMQueries.deleteDMRoom,
