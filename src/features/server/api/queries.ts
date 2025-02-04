@@ -65,4 +65,8 @@ export const serverQueries = {
       queryKey: QUERY_KEYS.server.invite(serverUri),
       queryFn: () => serverService.postInviteServer({ serverUri }),
     }),
+
+  postJoin: {
+    mutationFn: serverService.postJoinServer,
+  },
 };

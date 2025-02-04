@@ -1,4 +1,5 @@
 import { isEmpty } from 'es-toolkit/compat';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
@@ -59,7 +60,7 @@ const InvitedMemberModal = () => {
     ...serverQueries.postInvite(validServerId),
   });
   const validInviteUrl = inviteUrl?.inviteUrl.split('/');
-  // const lastElement = validInviteUrl?.[validInviteUrl.length - 1];
+  const lastElement = validInviteUrl?.[validInviteUrl.length - 1];
 
   const { mutate } = useMutation({
     ...serverQueries.postDM,
@@ -69,14 +70,16 @@ const InvitedMemberModal = () => {
       });
     },
   });
+
+  const localtion = useLocation();
   const handleInviteMember = (memberId: number, name: string) => {
     mutate({
       recipientId: memberId,
       content: `${getServerData?.name} 서버에서 초대를 보냈어요!
-      ${validInviteUrl}`,
+      초대코드 : ${lastElement}`,
     });
     toast.success(`${name}님께 초대 메세지를 보냈습니다.`);
-    console.log(`${memberId}님 초대`);
+    console.log(`${localtion.hash}님 초대`);
   };
 
   return (

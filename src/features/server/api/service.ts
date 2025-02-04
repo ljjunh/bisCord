@@ -5,6 +5,7 @@ import {
   GetImageUrlResponseDTO,
   GetmemberDTO,
   InviteServer,
+  JoinServer,
   MemberDTO,
   PostDMDTO,
   PostImageDTO,
@@ -174,6 +175,14 @@ export const serverService = {
   postInviteServer: async ({ serverUri }: PostInviteServer): Promise<InviteServer> => {
     const response = await apiClient.post<InviteServer>({
       url: `/server/${serverUri}/invite`,
+    });
+
+    return response.data;
+  },
+  // 초대 코드로 서버 가입
+  postJoinServer: async ({ inviteKey }: JoinServer) => {
+    const response = await apiClient.post<JoinServer>({
+      url: `/server/join/${inviteKey}`,
     });
 
     return response.data;
