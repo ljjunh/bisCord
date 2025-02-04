@@ -1,5 +1,4 @@
 import { Servers } from '@/features/server/model/types';
-import ChMessage from '@/features/channel/ui/ChMessage';
 import { ChannelMemberList } from '@/features/server/ui/ChannelMember';
 import { MessageHeader } from '@/features/server/ui/MessageHeader';
 import ChannelMessageDefault from '@/shared/ui/ChannelMessageDefault';
@@ -17,7 +16,6 @@ const ServerDefault = ({ server }: ChannelMessage) => {
           <ChannelMessageDefault serverName={server?.name}>
             {/* 여기에 친구초대 버튼 */}
           </ChannelMessageDefault>
-          <ChMessage />
         </div>
         <div className="hidden h-full lg:block">
           <ChannelMemberList serverUri={server?.serverUri} />
