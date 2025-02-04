@@ -13,4 +13,7 @@ export const authQueries = {
   signOff: {
     mutationFn: authService.signOff,
   },
+  socialSignIn: {
+    mutationFn: authService.socialSignIn,
+  },
 };

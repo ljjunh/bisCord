@@ -1,4 +1,10 @@
-import type { SignInDTO, SignInResponseDTO, SignUpDTO, SocialSignInResponseDTO } from './dto';
+import type {
+  SignInDTO,
+  SignInResponseDTO,
+  SignUpDTO,
+  SocialSignInDTO,
+  SocialSignInResponseDTO,
+} from './dto';
 import { useAuthStore } from '@/shared/model/authStore';
 import { userService } from '@/entities/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
@@ -18,19 +24,27 @@ export const authService = {
 
     useAuthStore.getState().setAuth(user);
   },
-  socialSignIn: async (code: string): Promise<string> => {
-    const response = await apiClient.post<SocialSignInResponseDTO>({
-      url: '/login/code',
-      params: { code },
-    });
 
-    return response.data.accessToken;
-  },
   signOut: async (): Promise<void> => {
     await apiClient.post<void>({ url: '/login/logout' });
   },
 
   signOff: async (): Promise<void> => {
     await apiClient.delete<void>({ url: '/user' });
+  },
+
+  socialSignIn: async ({ code }: SocialSignInDTO): Promise<void> => {
+    const response = await apiClient.post<SocialSignInResponseDTO>({
+      url: '/login/code',
+      params: { code },
+    });
+
+    const token = response.data.accessToken;
+
+    useAuthStore.getState().setAccessToken(token);
+
+    const user = await userService.getUser();
+
+    useAuthStore.getState().setAuth(user);
   },
 };
