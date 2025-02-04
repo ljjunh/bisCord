@@ -5,7 +5,9 @@ import {
   GetImageUrlResponseDTO,
   GetmemberDTO,
   InviteServer,
+  JoinServer,
   MemberDTO,
+  PostDMDTO,
   PostImageDTO,
   PostImageResponseDTO,
   PostInviteServer,
@@ -177,6 +179,14 @@ export const serverService = {
 
     return response.data;
   },
+  // 초대 코드로 서버 가입
+  postJoinServer: async ({ inviteKey }: JoinServer) => {
+    const response = await apiClient.post<JoinServer>({
+      url: `/server/join/${inviteKey}`,
+    });
+
+    return response.data;
+  },
 
   /** ㅇ
    * 이미지 관련
@@ -200,5 +210,11 @@ export const serverService = {
     });
 
     return response.data;
+  },
+  postDM: async ({ recipientId, content }: PostDMDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/chat/dm/${recipientId}`,
+      data: { content },
+    });
   },
 };

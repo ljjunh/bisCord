@@ -7,7 +7,7 @@ import MainPage from '@/pages/main';
 import NotFound from '@/pages/notFound';
 import SigninPage from '@/pages/signin';
 import SignupPage from '@/pages/signup';
-import Layout from '@/widgets/components/Layout';
+import Layout from '@/widgets/layout/ui/MainLayout';
 import { ROUTES } from '@/shared/constants/routes';
 
 interface AuthRouteProps {

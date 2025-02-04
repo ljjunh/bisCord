@@ -1,4 +1,6 @@
 import {
+  DeleteCHMessage,
+  EditMessage,
   GetChMessageDTO,
   GetChMessageResponse,
   PostSendMessageRequest,
@@ -37,5 +39,21 @@ export const channelService = {
     });
 
     return response.data;
+  },
+
+  deleteMessage: async ({ channelId, chatId }: DeleteCHMessage) => {
+    await apiClient.delete<void>({
+      url: `/chat/channel/${channelId}`,
+      data: { chatId },
+    });
+  },
+  editMessage: async ({ channelId, chatId, content }: EditMessage): Promise<void> => {
+    await apiClient.patch<void>({
+      url: `/chat/channel/${channelId}`,
+      data: {
+        chatId,
+        content,
+      },
+    });
   },
 };

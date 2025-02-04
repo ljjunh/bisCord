@@ -1,11 +1,10 @@
 export interface Message {
-  // type: 'SEND' | 'RECEIVE';
-  profileImageUrl: string;
+  chatId: string;
   channelId: number;
-  id: string;
   content: string;
   userId: number;
   name: string;
+  profileImageUrl: string;
   createdAt: string;
   updated: boolean;
 }

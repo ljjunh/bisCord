@@ -57,6 +57,9 @@ export interface PostInviteServer {
 export interface InviteServer {
   inviteUrl: string;
 }
+export interface JoinServer {
+  inviteKey: string;
+}
 
 export interface PutUserDTO {
   name: string;
@@ -90,4 +93,9 @@ export interface GetImageUrlResponseDTO {
 
 export interface PutUserProfileDTO extends Omit<PutUserDTO, 'profileImageURL'> {
   image: string | File;
+}
+
+export interface PostDMDTO {
+  recipientId: number;
+  content: string;
 }
