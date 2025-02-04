@@ -5,6 +5,7 @@ export interface DMUser {
   name: string;
   profileImageURL: string | null;
   loginStatus: LoginStatus;
+  read: boolean;
 }
 
 export interface Message {
