@@ -1,62 +1,46 @@
 import { create } from 'zustand';
-import { SendMessage, WebSocketMessage } from './types';
-import { useAuthStore } from './authStore';
+import type { ChatMessage, SendMessage, UpdateMessage } from './types';
 
 interface ChatStoreState {
   messages: Record<number, SendMessage[]>;
-  handleMessage: (message: WebSocketMessage) => void;
+  addMessage: (otherUserId: number, message: SendMessage) => void;
+  updateMessage: (otherUserId: number, message: UpdateMessage) => void;
+  deleteMessage: (otherUserId: number, message: ChatMessage) => void;
 }
 
 export const useChatStore = create<ChatStoreState>((set) => ({
   messages: {},
 
-  handleMessage: (message: WebSocketMessage) => {
-    const { operation, data } = message;
-    const myUserId = useAuthStore.getState().user?.id;
-    if (!myUserId) return;
+  addMessage: (otherUserId, message) => {
+    set((state) => ({
+      messages: {
+        ...state.messages,
+        [otherUserId]: [...(state.messages[otherUserId] || []), message],
+      },
+    }));
+  },
 
-    const otherUserId = data.userId === myUserId ? data.recipientId : data.userId;
+  updateMessage: (otherUserId, message) => {
+    set((state) => ({
+      messages: {
+        ...state.messages,
+        [otherUserId]:
+          state.messages[otherUserId]?.map((msg) =>
+            msg.chatId === message.chatId
+              ? { ...msg, content: message.content, updated: true }
+              : msg,
+          ) || [],
+      },
+    }));
+  },
 
-    switch (operation) {
-      case 'SEND': {
-        if ('content' in data && 'createdAt' in data) {
-          set((state: ChatStoreState) => ({
-            messages: {
-              ...state.messages,
-              [otherUserId]: [...(state.messages[otherUserId] || []), data],
-            },
-          }));
-        }
-        break;
-      }
-
-      case 'UPDATE': {
-        if ('content' in data) {
-          set((state: ChatStoreState) => ({
-            messages: {
-              ...state.messages,
-              [otherUserId]:
-                state.messages[otherUserId]?.map((msg) =>
-                  msg.chatId === data.chatId
-                    ? { ...msg, content: data.content, updated: true }
-                    : msg,
-                ) || [],
-            },
-          }));
-        }
-        break;
-      }
-
-      case 'DELETE': {
-        set((state: ChatStoreState) => ({
-          messages: {
-            ...state.messages,
-            [otherUserId]:
-              state.messages[otherUserId]?.filter((msg) => msg.chatId !== data.chatId) || [],
-          },
-        }));
-        break;
-      }
-    }
+  deleteMessage: (otherUserId, message) => {
+    set((state) => ({
+      messages: {
+        ...state.messages,
+        [otherUserId]:
+          state.messages[otherUserId]?.filter((msg) => msg.chatId !== message.chatId) || [],
+      },
+    }));
   },
 }));

@@ -26,7 +26,13 @@ export const DMView = () => {
     const apiMessages = data?.pages.flatMap((page) => page.chats.content) ?? [];
     const storeMessages = realtimeMessages || [];
 
-    return [...apiMessages, ...storeMessages].sort(
+    // 중복 제거
+    const messagesMap = new Map();
+    [...apiMessages, ...storeMessages].forEach((message) => {
+      messagesMap.set(message.chatId, message);
+    });
+
+    return Array.from(messagesMap.values()).sort(
       (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
     );
   }, [data, realtimeMessages]);
