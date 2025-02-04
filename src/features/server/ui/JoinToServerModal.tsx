@@ -17,11 +17,12 @@ export const JoinToServerModal = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEYS.server.list(),
       });
+      toast.success('서버에 가입되었습니다');
       onCloseModal();
     },
     onError: () => {
-        toast.error('잘못된 초대코드 입니다')
-    }
+      toast.error('잘못된 초대코드 입니다');
+    },
   });
 
   const handleSubmit = (e: React.FormEvent) => {

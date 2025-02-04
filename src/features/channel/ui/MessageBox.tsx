@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { channelQueries } from '../api/queries';
 import { queryClient } from '../../../shared/api/queryClient';
 import { QUERY_KEYS } from '../../../shared/api/queryKeys';
-import { EditIcon } from '../../../shared/icons/EditIcon';
+// import { EditIcon } from '../../../shared/icons/EditIcon';
 import { WasteBasketIcon } from '../../../shared/icons/WasteBasketIcon';
 import { formatTime } from '../../../shared/lib/dayjs';
 import UserAvatar from '../../../shared/ui/UserAvatar';
@@ -57,9 +57,9 @@ const MessageBox = ({ message, channelId }: Message) => {
       </div>
 
       <div className="ml-auto hidden group-hover:flex">
-        <div className="p-1">
+        {/* <div className="p-1">
           <EditIcon size={20} />
-        </div>
+        </div> */}
         <div
           className="p-1"
           onClick={handleDelete}
