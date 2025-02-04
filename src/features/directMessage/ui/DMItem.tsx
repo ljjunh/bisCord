@@ -8,13 +8,23 @@ import { cn } from '@/shared/lib/utils';
 import UserAvatar from '@/shared/ui/UserAvatar';
 import { DMQueries } from '../api/queries';
 
-type DirectMessageItemProps = Pick<DMUser, 'userId' | 'name' | 'profileImageURL' | 'loginStatus'>;
+type DirectMessageItemProps = Pick<
+  DMUser,
+  'userId' | 'name' | 'profileImageURL' | 'loginStatus' | 'read'
+>;
 
-export const DMItem = ({ userId, name, profileImageURL, loginStatus }: DirectMessageItemProps) => {
+export const DMItem = ({
+  userId,
+  name,
+  profileImageURL,
+  loginStatus,
+  read,
+}: DirectMessageItemProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const userDMPath = ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(userId);
   const queryClient = useQueryClient();
+  console.log(read, '리드상태');
 
   const { mutate, isPending } = useMutation({
     ...DMQueries.deleteDMRoom,
@@ -51,7 +61,14 @@ export const DMItem = ({ userId, name, profileImageURL, loginStatus }: DirectMes
             />
           </div>
         </div>
-        <span className="text-md ml-3 text-super-light-gray group-hover:text-white">{name}</span>
+        <span
+          className={cn(
+            'text-md ml-3 group-hover:text-white',
+            read ? 'text-super-light-gray' : 'text-white',
+          )}
+        >
+          {name}
+        </span>
       </div>
 
       <button

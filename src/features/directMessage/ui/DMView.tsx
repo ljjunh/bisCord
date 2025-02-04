@@ -67,10 +67,8 @@ export const DMView = () => {
     if (!latestChatId || !lastSentReadIdRef) return;
 
     const interval = setInterval(() => {
-      // 전에 보낸거랑 같으면 리턴
       if (latestChatId === lastSentReadIdRef.current) return;
 
-      // 읽음 상태 전송
       client?.publish({
         destination: `/app/dm/${otherUserId}/chat/${latestChatId}`,
       });
