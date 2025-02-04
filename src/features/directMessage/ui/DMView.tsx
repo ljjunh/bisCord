@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useChatStore } from '@/shared/model/chatStore';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useWebSocket } from '@/shared/lib/useWebSocket';
 import { DMQueries } from '../api/queries';
 import { groupMessages } from '../lib/utils';
 import { MessageGroup } from './MessageGroup';
@@ -10,6 +11,7 @@ import { MessageInput } from './MessageInput';
 
 export const DMView = () => {
   const otherUserId = Number(useParams().id);
+  const client = useWebSocket();
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
@@ -53,6 +55,30 @@ export const DMView = () => {
     hasNextPage,
     isLoading: isFetchingNextPage,
   });
+
+  const lastSentReadIdRef = useRef<string>('');
+
+  const latestChatId = useMemo(() => {
+    if (!allMessages.length) return null;
+    return allMessages[allMessages.length - 1].chatId;
+  }, [allMessages]);
+
+  useEffect(() => {
+    if (!latestChatId || !lastSentReadIdRef) return;
+
+    const interval = setInterval(() => {
+      // 전에 보낸거랑 같으면 리턴
+      if (latestChatId === lastSentReadIdRef.current) return;
+
+      // 읽음 상태 전송
+      client?.publish({
+        destination: `/app/dm/${otherUserId}/chat/${latestChatId}`,
+      });
+      lastSentReadIdRef.current = latestChatId;
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [otherUserId, latestChatId, client]);
 
   return (
     <div className="flex h-full flex-col px-4 py-2 text-white">
