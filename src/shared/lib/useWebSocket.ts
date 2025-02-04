@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { Client } from '@stomp/stompjs';
+import type { WebSocketMessage } from '../model/types';
 import { useAuthStore } from '../model/authStore';
-import { queryClient } from '../api/queryClient';
-import { QUERY_KEYS } from '../api/queryKeys';
+import { SocketService } from '../api/socketService';
 
 export const useWebSocket = () => {
   const client = useRef<Client | null>(null);
@@ -24,12 +24,9 @@ export const useWebSocket = () => {
       onConnect: () => {
         stompClient.subscribe(`/queue/user/${userId}`, (message) => {
           try {
-            const { type, data } = JSON.parse(message.body);
-            console.log('DM 수신:', data);
-            if (type === 'DM') {
-              queryClient.invalidateQueries({
-                queryKey: QUERY_KEYS.directMessage.detail({ otherUserId: data.userId }),
-              });
+            const wsMessage = JSON.parse(message.body) as WebSocketMessage;
+            if (wsMessage.type === 'DM') {
+              SocketService.handleDM(wsMessage);
             }
           } catch (error) {
             console.error('DM 메시지 파싱 에러:', error);
