@@ -34,7 +34,7 @@ export const DMHeader = () => {
         {/* 유저 정보 */}
         <span className="font-bold text-white">{data.name}</span>
       </div>
-      <CallButton />
+      <CallButton otherUserId={otherUserId} />
     </div>
   );
 };

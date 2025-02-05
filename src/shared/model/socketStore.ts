@@ -43,6 +43,11 @@ export const useSocketStore = create<SocketState>((set, get) => ({
           try {
             const wsMessage = JSON.parse(message.body) as WebSocketMessage;
             console.log('수신', wsMessage);
+
+            if (['CALL_OFFER', 'CALL_ANSWER', 'CALL_ICE', 'CALL_END'].includes(wsMessage.type)) {
+              SocketService.handleWebRTC(wsMessage);
+            }
+
             if (wsMessage.type === 'DM') {
               SocketService.handleDM(wsMessage);
             }
