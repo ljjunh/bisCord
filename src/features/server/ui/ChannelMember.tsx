@@ -11,7 +11,6 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     ...serverQueries.getMembers({ serverUri: serverUri || '' }), // 올바른 객체 전달
   });
-
   const allMembers = data?.pages.flatMap((page) => page.content) ?? [];
   const observerRef = useInfiniteScroll({
     fetchNextPage,
@@ -20,6 +19,7 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
   });
   // useEffect(() => {
   //   console.log(allMembers);
+  //   refetch();
   // }, [allMembers]);
 
   return (

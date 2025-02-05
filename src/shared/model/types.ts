@@ -7,6 +7,15 @@ export interface User {
   description: string;
 }
 
+export interface Server {
+  serverUri: string;
+  channels: [];
+}
+export interface Channel {
+  channelId: number;
+  name: string;
+}
+
 export type LoginStatus = 'ONLINE' | 'OFFLINE' | 'AWAY' | 'BUSY';
 
 export interface ChatMessage {
@@ -32,4 +41,13 @@ export interface WebSocketMessage {
   operation: 'SEND' | 'UPDATE' | 'DELETE';
   type: 'DM';
   data: ChatMessage | SendMessage | UpdateMessage; // DELETE operation 일때는 ChatMessage 사용
+}
+
+export interface UPdateCHMEssage {
+  content: string;
+}
+
+export interface CHWebSocketMessage {
+  operation: 'SEND' | 'UPDATE' | 'DELETE';
+  type: 'CHANNEL';
 }

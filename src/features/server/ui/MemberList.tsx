@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
 import { ServerMemberDTO } from '../model/types';
 import { Friend } from '@/entities/friend/model/types';
 // import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
@@ -13,6 +13,8 @@ interface MemberList extends PropsWithChildren {
 }
 
 const MemberList = ({ member, children, friends }: MemberList) => {
+  useEffect(() => {}, [member, friends]);
+
   return (
     <div className="flex max-h-[40px] flex-row items-center gap-2 rounded-md p-1 hover:bg-mid-gray">
       <div className="h-[35px]">
