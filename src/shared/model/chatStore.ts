@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import type { ChatMessage, SendMessage, UpdateMessage } from './types';
 
-interface ChatStoreState {
+interface ChatState {
   messages: Record<number, SendMessage[]>;
   addMessage: (otherUserId: number, message: SendMessage) => void;
   updateMessage: (otherUserId: number, message: UpdateMessage) => void;
   deleteMessage: (otherUserId: number, message: ChatMessage) => void;
 }
 
-export const useChatStore = create<ChatStoreState>((set) => ({
+export const useChatStore = create<ChatState>((set) => ({
   messages: {},
 
   addMessage: (otherUserId, message) => {
