@@ -50,7 +50,19 @@ export const useRTCStore = create<RTCState>((set, get) => ({
 
   createPeerConnection: () => {
     const peerConnection = new RTCPeerConnection({
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        // { urls: 'stun:stun1.l.google.com:19302' },
+        // { urls: 'stun:stun2.l.google.com:19302' },
+        // { urls: 'stun:stun3.l.google.com:19302' },
+        // { urls: 'stun:stun4.l.google.com:19302' },
+        {
+          urls: 'turn:test.turn-testing.kro.kr:3478',
+          username: 'test',
+          credential: 'test',
+        },
+      ],
+      iceTransportPolicy: 'all',
     });
 
     const { sendSignal, targetUserId } = get();
