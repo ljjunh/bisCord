@@ -35,14 +35,16 @@ interface ResChatData {
 }
 
 const ChannelMessage = ({ server }: ChannelMessage) => {
-  // state or cosnt
+  // state or constant
   const [allMessage, setAllMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>('');
   const { '*': channelId } = useParams();
   const ChNumId = Number(channelId);
   const [stompClient, setStompClient] = useState<Client | null>(null);
+
   // store or socket
   const token = useAuthStore((state) => state.accessToken);
+
   // api client
   const { data, fetchNextPage, refetch, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     ...channelQueries.getCHMessages({ channelId: ChNumId }),
