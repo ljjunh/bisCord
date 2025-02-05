@@ -8,6 +8,10 @@ interface RTCState {
   localStream: MediaStream | null;
   isCallInProgress: boolean;
   targetUserId: number | null;
+  inComingCall: {
+    userId: number | null;
+    userName: string | null;
+  } | null;
 
   setLocalStream: (stream: MediaStream) => void;
   resetLocalStream: () => void;
@@ -20,6 +24,8 @@ interface RTCState {
   handleNewICECandidate: (candidate: RTCIceCandidate) => Promise<void>;
   endCall: () => void;
   sendSignal: (message: WebRTCSignalMessage) => void;
+  setIncomingCall: (userId: number, userName: string) => void;
+  clearIncomingCall: () => void;
 }
 
 export const useRTCStore = create<RTCState>((set, get) => ({
@@ -27,6 +33,8 @@ export const useRTCStore = create<RTCState>((set, get) => ({
   localStream: null,
   isCallInProgress: false,
   targetUserId: null,
+  inComingCall: null,
+
   setLocalStream: (stream: MediaStream) => set({ localStream: stream }),
 
   // 마이크 스트림 정리
@@ -46,8 +54,9 @@ export const useRTCStore = create<RTCState>((set, get) => ({
 
     const { sendSignal, targetUserId } = get();
     const myUserId = useAuthStore.getState().user?.id;
+    const myUserName = useAuthStore.getState().user?.name;
 
-    if (!myUserId || !targetUserId) return peerConnection;
+    if (!myUserId || !targetUserId || !myUserName) return peerConnection;
 
     // ICE candidate 이벤트 처리
     peerConnection.onicecandidate = (event) => {
@@ -58,6 +67,7 @@ export const useRTCStore = create<RTCState>((set, get) => ({
             type: 'CALL_ICE',
             data: {
               fromUserId: myUserId,
+              fromUserName: myUserName,
               toUserId: targetUserId,
               candidate: event.candidate,
             },
@@ -80,7 +90,8 @@ export const useRTCStore = create<RTCState>((set, get) => ({
   startCall: async (targetUserId: number) => {
     const { localStream, createPeerConnection, sendSignal } = get();
     const myUserId = useAuthStore.getState().user?.id;
-    if (!localStream || !myUserId) return;
+    const myUserName = useAuthStore.getState().user?.name;
+    if (!localStream || !myUserId || !myUserName) return;
 
     const peerConnection = createPeerConnection();
 
@@ -103,6 +114,7 @@ export const useRTCStore = create<RTCState>((set, get) => ({
         type: 'CALL_OFFER',
         data: {
           fromUserId: myUserId,
+          fromUserName: myUserName,
           toUserId: targetUserId,
           description: new RTCSessionDescription({
             type: offer.type,
@@ -119,7 +131,9 @@ export const useRTCStore = create<RTCState>((set, get) => ({
 
   handleIncomingCall: async (data: WebRTCSignalData) => {
     const { localStream, createPeerConnection } = get();
-    if (!localStream || !data.description) return;
+    const myUserName = useAuthStore.getState().user?.name;
+
+    if (!localStream || !data.description || !myUserName) return;
 
     const peerConnection = createPeerConnection();
 
@@ -141,6 +155,7 @@ export const useRTCStore = create<RTCState>((set, get) => ({
       type: 'CALL_ANSWER',
       data: {
         fromUserId: data.toUserId,
+        fromUserName: myUserName,
         toUserId: data.fromUserId,
         description: new RTCSessionDescription({
           type: answer.type,
@@ -189,4 +204,9 @@ export const useRTCStore = create<RTCState>((set, get) => ({
       body: JSON.stringify(message),
     });
   },
+
+  setIncomingCall: (userId: number, userName: string) =>
+    set({ inComingCall: { userId, userName } }),
+
+  clearIncomingCall: () => set({ inComingCall: null }),
 }));

@@ -37,6 +37,7 @@ export interface WebSocketMessage {
 export interface WebRTCSignalData {
   fromUserId: number;
   toUserId: number;
+  fromUserName: string;
   // offer나 answer일때는 description이 있음
   description?: RTCSessionDescription;
   // ICE candidate일때는 candidate가 있음
