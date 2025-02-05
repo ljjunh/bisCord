@@ -2,7 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useChatStore } from '@/shared/model/chatStore';
+import { useDetectorStore } from '@/shared/model/detectorStore';
 import { useSocketStore } from '@/shared/model/socketStore';
+import { useUnreadMessagesStore } from '@/shared/model/unreadMessagesStore';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { DMQueries } from '../api/queries';
 import { groupMessages } from '../lib/utils';
@@ -13,6 +15,9 @@ export const DMView = () => {
   const otherUserId = Number(useParams().id);
   const socketClient = useSocketStore((state) => state.socketClient);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const detector = useDetectorStore((state) => state.detector);
+  const unreadUsers = useUnreadMessagesStore((state) => state.unreadUsers);
+  const { removeUnreadUser } = useUnreadMessagesStore();
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
@@ -64,19 +69,29 @@ export const DMView = () => {
   }, [allMessages]);
 
   useEffect(() => {
-    if (!latestChatId || !lastSentReadIdRef) return;
+    if (!latestChatId || !lastSentReadIdRef || !detector) return;
 
-    const interval = setInterval(() => {
-      if (latestChatId === lastSentReadIdRef.current) return;
+    const cleanup = detector.on('active', () => {
+      if (latestChatId !== lastSentReadIdRef.current) {
+        console.log('디텍터 실행');
+        socketClient?.publish({
+          destination: `/app/dm/${otherUserId}/chat/${latestChatId}`,
+        });
+        lastSentReadIdRef.current = latestChatId;
+      }
+    });
 
-      socketClient?.publish({
-        destination: `/app/dm/${otherUserId}/chat/${latestChatId}`,
-      });
-      lastSentReadIdRef.current = latestChatId;
-    }, 3000);
+    return cleanup;
+  }, [detector, latestChatId]);
 
-    return () => clearInterval(interval);
-  }, [otherUserId, latestChatId, socketClient]);
+  useEffect(() => {
+    if (!otherUserId) return;
+
+    const userId = Number(otherUserId);
+    if (unreadUsers[userId]) {
+      removeUnreadUser(userId);
+    }
+  }, [otherUserId, unreadUsers, removeUnreadUser]);
 
   return (
     <div className="flex h-full flex-col px-4 py-2 text-white">

@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { MODAL, useModalStore } from '@/shared/model/modalStore';
+import { UnreadMessageIndicator } from '@/features/directMessage/ui/UnreadMessageIndicator';
 import { serverQueries } from '@/features/server/api/queries';
 import CreateServerAvatar from '@/features/server/ui/CreateServerAvatar';
 import { JoinServerAvatar } from '@/features/server/ui/JoinServerAvatar';
@@ -25,6 +26,7 @@ const SideNav = () => {
       {/* 다이렉트 메세지 부분 */}
       <div>
         <DMAvatar link={ROUTES.ROOT} />
+        <UnreadMessageIndicator />
       </div>
       <div className="h-[3px] w-[60%] rounded-md bg-gray" />
       {/* 현재 서버 리스트 */}
