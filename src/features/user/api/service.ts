@@ -1,6 +1,8 @@
 import type {
   GetImageUrlDTO,
   GetImageUrlResponseDTO,
+  GetOtherUserDTO,
+  GetOtherUserResponseDTO,
   PostImageDTO,
   PostImageResponseDTO,
   PostUserStatusDTO,
@@ -12,6 +14,14 @@ import { User } from '@/shared/model/types';
 import { apiClient } from '@/shared/api/apiClient';
 
 export const userService = {
+  getOtherUser: async ({ userId }: GetOtherUserDTO): Promise<GetOtherUserResponseDTO> => {
+    const response = await apiClient.get<GetOtherUserResponseDTO>({
+      url: `/user/${userId}`,
+    });
+
+    return response.data;
+  },
+
   putUser: async (data: PutUserDTO): Promise<void> => {
     await apiClient.put<void>({
       url: '/user',
