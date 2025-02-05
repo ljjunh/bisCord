@@ -33,15 +33,14 @@ export const DMService = {
 
   deleteDM: async ({ recipientId, chatId }: DeleteDMDTO): Promise<void> => {
     await apiClient.delete<void>({
-      url: `chat/dm/${recipientId}`,
-      data: { chatId },
+      url: `chat/dm/${recipientId}/chat/${chatId}`,
     });
   },
 
   patchDM: async ({ recipientId, chatId, content }: PatchDMDTO): Promise<void> => {
     await apiClient.patch<void>({
-      url: `chat/dm/${recipientId}`,
-      data: { chatId, content },
+      url: `chat/dm/${recipientId}/chat/${chatId}`,
+      data: { content },
     });
   },
 

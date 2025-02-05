@@ -52,6 +52,7 @@ export const DMList = () => {
                 name={friend.name}
                 profileImageURL={friend.profileImageURL}
                 loginStatus={friend.loginStatus}
+                read={friend.read}
               />
             ))}
           {isFetchingNextPage && (

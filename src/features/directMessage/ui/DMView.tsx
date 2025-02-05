@@ -2,6 +2,9 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useChatStore } from '@/shared/model/chatStore';
+import { useDetectorStore } from '@/shared/model/detectorStore';
+import { useSocketStore } from '@/shared/model/socketStore';
+import { useUnreadMessagesStore } from '@/shared/model/unreadMessagesStore';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { DMQueries } from '../api/queries';
 import { groupMessages } from '../lib/utils';
@@ -10,7 +13,11 @@ import { MessageInput } from './MessageInput';
 
 export const DMView = () => {
   const otherUserId = Number(useParams().id);
+  const socketClient = useSocketStore((state) => state.socketClient);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const detector = useDetectorStore((state) => state.detector);
+  const unreadUsers = useUnreadMessagesStore((state) => state.unreadUsers);
+  const { removeUnreadUser } = useUnreadMessagesStore();
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
@@ -53,6 +60,38 @@ export const DMView = () => {
     hasNextPage,
     isLoading: isFetchingNextPage,
   });
+
+  const lastSentReadIdRef = useRef<string>('');
+
+  const latestChatId = useMemo(() => {
+    if (!allMessages.length) return null;
+    return allMessages[allMessages.length - 1].chatId;
+  }, [allMessages]);
+
+  useEffect(() => {
+    if (!latestChatId || !lastSentReadIdRef || !detector) return;
+
+    const cleanup = detector.on('active', () => {
+      if (latestChatId !== lastSentReadIdRef.current) {
+        console.log('디텍터 실행');
+        socketClient?.publish({
+          destination: `/app/dm/${otherUserId}/chat/${latestChatId}`,
+        });
+        lastSentReadIdRef.current = latestChatId;
+      }
+    });
+
+    return cleanup;
+  }, [detector, latestChatId]);
+
+  useEffect(() => {
+    if (!otherUserId) return;
+
+    const userId = Number(otherUserId);
+    if (unreadUsers[userId]) {
+      removeUnreadUser(userId);
+    }
+  }, [otherUserId, unreadUsers, removeUnreadUser]);
 
   return (
     <div className="flex h-full flex-col px-4 py-2 text-white">
