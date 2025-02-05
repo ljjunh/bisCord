@@ -2,6 +2,7 @@ import createActivityDetector from 'activity-detector';
 import { ReactNode, useEffect } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '@/shared/model/authStore';
+import { useDetectorStore } from '@/shared/model/detectorStore';
 import { userQueries } from '@/features/user/api/queries';
 import { LOGIN_STATUS } from '@/entities/user/model/constants';
 
@@ -13,6 +14,7 @@ const IDLE_TIMEOUT = 30 * 60 * 1000;
 
 export const DetectorProvider = ({ children }: DetectorProviderProps) => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const { setDetector } = useDetectorStore();
 
   const { setLoginStatus } = useAuthStore.getState();
 
@@ -31,6 +33,7 @@ export const DetectorProvider = ({ children }: DetectorProviderProps) => {
     const detector = createActivityDetector({
       timeToIdle: IDLE_TIMEOUT,
     });
+    setDetector(detector);
 
     detector.on('active', () => {
       mutate({ status: LOGIN_STATUS.ONLINE });

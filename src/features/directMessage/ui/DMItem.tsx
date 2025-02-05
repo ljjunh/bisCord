@@ -64,6 +64,7 @@ export const DMItem = ({
           className={cn(
             'text-md ml-3 group-hover:text-white',
             read ? 'text-super-light-gray' : 'text-white',
+            location.pathname === userDMPath && 'text-white',
           )}
         >
           {name}

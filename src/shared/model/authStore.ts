@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { LoginStatus, User } from './types';
 
-interface AuthStore {
+interface AuthState {
   accessToken: string | null;
   user: User | null;
   isAuthenticated: boolean;
@@ -12,7 +12,7 @@ interface AuthStore {
   setLoginStatus: (status: LoginStatus) => void;
 }
 
-export const useAuthStore = create<AuthStore>()(
+export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       accessToken: null,

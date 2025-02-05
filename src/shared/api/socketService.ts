@@ -1,6 +1,8 @@
 import type { WebSocketMessage } from '../model/types';
 import { useAuthStore } from '../model/authStore';
 import { useChatStore } from '../model/chatStore';
+import { useUnreadMessagesStore } from '../model/unreadMessagesStore';
+import { ROUTES } from '../constants/routes';
 import { queryClient } from './queryClient';
 import { QUERY_KEYS } from './queryKeys';
 
@@ -11,6 +13,23 @@ export const SocketService = {
 
     const otherUserId = data.userId === myUserId ? data.recipientId : data.userId;
     const messages = useChatStore.getState().messages;
+    const isNotInCurrentChatRoom = !window.location.pathname.includes(
+      ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(otherUserId),
+    );
+
+    if (isNotInCurrentChatRoom && operation === 'SEND' && 'profileImageUrl' in data) {
+      if (otherUserId in useUnreadMessagesStore.getState().unreadUsers) {
+        console.log('안에꺼');
+        useUnreadMessagesStore.getState().increaseUnreadCount(otherUserId);
+        return;
+      }
+      console.log('밖에꺼');
+      useUnreadMessagesStore.getState().addUnreadUser(otherUserId, data.profileImageUrl);
+    }
+
+    if (isNotInCurrentChatRoom) {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
+    }
 
     switch (operation) {
       case 'SEND': {
