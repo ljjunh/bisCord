@@ -70,13 +70,28 @@ const InvitedMemberModal = () => {
       });
     },
   });
+  const { mutate: openDm } = useMutation({
+    ...serverQueries.postDMRoom,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
+      // navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(selectedFriendId));
+    },
+  });
 
   const localtion = useLocation();
   const handleInviteMember = (memberId: number, name: string) => {
+    if (lastElement === undefined || null) {
+      toast.error('초대 권한이 없습니다');
+      return;
+    }
+    openDm({ recipientId: memberId });
     mutate({
       recipientId: memberId,
-      content: `${getServerData?.name} 서버에서 초대를 보냈어요!
-      초대코드 : ${lastElement}`,
+      content: `초대코드 : ${lastElement}`,
+    });
+    mutate({
+      recipientId: memberId,
+      content: `${getServerData?.name} 서버에서 초대를 보냈어요!`,
     });
     toast.success(`${name}님께 초대 메세지를 보냈습니다.`);
     console.log(`${localtion.hash}님 초대`);

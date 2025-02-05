@@ -51,6 +51,7 @@ const ChannelCategories = ({ serverId }: ChannelCategories) => {
           <div className="flex flex-col gap-1 py-2">
             {textChannels.map((channel) => (
               <ChannelItem
+                type="chat"
                 key={channel.id}
                 link={serverId}
                 channel={channel}
@@ -90,6 +91,7 @@ const ChannelCategories = ({ serverId }: ChannelCategories) => {
           <div className="flex flex-col gap-1 py-2">
             {voiceChannels.map((channel) => (
               <ChannelItem
+                type="voice"
                 key={channel.id}
                 link={serverId}
                 channel={channel}

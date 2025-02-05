@@ -1,6 +1,7 @@
 import {
   Channel,
   ChannelDTO,
+  DeleteChannel,
   GetImageUrlDTO,
   GetImageUrlResponseDTO,
   GetmemberDTO,
@@ -8,6 +9,7 @@ import {
   JoinServer,
   MemberDTO,
   PostDMDTO,
+  PostDMRoomDTO,
   PostImageDTO,
   PostImageResponseDTO,
   PostInviteServer,
@@ -23,6 +25,9 @@ export const serverService = {
   /** 전체 서버 목록을 가져옵니다 */
   getServers: async (): Promise<ServersDTO> => {
     const response = await apiClient.get<ServersDTO>({ url: '/user/servers?page=1&size=100' });
+
+    const servers = response.data.content.map((server) => server.serverUri);
+    console.log(servers);
 
     return response.data;
   },
@@ -148,6 +153,13 @@ export const serverService = {
 
     return response.data;
   },
+  deleteChannel: async (channelId: number): Promise<DeleteChannel> => {
+    const response = await apiClient.delete<DeleteChannel>({
+      url: `/chat/channel/${channelId}`,
+    });
+
+    return response.data;
+  },
 
   // 유저 관련
   getServerMembers: async ({
@@ -215,6 +227,11 @@ export const serverService = {
     await apiClient.post<void>({
       url: `/chat/dm/${recipientId}`,
       data: { content },
+    });
+  },
+  postDMRoom: async ({ recipientId }: PostDMRoomDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/dm/${recipientId}`,
     });
   },
 };
