@@ -39,8 +39,23 @@ export interface UpdateMessage extends ChatMessage {
 
 export interface WebSocketMessage {
   operation: 'SEND' | 'UPDATE' | 'DELETE';
-  type: 'DM';
-  data: ChatMessage | SendMessage | UpdateMessage; // DELETE operation 일때는 ChatMessage 사용
+  type: 'DM' | 'CALL_OFFER' | 'CALL_ANSWER' | 'CALL_ICE' | 'CALL_END';
+  data: ChatMessage | SendMessage | UpdateMessage | WebRTCSignalData; // DELETE operation 일때는 ChatMessage 사용
+}
+
+export interface WebRTCSignalData {
+  fromUserId: number;
+  toUserId: number;
+  fromUserName: string;
+  // offer나 answer일때는 description이 있음
+  description?: RTCSessionDescription;
+  // ICE candidate일때는 candidate가 있음
+  candidate?: RTCIceCandidate;
+}
+
+export interface WebRTCSignalMessage extends WebSocketMessage {
+  type: 'CALL_OFFER' | 'CALL_ANSWER' | 'CALL_ICE' | 'CALL_END';
+  data: WebRTCSignalData;
 }
 
 export interface UPdateCHMEssage {
