@@ -11,6 +11,7 @@ interface RTCState {
   inComingCall: {
     userId: number | null;
     userName: string | null;
+    signalData: WebRTCSignalData | null;
   } | null;
 
   setLocalStream: (stream: MediaStream) => void;
@@ -24,7 +25,7 @@ interface RTCState {
   handleNewICECandidate: (candidate: RTCIceCandidate) => Promise<void>;
   endCall: () => void;
   sendSignal: (message: WebRTCSignalMessage) => void;
-  setIncomingCall: (userId: number, userName: string) => void;
+  setIncomingCall: (userId: number, userName: string, signalData: WebRTCSignalData) => void;
   clearIncomingCall: () => void;
 }
 
@@ -123,7 +124,7 @@ export const useRTCStore = create<RTCState>((set, get) => ({
         },
       });
 
-      set({ targetUserId });
+      set({ targetUserId, peerConnection });
     } catch (error) {
       console.error('오퍼 생성 중 에러', error);
     }
@@ -133,8 +134,12 @@ export const useRTCStore = create<RTCState>((set, get) => ({
     const { localStream, createPeerConnection } = get();
     const myUserName = useAuthStore.getState().user?.name;
 
-    if (!localStream || !data.description || !myUserName) return;
-
+    console.log('체크 1:', { localStream, myUserName, description: data.description });
+    if (!localStream || !data.description || !myUserName) {
+      console.log('조건 체크 실패', { localStream, myUserName, description: data.description });
+      return;
+    }
+    set({ targetUserId: data.fromUserId });
     const peerConnection = createPeerConnection();
 
     // 로컬스트림 추가하기
@@ -164,15 +169,30 @@ export const useRTCStore = create<RTCState>((set, get) => ({
       },
     });
 
+    console.log('answer 전송', answer);
+
     set({ isCallInProgress: true, targetUserId: data.fromUserId });
+
+    console.log('통화 연결됨!');
   },
 
   handleCallAccepted: async (data: WebRTCSignalData) => {
+    console.log('handleCallAccepted 시작', data);
     const { peerConnection } = get();
-    if (!peerConnection || !data.description) return;
+    console.log('현재 peerConnection:', peerConnection);
+
+    if (!peerConnection || !data.description) {
+      console.log('peerConnection 또는 description 없음', {
+        peerConnection,
+        description: data.description,
+      });
+      return;
+    }
 
     await peerConnection.setRemoteDescription(data.description);
     set({ isCallInProgress: true });
+    // 전화 건 사람이 상대방이 수락했다는걸 알수있또록 로그 ㄱㄱ
+    console.log('통화 연결 성공!'); // 추가
   },
 
   handleNewICECandidate: async (candidate: RTCIceCandidate) => {
@@ -183,10 +203,26 @@ export const useRTCStore = create<RTCState>((set, get) => ({
   },
 
   endCall: () => {
-    const { peerConnection, resetLocalStream } = get();
+    const { peerConnection, resetLocalStream, targetUserId, sendSignal } = get();
+    const myUserId = useAuthStore.getState().user?.id;
+    const myUserName = useAuthStore.getState().user?.name;
+
     if (peerConnection) {
       peerConnection.close();
     }
+
+    if (targetUserId && myUserId && myUserName) {
+      sendSignal({
+        operation: 'SEND',
+        type: 'CALL_END',
+        data: {
+          fromUserId: myUserId,
+          fromUserName: myUserName,
+          toUserId: targetUserId,
+        },
+      });
+    }
+
     resetLocalStream();
     set({
       peerConnection: null,
@@ -205,8 +241,8 @@ export const useRTCStore = create<RTCState>((set, get) => ({
     });
   },
 
-  setIncomingCall: (userId: number, userName: string) =>
-    set({ inComingCall: { userId, userName } }),
+  setIncomingCall: (userId: number, userName: string, signalData: WebRTCSignalData) =>
+    set({ inComingCall: { userId, userName, signalData } }),
 
   clearIncomingCall: () => set({ inComingCall: null }),
 }));

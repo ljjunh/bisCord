@@ -105,7 +105,7 @@ export const SocketService = {
       case 'CALL_OFFER': {
         // 상대방이 통화를 요청한 경우
         if (data.description) {
-          rtcStore.handleIncomingCall(data);
+          rtcStore.setIncomingCall(data.fromUserId, data.fromUserName, data);
         }
         break;
       }
@@ -114,6 +114,7 @@ export const SocketService = {
         // 상대방이 통화 요청을 수락한 경우
         if (data.description) {
           rtcStore.handleCallAccepted(data);
+          console.log('CALL_ANSWER 받음:', data);
         }
         break;
       }
