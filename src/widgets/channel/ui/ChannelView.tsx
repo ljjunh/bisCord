@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { Message } from '@/features/channel/model/types';
 import { Servers } from '@/features/server/model/types';
-import { useSocketStore } from '@/shared/model/ChSocketStore';
 import { useAuthStore } from '@/shared/model/authStore';
+import { useSocketStore } from '@/shared/model/chSocketStore';
 import { channelQueries } from '@/features/channel/api/queries';
 import ChMessage from '@/features/channel/ui/ChMessage';
 import { MessageBox } from '@/features/channel/ui/MessageBox';
@@ -28,7 +28,7 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
   const token = useAuthStore((state) => state.accessToken);
 
   // Zustand에서 WebSocket 관리
-  const stompClient = useSocketStore((state) => state.stompClient);
+  // const stompClient = useSocketStore((state) => state.stompClient);
   const connectSocket = useSocketStore((state) => state.connectSocket);
   const disconnectSocket = useSocketStore((state) => state.disconnectSocket);
 
@@ -70,15 +70,15 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
     };
   }, [ChNumId, data, disconnectSocket]);
 
+  // 여기선 그냥 rest로 post만 처리
   const handleSendMessage = (newMessage: string) => {
-    if (stompClient) {
-      const chatMessage = {
-        channelId: ChNumId,
-        content: newMessage,
-      };
-      mutate(chatMessage);
-      setMessage('');
-    }
+    if (!newMessage.trim()) return; // 빈값 가드
+    const chatMessage = {
+      channelId: ChNumId,
+      content: newMessage,
+    };
+    mutate(chatMessage);
+    setMessage('');
   };
 
   return (

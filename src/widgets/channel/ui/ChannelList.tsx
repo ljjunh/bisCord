@@ -7,9 +7,9 @@ import { UserProfileBar } from '@/features/user/ui/UserProfileBar';
 import useGetParams from '@/entities/hooks/getParams';
 import EmptyList from '@/shared/ui/EmptyList';
 import ListContainer from '@/shared/ui/layout/ListContainer';
-// import ChannelMessage from './ChannelMessage';
+import ChannelMessage from './ChannelMessage';
 import { ChannelSkeleton } from './ChannelSkeleton';
-import ChannelView from './ChannelView';
+// import ChannelView from './ChannelView';
 import ServerDefault from './ServerDefault';
 
 /** 서버 채널 목록 리스트 UI */
@@ -44,8 +44,8 @@ const ChannelList = () => {
       </ListContainer>
       {channelId ? (
         <>
-          {/* <ChannelMessage server={getServerData} /> */}
-          <ChannelView server={getServerData} />
+          <ChannelMessage server={getServerData} />
+          {/* <ChannelView server={getServerData} /> */}
         </>
       ) : (
         <>
