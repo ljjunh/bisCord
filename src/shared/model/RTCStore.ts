@@ -57,9 +57,9 @@ export const useRTCStore = create<RTCState>((set, get) => ({
         // { urls: 'stun:stun3.l.google.com:19302' },
         // { urls: 'stun:stun4.l.google.com:19302' },
         {
-          urls: 'turn:test.turn-testing.kro.kr:3478',
-          username: 'test',
-          credential: 'test',
+          urls: 'turn:34.22.88.184:3478',
+          username: 'elice',
+          credential: 'elice',
         },
       ],
       iceTransportPolicy: 'all',
@@ -146,7 +146,6 @@ export const useRTCStore = create<RTCState>((set, get) => ({
     const { localStream, createPeerConnection } = get();
     const myUserName = useAuthStore.getState().user?.name;
 
-    console.log('체크 1:', { localStream, myUserName, description: data.description });
     if (!localStream || !data.description || !myUserName) {
       console.log('조건 체크 실패', { localStream, myUserName, description: data.description });
       return;
@@ -181,11 +180,7 @@ export const useRTCStore = create<RTCState>((set, get) => ({
       },
     });
 
-    console.log('answer 전송', answer);
-
     set({ isCallInProgress: true, targetUserId: data.fromUserId });
-
-    console.log('통화 연결됨!');
   },
 
   handleCallAccepted: async (data: WebRTCSignalData) => {
@@ -203,8 +198,6 @@ export const useRTCStore = create<RTCState>((set, get) => ({
 
     await peerConnection.setRemoteDescription(data.description);
     set({ isCallInProgress: true });
-    // 전화 건 사람이 상대방이 수락했다는걸 알수있또록 로그 ㄱㄱ
-    console.log('통화 연결 성공!'); // 추가
   },
 
   handleNewICECandidate: async (candidate: RTCIceCandidate) => {

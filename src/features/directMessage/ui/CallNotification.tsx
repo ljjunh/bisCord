@@ -4,10 +4,14 @@ import { XIcon } from '@/shared/icons/XIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 export const CallNotification = () => {
-  const { inComingCall, handleIncomingCall, clearIncomingCall, endCall, setLocalStream } =
-    useRTCStore();
-
-  if (!inComingCall) return null;
+  const {
+    inComingCall,
+    handleIncomingCall,
+    isCallInProgress,
+    clearIncomingCall,
+    endCall,
+    setLocalStream,
+  } = useRTCStore();
 
   const handleAccept = async () => {
     try {
@@ -43,28 +47,30 @@ export const CallNotification = () => {
   return (
     <div className="absolute left-0 top-0 z-10 flex h-[200px] w-full flex-col items-center justify-center gap-5 rounded-md bg-black p-4">
       <p className="text-center text-xl text-white">
-        {inComingCall.userName}님이 통화를 요청했습니다.
+        {isCallInProgress ? '통화중...' : `${inComingCall?.userName}님이 통화를 요청했습니다.`}
       </p>
       <div className="flex gap-4">
-        <TooltipProvider>
-          <Tooltip delayDuration={0.1}>
-            <TooltipTrigger asChild>
-              <button
-                onClick={handleAccept}
-                className="rounded-full bg-green p-3.5 hover:opacity-80"
-              >
-                <CallIcon
-                  width={20}
-                  height={20}
-                  color="#ffffff"
-                />
-              </button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>통화 참가하기</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        {!isCallInProgress && (
+          <TooltipProvider>
+            <Tooltip delayDuration={0.1}>
+              <TooltipTrigger asChild>
+                <button
+                  onClick={handleAccept}
+                  className="rounded-full bg-green p-3.5 hover:opacity-80"
+                >
+                  <CallIcon
+                    width={20}
+                    height={20}
+                    color="#ffffff"
+                  />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>통화 참가하기</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
 
         <TooltipProvider>
           <Tooltip delayDuration={0.1}>
@@ -80,7 +86,7 @@ export const CallNotification = () => {
               </button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>닫기</p>
+              <p>{isCallInProgress ? '통화 종료' : '닫기'}</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

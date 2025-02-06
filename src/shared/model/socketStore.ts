@@ -27,7 +27,8 @@ export const useSocketStore = create<SocketState>((set, get) => ({
     set({ status: 'connecting', error: null });
 
     const socketClient = new Client({
-      brokerURL: 'wss://kdt-pt-1-pj-1-team06.elicecoding.com/api/ws',
+      // brokerURL: 'wss://kdt-pt-1-pj-1-team06.elicecoding.com/api/ws',
+      brokerURL: 'ws://localhost:8080/api/ws',
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
