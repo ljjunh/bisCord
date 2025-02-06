@@ -36,9 +36,9 @@ export const SignInForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4"
+      className="space-y-2"
     >
-      <div>
+      <div className="space-y-0.5">
         <label
           htmlFor="email"
           className={AUTH_FORM_STYLES.label}
@@ -62,22 +62,24 @@ export const SignInForm = () => {
           aria-describedby={errors.email ? 'email-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          render={({ message }) => (
-            <p
-              id="email-error"
-              role="alert"
-              className={AUTH_FORM_STYLES.errorMessage}
-            >
-              {message}
-            </p>
-          )}
-        />
+        <div className="h-[17px] overflow-hidden">
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => (
+              <p
+                id="email-error"
+                role="alert"
+                className={AUTH_FORM_STYLES.errorMessage}
+              >
+                {message}
+              </p>
+            )}
+          />
+        </div>
       </div>
 
-      <div>
+      <div className="space-y-0.5">
         <label
           htmlFor="password"
           className={AUTH_FORM_STYLES.label}
@@ -101,19 +103,21 @@ export const SignInForm = () => {
           aria-describedby={errors.password ? 'password-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ message }) => (
-            <p
-              id="password-error"
-              role="alert"
-              className={AUTH_FORM_STYLES.errorMessage}
-            >
-              {message}
-            </p>
-          )}
-        />
+        <div className="h-[17px] overflow-hidden">
+          <ErrorMessage
+            errors={errors}
+            name="password"
+            render={({ message }) => (
+              <p
+                id="password-error"
+                role="alert"
+                className={AUTH_FORM_STYLES.errorMessage}
+              >
+                {message}
+              </p>
+            )}
+          />
+        </div>
       </div>
 
       <div className="mb-6 mt-2">

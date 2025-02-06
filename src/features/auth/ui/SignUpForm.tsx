@@ -36,9 +36,9 @@ export const SignUpForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-4"
+      className="space-y-2"
     >
-      <div>
+      <div className="space-y-0.5">
         <label
           htmlFor="email"
           className={AUTH_FORM_STYLES.label}
@@ -62,22 +62,24 @@ export const SignUpForm = () => {
           aria-describedby={errors.email ? 'email-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        <ErrorMessage
-          errors={errors}
-          name="email"
-          render={({ message }) => (
-            <p
-              id="email-error"
-              role="alert"
-              className={AUTH_FORM_STYLES.errorMessage}
-            >
-              {message}
-            </p>
-          )}
-        />
+        <div className="h-[17px] overflow-hidden">
+          <ErrorMessage
+            errors={errors}
+            name="email"
+            render={({ message }) => (
+              <p
+                id="email-error"
+                role="alert"
+                className={AUTH_FORM_STYLES.errorMessage}
+              >
+                {message}
+              </p>
+            )}
+          />
+        </div>
       </div>
 
-      <div>
+      <div className="space-y-0.5">
         <label
           htmlFor="username"
           className={AUTH_FORM_STYLES.label}
@@ -101,22 +103,24 @@ export const SignUpForm = () => {
           aria-describedby={errors.name ? 'name-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        <ErrorMessage
-          errors={errors}
-          name="name"
-          render={({ message }) => (
-            <p
-              id="name-error"
-              role="alert"
-              className={AUTH_FORM_STYLES.errorMessage}
-            >
-              {message}
-            </p>
-          )}
-        />
+        <div className="h-[17px] overflow-hidden">
+          <ErrorMessage
+            errors={errors}
+            name="name"
+            render={({ message }) => (
+              <p
+                id="name-error"
+                role="alert"
+                className={AUTH_FORM_STYLES.errorMessage}
+              >
+                {message}
+              </p>
+            )}
+          />
+        </div>
       </div>
 
-      <div>
+      <div className="space-y-0.5">
         <label
           htmlFor="password"
           className={AUTH_FORM_STYLES.label}
@@ -140,22 +144,24 @@ export const SignUpForm = () => {
           aria-describedby={errors.password ? 'password-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        <ErrorMessage
-          errors={errors}
-          name="password"
-          render={({ message }) => (
-            <p
-              id="password-error"
-              role="alert"
-              className="mt-1 text-xs text-red"
-            >
-              {message}
-            </p>
-          )}
-        />
+        <div className="h-[17px] overflow-hidden">
+          <ErrorMessage
+            errors={errors}
+            name="password"
+            render={({ message }) => (
+              <p
+                id="password-error"
+                role="alert"
+                className="mt-1 text-xs text-red"
+              >
+                {message}
+              </p>
+            )}
+          />
+        </div>
       </div>
 
-      <div>
+      <div className="space-y-0.5">
         <label
           htmlFor="confirmPassword"
           className={AUTH_FORM_STYLES.label}
@@ -179,37 +185,41 @@ export const SignUpForm = () => {
           aria-describedby={errors.confirmPassword ? 'confirm-password-error' : undefined}
           className={AUTH_FORM_STYLES.input}
         />
-        <ErrorMessage
-          errors={errors}
-          name="confirmPassword"
-          render={({ message }) => (
-            <p
-              id="confirm-password-error"
-              role="alert"
-              className={AUTH_FORM_STYLES.errorMessage}
-            >
-              {message}
-            </p>
-          )}
-        />
+        <div className="h-[17px] overflow-hidden">
+          <ErrorMessage
+            errors={errors}
+            name="confirmPassword"
+            render={({ message }) => (
+              <p
+                id="confirm-password-error"
+                role="alert"
+                className={AUTH_FORM_STYLES.errorMessage}
+              >
+                {message}
+              </p>
+            )}
+          />
+        </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={isPending || !isValid}
-        className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue disabled:cursor-not-allowed disabled:opacity-50"
-      >
-        {isPending ? '처리중' : '가입하기'}
-      </button>
-
-      <p className="mt-3">
-        <Link
-          to={ROUTES.AUTH.SIGN_IN}
-          className="text-sm text-sky-blue hover:underline"
+      <div className="py-3">
+        <button
+          type="submit"
+          disabled={isPending || !isValid}
+          className="w-full rounded bg-blue-purple p-3 font-medium text-white hover:bg-blue disabled:cursor-not-allowed disabled:opacity-50"
         >
-          이미 계정이 있으신가요?
-        </Link>
-      </p>
+          {isPending ? '처리중' : '가입하기'}
+        </button>
+
+        <p className="mt-3">
+          <Link
+            to={ROUTES.AUTH.SIGN_IN}
+            className="text-sm text-sky-blue hover:underline"
+          >
+            이미 계정이 있으신가요?
+          </Link>
+        </p>
+      </div>
     </form>
   );
 };
