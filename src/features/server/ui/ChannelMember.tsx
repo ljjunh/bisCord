@@ -11,7 +11,6 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     ...serverQueries.getMembers({ serverUri: serverUri || '' }), // 올바른 객체 전달
   });
-
   const allMembers = data?.pages.flatMap((page) => page.content) ?? [];
   const observerRef = useInfiniteScroll({
     fetchNextPage,
@@ -20,6 +19,7 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
   });
   // useEffect(() => {
   //   console.log(allMembers);
+  //   refetch();
   // }, [allMembers]);
 
   return (
@@ -30,15 +30,16 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
         <div>{allMembers.length}</div>
       </div>
       <div className="flex flex-col gap-2">
-        {allMembers.map((member, index) => (
-          <MemberList
-            key={index}
-            member={member}
-            fetchNextPage={fetchNextPage}
-            hasNextPage={hasNextPage}
-            isLoading={isFetchingNextPage}
-          />
-        ))}
+        {allMembers &&
+          allMembers.map((member, index) => (
+            <MemberList
+              key={index}
+              member={member}
+              fetchNextPage={fetchNextPage}
+              hasNextPage={hasNextPage}
+              isLoading={isFetchingNextPage}
+            />
+          ))}
         <div
           ref={observerRef}
           className="h-[1px] w-full"

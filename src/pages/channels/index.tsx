@@ -1,3 +1,4 @@
+import { MODAL, useModalStore } from '@/shared/model/modalStore';
 import ChannelList from '@/widgets/channel/ui/ChannelList';
 import EditServerModal from '@/features/server/ui/EditServerModal';
 import InvitedMemberModal from '@/features/server/ui/InvitedMemberModal';
@@ -6,6 +7,8 @@ import { SEO_CONFIG } from '@/shared/constants/seo';
 import { Seo } from '@/shared/ui/Seo';
 
 const ChannelPage = () => {
+  const { type } = useModalStore((state) => state);
+
   return (
     <>
       <Seo
@@ -17,8 +20,8 @@ const ChannelPage = () => {
         <ChannelList />
         {/* <ChannelMessage /> */}
       </div>
-      <InvitedMemberModal />
-      <EditServerModal />
+      {type === MODAL.INVIDE_MEMBER && <InvitedMemberModal />}
+      {type === MODAL.EDIT_SERVER && <EditServerModal />}
     </>
   );
 };

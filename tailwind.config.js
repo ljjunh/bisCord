@@ -36,6 +36,7 @@ export default {
       red: '#da373c', // error 및 삭제, red에 적용
       green: '#23A55A', // 연결상태 true 또는 online등 색상
       yellow: '#F0B232',
+      pink: '#f47fff',
       'mid-gray': '#36393e', // 세번째로 어두운 배경 색
       'dark-gray': '#282b30', // 두번째로 어두운 배경 색
       'super-light-gray': '#AAAEB6',

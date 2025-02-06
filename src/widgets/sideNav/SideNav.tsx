@@ -1,7 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { useModalStore } from '@/shared/model/modalStore';
+import { MODAL, useModalStore } from '@/shared/model/modalStore';
+import { UnreadMessageIndicator } from '@/features/directMessage/ui/UnreadMessageIndicator';
 import { serverQueries } from '@/features/server/api/queries';
 import CreateServerAvatar from '@/features/server/ui/CreateServerAvatar';
+import { JoinServerAvatar } from '@/features/server/ui/JoinServerAvatar';
+import { JoinToServerModal } from '@/features/server/ui/JoinToServerModal';
 import { ROUTES } from '@/shared/constants/routes';
 import DMAvatar from '../../features/directMessage/ui/DMAvatar';
 import ServerAvatar from '../../features/server/ui/ServerAvatar';
@@ -10,12 +13,11 @@ import CreateServerModal from './CreateServerModal';
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 const SideNav = () => {
   const { data } = useQuery({ ...serverQueries.getServers });
-  const { onOpenModal } = useModalStore((state) => state);
+  const { type, onOpenModal } = useModalStore((state) => state);
 
   const servers = data?.content;
 
   // 모달 열기/닫기 핸들러
-  const handleModal = () => onOpenModal('CREATE_SERVER');
 
   // localStorage.clear();
 
@@ -24,6 +26,7 @@ const SideNav = () => {
       {/* 다이렉트 메세지 부분 */}
       <div>
         <DMAvatar link={ROUTES.ROOT} />
+        <UnreadMessageIndicator />
       </div>
       <div className="h-[3px] w-[60%] rounded-md bg-gray" />
       {/* 현재 서버 리스트 */}
@@ -39,12 +42,16 @@ const SideNav = () => {
       </div>
 
       {/* 아래 서버 추가 및 찾기 */}
-      <div onClick={handleModal}>
+      <div onClick={() => onOpenModal(MODAL.CREATE_SERVER)}>
         <CreateServerAvatar />
+      </div>
+      <div onClick={() => onOpenModal(MODAL.JOIN_SERVER)}>
+        <JoinServerAvatar />
       </div>
 
       {/* 모달입니당 */}
-      <CreateServerModal />
+      {type === MODAL.CREATE_SERVER && <CreateServerModal />}
+      {type === MODAL.JOIN_SERVER && <JoinToServerModal />}
     </div>
   );
 };

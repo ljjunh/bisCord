@@ -1,7 +1,7 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 import { GetmemberDTO } from '../model/types';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { serverService } from './servive';
+import { serverService } from './service';
 
 // 여기더 엔티티
 export const serverQueries = {
@@ -25,15 +25,31 @@ export const serverQueries = {
 
   // 생성 관련 api
   postCreateServer: {
+    // 서버 생성
     mutationFn: serverService.createServer,
   },
   postCreateChannel: {
+    // 채널 생성
     mutationFn: serverService.createChannel,
   },
 
   // 삭제 관련 api
   deleteServer: {
     mutationFn: serverService.deleteServer,
+  },
+  deleteChannel: {
+    mutationFn: serverService.deleteChannel,
+  },
+
+  // 수정 관련
+  putEditServer: {
+    mutationFn: serverService.putServerProfile,
+  },
+  postDM: {
+    mutationFn: serverService.postDM,
+  },
+  postDMRoom: {
+    mutationFn: serverService.postDMRoom,
   },
 
   getMembers: (params: GetmemberDTO) =>
@@ -55,4 +71,8 @@ export const serverQueries = {
       queryKey: QUERY_KEYS.server.invite(serverUri),
       queryFn: () => serverService.postInviteServer({ serverUri }),
     }),
+
+  postJoin: {
+    mutationFn: serverService.postJoinServer,
+  },
 };

@@ -16,7 +16,7 @@ const CreateServerModal = () => {
 
   const queryClient = useQueryClient();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     ...serverQueries.postCreateServer,
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -71,7 +71,7 @@ const CreateServerModal = () => {
             type="submit"
             className="w-full rounded-md bg-gray py-2 text-white transition-colors hover:bg-blue"
           >
-            서버 생성하기
+            {isPending ? '서버를 생성중입니다' : '서버 생성하기'}
           </button>
         </div>
       </ModalForm>
