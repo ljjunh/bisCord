@@ -7,6 +7,15 @@ export interface User {
   description: string;
 }
 
+export interface Server {
+  serverUri: string;
+  channels: [];
+}
+export interface Channel {
+  channelId: number;
+  name: string;
+}
+
 export type LoginStatus = 'ONLINE' | 'OFFLINE' | 'AWAY' | 'BUSY';
 
 export interface ChatMessage {
@@ -47,4 +56,13 @@ export interface WebRTCSignalData {
 export interface WebRTCSignalMessage extends WebSocketMessage {
   type: 'CALL_OFFER' | 'CALL_ANSWER' | 'CALL_ICE' | 'CALL_END';
   data: WebRTCSignalData;
+}
+
+export interface UPdateCHMEssage {
+  content: string;
+}
+
+export interface CHWebSocketMessage {
+  operation: 'SEND' | 'UPDATE' | 'DELETE';
+  type: 'CHANNEL';
 }
