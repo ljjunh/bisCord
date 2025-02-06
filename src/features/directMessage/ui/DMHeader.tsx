@@ -4,7 +4,7 @@ import { useRTCStore } from '@/shared/model/RTCStore';
 import DiscordIcon from '@/shared/icons/DiscordIcon';
 import { userQueries } from '../../user/api/queries';
 import { CallButton } from './CallButton';
-import { CallNotification } from './CallNotification';
+import { CallView } from './CallView';
 
 export const DMHeader = () => {
   const otherUserId = Number(useParams().id);
@@ -17,7 +17,7 @@ export const DMHeader = () => {
 
   return (
     <div className="relative flex items-center justify-between border-b border-dark-gray px-4 py-3">
-      {(inComingCall || isCallInProgress) && <CallNotification />}
+      {(inComingCall || isCallInProgress) && <CallView profileImageURL={data.profileImageURL} />}
       <div className="flex gap-3">
         {/* 프로필 이미지 */}
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue">

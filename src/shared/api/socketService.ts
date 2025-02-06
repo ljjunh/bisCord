@@ -48,6 +48,8 @@ export const SocketService = {
 
     if (isNotInCurrentChatRoom && operation === 'SEND' && isSendMessage(data)) {
       if (otherUserId in useUnreadMessagesStore.getState().unreadUsers) {
+        const audio = new Audio('/notification.mp3');
+        audio.play().catch((error) => console.error('Audio play 실패:', error));
         useUnreadMessagesStore.getState().increaseUnreadCount(otherUserId);
         return;
       }
@@ -110,6 +112,9 @@ export const SocketService = {
             ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(data.fromUserId),
           );
           if (!isInChatRoom) {
+            const audio = new Audio('/callstart.wav');
+            audio.play().catch((error) => console.error('Audio play 실패:', error));
+
             const onOpenModal = useModalStore.getState().onOpenModal;
             onOpenModal('CALL_NOTIFICATION');
           }
