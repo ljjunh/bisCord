@@ -246,8 +246,9 @@ export const useRTCStore = create<RTCState>((set, get) => ({
     });
   },
 
-  setIncomingCall: (userId: number, userName: string, signalData: WebRTCSignalData) =>
-    set({ inComingCall: { userId, userName, signalData } }),
+  setIncomingCall: (userId: number, userName: string, signalData: WebRTCSignalData) => {
+    set({ inComingCall: { userId, userName, signalData } });
+  },
 
   clearIncomingCall: () => set({ inComingCall: null }),
 }));

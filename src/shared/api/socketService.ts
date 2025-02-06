@@ -8,6 +8,7 @@ import type {
 import { useRTCStore } from '../model/RTCStore';
 import { useAuthStore } from '../model/authStore';
 import { useChatStore } from '../model/chatStore';
+import { useModalStore } from '../model/modalStore';
 import { useUnreadMessagesStore } from '../model/unreadMessagesStore';
 import { ROUTES } from '../constants/routes';
 import { queryClient } from './queryClient';
@@ -105,6 +106,14 @@ export const SocketService = {
       case 'CALL_OFFER': {
         // 상대방이 통화를 요청한 경우
         if (data.description) {
+          const isInChatRoom = window.location.pathname.includes(
+            ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(data.fromUserId),
+          );
+          if (!isInChatRoom) {
+            const onOpenModal = useModalStore.getState().onOpenModal;
+            onOpenModal('CALL_NOTIFICATION');
+          }
+
           rtcStore.setIncomingCall(data.fromUserId, data.fromUserName, data);
         }
         break;
@@ -130,6 +139,7 @@ export const SocketService = {
       case 'CALL_END': {
         // 통화가 종료된 경우
         rtcStore.endCall();
+        rtcStore.clearIncomingCall();
         break;
       }
 
