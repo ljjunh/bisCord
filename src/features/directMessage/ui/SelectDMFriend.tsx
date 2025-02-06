@@ -45,7 +45,7 @@ export const SelectDMFriend = () => {
       <div className="rounded-md bg-black p-2.5">
         <input
           type="text"
-          placeholder="친구의 사용자명 또는 이메일 입력하기"
+          placeholder="친구의 사용자명 입력하기"
           className="w-full bg-black text-white focus:outline-none"
           onChange={(e) => setSearchInput(e.target.value)}
           value={searchInput}

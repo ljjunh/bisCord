@@ -12,20 +12,19 @@ export const PendingFriendsView = () => {
   const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword);
 
-  const { data, isFetching, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      ...friendQueries.getFriends({
-        type: FRIEND_REQUEST_TYPE.PENDING,
-        keyword: debouncedKeyword || undefined,
-      }),
-    });
+  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    ...friendQueries.getFriends({
+      type: FRIEND_REQUEST_TYPE.PENDING,
+      keyword: debouncedKeyword || undefined,
+    }),
+  });
 
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
-  const isNotHaveFriends = [allFriends, keyword].every(isEmpty) && !isFetching;
-  const isNothingSearched = keyword && isEmpty(allFriends) && !isFetching;
+  const isNothingSearched = Boolean(debouncedKeyword) && isEmpty(allFriends) && !isFetching;
+  const isNotHaveFriends = !debouncedKeyword && isEmpty(allFriends) && !isFetching;
 
   // Case 1: 대기중인 요청이 없는 경우
-  if (isLoading || isNotHaveFriends) {
+  if (isNotHaveFriends) {
     return (
       <section
         role="tabpanel"
