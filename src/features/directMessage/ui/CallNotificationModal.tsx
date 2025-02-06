@@ -30,6 +30,8 @@ export const CallNotificationModal = () => {
       if (!inComingCall?.userId) return;
 
       navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(inComingCall?.userId));
+      const audio = new Audio('/callstart.wav');
+      audio.play().catch((error) => console.error('Audio play 실패:', error));
       onCloseModal();
       clearIncomingCall();
     } catch (error) {
@@ -45,6 +47,9 @@ export const CallNotificationModal = () => {
   };
 
   const handleDecline = () => {
+    const audio = new Audio('/callend.wav');
+    audio.play().catch((error) => console.error('Audio play 실패:', error));
+
     endCall();
     clearIncomingCall();
     onCloseModal();

@@ -1,9 +1,14 @@
 import { useRTCStore } from '@/shared/model/RTCStore';
 import { CallIcon } from '@/shared/icons/CallIcon';
+import DiscordIcon from '@/shared/icons/DiscordIcon';
 import { XIcon } from '@/shared/icons/XIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
-export const CallNotification = () => {
+interface CallViewProps {
+  profileImageURL: string | null;
+}
+
+export const CallView = ({ profileImageURL }: CallViewProps) => {
   const {
     inComingCall,
     handleIncomingCall,
@@ -26,6 +31,8 @@ export const CallNotification = () => {
       if (inComingCall?.signalData) {
         await handleIncomingCall(inComingCall.signalData);
       }
+      const audio = new Audio('/callstart.wav');
+      audio.play().catch((error) => console.error('Audio play 실패:', error));
       clearIncomingCall();
     } catch (error) {
       if (error instanceof Error) {
@@ -40,12 +47,29 @@ export const CallNotification = () => {
   };
 
   const handleDecline = () => {
+    const audio = new Audio('/callend.wav');
+    audio.play().catch((error) => console.error('Audio play 실패:', error));
+
     endCall();
     clearIncomingCall();
   };
 
   return (
-    <div className="absolute left-0 top-0 z-10 flex h-[200px] w-full flex-col items-center justify-center gap-5 rounded-md bg-black p-4">
+    <div className="absolute left-0 top-0 z-10 flex h-[250px] w-full flex-col items-center justify-center gap-5 rounded-md bg-black p-4">
+      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue">
+        {profileImageURL ? (
+          <img
+            src={profileImageURL}
+            alt="프로필"
+            className="h-full w-full rounded-full object-cover"
+          />
+        ) : (
+          <DiscordIcon
+            size={40}
+            color="#fff"
+          />
+        )}
+      </div>
       <p className="text-center text-xl text-white">
         {isCallInProgress ? '통화중...' : `${inComingCall?.userName}님이 통화를 요청했습니다.`}
       </p>
