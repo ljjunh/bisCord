@@ -12,12 +12,15 @@ export const AllFriendsView = () => {
   const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword);
 
-  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    ...friendQueries.getFriends({
-      type: FRIEND_REQUEST_TYPE.ACCEPTED,
-      keyword: debouncedKeyword || undefined,
-    }),
-  });
+  const { data, isLoading, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useInfiniteQuery({
+      ...friendQueries.getFriends({
+        type: FRIEND_REQUEST_TYPE.ACCEPTED,
+        keyword: debouncedKeyword || undefined,
+      }),
+    });
+
+  if (isLoading) return null;
 
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
   const isNotHaveFriends = [allFriends, keyword].every(isEmpty) && !isFetching;
