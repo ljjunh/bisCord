@@ -11,13 +11,13 @@ export const DMHeader = () => {
   const { data, isLoading } = useQuery({
     ...userQueries.getOtherUser({ userId: otherUserId }),
   });
-  const { inComingCall } = useRTCStore();
+  const { inComingCall, isCallInProgress } = useRTCStore();
 
   if (!data || isLoading) return null;
 
   return (
     <div className="relative flex items-center justify-between border-b border-dark-gray px-4 py-3">
-      {inComingCall && <CallNotification />}
+      {(inComingCall || isCallInProgress) && <CallNotification />}
       <div className="flex gap-3">
         {/* 프로필 이미지 */}
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue">
