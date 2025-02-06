@@ -12,8 +12,8 @@ export const UserProfileBar = () => {
   const currentStatus = user?.loginStatus ?? 'OFFLINE';
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isMicMuted, setIsMicMuted] = useState(true);
-  const [isAudioMuted, setIsAudioMuted] = useState(true);
+  const [isMicMuted, setIsMicMuted] = useState(false);
+  const [isAudioMuted, setIsAudioMuted] = useState(false);
 
   return (
     <div className="flex h-8 w-full items-center justify-between">
