@@ -13,23 +13,20 @@ export const OnlineFriendsView = () => {
   const [keyword, setKeyword] = useState('');
   const debouncedKeyword = useDebounce(keyword);
 
-  const { data, isLoading, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery({
-      ...friendQueries.getFriends({
-        type: FRIEND_REQUEST_TYPE.ACCEPTED,
-        status: LOGIN_STATUS.ONLINE,
-        keyword: debouncedKeyword || undefined,
-      }),
-    });
-
-  if (isLoading) return null;
+  const { data, isFetching, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    ...friendQueries.getFriends({
+      type: FRIEND_REQUEST_TYPE.ACCEPTED,
+      status: LOGIN_STATUS.ONLINE,
+      keyword: debouncedKeyword || undefined,
+    }),
+  });
 
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
-  const isNotHaveFriends = [allFriends, keyword].every(isEmpty) && !isFetching;
-  const isNothingSearched = keyword && isEmpty(allFriends) && !isFetching;
+  const isNothingSearched = Boolean(debouncedKeyword) && isEmpty(allFriends) && !isFetching;
+  const isNotHaveFriends = !debouncedKeyword && isEmpty(allFriends) && !isFetching;
 
   // Case 1: 친구가 한 명도 없는 경우
-  if (isNotHaveFriends) {
+  if (isNotHaveFriends && isFetching) {
     return (
       <section
         role="tabpanel"
