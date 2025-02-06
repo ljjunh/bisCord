@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Client, IMessage } from '@stomp/stompjs';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { Message } from '@/features/channel/model/types';
 import { Servers } from '@/features/server/model/types';
 import { useAuthStore } from '@/shared/model/authStore';
+import { useSocketStore } from '@/shared/model/chSocketStore';
 import { channelQueries } from '@/features/channel/api/queries';
 import ChMessage from '@/features/channel/ui/ChMessage';
 import { MessageBox } from '@/features/channel/ui/MessageBox';
@@ -20,33 +20,19 @@ interface ChannelMessage {
   server: Servers | undefined;
 }
 
-interface ChatData {
-  chatId: string;
-  channelId: number;
-  content: string;
-  userId: number;
-  name: string;
-  profileImageUrl: string;
-  createdAt: string;
-  updated: boolean;
-}
-interface ResChatData {
-  data: ChatData;
-}
-
 const ChannelMessage = ({ server }: ChannelMessage) => {
-  // state or constant
   const [allMessage, setAllMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>('');
   const { '*': channelId } = useParams();
   const ChNumId = Number(channelId);
-  const [stompClient, setStompClient] = useState<Client | null>(null);
-
-  // store or socket
   const token = useAuthStore((state) => state.accessToken);
 
-  // api client
-  const { data, fetchNextPage, refetch, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+  // Zustand에서 WebSocket 관리
+  // const stompClient = useSocketStore((state) => state.stompClient);
+  const connectSocket = useSocketStore((state) => state.connectSocket);
+  const disconnectSocket = useSocketStore((state) => state.disconnectSocket);
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     ...channelQueries.getCHMessages({ channelId: ChNumId }),
   });
   const channelProfile = data?.pages[0].channelProfile;
@@ -75,47 +61,24 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
       setAllMessage(newMessages);
     }
 
-    const channelClient = new Client({
-      brokerURL: 'wss://kdt-pt-1-pj-1-team06.elicecoding.com/api/ws',
-      connectHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-      onConnect: (frame) => {
-        console.log('channel 연결 성공', frame);
-        console.log(allMessage);
-        channelClient.subscribe(`/topic/channel/${ChNumId}`, (message: IMessage) => {
-          const msg: ResChatData = JSON.parse(message.body);
-          console.log(msg.data);
-          setAllMessage((prev) => {
-            if (!prev.some((m) => m.chatId === msg.data.chatId)) {
-              return [msg.data, ...prev];
-            }
-            return prev;
-          });
-        });
-      },
-    });
-
-    channelClient.activate();
-    setStompClient(channelClient);
+    // 컴포넌트 마운트 시 WebSocket 연결
+    connectSocket(token, ChNumId, setAllMessage);
 
     return () => {
-      channelClient.deactivate();
+      // 컴포넌트 언마운트 시 WebSocket 연결 해제
+      disconnectSocket();
     };
-  }, [ChNumId, data, token]);
+  }, [ChNumId, data, disconnectSocket]);
 
-  // 하....... 진짜 좀.... 뭐가 문제냐고
+  // 여기선 그냥 rest로 post만 처리
   const handleSendMessage = (newMessage: string) => {
-    if (stompClient) {
-      // 메시지 전송 시, content만 전송
-      const chatMessage = {
-        channelId: ChNumId,
-        content: newMessage,
-      };
-      mutate(chatMessage);
-      setMessage('');
-      refetch();
-    }
+    if (!newMessage.trim()) return; // 빈값 가드
+    const chatMessage = {
+      channelId: ChNumId,
+      content: newMessage,
+    };
+    mutate(chatMessage);
+    setMessage('');
   };
 
   return (

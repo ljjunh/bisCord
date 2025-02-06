@@ -8,6 +8,8 @@ import useGetParams from '@/entities/hooks/getParams';
 import EmptyList from '@/shared/ui/EmptyList';
 import ListContainer from '@/shared/ui/layout/ListContainer';
 import ChannelMessage from './ChannelMessage';
+import { ChannelSkeleton } from './ChannelSkeleton';
+// import ChannelView from './ChannelView';
 import ServerDefault from './ServerDefault';
 
 /** 서버 채널 목록 리스트 UI */
@@ -23,7 +25,7 @@ const ChannelList = () => {
     enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
 
-  if (isLoading) return <div className="h-full w-full bg-gray"></div>;
+  if (isLoading) return <ChannelSkeleton />;
 
   return (
     <div className="flex w-full flex-row">
@@ -41,7 +43,10 @@ const ChannelList = () => {
         </div>
       </ListContainer>
       {channelId ? (
-        <ChannelMessage server={getServerData} />
+        <>
+          <ChannelMessage server={getServerData} />
+          {/* <ChannelView server={getServerData} /> */}
+        </>
       ) : (
         <>
           <ServerDefault server={getServerData} />

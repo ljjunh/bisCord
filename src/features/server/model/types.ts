@@ -41,6 +41,10 @@ export interface Channel {
   roleId: number;
 }
 
+export interface DeleteChannel {
+  channelId: number;
+}
+
 export interface ServerMemberDTO {
   id: number;
   userId: number;
@@ -98,4 +102,8 @@ export interface PutUserProfileDTO extends Omit<PutUserDTO, 'profileImageURL'> {
 export interface PostDMDTO {
   recipientId: number;
   content: string;
+}
+
+export interface PostDMRoomDTO {
+  recipientId: number;
 }

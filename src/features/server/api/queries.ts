@@ -37,6 +37,9 @@ export const serverQueries = {
   deleteServer: {
     mutationFn: serverService.deleteServer,
   },
+  deleteChannel: {
+    mutationFn: serverService.deleteChannel,
+  },
 
   // 수정 관련
   putEditServer: {
@@ -44,6 +47,9 @@ export const serverQueries = {
   },
   postDM: {
     mutationFn: serverService.postDM,
+  },
+  postDMRoom: {
+    mutationFn: serverService.postDMRoom,
   },
 
   getMembers: (params: GetmemberDTO) =>
