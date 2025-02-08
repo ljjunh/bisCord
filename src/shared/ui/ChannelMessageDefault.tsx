@@ -3,11 +3,11 @@ import { useModalStore } from '../model/modalStore';
 import { ArrowRight } from '../icons/ArrowRight';
 import { NewMemberIcon } from '../icons/NewMemberIcon';
 
-interface ChannelMessageDefault extends PropsWithChildren {
+interface ChannelMessageDefaultProps extends PropsWithChildren {
   serverName: string | undefined;
 }
 
-const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefault) => {
+export const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefaultProps) => {
   const { onOpenModal } = useModalStore((state) => state);
 
   const handleClick = () => {
@@ -41,5 +41,3 @@ const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefault) 
     </div>
   );
 };
-
-export default ChannelMessageDefault;

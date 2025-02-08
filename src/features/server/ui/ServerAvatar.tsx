@@ -4,14 +4,14 @@ import { Servers } from '../model/types';
 import { ROUTES } from '@/shared/constants/routes';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
-interface ServerAvatar {
+interface ServerAvatarProps {
   children?: ReactNode;
   search?: boolean;
   server?: Servers;
   link?: string;
 }
 /** 좌측 서버 아바타 컴포넌트 */
-const ServerAvatar = ({ server }: ServerAvatar) => {
+export const ServerAvatar = ({ server }: ServerAvatarProps) => {
   const newLink = ROUTES.CHAT.SERVER.DETAIL(server?.serverUri);
 
   return (
@@ -67,5 +67,3 @@ const ServerAvatar = ({ server }: ServerAvatar) => {
     </TooltipProvider>
   );
 };
-
-export default ServerAvatar;

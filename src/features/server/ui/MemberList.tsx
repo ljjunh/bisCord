@@ -1,8 +1,7 @@
 import { PropsWithChildren, useEffect } from 'react';
 import { ServerMemberDTO } from '../model/types';
 import { Friend } from '@/entities/friend/model/types';
-// import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
-import UserAvatar from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
 
 interface MemberList extends PropsWithChildren {
   member?: ServerMemberDTO;
@@ -12,7 +11,7 @@ interface MemberList extends PropsWithChildren {
   isLoading?: boolean;
 }
 
-const MemberList = ({ member, children, friends }: MemberList) => {
+export const MemberList = ({ member, children, friends }: MemberList) => {
   useEffect(() => {}, [member, friends]);
 
   return (
@@ -22,7 +21,6 @@ const MemberList = ({ member, children, friends }: MemberList) => {
           size={20}
           image={friends ? friends?.profileImageURL : member?.profileImageURL}
           state={friends ? friends?.loginStatus : member?.loginStatus}
-          // state={friends ? friends?.loginStatus : member?.loginStatus}
         />
       </div>
       {member && <div className="text-light-gray">{member.name}</div>}

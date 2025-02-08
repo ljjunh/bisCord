@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
 } from '@/shared/ui/dropdown-menu';
 
-const ServerDropDownMenu = () => {
+export const ServerDropDownMenu = () => {
   const { onOpenModal } = useModalStore((state) => state);
 
   const handleModal = (type: keyof typeof MODAL) => {
@@ -45,5 +45,3 @@ const ServerDropDownMenu = () => {
     </>
   );
 };
-
-export default ServerDropDownMenu;

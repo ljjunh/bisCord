@@ -4,17 +4,17 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Servers } from '../../model/types';
 import { useModalStore } from '@/shared/model/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../../api/queries';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
 import { ModalForm } from '../form';
 
-interface DeleteModal {
+interface DeleteModalProps {
   getServerData: Servers | undefined;
   serverUri?: string | undefined;
 }
 
-const DeleteModal = ({ getServerData }: DeleteModal) => {
+export const DeleteModal = ({ getServerData }: DeleteModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
@@ -87,5 +87,3 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
     </ModalContainer>
   );
 };
-
-export default DeleteModal;

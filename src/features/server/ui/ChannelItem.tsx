@@ -11,15 +11,15 @@ import { ChannelUnlockedIcon } from '@/shared/icons/ChannelUnlockedIcon';
 import { VoiceIcon } from '@/shared/icons/VoiceIcon';
 import { WasteBasketIcon } from '@/shared/icons/WasteBasketIcon';
 import { serverQueries } from '../api/queries';
-import ChannelAddBtn from './ChannelAddBtn';
+import { ChannelAddBtn } from './ChannelAddBtn';
 
-interface ChannelItem {
+interface ChannelItemProps {
   channel: Channel;
   link: string;
   type: 'voice' | 'chat';
 }
 
-const ChannelItem = ({ channel, link, type }: ChannelItem) => {
+export const ChannelItem = ({ channel, link, type }: ChannelItemProps) => {
   const { id, name } = channel;
   const { onOpenModal } = useModalStore((state) => state);
   const { mutate } = useMutation({
@@ -65,5 +65,3 @@ const ChannelItem = ({ channel, link, type }: ChannelItem) => {
     </>
   );
 };
-
-export default ChannelItem;

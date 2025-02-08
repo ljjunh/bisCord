@@ -6,7 +6,7 @@ import { Message } from '@/features/channel/model/types';
 import { Servers } from '@/features/server/model/types';
 import { useAuthStore } from '@/shared/model/authStore';
 import { channelQueries } from '@/features/channel/api/queries';
-import ChMessage from '@/features/channel/ui/ChMessage';
+import { ChMessage } from '@/features/channel/ui/ChMessage';
 import { MessageBox } from '@/features/channel/ui/MessageBox';
 import { ChannelMemberList } from '@/features/server/ui/ChannelMember';
 import { MessageHeader } from '@/features/server/ui/MessageHeader';
@@ -14,9 +14,9 @@ import { MessageInput } from '@/features/server/ui/MessageInput';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
-import ChannelMessageDefault from '@/shared/ui/ChannelMessageDefault';
+import { ChannelMessageDefault } from '@/shared/ui/ChannelMessageDefault';
 
-interface ChannelMessage {
+interface ChannelMessageProps {
   server: Servers | undefined;
 }
 
@@ -34,8 +34,7 @@ interface ResChatData {
   data: ChatData;
 }
 
-const ChannelMessage = ({ server }: ChannelMessage) => {
-  // state or constant
+export const ChannelMessage = ({ server }: ChannelMessageProps) => {
   const [allMessage, setAllMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>('');
   const { '*': channelId } = useParams();
@@ -152,5 +151,3 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
     </div>
   );
 };
-
-export default ChannelMessage;

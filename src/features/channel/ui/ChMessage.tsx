@@ -5,10 +5,8 @@ interface CHMessageProps {
   channelId: number;
 }
 
-const ChMessage = ({ children }: CHMessageProps) => {
+export const ChMessage = ({ children }: CHMessageProps) => {
   return (
     <div className="flex w-full flex-col-reverse overflow-y-scroll scrollbar-hide">{children}</div>
   );
 };
-
-export default ChMessage;

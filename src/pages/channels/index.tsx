@@ -1,8 +1,7 @@
 import { MODAL, useModalStore } from '@/shared/model/modalStore';
-import ChannelList from '@/widgets/channel/ui/ChannelList';
-import EditServerModal from '@/features/server/ui/EditServerModal';
-import InvitedMemberModal from '@/features/server/ui/InvitedMemberModal';
-// import ChannelMessage from '@/widgets/channel/ui/ChannelMessage';
+import { ChannelList } from '@/widgets/channel/ui/ChannelList';
+import { EditServerModal } from '@/features/server/ui/EditServerModal';
+import { InvitedMemberModal } from '@/features/server/ui/InvitedMemberModal';
 import { SEO_CONFIG } from '@/shared/constants/seo';
 import { Seo } from '@/shared/ui/Seo';
 

@@ -1,7 +1,7 @@
 import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { EditIcon } from '@/shared/icons/EditIcon';
-import UserAvatar from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { SignOffButton } from '../../auth/ui/SignOffButton';
 import { SignOutButton } from '../../auth/ui/SignOutButton';
 import { UserStatusMenu } from './UserStatusMenu';

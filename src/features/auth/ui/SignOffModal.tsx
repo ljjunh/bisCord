@@ -5,7 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { useSocketStore } from '@/shared/model/socketStore';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { authQueries } from '../api/queries';
 import { SignOffFormData, signOffSchema } from '../model/schema';
 

@@ -5,7 +5,7 @@ interface UserStateProps {
   state?: LoginStatus;
 }
 
-const UserState = ({ state = 'OFFLINE' }: UserStateProps) => {
+export const UserState = ({ state = 'OFFLINE' }: UserStateProps) => {
   return (
     <div className="absolute bottom-0 right-0 flex aspect-[1/1] w-[35%] items-center justify-center overflow-hidden rounded-[50%] bg-black">
       <SwitchCase
@@ -20,5 +20,3 @@ const UserState = ({ state = 'OFFLINE' }: UserStateProps) => {
     </div>
   );
 };
-
-export default UserState;

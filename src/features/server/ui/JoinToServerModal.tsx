@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { MODAL, useModalStore } from '@/shared/model/modalStore';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../api/queries';
 
 export const JoinToServerModal = () => {

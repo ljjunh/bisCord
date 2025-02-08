@@ -6,7 +6,7 @@ interface UploadImageInputProps {
   value?: File | string;
 }
 
-const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
+export const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
   const [imageFile, setImageFile] = useState<string | ArrayBuffer | null>('');
 
   useEffect(() => {
@@ -64,5 +64,3 @@ const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
     </div>
   );
 };
-
-export { UploadImageInput };

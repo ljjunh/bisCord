@@ -1,10 +1,9 @@
-// import ChannelList from '../channel/ui/ChannelList';
 import { Outlet } from 'react-router-dom';
 import { useModalStore } from '@/shared/model/modalStore';
 import { SignOffModal } from '@/features/auth/ui/SignOffModal';
 import { UserProfileModal } from '@/features/user/ui/UserProfileModal';
-import ContentsContainer from '@/shared/ui/layout/ContentsContainer';
-import SideNav from '../../sideNav/SideNav';
+import { ContentsContainer } from '@/shared/ui/layout/ContentsContainer';
+import { SideNav } from '../../sideNav/SideNav';
 
 /** Main UI layout */
 const Layout = () => {

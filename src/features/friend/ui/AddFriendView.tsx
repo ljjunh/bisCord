@@ -6,7 +6,7 @@ import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
-import UserAvatar from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/shared/ui/command';
 import { AddFriendButton } from './AddFriendButton';
 

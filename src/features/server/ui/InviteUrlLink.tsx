@@ -2,7 +2,11 @@ import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import { serverQueries } from '../api/queries';
 
-const InviteUrlLink = ({ validServerId }: { validServerId: string }) => {
+interface InviteUrlLinkProps {
+  validServerId: string;
+}
+
+export const InviteUrlLink = ({ validServerId }: InviteUrlLinkProps) => {
   const { data: inviteUrl } = useQuery({
     ...serverQueries.postInvite(validServerId),
   });
@@ -39,5 +43,3 @@ const InviteUrlLink = ({ validServerId }: { validServerId: string }) => {
     </div>
   );
 };
-
-export { InviteUrlLink };
