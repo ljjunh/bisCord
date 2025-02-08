@@ -6,11 +6,11 @@ import { useModalStore } from '@/shared/model/modalStore';
 import useGetParams from '@/entities/hooks/getParams';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../api/queries';
 import { UploadImageInput } from './UploadImageInput';
 
-const EditServerModal = () => {
+export const EditServerModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
   const getServerId = serverId ?? ''; // 기본값 설정
@@ -70,7 +70,6 @@ const EditServerModal = () => {
     <ModalContainer
       isOpen={type === 'EDIT_SERVER'}
       onClose={onCloseModal}
-      // title="서버 개요"
       subTitle="서버 개요"
       description=""
     >
@@ -106,5 +105,3 @@ const EditServerModal = () => {
     </ModalContainer>
   );
 };
-
-export default EditServerModal;

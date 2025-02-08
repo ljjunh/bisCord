@@ -3,17 +3,16 @@ import { Servers } from '../model/types';
 import { ArrowDown } from '@/shared/icons/ArrowDown';
 import { CloseIcon } from '@/shared/icons/CloseIcon';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
-import ServerDropDownMenu from './ServerDropDownMenu';
-import CreateChannelModal from './modals/CreateChannelModal';
-import DeleteModal from './modals/DeleteModal';
+import { ServerDropDownMenu } from './ServerDropDownMenu';
+import { CreateChannelModal } from './modals/CreateChannelModal';
+import { DeleteModal } from './modals/DeleteModal';
 
-const ChannelHeader = ({
-  getServerData,
-  serverUri,
-}: {
+interface ChannelHeaderProps {
   getServerData: Servers | undefined;
   serverUri: string;
-}) => {
+}
+
+export const ChannelHeader = ({ getServerData, serverUri }: ChannelHeaderProps) => {
   const [isToggle, setIsToggle] = useState<boolean>(false);
 
   return (
@@ -33,7 +32,6 @@ const ChannelHeader = ({
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56 bg-black">
-          {/** 드롭 다운 메뉴 */}
           <ServerDropDownMenu />
         </DropdownMenuContent>
       </DropdownMenu>
@@ -45,5 +43,3 @@ const ChannelHeader = ({
     </>
   );
 };
-
-export default ChannelHeader;

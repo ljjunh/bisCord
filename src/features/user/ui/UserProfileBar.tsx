@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthStore } from '@/shared/model/authStore';
 import { LOGIN_STATUS_LABEL } from '@/entities/user/model/constants';
-import UserAvatar from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
 import { AudioToggleButton } from './AudioToggleButton';
 import { MicToggleButton } from './MicToggleButton';

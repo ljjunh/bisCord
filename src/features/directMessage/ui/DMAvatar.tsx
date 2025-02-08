@@ -6,7 +6,7 @@ interface DMAvatar {
   link: string;
 }
 
-const DMAvatar = ({ link }: DMAvatar) => {
+export const DMAvatar = ({ link }: DMAvatar) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={100}>
@@ -46,5 +46,3 @@ const DMAvatar = ({ link }: DMAvatar) => {
     </TooltipProvider>
   );
 };
-
-export default DMAvatar;

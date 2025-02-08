@@ -5,7 +5,7 @@ import type { DMUser } from '../model/types';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { ROUTES } from '@/shared/constants/routes';
 import { cn } from '@/shared/lib/utils';
-import UserAvatar from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { DMQueries } from '../api/queries';
 
 type DirectMessageItemProps = Pick<

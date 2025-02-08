@@ -1,7 +1,7 @@
 import { PlusIcon } from '@/shared/icons/PlusIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
-const CreateServerAvatar = () => {
+export const CreateServerAvatar = () => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={100}>
@@ -25,5 +25,3 @@ const CreateServerAvatar = () => {
     </TooltipProvider>
   );
 };
-
-export default CreateServerAvatar;

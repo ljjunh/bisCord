@@ -7,9 +7,9 @@ import { UploadImageInput } from '@/features/server/ui/UploadImageInput';
 import { ModalForm } from '@/features/server/ui/form';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '@/features/server/useModalForm';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 
-const CreateServerModal = () => {
+export const CreateServerModal = () => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const [imageData, setImageData] = useState<File | string>('');
@@ -78,5 +78,3 @@ const CreateServerModal = () => {
     </ModalContainer>
   );
 };
-
-export default CreateServerModal;

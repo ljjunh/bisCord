@@ -2,18 +2,16 @@ import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../../api/queries';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
 import { ModalForm } from '../form';
 
-// import { ReactNode } from 'react';
-
-interface CreateChannelModal {
+interface CreateChannelModalProps {
   serverId: string;
 }
 
-const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
+export const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
@@ -84,5 +82,3 @@ const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
     </ModalContainer>
   );
 };
-
-export default CreateChannelModal;

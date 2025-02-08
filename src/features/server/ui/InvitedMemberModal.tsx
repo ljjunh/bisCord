@@ -10,14 +10,14 @@ import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { SearchInput } from '@/shared/ui/SearchInput';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { friendQueries } from '../../friend/api/queries';
 import { serverQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../../friend/model/constants';
 import { InviteUrlLink } from './InviteUrlLink';
-import MemberList from './MemberList';
+import { MemberList } from './MemberList';
 
-const InvitedMemberModal = () => {
+export const InvitedMemberModal = () => {
   const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
   const { type, onCloseModal } = useModalStore((state) => state);
   const [searchText, setSearchText] = useState('');
@@ -139,5 +139,3 @@ const InvitedMemberModal = () => {
     </ModalContainer>
   );
 };
-
-export default InvitedMemberModal;
