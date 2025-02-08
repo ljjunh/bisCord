@@ -1,5 +1,5 @@
 import { LoginStatus } from '../model/types';
-import DiscordIcon from '../icons/DiscordIcon';
+import { DiscordIcon } from '../icons/DiscordIcon';
 import { cn } from '../lib/utils';
 import UserState from './UserState';
 

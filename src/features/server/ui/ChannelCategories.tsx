@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { MODAL, useModalStore } from '@/shared/model/modalStore';
-import PlusIcon from '@/shared/icons/PlusIcon';
+import { PlusIcon } from '@/shared/icons/PlusIcon';
 import EmptyList from '@/shared/ui/EmptyList';
 import { serverQueries } from '../api/queries';
-import ArrowDown from '../../../shared/icons/ArrowDown';
-import ArrowRight from '../../../shared/icons/ArrowRight';
+import { ArrowDown } from '../../../shared/icons/ArrowDown';
+import { ArrowRight } from '../../../shared/icons/ArrowRight';
 import ChannelAddBtn from './ChannelAddBtn';
 import ChannelItem from './ChannelItem';
 import CreateChannelModal from './modals/CreateChannelModal';

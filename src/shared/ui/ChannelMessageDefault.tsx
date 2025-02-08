@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { useModalStore } from '../model/modalStore';
-import ArrowRight from '../icons/ArrowRight';
-import NewMemberIcon from '../icons/NewMemberIcon';
+import { ArrowRight } from '../icons/ArrowRight';
+import { NewMemberIcon } from '../icons/NewMemberIcon';
 
 interface ChannelMessageDefault extends PropsWithChildren {
   serverName: string | undefined;
