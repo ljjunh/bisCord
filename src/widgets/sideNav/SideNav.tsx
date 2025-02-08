@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import { MODAL, useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/modalStore';
 import { UnreadMessageIndicator } from '@/features/directMessage/ui/UnreadMessageIndicator';
 import { serverQueries } from '@/features/server/api/queries';
 import { CreateServerAvatar } from '@/features/server/ui/CreateServerAvatar';
 import { JoinServerAvatar } from '@/features/server/ui/JoinServerAvatar';
 import { JoinToServerModal } from '@/features/server/ui/JoinToServerModal';
+import { MODAL } from '@/shared/constants/modal';
 import { ROUTES } from '@/shared/constants/routes';
 import { DMAvatar } from '../../features/directMessage/ui/DMAvatar';
 import { ServerAvatar } from '../../features/server/ui/ServerAvatar';

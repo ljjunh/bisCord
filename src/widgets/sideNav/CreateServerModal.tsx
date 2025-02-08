@@ -7,6 +7,7 @@ import { UploadImageInput } from '@/features/server/ui/UploadImageInput';
 import { ModalForm } from '@/features/server/ui/form';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '@/features/server/useModalForm';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { MODAL } from '@/shared/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 
 export const CreateServerModal = () => {
@@ -49,7 +50,7 @@ export const CreateServerModal = () => {
 
   return (
     <ModalContainer
-      isOpen={type === 'CREATE_SERVER'}
+      isOpen={type === MODAL.CREATE_SERVER}
       onClose={onCloseModal}
       title="서버를 만들어 보세요"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."

@@ -5,6 +5,7 @@ import type { UserProfile } from '@/entities/user/model/types';
 import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { userQueries } from '@/entities/user/api/queries';
+import { MODAL } from '@/shared/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { userQueries as userMutations } from '../api/queries';
 import { UserImageUploader } from './UserImageUploader';
@@ -52,7 +53,7 @@ export const UserProfileModal = () => {
 
   return (
     <ModalContainer
-      isOpen={type === 'USER_PROFILE'}
+      isOpen={type === MODAL.USER_PROFILE}
       onClose={onCloseModal}
       title="프로필 편집"
       description=""

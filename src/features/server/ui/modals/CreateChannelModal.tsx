@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { MODAL } from '@/shared/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../../api/queries';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
@@ -21,10 +22,10 @@ export const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
     onSuccess: () => {
       toast.success('채널을 생성했습니다.');
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.channel.detail(serverId), // 서버 ID 포함
+        queryKey: QUERY_KEYS.channel.detail(serverId),
       });
 
-      methods.reset(); // 폼 초기화
+      methods.reset();
       onCloseModal();
     },
     onError: (error) => {
@@ -33,7 +34,6 @@ export const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
     },
   });
 
-  // 모달 submit
   const onSubmit = (data: FormType) => {
     const newChannel = {
       serverUri: serverId,
@@ -44,12 +44,12 @@ export const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
     if (newChannel.name === '') {
       return;
     }
-    mutate(newChannel); // mutate 호출 시 데이터 전달
+    mutate(newChannel);
   };
 
   return (
     <ModalContainer
-      isOpen={type === 'CREATE_CHANNEL'}
+      isOpen={type === MODAL.CREATE_CHANNEL}
       onClose={onCloseModal}
       title="채널 만들기"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."

@@ -7,6 +7,7 @@ import { useModalStore } from '@/shared/model/modalStore';
 import useGetParams from '@/entities/hooks/getParams';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { MODAL } from '@/shared/constants/modal';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { SearchInput } from '@/shared/ui/SearchInput';
@@ -23,12 +24,11 @@ export const InvitedMemberModal = () => {
   const [searchText, setSearchText] = useState('');
   const debouncedSearchText = useDebounce(searchText);
 
-  const validServerId = serverId ?? ''; // 기본값 설정
+  const validServerId = serverId ?? '';
 
   // 현재 서버 정보를 가져옴
   const { data: getServerData } = useQuery({
     ...serverQueries.getServerDetail(validServerId),
-    // enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
   const serverName = getServerData?.name;
 
@@ -55,7 +55,6 @@ export const InvitedMemberModal = () => {
     isLoading: isFetchingNextPage,
   });
 
-  // 초대 코드를 받아옴 => 이거 하위로 넘김 필요하면 다시 쓸꺼임;;;;
   const { data: inviteUrl } = useQuery({
     ...serverQueries.postInvite(validServerId),
   });
@@ -70,13 +69,6 @@ export const InvitedMemberModal = () => {
       });
     },
   });
-  // const { mutate: openDm } = useMutation({
-  //   ...serverQueries.postDMRoom,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
-  //     // navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(selectedFriendId));
-  //   },
-  // });
 
   const localtion = useLocation();
   const handleInviteMember = (memberId: number, name: string) => {
@@ -84,7 +76,7 @@ export const InvitedMemberModal = () => {
       toast.error('초대 권한이 없습니다');
       return;
     }
-    // openDm({ recipientId: memberId });
+
     mutate({
       recipientId: memberId,
       content: `${getServerData?.name} 서버에서 초대를 보냈어요!  초대코드 : ${lastElement}`,
@@ -95,7 +87,7 @@ export const InvitedMemberModal = () => {
 
   return (
     <ModalContainer
-      isOpen={type === 'INVIDE_MEMBER'}
+      isOpen={type === MODAL.INVIDE_MEMBER}
       onClose={onCloseModal}
       subTitle={`친구를 ${serverName}님의 서버 그룹으로 초대하기`}
       description=""
