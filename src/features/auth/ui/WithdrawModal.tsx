@@ -6,6 +6,7 @@ import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { useSocketStore } from '@/shared/model/socketStore';
 import { MODAL } from '@/shared/constants/modal';
+import { ROUTES } from '@/shared/constants/routes';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { authQueries } from '../api/queries';
 import { type WithdrawFormData, withdrawSchema } from '../model/schema';
@@ -29,7 +30,7 @@ export const WithdrawModal = () => {
       const disconnect = useSocketStore.getState().disconnect;
       disconnect();
       clearAuth();
-      window.location.href = '/signin';
+      window.location.href = ROUTES.AUTH.SIGN_IN;
     },
   });
 

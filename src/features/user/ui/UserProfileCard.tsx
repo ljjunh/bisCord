@@ -1,5 +1,6 @@
 import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
+import { MODAL } from '@/shared/constants/modal';
 import { EditIcon } from '@/shared/icons/EditIcon';
 import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { SignOutButton } from '../../auth/ui/SignOutButton';
@@ -16,7 +17,7 @@ export const UserProfileCard = ({ onCloseDropdown }: UserProfileCardProps) => {
   const currentStatus = user?.loginStatus ?? 'OFFLINE';
 
   const handleModal = () => {
-    onOpenModal('USER_PROFILE');
+    onOpenModal(MODAL.USER_PROFILE);
     onCloseDropdown(false);
   };
 

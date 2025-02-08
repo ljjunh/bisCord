@@ -1,5 +1,6 @@
 import { useModalStore } from '@/shared/model/modalStore';
 import { CallNotificationModal } from '@/features/directMessage/ui/CallNotificationModal';
+import { MODAL } from '@/shared/constants/modal';
 import { useWebSocket } from '@/shared/lib/useWebSocket';
 import './App.css';
 import { Router } from './Router';
@@ -15,7 +16,7 @@ function App() {
     <QueryProvider>
       <ToastProvider>
         <DetectorProvider>
-          {modalType === 'CALL_NOTIFICATION' && <CallNotificationModal />}
+          {modalType === MODAL.CALL_NOTIFICATION && <CallNotificationModal />}
           <Router />
         </DetectorProvider>
       </ToastProvider>
