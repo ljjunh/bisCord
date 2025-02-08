@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { useModalStore } from '../model/modalStore';
+import { MODAL } from '../constants/modal';
 import { ArrowRight } from '../icons/ArrowRight';
 import { NewMemberIcon } from '../icons/NewMemberIcon';
 
@@ -11,7 +12,7 @@ export const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDe
   const { onOpenModal } = useModalStore((state) => state);
 
   const handleClick = () => {
-    onOpenModal('INVIDE_MEMBER');
+    onOpenModal(MODAL.INVIDE_MEMBER);
   };
 
   return (
