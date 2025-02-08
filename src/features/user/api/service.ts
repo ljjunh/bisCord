@@ -12,11 +12,12 @@ import type {
 } from './dto';
 import type { User } from '@/shared/model/types';
 import { apiClient } from '@/shared/api/apiClient';
+import { USER_ENDPOINT } from '@/shared/constants/apiEndpoints';
 
 export const userService = {
   getOtherUser: async ({ userId }: GetOtherUserDTO): Promise<GetOtherUserResponseDTO> => {
     const response = await apiClient.get<GetOtherUserResponseDTO>({
-      url: `/user/${userId}`,
+      url: USER_ENDPOINT.GET_OTHER_USER(userId),
     });
 
     return response.data;
@@ -24,13 +25,16 @@ export const userService = {
 
   putUser: async (data: PutUserDTO): Promise<void> => {
     await apiClient.put<void>({
-      url: '/user',
+      url: USER_ENDPOINT.PUT_USER,
       data,
     });
   },
 
   postImage: async (data: PostImageDTO): Promise<PostImageResponseDTO> => {
-    const response = await apiClient.post<PostImageResponseDTO>({ url: '/image', data });
+    const response = await apiClient.post<PostImageResponseDTO>({
+      url: USER_ENDPOINT.POST_IMAGE,
+      data,
+    });
 
     return response.data;
   },
@@ -41,7 +45,7 @@ export const userService = {
 
   getImageUrl: async ({ key }: GetImageUrlDTO): Promise<GetImageUrlResponseDTO> => {
     const response = await apiClient.get<GetImageUrlResponseDTO>({
-      url: '/image',
+      url: USER_ENDPOINT.GET_IMAGE,
       params: {
         key,
       },
@@ -91,7 +95,7 @@ export const userService = {
 
   postUserStatus: async ({ status }: PostUserStatusDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: '/user/status',
+      url: USER_ENDPOINT.POST_USER_STATUS,
       params: { status },
     });
   },

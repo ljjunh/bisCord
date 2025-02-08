@@ -28,7 +28,7 @@ export const useSocketStore = create<SocketStore>((set) => ({
   setStompClient: (client) => set({ stompClient: client }),
   connectSocket: (token, channelId) => {
     const channelClient = new Client({
-      brokerURL: 'wss://kdt-pt-1-pj-1-team06.elicecoding.com/api/ws',
+      brokerURL: import.meta.env.WS_URL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },

@@ -1,10 +1,11 @@
 import { useModalStore } from '@/shared/model/modalStore';
+import { MODAL } from '@/shared/constants/modal';
 
-export const SignOffButton = () => {
+export const WithdrawButton = () => {
   const onOpenModal = useModalStore((state) => state.onOpenModal);
 
   const handleModal = () => {
-    onOpenModal('USER_SIGNOFF');
+    onOpenModal(MODAL.USER_WITHDRAW);
   };
 
   return (

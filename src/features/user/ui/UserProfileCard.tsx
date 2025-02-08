@@ -2,8 +2,8 @@ import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { EditIcon } from '@/shared/icons/EditIcon';
 import { UserAvatar } from '@/shared/ui/UserAvatar';
-import { SignOffButton } from '../../auth/ui/SignOffButton';
 import { SignOutButton } from '../../auth/ui/SignOutButton';
+import { WithdrawButton } from '../../auth/ui/WithdrawButton';
 import { UserStatusMenu } from './UserStatusMenu';
 
 interface UserProfileCardProps {
@@ -48,7 +48,7 @@ export const UserProfileCard = ({ onCloseDropdown }: UserProfileCardProps) => {
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
-        <SignOffButton />
+        <WithdrawButton />
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
