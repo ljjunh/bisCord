@@ -11,7 +11,7 @@ interface SeoProps {
 export const Seo = ({
   title,
   description,
-  image = '/discord-icon.svg',
+  image = '/images/discord-icon.svg',
   siteName = 'biscord',
   url,
 }: SeoProps) => {

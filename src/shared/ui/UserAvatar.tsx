@@ -26,7 +26,7 @@ const UserAvatar = ({ image, size, state = 'OFFLINE', bg }: UserAvatarProps) => 
           alt="User Avatar"
           className="h-full w-full rounded-full object-cover"
           onError={(e) => {
-            e.currentTarget.src = '/discord-icon.svg';
+            e.currentTarget.src = '/images/discord-icon.svg';
           }}
         />
       ) : (

@@ -31,7 +31,7 @@ export const CallView = ({ profileImageURL }: CallViewProps) => {
       if (inComingCall?.signalData) {
         await handleIncomingCall(inComingCall.signalData);
       }
-      const audio = new Audio('/callstart.wav');
+      const audio = new Audio('/sounds/callstart.wav');
       audio.play().catch((error) => console.error('Audio play 실패:', error));
       clearIncomingCall();
     } catch (error) {
@@ -47,7 +47,7 @@ export const CallView = ({ profileImageURL }: CallViewProps) => {
   };
 
   const handleDecline = () => {
-    const audio = new Audio('/callend.wav');
+    const audio = new Audio('/sounds/callend.wav');
     audio.play().catch((error) => console.error('Audio play 실패:', error));
 
     endCall();
