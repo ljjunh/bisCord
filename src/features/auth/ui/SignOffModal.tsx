@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '@/shared/model/authStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { useSocketStore } from '@/shared/model/socketStore';
+import { MODAL } from '@/shared/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { authQueries } from '../api/queries';
 import { type SignOffFormData, signOffSchema } from '../model/schema';
@@ -38,7 +39,7 @@ export const SignOffModal = () => {
 
   return (
     <ModalContainer
-      isOpen={type === 'USER_SIGNOFF'}
+      isOpen={type === MODAL.USER_SIGNOFF}
       onClose={onCloseModal}
       title="회원 탈퇴"
       description=""

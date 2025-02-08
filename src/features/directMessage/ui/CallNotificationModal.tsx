@@ -3,6 +3,7 @@ import ReactModal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { useRTCStore } from '@/shared/model/RTCStore';
 import { useModalStore } from '@/shared/model/modalStore';
+import { MODAL } from '@/shared/constants/modal';
 import { ROUTES } from '@/shared/constants/routes';
 import { CallIcon } from '@/shared/icons/CallIcon';
 import { DiscordIcon } from '@/shared/icons/DiscordIcon';
@@ -57,7 +58,7 @@ export const CallNotificationModal = () => {
 
   return (
     <ReactModal
-      isOpen={type === 'CALL_NOTIFICATION'}
+      isOpen={type === MODAL.CALL_NOTIFICATION}
       ariaHideApp={false}
       overlayClassName="fixed inset-0 flex justify-center items-center"
       className="relative flex flex-col items-center space-y-4 overflow-hidden rounded-lg bg-[#000] px-10 py-5 text-center text-white shadow-lg outline-none"

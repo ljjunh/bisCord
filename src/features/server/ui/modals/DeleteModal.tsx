@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { Servers } from '../../model/types';
 import { useModalStore } from '@/shared/model/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { MODAL } from '@/shared/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../../api/queries';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
@@ -48,7 +49,7 @@ export const DeleteModal = ({ getServerData }: DeleteModalProps) => {
 
   return (
     <ModalContainer
-      isOpen={type === 'DELETE_SERVER'}
+      isOpen={type === MODAL.DELETE_SERVER}
       onClose={onCloseModal}
       title={`'${getServerData?.name}님의 서버' 삭제`}
       description=""

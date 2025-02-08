@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { MODAL, useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/modalStore';
+import { MODAL } from '@/shared/constants/modal';
 import { PlusIcon } from '@/shared/icons/PlusIcon';
 import { EmptyList } from '@/shared/ui/EmptyList';
 import { serverQueries } from '../api/queries';
