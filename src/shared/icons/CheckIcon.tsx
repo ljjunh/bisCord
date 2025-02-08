@@ -1,4 +1,4 @@
-import IconTypes from '../types/IconType';
+import type IconTypes from '../types/IconType';
 
 export const CheckIcon = ({ width = 16, height = 12, color = '#828391' }: IconTypes) => {
   return (

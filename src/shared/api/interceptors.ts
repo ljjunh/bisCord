@@ -1,5 +1,5 @@
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { ApiErrorResponse } from '../types/apiResponse';
+import type { ApiErrorResponse } from '../types/apiResponse';
 import { useAuthStore } from '@/shared/model/authStore';
 import { NetworkOfflineError, TokenExpiredHandler } from './errorHandler';
 

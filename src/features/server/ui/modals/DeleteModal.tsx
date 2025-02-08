@@ -1,7 +1,7 @@
 import { useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Servers } from '../../model/types';
+import type { Servers } from '../../model/types';
 import { useModalStore } from '@/shared/model/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';

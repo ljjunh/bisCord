@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { ApiResponse } from '@/shared/types/apiResponse';
+import type { ApiResponse } from '@/shared/types/apiResponse';
 import { rejectInterceptor, requestInterceptor, responseInterceptor } from './interceptors';
 
 export const axiosInstance: AxiosInstance = axios.create({

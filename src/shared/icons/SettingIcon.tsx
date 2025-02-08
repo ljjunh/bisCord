@@ -1,4 +1,4 @@
-import IconTypes from '../types/IconType';
+import type IconTypes from '../types/IconType';
 
 export const SettingIcon = ({ size = 33, color = '#C7C8CE' }: IconTypes) => {
   return (

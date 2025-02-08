@@ -7,7 +7,7 @@ import { useModalStore } from '@/shared/model/modalStore';
 import { useSocketStore } from '@/shared/model/socketStore';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { authQueries } from '../api/queries';
-import { SignOffFormData, signOffSchema } from '../model/schema';
+import { type SignOffFormData, signOffSchema } from '../model/schema';
 
 export const SignOffModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);

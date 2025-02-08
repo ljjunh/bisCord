@@ -1,4 +1,4 @@
-import { Servers } from '@/features/server/model/types';
+import type { Servers } from '@/features/server/model/types';
 import { ChannelMemberList } from '@/features/server/ui/ChannelMember';
 import { MessageHeader } from '@/features/server/ui/MessageHeader';
 import { ChannelMessageDefault } from '@/shared/ui/ChannelMessageDefault';

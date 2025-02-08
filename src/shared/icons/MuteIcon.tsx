@@ -1,4 +1,4 @@
-import IconTypes from '../types/IconType';
+import type IconTypes from '../types/IconType';
 
 export const MuteIcon = ({ size = 32, color = '#C7C8CE' }: IconTypes) => {
   return (

@@ -1,4 +1,4 @@
-import IconTypes from '../types/IconType';
+import type IconTypes from '../types/IconType';
 
 export const DottedIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
   return (

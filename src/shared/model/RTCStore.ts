@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { WebRTCSignalData, WebRTCSignalMessage } from './types';
+import type { WebRTCSignalData, WebRTCSignalMessage } from './types';
 import { useAuthStore } from './authStore';
 import { useSocketStore } from './socketStore';
 

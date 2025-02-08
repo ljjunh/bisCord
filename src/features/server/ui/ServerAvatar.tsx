@@ -1,14 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import { ReactNode } from 'react';
-import { Servers } from '../model/types';
+import type { Servers } from '../model/types';
 import { ROUTES } from '@/shared/constants/routes';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface ServerAvatarProps {
-  children?: ReactNode;
-  search?: boolean;
   server?: Servers;
-  link?: string;
 }
 /** 좌측 서버 아바타 컴포넌트 */
 export const ServerAvatar = ({ server }: ServerAvatarProps) => {

@@ -1,5 +1,5 @@
-import { LoginStatus } from '@/shared/model/types';
-import { PageInfo } from '@/shared/types/PageInfo';
+import type { LoginStatus } from '@/shared/model/types';
+import type { PageInfo } from '@/shared/types/PageInfo';
 
 export interface Servers {
   name: string;
