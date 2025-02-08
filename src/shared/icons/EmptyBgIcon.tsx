@@ -1,7 +1,6 @@
-// import React from 'react';
 import IconTypes from '../types/IconType';
 
-const EmptyBgIcon = ({ size = 400 }: IconTypes) => {
+export const EmptyBgIcon = ({ size = 400 }: IconTypes) => {
   return (
     <svg
       width={size}
@@ -254,5 +253,3 @@ const EmptyBgIcon = ({ size = 400 }: IconTypes) => {
     </svg>
   );
 };
-
-export default EmptyBgIcon;

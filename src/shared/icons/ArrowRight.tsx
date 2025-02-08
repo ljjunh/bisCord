@@ -1,6 +1,6 @@
 import IconTypes from '../types/IconType';
 
-const ArrowRight = ({ size = 20, color = '#828391' }: IconTypes) => {
+export const ArrowRight = ({ size = 20, color = '#828391' }: IconTypes) => {
   return (
     <svg
       width={size * 0.7}
@@ -16,5 +16,3 @@ const ArrowRight = ({ size = 20, color = '#828391' }: IconTypes) => {
     </svg>
   );
 };
-
-export default ArrowRight;

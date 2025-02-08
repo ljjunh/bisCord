@@ -1,4 +1,4 @@
-import PlusIcon from '@/shared/icons/PlusIcon';
+import { PlusIcon } from '@/shared/icons/PlusIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 const CreateServerAvatar = () => {

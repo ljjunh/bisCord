@@ -1,4 +1,4 @@
-import ChannelUnlockedIcon from '@/shared/icons/ChannelUnlockedIcon';
+import { ChannelUnlockedIcon } from '@/shared/icons/ChannelUnlockedIcon';
 
 interface Servername {
   serverName: string | undefined;

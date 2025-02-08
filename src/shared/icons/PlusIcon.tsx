@@ -1,6 +1,6 @@
 import IconTypes from '../types/IconType';
 
-const PlusIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
+export const PlusIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
   return (
     <svg
       width={size}
@@ -16,5 +16,3 @@ const PlusIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
     </svg>
   );
 };
-
-export default PlusIcon;

@@ -1,7 +1,7 @@
 import { MODAL, useModalStore } from '@/shared/model/modalStore';
 import { ModalType } from '@/shared/constants/modalType';
-import AddUserIcon from '@/shared/icons/AddUserIcon';
-import ChannelUnlockedIcon from '@/shared/icons/ChannelUnlockedIcon';
+import { AddUserIcon } from '@/shared/icons/AddUserIcon';
+import { ChannelUnlockedIcon } from '@/shared/icons/ChannelUnlockedIcon';
 import { SettingIcon } from '@/shared/icons/SettingIcon';
 import {
   DropdownMenuGroup,

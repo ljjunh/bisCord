@@ -5,7 +5,7 @@ import { useRTCStore } from '@/shared/model/RTCStore';
 import { useModalStore } from '@/shared/model/modalStore';
 import { ROUTES } from '@/shared/constants/routes';
 import { CallIcon } from '@/shared/icons/CallIcon';
-import DiscordIcon from '@/shared/icons/DiscordIcon';
+import { DiscordIcon } from '@/shared/icons/DiscordIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 export const CallNotificationModal = () => {

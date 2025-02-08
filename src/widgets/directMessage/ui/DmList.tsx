@@ -1,4 +1,4 @@
-import PlusIcon from '@/shared/icons/PlusIcon';
+import { PlusIcon } from '@/shared/icons/PlusIcon';
 import ListContainer from '@/shared/ui/layout/ListContainer';
 
 const DmList = () => {

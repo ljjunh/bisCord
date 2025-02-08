@@ -1,6 +1,6 @@
 import IconTypes from '../types/IconType';
 
-const SearchIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
+export const SearchIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
   return (
     <svg
       width={size}
@@ -18,5 +18,3 @@ const SearchIcon = ({ size = 20, color = '#828391' }: IconTypes) => {
     </svg>
   );
 };
-
-export default SearchIcon;

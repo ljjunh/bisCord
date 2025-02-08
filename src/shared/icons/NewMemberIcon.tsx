@@ -1,6 +1,6 @@
 import IconTypes from '../types/IconType';
 
-const NewMemberIcon = ({ size = 18, color = '#C7C8CE' }: IconTypes) => {
+export const NewMemberIcon = ({ size = 18, color = '#C7C8CE' }: IconTypes) => {
   return (
     <svg
       width={size}
@@ -20,5 +20,3 @@ const NewMemberIcon = ({ size = 18, color = '#C7C8CE' }: IconTypes) => {
     </svg>
   );
 };
-
-export default NewMemberIcon;
