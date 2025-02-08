@@ -12,6 +12,10 @@ export interface SignUpDTO {
   name: string;
 }
 
+export interface SocialSignInDTO {
+  code: string;
+}
+
 export interface SocialSignInResponseDTO {
   accessToken: string;
 }

@@ -3,7 +3,8 @@ export const QUERY_KEYS = {
     // 나중에 base로 관련 쿼리를 한번에 무효화 하도록
     base: ['user'] as const,
     detail: () => [...QUERY_KEYS.user.base, 'detail'] as const,
-    list: (params: object) => [...QUERY_KEYS.user.base, 'list', params],
+    members: (params: number) => [...QUERY_KEYS.user.base, 'members', params] as const,
+    list: (params: object) => [...QUERY_KEYS.user.base, 'list', params] as const,
   },
   server: {
     base: ['server'] as const,
@@ -22,6 +23,7 @@ export const QUERY_KEYS = {
     list: () => [...QUERY_KEYS.server.base, 'servers'] as const,
     members: (serverUri: string, channelId: string) =>
       [...QUERY_KEYS.channel.base, 'members', serverUri, channelId] as const, // serverUri와 channelId를 이용한 고유한 키 반환
+    messages: (params: number) => [...QUERY_KEYS.channel.base, 'messages', params] as const,
   },
   image: {
     base: ['image'] as const,
@@ -29,6 +31,7 @@ export const QUERY_KEYS = {
   },
   directMessage: {
     base: ['directMessage'] as const,
-    members: () => [...QUERY_KEYS.directMessage.base] as const,
+    members: () => [...QUERY_KEYS.directMessage.base, 'members'] as const,
+    detail: (params: object) => [...QUERY_KEYS.directMessage.base, 'detail', params] as const,
   },
 };

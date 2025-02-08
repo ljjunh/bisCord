@@ -1,9 +1,13 @@
-import { FriendStatus } from '@/entities/friend/model/types';
+import { LoginStatus } from '@/shared/model/types';
 import { PageInfo } from '@/shared/types/PageInfo';
 
 export interface Servers {
   name: string;
   serverUri: string;
+  serverImageURL: string;
+}
+export interface PutServerDTO {
+  name: string;
   serverImageURL: string;
 }
 
@@ -37,6 +41,10 @@ export interface Channel {
   roleId: number;
 }
 
+export interface DeleteChannel {
+  channelId: number;
+}
+
 export interface ServerMemberDTO {
   id: number;
   userId: number;
@@ -44,7 +52,7 @@ export interface ServerMemberDTO {
   roleRank: number;
   roleName: string;
   profileImageURL: string | null;
-  loginStatus: FriendStatus;
+  loginStatus: LoginStatus;
 }
 
 export interface PostInviteServer {
@@ -52,6 +60,9 @@ export interface PostInviteServer {
 }
 export interface InviteServer {
   inviteUrl: string;
+}
+export interface JoinServer {
+  inviteKey: string;
 }
 
 export interface PutUserDTO {
@@ -86,4 +97,13 @@ export interface GetImageUrlResponseDTO {
 
 export interface PutUserProfileDTO extends Omit<PutUserDTO, 'profileImageURL'> {
   image: string | File;
+}
+
+export interface PostDMDTO {
+  recipientId: number;
+  content: string;
+}
+
+export interface PostDMRoomDTO {
+  recipientId: number;
 }

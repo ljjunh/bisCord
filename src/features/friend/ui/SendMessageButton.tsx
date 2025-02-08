@@ -1,17 +1,37 @@
+import { useNavigate } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { ROUTES } from '@/shared/constants/routes';
 import { MessageIcon } from '@/shared/icons/MessageIcon';
 import { TooltipButton } from '@/shared/ui/TooltipButton';
+import { DMQueries } from '../../directMessage/api/queries';
 
 interface SendMessageButtonProps {
   friendId: number;
 }
 
 export const SendMessageButton = ({ friendId }: SendMessageButtonProps) => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+  const { mutate, isPending } = useMutation({
+    ...DMQueries.postDMRoom,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
+      navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(friendId));
+    },
+  });
+
+  const handleButtonClick = () => {
+    mutate({ recipientId: friendId });
+  };
+
   return (
     <TooltipButton
       icon={<MessageIcon />}
       tooltipText="메시지 보내기"
       delayDuration={100}
-      onClick={() => console.log(friendId, 'DM페이지로 이동')}
+      onClick={handleButtonClick}
+      disabled={isPending}
     />
   );
 };

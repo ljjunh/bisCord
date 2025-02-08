@@ -20,11 +20,11 @@ export const AllFriendsView = () => {
   });
 
   const allFriends = data?.pages.flatMap((page) => page.content) ?? [];
-  const isNotHaveFriends = [allFriends, keyword].every(isEmpty) && !isFetching;
-  const isNothingSearched = keyword && isEmpty(allFriends) && !isFetching;
+  const isNothingSearched = Boolean(debouncedKeyword) && isEmpty(allFriends) && !isFetching;
+  const isNotHaveFriends = !debouncedKeyword && isEmpty(allFriends) && !isFetching;
 
   // Case 1: 친구가 한 명도 없는 경우
-  if (isNotHaveFriends) {
+  if (isNotHaveFriends && isFetching) {
     return (
       <section
         role="tabpanel"

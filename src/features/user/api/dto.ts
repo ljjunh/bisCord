@@ -1,4 +1,11 @@
+import { Friend } from '@/entities/friend/model/types';
 import { LoginStatus } from '@/entities/user/model/types';
+
+export interface GetOtherUserDTO {
+  userId: number;
+}
+
+export type GetOtherUserResponseDTO = Friend;
 
 export interface PutUserDTO {
   name: string;

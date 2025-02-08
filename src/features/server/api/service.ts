@@ -1,11 +1,15 @@
 import {
   Channel,
   ChannelDTO,
+  DeleteChannel,
   GetImageUrlDTO,
   GetImageUrlResponseDTO,
   GetmemberDTO,
   InviteServer,
+  JoinServer,
   MemberDTO,
+  PostDMDTO,
+  PostDMRoomDTO,
   PostImageDTO,
   PostImageResponseDTO,
   PostInviteServer,
@@ -21,6 +25,9 @@ export const serverService = {
   /** 전체 서버 목록을 가져옵니다 */
   getServers: async (): Promise<ServersDTO> => {
     const response = await apiClient.get<ServersDTO>({ url: '/user/servers?page=1&size=100' });
+
+    const servers = response.data.content.map((server) => server.serverUri);
+    console.log(servers);
 
     return response.data;
   },
@@ -95,9 +102,61 @@ export const serverService = {
     return response.data;
   },
 
+  // 서버 정보를 수정합니다
+  putServerProfile: async (serverData: {
+    name: string;
+    serverUri: string;
+    serverImageURL: string | File;
+  }): Promise<Servers> => {
+    let profileImageURL = serverData.serverImageURL;
+
+    // 이미지 파일이 있을 경우
+    if (serverData.serverImageURL instanceof File) {
+      // 이미지 데이터 업로드
+      const imageData = await serverService.postImage({
+        fileName: serverData.serverImageURL.name,
+        contentType: serverData.serverImageURL.type,
+        contentLength: serverData.serverImageURL.size,
+      });
+
+      console.log(imageData);
+
+      // 이미지 S3 업로드
+      await serverService.putImageToS3({
+        presignedUrl: imageData.presignedUrl,
+        file: serverData.serverImageURL,
+      });
+
+      // 업로드된 이미지 URL 가져오기
+      const { imageUrl } = await serverService.getImageUrl({
+        key: imageData.key,
+      });
+
+      profileImageURL = imageUrl; // 업데이트된 이미지 URL을 사용
+    }
+
+    // 서버 프로필 정보 수정
+    const updatedServer = await apiClient.put<Servers>({
+      url: `/server/${serverData.serverUri}`, // serverUri를 URL에 포함
+      data: {
+        name: serverData.name,
+        serverImageURL: typeof profileImageURL === 'string' ? profileImageURL : '', // 문자열로 변환
+      },
+    });
+
+    return updatedServer.data;
+  },
+
   // 해당 서버를 삭제합니다
   deleteServer: async (serverUri: string): Promise<Servers> => {
     const response = await apiClient.delete<Servers>({ url: `/server/${serverUri}` });
+
+    return response.data;
+  },
+  deleteChannel: async (channelId: number): Promise<DeleteChannel> => {
+    const response = await apiClient.delete<DeleteChannel>({
+      url: `/chat/channel/${channelId}`,
+    });
 
     return response.data;
   },
@@ -132,6 +191,14 @@ export const serverService = {
 
     return response.data;
   },
+  // 초대 코드로 서버 가입
+  postJoinServer: async ({ inviteKey }: JoinServer) => {
+    const response = await apiClient.post<JoinServer>({
+      url: `/server/join/${inviteKey}`,
+    });
+
+    return response.data;
+  },
 
   /** ㅇ
    * 이미지 관련
@@ -155,5 +222,16 @@ export const serverService = {
     });
 
     return response.data;
+  },
+  postDM: async ({ recipientId, content }: PostDMDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/chat/dm/${recipientId}`,
+      data: { content },
+    });
+  },
+  postDMRoom: async ({ recipientId }: PostDMRoomDTO): Promise<void> => {
+    await apiClient.post<void>({
+      url: `/dm/${recipientId}`,
+    });
   },
 };

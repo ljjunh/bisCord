@@ -1,8 +1,12 @@
 import { isEmpty } from 'es-toolkit/compat';
+import { useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
 import useGetParams from '@/entities/hooks/getParams';
+import { queryClient } from '@/shared/api/queryClient';
+import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { useDebounce } from '@/shared/lib/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
 import { SearchInput } from '@/shared/ui/SearchInput';
@@ -52,11 +56,42 @@ const InvitedMemberModal = () => {
   });
 
   // 초대 코드를 받아옴 => 이거 하위로 넘김 필요하면 다시 쓸꺼임;;;;
-  // const { data: inviteUrl } = useQuery({
-  //   ...serverQueries.postInvite(validServerId),
+  const { data: inviteUrl } = useQuery({
+    ...serverQueries.postInvite(validServerId),
+  });
+  const validInviteUrl = inviteUrl?.inviteUrl.split('/');
+  const lastElement = validInviteUrl?.[validInviteUrl.length - 1];
+
+  const { mutate } = useMutation({
+    ...serverQueries.postDM,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEYS.directMessage.detail({ validServerId }),
+      });
+    },
+  });
+  // const { mutate: openDm } = useMutation({
+  //   ...serverQueries.postDMRoom,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
+  //     // navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(selectedFriendId));
+  //   },
   // });
-  // const validInviteUrl = inviteUrl?.inviteUrl.split('/');
-  // const lastElement = validInviteUrl?.[validInviteUrl.length - 1];
+
+  const localtion = useLocation();
+  const handleInviteMember = (memberId: number, name: string) => {
+    if (lastElement === undefined || null) {
+      toast.error('초대 권한이 없습니다');
+      return;
+    }
+    // openDm({ recipientId: memberId });
+    mutate({
+      recipientId: memberId,
+      content: `${getServerData?.name} 서버에서 초대를 보냈어요!  초대코드 : ${lastElement}`,
+    });
+    toast.success(`${name}님께 초대 메세지를 보냈습니다.`);
+    console.log(`${localtion.hash}님 초대`);
+  };
 
   return (
     <ModalContainer
@@ -83,17 +118,20 @@ const InvitedMemberModal = () => {
                 friends={friends}
                 key={index}
               >
-                <button className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green">
+                <button
+                  onClick={() => handleInviteMember(friends.id, friends.name)}
+                  className="ml-auto rounded-md border-2 border-green px-4 py-1 transition-all hover:bg-green"
+                >
                   초대
                 </button>
               </MemberList>
-              <div
-                ref={observerRef}
-                className="h-[1px] w-full"
-              />
             </>
           ))
         )}
+        <div
+          ref={observerRef}
+          className="h-[1px] w-full"
+        />
       </div>
       {/* {data} */}
 
