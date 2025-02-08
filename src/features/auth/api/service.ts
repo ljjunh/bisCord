@@ -8,13 +8,14 @@ import type {
 import { useAuthStore } from '@/shared/model/authStore';
 import { userService } from '@/entities/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
+import { AUTH_ENDPOINT } from '@/shared/constants/apiEndpoints';
 
 export const authService = {
   signUp: async (data: SignUpDTO): Promise<void> => {
-    await apiClient.post<void>({ url: '/signup', data });
+    await apiClient.post<void>({ url: AUTH_ENDPOINT.SIGN_UP, data });
   },
   signIn: async (data: SignInDTO): Promise<void> => {
-    const response = await apiClient.post<SignInResponseDTO>({ url: '/login', data });
+    const response = await apiClient.post<SignInResponseDTO>({ url: AUTH_ENDPOINT.SIGN_IN, data });
 
     const token = response.data.accessToken;
 
@@ -26,16 +27,16 @@ export const authService = {
   },
 
   signOut: async (): Promise<void> => {
-    await apiClient.post<void>({ url: '/login/logout' });
+    await apiClient.post<void>({ url: AUTH_ENDPOINT.SIGN_OUT });
   },
 
-  signOff: async (): Promise<void> => {
-    await apiClient.delete<void>({ url: '/user' });
+  withdraw: async (): Promise<void> => {
+    await apiClient.delete<void>({ url: AUTH_ENDPOINT.WITHDRAW });
   },
 
   socialSignIn: async ({ code }: SocialSignInDTO): Promise<void> => {
     const response = await apiClient.post<SocialSignInResponseDTO>({
-      url: '/login/code',
+      url: AUTH_ENDPOINT.SOCIAL_SIGN_IN,
       params: { code },
     });
 

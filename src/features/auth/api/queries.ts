@@ -10,8 +10,8 @@ export const authQueries = {
   signOut: {
     mutationFn: authService.signOut,
   },
-  signOff: {
-    mutationFn: authService.signOff,
+  withdraw: {
+    mutationFn: authService.withdraw,
   },
   socialSignIn: {
     mutationFn: authService.socialSignIn,

@@ -7,6 +7,7 @@ import type {
   PostSendMessageResponse,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
+import { CHANNEL_ENDPOINT } from '@/shared/constants/apiEndpoints';
 
 export const channelService = {
   getAllMessage: async ({
@@ -16,7 +17,7 @@ export const channelService = {
     size,
   }: GetChMessageDTO): Promise<GetChMessageResponse> => {
     const response = await apiClient.get<GetChMessageResponse>({
-      url: `/chat/channel/${channelId}`,
+      url: CHANNEL_ENDPOINT.GET_ALL_MESSAGE(channelId),
       params: {
         keyword,
         page,
@@ -32,7 +33,7 @@ export const channelService = {
     content,
   }: PostSendMessageRequest): Promise<PostSendMessageResponse> => {
     const response = await apiClient.post<PostSendMessageResponse>({
-      url: `/chat/channel/${channelId}`,
+      url: CHANNEL_ENDPOINT.POST_SEND_MESSAGE(channelId),
       data: {
         content,
       },
@@ -43,13 +44,13 @@ export const channelService = {
 
   deleteMessage: async ({ channelId, chatId }: DeleteCHMessage) => {
     await apiClient.delete<void>({
-      url: `/chat/channel/${channelId}`,
+      url: CHANNEL_ENDPOINT.DELETE_MESSAGE(channelId),
       data: { chatId },
     });
   },
   editMessage: async ({ channelId, chatId, content }: EditMessage): Promise<void> => {
     await apiClient.patch<void>({
-      url: `/chat/channel/${channelId}`,
+      url: CHANNEL_ENDPOINT.EDIT_MESSAGE(channelId),
       data: {
         chatId,
         content,

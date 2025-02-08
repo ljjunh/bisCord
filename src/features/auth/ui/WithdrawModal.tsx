@@ -8,9 +8,9 @@ import { useSocketStore } from '@/shared/model/socketStore';
 import { MODAL } from '@/shared/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { authQueries } from '../api/queries';
-import { type SignOffFormData, signOffSchema } from '../model/schema';
+import { type WithdrawFormData, withdrawSchema } from '../model/schema';
 
-export const SignOffModal = () => {
+export const WithdrawModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const clearAuth = useAuthStore((state) => state.clearAuth);
 
@@ -18,13 +18,13 @@ export const SignOffModal = () => {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<SignOffFormData>({
-    resolver: zodResolver(signOffSchema),
+  } = useForm<WithdrawFormData>({
+    resolver: zodResolver(withdrawSchema),
     mode: 'onChange',
   });
 
   const { mutate, isPending } = useMutation({
-    ...authQueries.signOff,
+    ...authQueries.withdraw,
     onSuccess: () => {
       const disconnect = useSocketStore.getState().disconnect;
       disconnect();
@@ -39,7 +39,7 @@ export const SignOffModal = () => {
 
   return (
     <ModalContainer
-      isOpen={type === MODAL.USER_SIGNOFF}
+      isOpen={type === MODAL.USER_WITHDRAW}
       onClose={onCloseModal}
       title="회원 탈퇴"
       description=""
