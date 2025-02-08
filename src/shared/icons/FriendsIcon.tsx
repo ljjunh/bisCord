@@ -1,4 +1,4 @@
-import IconTypes from '../types/IconType';
+import type IconTypes from '../types/IconType';
 
 export const FriendsIcon = ({ size = 24, color = '#9597A3' }: IconTypes) => {
   return (

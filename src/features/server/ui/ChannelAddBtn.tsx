@@ -1,10 +1,9 @@
-import { ReactNode } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface ChannelAddBtnProps {
   handleModal?: () => void | null;
   text: string;
-  icon: ReactNode;
+  icon: React.ReactElement;
   locate: string;
 }
 

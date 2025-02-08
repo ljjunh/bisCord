@@ -1,6 +1,6 @@
 import { PropsWithChildren, useEffect } from 'react';
-import { ServerMemberDTO } from '../model/types';
-import { Friend } from '@/entities/friend/model/types';
+import type { ServerMemberDTO } from '../model/types';
+import type { Friend } from '@/entities/friend/model/types';
 import { UserAvatar } from '@/shared/ui/UserAvatar';
 
 interface MemberList extends PropsWithChildren {

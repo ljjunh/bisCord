@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ReactNode } from 'react';
+import type { ReactElement } from 'react';
 
 const TOAST_CONFIG = {
   position: 'bottom-right',
@@ -16,7 +16,7 @@ const TOAST_CONFIG = {
 } as const;
 
 type ToastProviderProps = {
-  children: ReactNode;
+  children: ReactElement;
 };
 
 export const ToastProvider = ({ children }: ToastProviderProps) => {

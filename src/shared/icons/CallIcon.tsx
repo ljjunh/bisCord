@@ -1,4 +1,4 @@
-import IconTypes from '../types/IconType';
+import type IconTypes from '../types/IconType';
 
 export const CallIcon = ({ width = 28, height = 27, color = '#C7C8CE' }: IconTypes) => {
   return (

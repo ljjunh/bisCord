@@ -32,7 +32,6 @@ export const SideNav = () => {
             <ServerAvatar
               key={server.serverUri}
               server={server}
-              link={ROUTES.CHAT.SERVER.DETAIL(server.serverUri)}
             ></ServerAvatar>
           ))}
       </div>

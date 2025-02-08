@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
-import { Channel } from '../model/types';
+import type { Channel } from '../model/types';
 import { MODAL, useModalStore } from '@/shared/model/modalStore';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';

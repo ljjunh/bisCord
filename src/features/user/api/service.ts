@@ -10,7 +10,7 @@ import type {
   PutUserDTO,
   PutUserProfileDTO,
 } from './dto';
-import { User } from '@/shared/model/types';
+import type { User } from '@/shared/model/types';
 import { apiClient } from '@/shared/api/apiClient';
 
 export const userService = {

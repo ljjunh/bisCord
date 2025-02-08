@@ -1,4 +1,4 @@
-import {
+import type {
   Channel,
   ChannelDTO,
   DeleteChannel,
@@ -19,10 +19,7 @@ import {
 } from '../model/types';
 import { apiClient } from '@/shared/api/apiClient';
 
-// 여기 엔티티
-
 export const serverService = {
-  /** 전체 서버 목록을 가져옵니다 */
   getServers: async (): Promise<ServersDTO> => {
     const response = await apiClient.get<ServersDTO>({ url: '/user/servers?page=1&size=100' });
 
@@ -32,11 +29,8 @@ export const serverService = {
     return response.data;
   },
 
-  // 서버를 추가할때 이미지가 File인 경우에만 s3업로드 실행
-  /** 서버를 추가합니다 */
   createServer: async (serverData: {
     name: string;
-    // serverUri: string;
     serverImageURL: string | File;
   }): Promise<Servers> => {
     let profileImageURL = serverData.serverImageURL;
@@ -200,9 +194,6 @@ export const serverService = {
     return response.data;
   },
 
-  /** ㅇ
-   * 이미지 관련
-   */
   postImage: async (data: PostImageDTO): Promise<PostImageResponseDTO> => {
     const response = await apiClient.post<PostImageResponseDTO>({ url: '/image', data });
 

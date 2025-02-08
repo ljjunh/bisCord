@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Servers } from '../model/types';
+import type { Servers } from '../model/types';
 import { ArrowDown } from '@/shared/icons/ArrowDown';
 import { CloseIcon } from '@/shared/icons/CloseIcon';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
