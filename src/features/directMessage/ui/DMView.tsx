@@ -1,3 +1,4 @@
+import { invariant } from 'es-toolkit/compat';
 import { useParams } from 'react-router-dom';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
@@ -5,14 +6,16 @@ import { useChatStore } from '@/shared/model/chatStore';
 import { useDetectorStore } from '@/shared/model/detectorStore';
 import { useSocketStore } from '@/shared/model/socketStore';
 import { useUnreadMessagesStore } from '@/shared/model/unreadMessagesStore';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { DMQueries } from '../api/queries';
 import { groupMessages } from '../lib/utils';
 import { MessageGroup } from './MessageGroup';
 import { MessageInput } from './MessageInput';
 
 export const DMView = () => {
-  const otherUserId = Number(useParams().id);
+  const id = useParams().id;
+  invariant(id, 'User ID is missing in URL parameters');
+  const otherUserId = Number(id);
   const socketClient = useSocketStore((state) => state.socketClient);
   const [editingId, setEditingId] = useState<string | null>(null);
   const detector = useDetectorStore((state) => state.detector);

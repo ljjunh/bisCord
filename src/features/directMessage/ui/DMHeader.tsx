@@ -1,3 +1,4 @@
+import { invariant } from 'es-toolkit/compat';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useRTCStore } from '@/shared/model/RTCStore';
@@ -7,7 +8,10 @@ import { CallButton } from './CallButton';
 import { CallView } from './CallView';
 
 export const DMHeader = () => {
-  const otherUserId = Number(useParams().id);
+  const id = useParams().id;
+  invariant(id, 'User ID is missing in URL parameters');
+  const otherUserId = Number(id);
+
   const { data, isLoading } = useQuery({
     ...userQueries.getOtherUser({ userId: otherUserId }),
   });

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useAuthStore } from '../model/authStore';
-import { useSocketStore } from '../model/socketStore';
+import { useAuthStore } from '../../model/authStore';
+import { useSocketStore } from '../../model/socketStore';
 
 export const useWebSocket = () => {
   const token = useAuthStore((state) => state.accessToken);

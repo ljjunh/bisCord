@@ -1,5 +1,5 @@
 import type { Friend } from '@/entities/friend/model/types';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/utils/utils';
 import { UserAvatar } from '@/shared/ui/UserAvatar';
 
 interface SearchedFriendListProps {

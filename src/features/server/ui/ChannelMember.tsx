@@ -1,5 +1,5 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { serverQueries } from '../api/queries';
 import { MemberList } from './MemberList';
 

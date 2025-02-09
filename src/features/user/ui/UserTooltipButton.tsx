@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/utils/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface UserTooltipButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

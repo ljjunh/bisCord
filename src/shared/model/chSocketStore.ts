@@ -28,7 +28,7 @@ export const useSocketStore = create<SocketStore>((set) => ({
   setStompClient: (client) => set({ stompClient: client }),
   connectSocket: (token, channelId) => {
     const channelClient = new Client({
-      brokerURL: import.meta.env.WS_URL,
+      brokerURL: import.meta.env.VITE_WS_URL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },

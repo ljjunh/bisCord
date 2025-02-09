@@ -1,3 +1,4 @@
+import { invariant } from 'es-toolkit/compat';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
@@ -13,7 +14,7 @@ import { MessageHeader } from '@/features/server/ui/MessageHeader';
 import { MessageInput } from '@/features/server/ui/MessageInput';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { ChannelMessageDefault } from '@/shared/ui/ChannelMessageDefault';
 
 interface ChannelMessageProps {
@@ -37,8 +38,11 @@ interface ResChatData {
 export const ChannelMessage = ({ server }: ChannelMessageProps) => {
   const [allMessage, setAllMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>('');
-  const { '*': channelId } = useParams();
-  const ChNumId = Number(channelId);
+
+  const chId = useParams()['*'];
+  invariant(chId, 'Channel ID is missing in URL parameters');
+  const ChNumId = Number(chId);
+
   const [stompClient, setStompClient] = useState<Client | null>(null);
 
   // store or socket
@@ -75,7 +79,7 @@ export const ChannelMessage = ({ server }: ChannelMessageProps) => {
     }
 
     const channelClient = new Client({
-      brokerURL: import.meta.env.WS_URL,
+      brokerURL: import.meta.env.VITE_WS_URL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },

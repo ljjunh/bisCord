@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import type { DMUser } from '../model/types';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { ROUTES } from '@/shared/constants/routes';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/utils/utils';
 import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { DMQueries } from '../api/queries';
 

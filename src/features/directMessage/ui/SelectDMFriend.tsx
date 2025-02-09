@@ -1,8 +1,8 @@
 import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useDebounce } from '@/shared/lib/useDebounce';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { EmptyState } from '@/shared/ui/EmptyState';
 import { SwitchCase } from '@/shared/ui/SwitchCase';
 import { friendQueries } from '../../friend/api/queries';

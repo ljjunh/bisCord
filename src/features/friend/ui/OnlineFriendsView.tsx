@@ -2,7 +2,7 @@ import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { LOGIN_STATUS } from '@/entities/user/model/constants';
-import { useDebounce } from '@/shared/lib/useDebounce';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import { friendQueries } from '../api/queries';

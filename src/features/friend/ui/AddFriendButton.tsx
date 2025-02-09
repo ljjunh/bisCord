@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/utils/utils';
 import { friendQueries } from '../api/queries';
 
 interface AddFriendButtonProps {

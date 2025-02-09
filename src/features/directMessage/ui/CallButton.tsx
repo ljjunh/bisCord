@@ -1,6 +1,6 @@
 import { useRTCStore } from '@/shared/model/RTCStore';
 import { CallIcon } from '@/shared/icons/CallIcon';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/utils/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface CallButtonProps {

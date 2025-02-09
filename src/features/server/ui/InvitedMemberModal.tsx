@@ -1,15 +1,14 @@
-import { isEmpty } from 'es-toolkit/compat';
-import { useLocation } from 'react-router-dom';
+import { invariant, isEmpty } from 'es-toolkit/compat';
+import { useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/modalStore';
-import useGetParams from '@/entities/hooks/getParams';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { MODAL } from '@/shared/constants/modal';
-import { useDebounce } from '@/shared/lib/useDebounce';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { friendQueries } from '../../friend/api/queries';
@@ -19,7 +18,9 @@ import { InviteUrlLink } from './InviteUrlLink';
 import { MemberList } from './MemberList';
 
 export const InvitedMemberModal = () => {
-  const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
+  const serverId = useParams().serverId;
+  invariant(serverId, 'Server ID is missing in URL parameters');
+
   const { type, onCloseModal } = useModalStore((state) => state);
   const [searchText, setSearchText] = useState('');
   const debouncedSearchText = useDebounce(searchText);

@@ -1,9 +1,10 @@
+import { invariant } from 'es-toolkit/compat';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import type { Servers } from '../model/types';
 import { useModalStore } from '@/shared/model/modalStore';
-import useGetParams from '@/entities/hooks/getParams';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { MODAL } from '@/shared/constants/modal';
@@ -13,8 +14,9 @@ import { UploadImageInput } from './UploadImageInput';
 
 export const EditServerModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
-  const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
-  const getServerId = serverId ?? ''; // 기본값 설정
+  const serverId = useParams().serverId;
+  invariant(serverId, 'Server ID is missing in URL parameters');
+
   const [imageData, setImageData] = useState<File | string>(''); // 초기값을 빈 문자열로 설정
   const [profileData, setProfileData] = useState<Servers>({
     name: '',
@@ -24,7 +26,7 @@ export const EditServerModal = () => {
 
   // 현재 서버 정보를 가져옴
   const { data: serverData, refetch } = useQuery({
-    ...serverQueries.getServerDetail(getServerId),
+    ...serverQueries.getServerDetail(serverId),
   });
 
   // 서버 데이터 설정
