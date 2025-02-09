@@ -27,7 +27,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
     set({ status: 'connecting', error: null });
 
     const socketClient = new Client({
-      brokerURL: import.meta.env.WS_URL,
+      brokerURL: import.meta.env.VITE_WS_URL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },

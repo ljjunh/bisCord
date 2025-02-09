@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUnreadMessagesStore } from '@/shared/model/unreadMessagesStore';
 import { ROUTES } from '@/shared/constants/routes';
 import { DiscordIcon } from '@/shared/icons/DiscordIcon';
-import { cn } from '@/shared/lib/utils';
+import { cn } from '@/shared/lib/utils/utils';
 
 export const UnreadMessageIndicator = () => {
   const unreadUsers = useUnreadMessagesStore((state) => state.unreadUsers);
