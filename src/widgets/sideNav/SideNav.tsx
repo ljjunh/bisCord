@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { UnreadMessageIndicator } from '@/features/directMessage/ui/UnreadMessageIndicator';
 import { serverQueries } from '@/features/server/api/queries';
 import { CreateServerAvatar } from '@/features/server/ui/CreateServerAvatar';

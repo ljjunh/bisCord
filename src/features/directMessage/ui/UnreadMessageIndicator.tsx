@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { useUnreadMessagesStore } from '@/shared/model/unreadMessagesStore';
+import { useUnreadMessagesStore } from '@/shared/model/store/unreadMessagesStore';
 import { ROUTES } from '@/shared/constants/routes';
 import { DiscordIcon } from '@/shared/icons/DiscordIcon';
 import { cn } from '@/shared/lib/utils/utils';

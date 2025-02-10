@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Client } from '@stomp/stompjs';
-import type { WebSocketMessage } from '../model/types';
-import { SocketService } from '../api/socketService';
+import type { WebSocketMessage } from '../../model/types';
+import { SocketService } from '../../api/socketService';
 
 type ConnectionStatus = 'disconnected' | 'connecting' | 'connected';
 

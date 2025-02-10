@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { MODAL } from '@/shared/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';

@@ -1,4 +1,4 @@
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { CallNotificationModal } from '@/features/directMessage/ui/CallNotificationModal';
 import { MODAL } from '@/shared/constants/modal';
 import { useWebSocket } from '@/shared/lib/hooks/useWebSocket';

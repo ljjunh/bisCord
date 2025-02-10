@@ -1,4 +1,4 @@
-import { useRTCStore } from '@/shared/model/RTCStore';
+import { useRTCStore } from '@/shared/model/store/RTCStore';
 import { CallIcon } from '@/shared/icons/CallIcon';
 import { cn } from '@/shared/lib/utils/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';

@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { serverQueries } from '@/features/server/api/queries';
 import { UploadImageInput } from '@/features/server/ui/UploadImageInput';
 import { ModalForm } from '@/features/server/ui/form';

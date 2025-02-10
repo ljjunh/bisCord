@@ -1,4 +1,4 @@
-import { useRTCStore } from '@/shared/model/RTCStore';
+import { useRTCStore } from '@/shared/model/store/RTCStore';
 import { CallIcon } from '@/shared/icons/CallIcon';
 import { DiscordIcon } from '@/shared/icons/DiscordIcon';
 import { XIcon } from '@/shared/icons/XIcon';

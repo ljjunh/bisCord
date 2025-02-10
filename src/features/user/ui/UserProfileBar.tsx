@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useAuthStore } from '@/shared/model/authStore';
+import { useAuthStore } from '@/shared/model/store/authStore';
 import { LOGIN_STATUS_LABEL } from '@/entities/user/model/constants';
 import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';

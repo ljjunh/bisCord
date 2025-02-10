@@ -5,7 +5,7 @@ import type {
   SocialSignInDTO,
   SocialSignInResponseDTO,
 } from './dto';
-import { useAuthStore } from '@/shared/model/authStore';
+import { useAuthStore } from '@/shared/model/store/authStore';
 import { userService } from '@/entities/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
 import { AUTH_ENDPOINT } from '@/shared/constants/apiEndpoints';

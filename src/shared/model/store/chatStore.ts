@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { ChatMessage, SendMessage, UpdateMessage } from './types';
+import type { ChatMessage, SendMessage, UpdateMessage } from '../types';
 
 interface ChatState {
   messages: Record<number, SendMessage[]>;
