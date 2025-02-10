@@ -1,4 +1,4 @@
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { MODAL } from '@/shared/constants/modal';
 import { AddUserIcon } from '@/shared/icons/AddUserIcon';
 import { ChannelUnlockedIcon } from '@/shared/icons/ChannelUnlockedIcon';

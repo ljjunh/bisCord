@@ -1,8 +1,8 @@
 import { XIcon } from 'lucide-react';
 import ReactModal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
-import { useRTCStore } from '@/shared/model/RTCStore';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useRTCStore } from '@/shared/model/store/RTCStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { MODAL } from '@/shared/constants/modal';
 import { ROUTES } from '@/shared/constants/routes';
 import { CallIcon } from '@/shared/icons/CallIcon';

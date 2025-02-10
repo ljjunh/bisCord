@@ -5,7 +5,7 @@ import { Client, IMessage } from '@stomp/stompjs';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import type { Message } from '@/features/channel/model/types';
 import type { Servers } from '@/features/server/model/types';
-import { useAuthStore } from '@/shared/model/authStore';
+import { useAuthStore } from '@/shared/model//store/authStore';
 import { channelQueries } from '@/features/channel/api/queries';
 import { ChMessage } from '@/features/channel/ui/ChMessage';
 import { MessageBox } from '@/features/channel/ui/MessageBox';

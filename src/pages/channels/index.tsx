@@ -1,4 +1,4 @@
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { ChannelList } from '@/widgets/channel/ui/ChannelList';
 import { EditServerModal } from '@/features/server/ui/EditServerModal';
 import { InvitedMemberModal } from '@/features/server/ui/InvitedMemberModal';

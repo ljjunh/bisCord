@@ -1,5 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { useAuthStore } from '@/shared/model/authStore';
+import { useAuthStore } from '@/shared/model/store/authStore';
 import AuthCallbackPage from '@/pages/auth';
 import ChannelPage from '@/pages/channels';
 import DirectMessagePage from '@/pages/directMessage';

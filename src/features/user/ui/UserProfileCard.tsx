@@ -1,5 +1,5 @@
-import { useAuthStore } from '@/shared/model/authStore';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useAuthStore } from '@/shared/model/store/authStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { MODAL } from '@/shared/constants/modal';
 import { EditIcon } from '@/shared/icons/EditIcon';
 import { UserAvatar } from '@/shared/ui/UserAvatar';

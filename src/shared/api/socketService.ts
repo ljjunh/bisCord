@@ -5,11 +5,11 @@ import type {
   WebRTCSignalData,
   WebSocketMessage,
 } from '../model/types';
-import { useRTCStore } from '../model/RTCStore';
-import { useAuthStore } from '../model/authStore';
-import { useChatStore } from '../model/chatStore';
-import { useModalStore } from '../model/modalStore';
-import { useUnreadMessagesStore } from '../model/unreadMessagesStore';
+import { useRTCStore } from '../model/store/RTCStore';
+import { useAuthStore } from '../model/store/authStore';
+import { useChatStore } from '../model/store/chatStore';
+import { useModalStore } from '../model/store/modalStore';
+import { useUnreadMessagesStore } from '../model/store/unreadMessagesStore';
 import { ROUTES } from '../constants/routes';
 import { queryClient } from './queryClient';
 import { QUERY_KEYS } from './queryKeys';

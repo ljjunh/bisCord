@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { MODAL } from '../constants/modal';
+import { MODAL } from '../../constants/modal';
 
 export interface ModalStore {
   type: keyof typeof MODAL;

@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { WithdrawModal } from '@/features/auth/ui/WithdrawModal';
 import { UserProfileModal } from '@/features/user/ui/UserProfileModal';
 import { MODAL } from '@/shared/constants/modal';
