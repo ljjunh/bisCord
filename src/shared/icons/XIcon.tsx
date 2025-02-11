@@ -1,4 +1,4 @@
-import type IconTypes from '../types/IconType';
+import type IconTypes from '../model/types/IconType';
 
 export const XIcon = ({ size = 32, color = '#C7C8CE' }: IconTypes) => {
   return (

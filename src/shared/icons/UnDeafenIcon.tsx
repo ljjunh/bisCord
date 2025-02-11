@@ -1,4 +1,4 @@
-import type IconTypes from '../types/IconType';
+import type IconTypes from '../model/types/IconType';
 
 export const UnDeafenIcon = ({ size = 30, color = '#F23F43' }: IconTypes) => {
   return (

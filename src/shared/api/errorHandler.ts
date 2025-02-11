@@ -1,6 +1,6 @@
 import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 import { toast } from 'react-toastify';
-import type { ApiErrorResponse } from '../types/apiResponse';
+import type { ApiErrorResponse } from '../model/types/apiResponse';
 import { useAuthStore } from '../model/store/authStore';
 import { axiosInstance } from './apiClient';
 

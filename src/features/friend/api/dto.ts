@@ -1,6 +1,6 @@
 import type { FriendRequestType } from './../model/types';
 import type { Friend } from '@/entities/friend/model/types';
-import type { PageInfo } from '@/shared/types/PageInfo';
+import type { PageInfo } from '@/shared/model/types/PageInfo';
 
 export interface GetFriendsDTO {
   type: FriendRequestType;
