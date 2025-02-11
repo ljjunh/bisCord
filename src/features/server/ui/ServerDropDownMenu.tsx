@@ -1,7 +1,4 @@
 import { useModalStore } from '@/shared/model/store/modalStore';
-import { AddUserIcon } from '@/shared/icons/AddUserIcon';
-import { ChannelUnlockedIcon } from '@/shared/icons/ChannelUnlockedIcon';
-import { SettingIcon } from '@/shared/icons/SettingIcon';
 import { MODAL } from '@/shared/model/constants/modal';
 import {
   DropdownMenuGroup,
@@ -9,6 +6,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '@/shared/ui/dropdown-menu';
+import { AddUserIcon } from '@/shared/ui/icons/AddUserIcon';
+import { ChannelUnlockedIcon } from '@/shared/ui/icons/ChannelUnlockedIcon';
+import { SettingIcon } from '@/shared/ui/icons/SettingIcon';
 
 export const ServerDropDownMenu = () => {
   const { onOpenModal } = useModalStore((state) => state);

@@ -1,6 +1,6 @@
 import { DropdownMenuContent } from '@radix-ui/react-dropdown-menu';
-import { PlusIcon } from '@/shared/icons/PlusIcon';
 import { DropdownMenu, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
+import { PlusIcon } from '@/shared/ui/icons/PlusIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 import { SelectDMFriend } from './SelectDMFriend';
 

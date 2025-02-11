@@ -1,6 +1,6 @@
 import type { FriendTab } from '../model/types';
-import { FriendsIcon } from '@/shared/icons/FriendsIcon';
 import { cn } from '@/shared/lib/utils/utils';
+import { FriendsIcon } from '@/shared/ui/icons/FriendsIcon';
 import { FRIEND_TABS } from '../model/constants';
 import { getTabClassName } from '../lib/utils';
 

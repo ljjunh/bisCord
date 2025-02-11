@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import { useMutation } from '@tanstack/react-query';
-import { WasteBasketIcon } from '@/shared/icons/WasteBasketIcon';
+import { WasteBasketIcon } from '@/shared/ui/icons/WasteBasketIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 import { DMQueries } from '../api/queries';
 

@@ -1,6 +1,6 @@
 import ReactModal from 'react-modal';
 import { PropsWithChildren } from 'react';
-import { CloseIcon } from '@/shared/icons/CloseIcon';
+import { CloseIcon } from '../icons/CloseIcon';
 
 interface ModalContainerProps extends PropsWithChildren {
   isOpen: boolean;

@@ -1,5 +1,5 @@
-import { MuteIcon } from '@/shared/icons/MuteIcon';
-import { UnMuteIcon } from '@/shared/icons/UnMuteIcon';
+import { MuteIcon } from '@/shared/ui/icons/MuteIcon';
+import { UnMuteIcon } from '@/shared/ui/icons/UnMuteIcon';
 import { UserTooltipButton } from './UserTooltipButton';
 
 interface MicToggleButtonProps {

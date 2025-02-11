@@ -1,7 +1,7 @@
-import { GoogleIcon } from '@/shared/icons/GoogleIcon';
-import { KakaoIcon } from '@/shared/icons/KakaoIcon';
-import { NaverIcon } from '@/shared/icons/NaverIcon';
 import { SwitchCase } from '@/shared/ui/SwitchCase';
+import { GoogleIcon } from '@/shared/ui/icons/GoogleIcon';
+import { KakaoIcon } from '@/shared/ui/icons/KakaoIcon';
+import { NaverIcon } from '@/shared/ui/icons/NaverIcon';
 import { SOCIAL_PROVIDERS } from '../model/constants';
 import { SocialSignInLink } from './SocialSignInLink';
 

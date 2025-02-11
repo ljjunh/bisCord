@@ -1,4 +1,4 @@
-import { EditIcon } from '@/shared/icons/EditIcon';
+import { EditIcon } from '@/shared/ui/icons/EditIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface EditDMButtonProps {
