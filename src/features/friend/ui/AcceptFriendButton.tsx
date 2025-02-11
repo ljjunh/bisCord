@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { CheckIcon } from '@/shared/icons/CheckIcon';
 import { TooltipButton } from '@/shared/ui/TooltipButton';
+import { CheckIcon } from '@/shared/ui/icons/CheckIcon';
 import { friendQueries } from '../api/queries';
 
 interface AcceptFriendButtonProps {

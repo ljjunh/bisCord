@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
 import { TooltipButton } from '@/shared/ui/TooltipButton';
 import {
   DropdownMenu,
@@ -9,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
+import { OverflowMenuIcon } from '@/shared/ui/icons/OverflowMenuIcon';
 import { friendQueries } from '../api/queries';
 
 interface MoreActionsButtonProps {

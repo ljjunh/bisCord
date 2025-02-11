@@ -1,6 +1,6 @@
 import type { LoginStatus } from '../model/types';
-import { DiscordIcon } from '../icons/DiscordIcon';
 import { cn } from '../lib/utils/utils';
+import { DiscordIcon } from '../ui/icons/DiscordIcon';
 import { UserState } from './UserState';
 
 interface UserAvatarProps {

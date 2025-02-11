@@ -2,7 +2,7 @@ import { invariant } from 'es-toolkit/compat';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { useRTCStore } from '@/shared/model/store/RTCStore';
-import { DiscordIcon } from '@/shared/icons/DiscordIcon';
+import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
 import { userQueries } from '../../user/api/queries';
 import { CallButton } from './CallButton';
 import { CallView } from './CallView';

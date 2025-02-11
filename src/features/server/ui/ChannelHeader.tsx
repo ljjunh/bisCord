@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { Servers } from '../model/types';
-import { ArrowDown } from '@/shared/icons/ArrowDown';
-import { CloseIcon } from '@/shared/icons/CloseIcon';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
+import { ArrowDown } from '@/shared/ui/icons/ArrowDown';
+import { CloseIcon } from '@/shared/ui/icons/CloseIcon';
 import { ServerDropDownMenu } from './ServerDropDownMenu';
 import { CreateChannelModal } from './modals/CreateChannelModal';
 import { DeleteModal } from './modals/DeleteModal';

@@ -1,5 +1,5 @@
-import { DeafenIcon } from '@/shared/icons/DeafenIcon';
-import { UnDeafenIcon } from '@/shared/icons/UnDeafenIcon';
+import { DeafenIcon } from '@/shared/ui/icons/DeafenIcon';
+import { UnDeafenIcon } from '@/shared/ui/icons/UnDeafenIcon';
 import { UserTooltipButton } from './UserTooltipButton';
 
 interface AudioToggleButtonProps {

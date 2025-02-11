@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { DiscordIcon } from '@/shared/icons/DiscordIcon';
+import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface DMAvatar {

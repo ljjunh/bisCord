@@ -4,9 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import { channelQueries } from '../api/queries';
 import { queryClient } from '../../../shared/api/queryClient';
 import { QUERY_KEYS } from '../../../shared/api/queryKeys';
-import { WasteBasketIcon } from '../../../shared/icons/WasteBasketIcon';
 import { formatTime } from '../../../shared/lib/utils/dayjs';
 import { UserAvatar } from '../../../shared/ui/UserAvatar';
+import { WasteBasketIcon } from '../../../shared/ui/icons/WasteBasketIcon';
 
 interface Message extends PropsWithChildren {
   message: {
