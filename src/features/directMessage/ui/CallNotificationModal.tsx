@@ -3,10 +3,10 @@ import ReactModal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
 import { useRTCStore } from '@/shared/model/store/RTCStore';
 import { useModalStore } from '@/shared/model/store/modalStore';
-import { MODAL } from '@/shared/constants/modal';
-import { ROUTES } from '@/shared/constants/routes';
 import { CallIcon } from '@/shared/icons/CallIcon';
 import { DiscordIcon } from '@/shared/icons/DiscordIcon';
+import { MODAL } from '@/shared/model/constants/modal';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 export const CallNotificationModal = () => {

@@ -1,7 +1,7 @@
 import { AuthLayout } from '@/widgets/layout/ui/AuthLayout';
 import { SignInForm } from '@/features/auth/ui/SignInForm';
 import { SocialSignInLinks } from '@/features/auth/ui/SocialSignInLinks';
-import { SEO_CONFIG } from '@/shared/constants/seo';
+import { SEO_CONFIG } from '@/shared/model/constants/seo';
 import { Seo } from '@/shared/ui/Seo';
 
 export default function SigninPage() {

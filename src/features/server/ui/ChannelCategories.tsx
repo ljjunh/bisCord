@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/store/modalStore';
-import { MODAL } from '@/shared/constants/modal';
 import { PlusIcon } from '@/shared/icons/PlusIcon';
+import { MODAL } from '@/shared/model/constants/modal';
 import { EmptyList } from '@/shared/ui/EmptyList';
 import { serverQueries } from '../api/queries';
 import { ArrowDown } from '../../../shared/icons/ArrowDown';

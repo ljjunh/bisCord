@@ -5,7 +5,7 @@ import type { UserProfile } from '@/entities/user/model/types';
 import { useAuthStore } from '@/shared/model/store/authStore';
 import { useModalStore } from '@/shared/model/store/modalStore';
 import { userQueries } from '@/entities/user/api/queries';
-import { MODAL } from '@/shared/constants/modal';
+import { MODAL } from '@/shared/model/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { userQueries as userMutations } from '../api/queries';
 import { UserImageUploader } from './UserImageUploader';

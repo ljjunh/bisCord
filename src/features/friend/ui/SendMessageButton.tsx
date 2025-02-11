@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { ROUTES } from '@/shared/constants/routes';
 import { MessageIcon } from '@/shared/icons/MessageIcon';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { TooltipButton } from '@/shared/ui/TooltipButton';
 import { DMQueries } from '../../directMessage/api/queries';
 

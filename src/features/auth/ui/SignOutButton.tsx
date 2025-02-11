@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useAuthStore } from '@/shared/model/store/authStore';
-import { ROUTES } from '@/shared/constants/routes';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { authQueries } from '../api/queries';
 
 export const SignOutButton = () => {

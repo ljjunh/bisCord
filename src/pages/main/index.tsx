@@ -1,6 +1,6 @@
 import { DMList } from '@/features/directMessage/ui/DMList';
 import { FriendView } from '@/features/friend/ui/FriendView';
-import { SEO_CONFIG } from '@/shared/constants/seo';
+import { SEO_CONFIG } from '@/shared/model/constants/seo';
 import { Seo } from '@/shared/ui/Seo';
 
 const MainPage = () => {
