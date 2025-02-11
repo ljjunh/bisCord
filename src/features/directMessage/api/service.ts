@@ -10,7 +10,7 @@ import type {
   PostDMRoomDTO,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
-import { DIRECT_MESSAGE_ENDPOINT } from '@/shared/constants/apiEndpoints';
+import { DIRECT_MESSAGE_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const DMService = {
   getDM: async ({ otherUserId, page = 1, size = 12 }: GetDMDTO) => {

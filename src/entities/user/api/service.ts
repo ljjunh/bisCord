@@ -1,7 +1,7 @@
 import type { User } from '../model/types';
 import type { GetUserResponseDTO, GetUsersDTO, GetUsersResponseDTO } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
-import { USER_ENDPOINT } from '@/shared/constants/apiEndpoints';
+import { USER_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 import { mapUserResponseDTOToUser } from './mappers';
 
 export const userService = {

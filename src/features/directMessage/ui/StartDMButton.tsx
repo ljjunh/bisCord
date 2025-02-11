@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { ROUTES } from '@/shared/constants/routes';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { DMQueries } from '../api/queries';
 
 interface StartDMButtonProps {

@@ -1,6 +1,6 @@
 import { AuthLayout } from '@/widgets/layout/ui/AuthLayout';
 import { SignUpForm } from '@/features/auth/ui/SignUpForm';
-import { SEO_CONFIG } from '@/shared/constants/seo';
+import { SEO_CONFIG } from '@/shared/model/constants/seo';
 import { Seo } from '@/shared/ui/Seo';
 
 const SignupPage = () => {

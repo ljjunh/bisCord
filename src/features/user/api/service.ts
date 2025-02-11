@@ -12,7 +12,7 @@ import type {
 } from './dto';
 import type { User } from '@/shared/model/types';
 import { apiClient } from '@/shared/api/apiClient';
-import { USER_ENDPOINT } from '@/shared/constants/apiEndpoints';
+import { USER_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const userService = {
   getOtherUser: async ({ userId }: GetOtherUserDTO): Promise<GetOtherUserResponseDTO> => {

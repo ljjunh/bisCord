@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { ErrorMessage } from '@hookform/error-message';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { ROUTES } from '@/shared/constants/routes';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { authQueries } from '../api/queries';
 import { AUTH_FORM_STYLES } from '../model/constants';
 import { type SignUpFormData, signUpSchema } from '../model/schema';

@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useModalStore } from '@/shared/model/store/modalStore';
 import { WithdrawModal } from '@/features/auth/ui/WithdrawModal';
 import { UserProfileModal } from '@/features/user/ui/UserProfileModal';
-import { MODAL } from '@/shared/constants/modal';
+import { MODAL } from '@/shared/model/constants/modal';
 import { ContentsContainer } from '@/shared/ui/layout/ContentsContainer';
 import { SideNav } from '../../sideNav/SideNav';
 

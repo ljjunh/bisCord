@@ -7,7 +7,7 @@ import { UploadImageInput } from '@/features/server/ui/UploadImageInput';
 import { ModalForm } from '@/features/server/ui/form';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '@/features/server/useModalForm';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { MODAL } from '@/shared/constants/modal';
+import { MODAL } from '@/shared/model/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 
 export const CreateServerModal = () => {

@@ -1,7 +1,7 @@
 import { useModalStore } from '@/shared/model/store/modalStore';
 import { CallNotificationModal } from '@/features/directMessage/ui/CallNotificationModal';
-import { MODAL } from '@/shared/constants/modal';
 import { useWebSocket } from '@/shared/lib/hooks/useWebSocket';
+import { MODAL } from '@/shared/model/constants/modal';
 import './App.css';
 import { Router } from './Router';
 import { DetectorProvider } from './providers/detectorProvider';

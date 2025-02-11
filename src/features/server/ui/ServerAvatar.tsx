@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import type { Servers } from '../model/types';
-import { ROUTES } from '@/shared/constants/routes';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface ServerAvatarProps {

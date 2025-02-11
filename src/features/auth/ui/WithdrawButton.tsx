@@ -1,5 +1,5 @@
 import { useModalStore } from '@/shared/model/store/modalStore';
-import { MODAL } from '@/shared/constants/modal';
+import { MODAL } from '@/shared/model/constants/modal';
 
 export const WithdrawButton = () => {
   const onOpenModal = useModalStore((state) => state.onOpenModal);

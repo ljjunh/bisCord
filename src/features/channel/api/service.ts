@@ -7,7 +7,7 @@ import type {
   PostSendMessageResponse,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
-import { CHANNEL_ENDPOINT } from '@/shared/constants/apiEndpoints';
+import { CHANNEL_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const channelService = {
   getAllMessage: async ({

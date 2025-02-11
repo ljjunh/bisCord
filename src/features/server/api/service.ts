@@ -18,7 +18,7 @@ import type {
   ServersDTO,
 } from '../model/types';
 import { apiClient } from '@/shared/api/apiClient';
-import { SERVER_ENDPOINT } from '@/shared/constants/apiEndpoints';
+import { SERVER_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const serverService = {
   getServers: async (): Promise<ServersDTO> => {

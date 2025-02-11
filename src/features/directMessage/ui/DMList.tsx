@@ -1,10 +1,10 @@
 import { isEmpty } from 'es-toolkit/compat';
 import { Link, useLocation } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { ROUTES } from '@/shared/constants/routes';
 import { FriendsIcon } from '@/shared/icons/FriendsIcon';
 import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { cn } from '@/shared/lib/utils/utils';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { LoadingSpinner } from '@/shared/ui/LoadingSpinner';
 import { DMQueries } from '../api/queries';
 import { UserProfileBar } from '../../user/ui/UserProfileBar';

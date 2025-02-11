@@ -6,7 +6,7 @@ import type {
   PostFriendRequestDTO,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
-import { FRIEND_ENDPOINT } from '@/shared/constants/apiEndpoints';
+import { FRIEND_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const friendService = {
   getFriends: async ({

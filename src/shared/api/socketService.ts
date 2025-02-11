@@ -10,7 +10,7 @@ import { useAuthStore } from '../model/store/authStore';
 import { useChatStore } from '../model/store/chatStore';
 import { useModalStore } from '../model/store/modalStore';
 import { useUnreadMessagesStore } from '../model/store/unreadMessagesStore';
-import { ROUTES } from '../constants/routes';
+import { ROUTES } from '../model/constants/routes';
 import { queryClient } from './queryClient';
 import { QUERY_KEYS } from './queryKeys';
 

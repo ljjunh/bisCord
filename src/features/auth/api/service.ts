@@ -8,7 +8,7 @@ import type {
 import { useAuthStore } from '@/shared/model/store/authStore';
 import { userService } from '@/entities/user/api/service';
 import { apiClient } from '@/shared/api/apiClient';
-import { AUTH_ENDPOINT } from '@/shared/constants/apiEndpoints';
+import { AUTH_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const authService = {
   signUp: async (data: SignUpDTO): Promise<void> => {
