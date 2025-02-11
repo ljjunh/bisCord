@@ -1,5 +1,5 @@
 import type { Message } from '../model/types';
-import type { PageInfo } from '@/shared/types/PageInfo';
+import type { PageInfo } from '@/shared/model/types/PageInfo';
 
 export interface GetChMessageDTO {
   channelId: number;

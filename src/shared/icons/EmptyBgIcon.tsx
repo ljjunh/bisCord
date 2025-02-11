@@ -1,4 +1,4 @@
-import type IconTypes from '../types/IconType';
+import type IconTypes from '../model/types/IconType';
 
 export const EmptyBgIcon = ({ size = 400 }: IconTypes) => {
   return (
