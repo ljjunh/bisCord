@@ -1,4 +1,4 @@
-import type { LoginStatus } from '../model/types';
+import type { LoginStatus } from '../model/types/auth';
 import { SwitchCase } from './SwitchCase';
 
 interface UserStateProps {

@@ -1,4 +1,4 @@
-import type { LoginStatus } from '../model/types';
+import type { LoginStatus } from '../model/types/auth';
 import { cn } from '../lib/utils/utils';
 import { DiscordIcon } from '../ui/icons/DiscordIcon';
 import { UserState } from './UserState';

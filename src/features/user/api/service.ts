@@ -10,7 +10,7 @@ import type {
   PutUserDTO,
   PutUserProfileDTO,
 } from './dto';
-import type { User } from '@/shared/model/types';
+import type { User } from '@/shared/model/types/auth';
 import { apiClient } from '@/shared/api/apiClient';
 import { USER_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
