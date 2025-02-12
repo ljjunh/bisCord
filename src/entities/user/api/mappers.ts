@@ -1,5 +1,5 @@
-import type { User } from '../model/types';
 import type { GetUserResponseDTO } from './dto';
+import type { User } from '@/shared/model/types/auth';
 
 export const mapUserResponseDTOToUser = (dto: GetUserResponseDTO): User => ({
   // 변환할게 있나 없나

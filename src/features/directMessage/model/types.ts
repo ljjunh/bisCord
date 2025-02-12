@@ -1,4 +1,4 @@
-import type { LoginStatus } from '@/shared/model/types';
+import type { LoginStatus } from '@/shared/model/types/auth';
 
 export interface DMUser {
   userId: number;

@@ -4,7 +4,7 @@ import type {
   UpdateMessage,
   WebRTCSignalData,
   WebSocketMessage,
-} from '../model/types';
+} from '../model/types/webSocket';
 import { useRTCStore } from '../model/store/RTCStore';
 import { useAuthStore } from '../model/store/authStore';
 import { useChatStore } from '../model/store/chatStore';
