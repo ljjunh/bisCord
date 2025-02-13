@@ -14,6 +14,7 @@ export const AUTH_ENDPOINT = {
   SIGN_OUT: '/login/logout',
   WITHDRAW: '/user',
   SOCIAL_SIGN_IN: '/login/code',
+  REFRESH: '/api/login/refresh',
 } as const;
 
 export const CHANNEL_ENDPOINT = {

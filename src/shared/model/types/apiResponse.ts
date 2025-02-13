@@ -1,3 +1,5 @@
+import type { InternalAxiosRequestConfig } from 'axios';
+
 export interface ApiResponse<T> {
   success: boolean;
   message: string | null;
@@ -23,4 +25,8 @@ export interface ErrorDetails {
 export interface ValidationError {
   field: string;
   message: string;
+}
+
+export interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
 }
