@@ -1,7 +1,11 @@
 import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import type { ApiErrorResponse } from '../model/types/apiResponse';
 import { useAuthStore } from '@/shared/model/store/authStore';
-import { NetworkOfflineError, TokenExpiredHandler } from './errorHandler';
+import {
+  NetworkOfflineErrorHandler,
+  TokenExpiredHandler,
+  UnknownErrorHandler,
+} from './errorHandler';
 
 export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
   const { accessToken } = useAuthStore.getState();
@@ -29,8 +33,12 @@ export const responseInterceptor = (response: AxiosResponse) => {
 };
 
 export const rejectInterceptor = async (error: AxiosError) => {
-  if (!navigator.onLine) {
-    throw new NetworkOfflineError();
+  if (NetworkOfflineErrorHandler.validate()) {
+    throw new NetworkOfflineErrorHandler.Error();
+  }
+
+  if (UnknownErrorHandler.validate(error)) {
+    throw new UnknownErrorHandler.Error();
   }
 
   if (TokenExpiredHandler.validate(error as AxiosError<ApiErrorResponse>)) {
