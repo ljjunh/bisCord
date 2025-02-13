@@ -1,4 +1,4 @@
-import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, type InternalAxiosRequestConfig, isAxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import type { ApiErrorResponse } from '../model/types/apiResponse';
 import { useAuthStore } from '../model/store/authStore';
@@ -8,12 +8,40 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
 
-export class NetworkOfflineError extends Error {
+class NetworkOfflineError extends Error {
   constructor() {
     super('네트워크 연결을 확인해주세요');
     this.name = 'NetworkOfflineError';
   }
 }
+
+const isNetworkOffline = () => {
+  return !navigator.onLine;
+};
+
+export const NetworkOfflineErrorHandler = {
+  Error: NetworkOfflineError,
+  validate: isNetworkOffline,
+};
+
+class UnknownError extends Error {
+  constructor() {
+    super('원인 불명의 에러입니다. 고객센터로 문의해주세요.');
+    this.name = 'UnknownError';
+  }
+}
+
+/**
+ *  @description 폐쇄적인 인트라넷 환경에서 요청을 보낸 경우가 의심되는 에러
+ */
+export const isUnknownError = (error: Error) => {
+  return !isAxiosError(error) || !error.response;
+};
+
+export const UnknownErrorHandler = {
+  Error: UnknownError,
+  validate: isUnknownError,
+};
 
 export class TokenExpiredHandler {
   static validate(error: AxiosError<ApiErrorResponse>) {
