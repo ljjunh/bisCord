@@ -22,6 +22,12 @@ export const SEO_CONFIG = {
       url: `${BASE_URL}${ROUTES.AUTH.SIGN_UP}`,
     },
   },
+  DIRECT_MESSAGE: {
+    title: '다이렉트 메세지',
+    description:
+      'Biscord에서 친구와 다이렉트 메세지로 소통해보세요. 메시지와 음성채팅을 지원합니다.',
+    url: `${BASE_URL}${ROUTES.CHAT.DIRECT_MESSAGE}`,
+  },
   SERVER: {
     title: '서버',
     description: 'Biscord의 다양한 서버에서 친구들과 다함께 소통하세요.',
