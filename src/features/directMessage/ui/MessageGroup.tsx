@@ -1,6 +1,6 @@
 import type { MessageGroups } from '../model/types';
 import { useAuthStore } from '@/shared/model/store/authStore';
-import { formatMessageDate } from '@/shared/lib/utils/formatMessageDate';
+import { formatMessageDate } from '@/shared/lib/utils/dayjs';
 import { cn } from '@/shared/lib/utils/utils';
 import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
 import { DeleteDMButton } from './DeleteDMButton';
