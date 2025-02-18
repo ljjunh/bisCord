@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { Client } from '@stomp/stompjs';
+import { env } from '@/shared/config/env';
 
 interface Message {
   chatId: string;
@@ -28,7 +29,7 @@ export const useSocketStore = create<SocketStore>((set) => ({
   setStompClient: (client) => set({ stompClient: client }),
   connectSocket: (token, channelId) => {
     const channelClient = new Client({
-      brokerURL: import.meta.env.VITE_WS_URL,
+      brokerURL: env.wsURL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },

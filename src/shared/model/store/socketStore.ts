@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { Client } from '@stomp/stompjs';
 import type { WebSocketMessage } from '../../model/types/webSocket';
+import { env } from '@/shared/config/env';
 import { SocketService } from '../../api/socketService';
 
 type ConnectionStatus = 'disconnected' | 'connecting' | 'connected';
@@ -27,7 +28,7 @@ export const useSocketStore = create<SocketState>((set, get) => ({
     set({ status: 'connecting', error: null });
 
     const socketClient = new Client({
-      brokerURL: import.meta.env.VITE_WS_URL,
+      brokerURL: env.wsURL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
