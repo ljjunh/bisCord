@@ -3,7 +3,7 @@ import { useRTCStore } from '../model/store/RTCStore';
 import { useAuthStore } from '../model/store/authStore';
 import { useChatStore } from '../model/store/chatStore';
 import { useModalStore } from '../model/store/modalStore';
-import { useUnreadMessagesStore } from '../model/store/unreadMessagesStore';
+import { notificationStore } from '../model/store/notificationStore';
 import { ROUTES } from '../model/constants/routes';
 import { queryClient } from './queryClient';
 import { QUERY_KEYS } from './queryKeys';
@@ -24,13 +24,13 @@ export const SocketService = {
     );
 
     if (isNotInCurrentChatRoom && operation === 'SEND' && isSendMessage(data)) {
-      if (otherUserId in useUnreadMessagesStore.getState().unreadUsers) {
+      if (otherUserId in notificationStore.getState().unreadUsers) {
         const audio = new Audio('/sounds/notification.mp3');
         audio.play().catch((error) => console.error('Audio play 실패:', error));
-        useUnreadMessagesStore.getState().increaseUnreadCount(otherUserId);
+        notificationStore.getState().increaseUnreadCount(otherUserId);
         return;
       }
-      useUnreadMessagesStore.getState().addUnreadUser(otherUserId, data.profileImageUrl);
+      notificationStore.getState().addUnreadUser(otherUserId, data.profileImageUrl);
     }
 
     if (isNotInCurrentChatRoom) {

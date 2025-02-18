@@ -6,14 +6,14 @@ interface UnreadUserInfo {
   unreadCount: number;
 }
 
-interface UnreadMessagesState {
+interface NotificationState {
   unreadUsers: Record<number, UnreadUserInfo>;
   addUnreadUser: (userId: number, profileImage: string | null) => void;
   increaseUnreadCount: (userId: number) => void;
   removeUnreadUser: (userId: number) => void;
 }
 
-export const useUnreadMessagesStore = create<UnreadMessagesState>((set) => ({
+export const notificationStore = create<NotificationState>((set) => ({
   unreadUsers: {},
 
   addUnreadUser: (userId, profileImage) =>
