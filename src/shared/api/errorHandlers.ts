@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import type { ApiErrorResponse } from '../model/types/apiResponse';
 import { useAuthStore } from '../model/store/authStore';
+import { env } from '../config/env';
 import { AUTH_ENDPOINT } from '../model/constants/apiEndpoints';
 import { ROUTES } from '../model/constants/routes';
 import { axiosInstance } from './apiClient';
@@ -34,14 +35,10 @@ export class TokenExpiredHandler {
 
     try {
       const { accessToken, setAccessToken } = useAuthStore.getState();
-      const response = await axios.post(
-        `${import.meta.env.VITE_BASE_URL}${AUTH_ENDPOINT.REFRESH}`,
-        null,
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-          withCredentials: true,
-        },
-      );
+      const response = await axios.post(`${env.apiBaseURL}${AUTH_ENDPOINT.REFRESH}`, null, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        withCredentials: true,
+      });
 
       const newAccessToken = response.data.data.accessToken;
       setAccessToken(newAccessToken);

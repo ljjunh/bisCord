@@ -14,6 +14,7 @@ import { MessageHeader } from '@/features/server/ui/MessageHeader';
 import { MessageInput } from '@/features/server/ui/MessageInput';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
+import { env } from '@/shared/config/env';
 import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { ChannelMessageDefault } from '@/shared/ui/ChannelMessageDefault';
 
@@ -79,7 +80,7 @@ export const ChannelMessage = ({ server }: ChannelMessageProps) => {
     }
 
     const channelClient = new Client({
-      brokerURL: import.meta.env.VITE_WS_URL,
+      brokerURL: env.wsURL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },

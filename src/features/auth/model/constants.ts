@@ -1,4 +1,6 @@
-const SOCIAL_BASE_URL = import.meta.env.VITE_SOCIAL_BASE_URL;
+import { env } from '@/shared/config/env';
+
+const SOCIAL_BASE_URL = env.socialBaseURL;
 
 export const SOCIAL_PROVIDERS = [
   {
