@@ -36,11 +36,6 @@ export const MoreActionsButton = ({ userId }: MoreActionsButtonProps) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-black">
-        {/* <DropdownMenuItem onClick={() => console.log('영상 통화 시작하기')}>
-          영상 통화 시작하기
-        </DropdownMenuItem>
-        <DropdownMenuItem>음성 통화 시작하기</DropdownMenuItem> */}
-
         {/* TODO : 기능이 추가되면 친구삭제 버튼도 분리 */}
         <DropdownMenuItem
           onClick={() => mutate({ userId })}
