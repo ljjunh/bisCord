@@ -4,8 +4,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useChatStore } from '@/shared/model/store/chatStore';
 import { useDetectorStore } from '@/shared/model/store/detectorStore';
+import { notificationStore } from '@/shared/model/store/notificationStore';
 import { useSocketStore } from '@/shared/model/store/socketStore';
-import { useUnreadMessagesStore } from '@/shared/model/store/unreadMessagesStore';
 import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { DMQueries } from '../api/queries';
 import { groupMessages } from '../lib/utils';
@@ -19,8 +19,8 @@ export const DMView = () => {
   const socketClient = useSocketStore((state) => state.socketClient);
   const [editingId, setEditingId] = useState<string | null>(null);
   const detector = useDetectorStore((state) => state.detector);
-  const unreadUsers = useUnreadMessagesStore((state) => state.unreadUsers);
-  const { removeUnreadUser } = useUnreadMessagesStore();
+  const unreadUsers = notificationStore((state) => state.unreadUsers);
+  const { removeUnreadUser } = notificationStore();
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
