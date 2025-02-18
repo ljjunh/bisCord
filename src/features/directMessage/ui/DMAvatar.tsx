@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { cn } from '@/shared/lib/utils/utils';
 import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
@@ -21,11 +22,16 @@ export const DMAvatar = ({ link }: DMAvatar) => {
                   <div className="absolute left-0 h-[40px] w-[6px] rounded-br-md rounded-tr-md bg-white transition-all" />
                 )}
                 <div
-                  className={`flex h-[48px] w-[48px] items-center justify-center transition-all duration-300 ease-in-out ${
+                  className={cn(
+                    'flex h-12 w-12 items-center justify-center transition-all duration-300 ease-in-out',
+                    'hover:before:absolute hover:before:left-0',
+                    'hover:before:h-[10px] hover:before:w-[5px]',
+                    'hover:before:rounded-br-md hover:before:rounded-tr-md',
+                    'hover:before:bg-white',
                     isActive
                       ? 'rounded-2xl bg-blue'
-                      : 'rounded-[50%] bg-gray hover:rounded-2xl hover:bg-blue'
-                  } hover:before:absolute hover:before:left-0 hover:before:h-[10px] hover:before:w-[5px] hover:before:rounded-br-md hover:before:rounded-tr-md hover:before:bg-white`}
+                      : 'rounded-full bg-gray hover:rounded-2xl hover:bg-blue',
+                  )}
                 >
                   <DiscordIcon
                     size={30}

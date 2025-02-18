@@ -56,9 +56,6 @@ export const MessageBox = ({ message, channelId }: Message) => {
       </div>
 
       <div className="ml-auto hidden group-hover:flex">
-        {/* <div className="p-1">
-          <EditIcon size={20} />
-        </div> */}
         <div
           className="p-1"
           onClick={handleDelete}
