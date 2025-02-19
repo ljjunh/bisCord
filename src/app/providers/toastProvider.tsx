@@ -1,29 +1,17 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { ReactNode } from 'react';
-
-const TOAST_CONFIG = {
-  position: 'bottom-right',
-  autoClose: 3000,
-  hideProgressBar: false,
-  newestOnTop: false,
-  closeOnClick: true,
-  rtl: false,
-  pauseOnFocusLoss: true,
-  draggable: true,
-  pauseOnHover: true,
-  theme: 'light',
-} as const;
+import type { ReactElement } from 'react';
+import { toastConfig } from '@/shared/config/toast';
 
 type ToastProviderProps = {
-  children: ReactNode;
+  children: ReactElement;
 };
 
 export const ToastProvider = ({ children }: ToastProviderProps) => {
   return (
     <>
       {children}
-      <ToastContainer {...TOAST_CONFIG} />
+      <ToastContainer {...toastConfig} />
     </>
   );
 };

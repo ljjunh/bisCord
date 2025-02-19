@@ -2,10 +2,11 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import type { UserProfile } from '@/entities/user/model/types';
-import { useAuthStore } from '@/shared/model/authStore';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useAuthStore } from '@/shared/model/store/authStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { userQueries } from '@/entities/user/api/queries';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { MODAL } from '@/shared/model/constants/modal';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { userQueries as userMutations } from '../api/queries';
 import { UserImageUploader } from './UserImageUploader';
 
@@ -52,7 +53,7 @@ export const UserProfileModal = () => {
 
   return (
     <ModalContainer
-      isOpen={type === 'USER_PROFILE'}
+      isOpen={type === MODAL.USER_PROFILE}
       onClose={onCloseModal}
       title="프로필 편집"
       description=""

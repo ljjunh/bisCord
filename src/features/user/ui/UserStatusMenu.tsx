@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import type { LoginStatus } from '@/entities/user/model/types';
-import { useAuthStore } from '@/shared/model/authStore';
+import { useAuthStore } from '@/shared/model/store/authStore';
 import { LOGIN_STATUS, LOGIN_STATUS_LABEL } from '@/entities/user/model/constants';
 import { SwitchCase } from '@/shared/ui/SwitchCase';
 import {

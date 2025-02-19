@@ -1,8 +1,8 @@
 import ReactModal from 'react-modal';
 import { PropsWithChildren } from 'react';
-import CloseIcon from '@/shared/icons/CloseIcon';
+import { CloseIcon } from '../icons/CloseIcon';
 
-interface ModalContainer extends PropsWithChildren {
+interface ModalContainerProps extends PropsWithChildren {
   isOpen: boolean;
   title?: string;
   subTitle?: string;
@@ -11,14 +11,14 @@ interface ModalContainer extends PropsWithChildren {
   className?: string;
 }
 
-const ModalContainer = ({
+export const ModalContainer = ({
   isOpen,
   title,
   description,
   children,
   onClose,
   subTitle,
-}: ModalContainer) => {
+}: ModalContainerProps) => {
   return (
     <ReactModal
       isOpen={isOpen}
@@ -29,7 +29,6 @@ const ModalContainer = ({
     >
       <div
         className="absolute right-4 top-4 cursor-pointer"
-        // onClick={onRequestClose}
         onClick={onClose}
       >
         <CloseIcon size={15} />
@@ -43,5 +42,3 @@ const ModalContainer = ({
     </ReactModal>
   );
 };
-
-export default ModalContainer;

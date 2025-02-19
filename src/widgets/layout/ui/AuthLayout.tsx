@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from '@/shared/constants/routes';
-import DiscordIcon from '@/shared/icons/DiscordIcon';
+import { ROUTES } from '@/shared/model/constants/routes';
+import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
 
 interface AuthLayoutProps {
   children: React.ReactNode;

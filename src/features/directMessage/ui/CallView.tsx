@@ -1,7 +1,7 @@
-import { useRTCStore } from '@/shared/model/RTCStore';
-import { CallIcon } from '@/shared/icons/CallIcon';
-import DiscordIcon from '@/shared/icons/DiscordIcon';
-import { XIcon } from '@/shared/icons/XIcon';
+import { useRTCStore } from '@/shared/model/store/RTCStore';
+import { CallIcon } from '@/shared/ui/icons/CallIcon';
+import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
+import { XIcon } from '@/shared/ui/icons/XIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
 interface CallViewProps {

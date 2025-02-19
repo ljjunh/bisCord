@@ -1,14 +1,13 @@
-import { ReactNode } from 'react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
-interface ChannelAddBtn {
+interface ChannelAddBtnProps {
   handleModal?: () => void | null;
   text: string;
-  icon: ReactNode;
+  icon: React.ReactElement;
   locate: string;
 }
 
-const ChannelAddBtn = ({ handleModal, text, icon }: ChannelAddBtn) => {
+export const ChannelAddBtn = ({ handleModal, text, icon }: ChannelAddBtnProps) => {
   return (
     <TooltipProvider>
       <Tooltip delayDuration={100}>
@@ -30,5 +29,3 @@ const ChannelAddBtn = ({ handleModal, text, icon }: ChannelAddBtn) => {
     </TooltipProvider>
   );
 };
-
-export default ChannelAddBtn;

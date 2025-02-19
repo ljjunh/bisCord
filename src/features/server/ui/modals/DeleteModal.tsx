@@ -1,20 +1,22 @@
 import { useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Servers } from '../../model/types';
-import { useModalStore } from '@/shared/model/modalStore';
+import type { Servers } from '../../model/types';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { cn } from '@/shared/lib/utils/utils';
+import { MODAL } from '@/shared/model/constants/modal';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../../api/queries';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
 import { ModalForm } from '../form';
 
-interface DeleteModal {
+interface DeleteModalProps {
   getServerData: Servers | undefined;
   serverUri?: string | undefined;
 }
 
-const DeleteModal = ({ getServerData }: DeleteModal) => {
+export const DeleteModal = ({ getServerData }: DeleteModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
@@ -48,9 +50,9 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
 
   return (
     <ModalContainer
-      isOpen={type === 'DELETE_SERVER'}
+      isOpen={type === MODAL.DELETE_SERVER}
       onClose={onCloseModal}
-      title={`'${getServerData?.name}님의 서버' 삭제`}
+      title={`${getServerData?.name}님의 서버 삭제`}
       description=""
     >
       <ModalForm
@@ -58,7 +60,7 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         <div className="w-full px-4">
-          <div className="h-full w-full rounded-md bg-yellow p-2 text-start">
+          <div className="h-full w-full rounded-md bg-blue-purple p-2 text-start">
             정말 <span className="font-bold">{getServerData?.name}</span>님의 서버를 삭제하시겠어요?
             삭제된 채널은 복구할 수 없어요.
           </div>
@@ -78,7 +80,10 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
           <button
             type="submit"
             disabled={!isButtonDisabled}
-            className={`w-[150px] rounded-md p-2 transition-colors ${isButtonDisabled ? 'bg-red hover:bg-red' : 'bg-gray'} `}
+            className={cn(
+              'rounded-md px-3 py-1 transition-colors',
+              isButtonDisabled ? 'bg-red' : 'bg-gray',
+            )}
           >
             서버 삭제
           </button>
@@ -87,5 +92,3 @@ const DeleteModal = ({ getServerData }: DeleteModal) => {
     </ModalContainer>
   );
 };
-
-export default DeleteModal;

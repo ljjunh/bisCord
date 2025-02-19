@@ -1,6 +1,6 @@
 import type { Friend } from '@/entities/friend/model/types';
-import type { LoginStatus } from '@/shared/model/types';
-import type { PageInfo } from '@/shared/types/PageInfo';
+import type { PageInfo } from '@/shared/model/types/PageInfo';
+import type { LoginStatus } from '@/shared/model/types/auth';
 
 export interface GetUserResponseDTO {
   id: number;

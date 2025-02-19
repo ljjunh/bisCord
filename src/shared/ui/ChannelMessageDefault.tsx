@@ -1,17 +1,18 @@
 import { PropsWithChildren } from 'react';
-import { useModalStore } from '../model/modalStore';
-import ArrowRight from '../icons/ArrowRight';
-import NewMemberIcon from '../icons/NewMemberIcon';
+import { useModalStore } from '../model/store/modalStore';
+import { MODAL } from '../model/constants/modal';
+import { ArrowRight } from '../ui/icons/ArrowRight';
+import { NewMemberIcon } from '../ui/icons/NewMemberIcon';
 
-interface ChannelMessageDefault extends PropsWithChildren {
+interface ChannelMessageDefaultProps extends PropsWithChildren {
   serverName: string | undefined;
 }
 
-const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefault) => {
+export const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefaultProps) => {
   const { onOpenModal } = useModalStore((state) => state);
 
   const handleClick = () => {
-    onOpenModal('INVIDE_MEMBER');
+    onOpenModal(MODAL.INVIDE_MEMBER);
   };
 
   return (
@@ -41,5 +42,3 @@ const ChannelMessageDefault = ({ serverName, children }: ChannelMessageDefault) 
     </div>
   );
 };
-
-export default ChannelMessageDefault;

@@ -1,41 +1,18 @@
-import type {
-  ChatMessage,
-  SendMessage,
-  UpdateMessage,
-  WebRTCSignalData,
-  WebSocketMessage,
-} from '../model/types';
-import { useRTCStore } from '../model/RTCStore';
-import { useAuthStore } from '../model/authStore';
-import { useChatStore } from '../model/chatStore';
-import { useModalStore } from '../model/modalStore';
-import { useUnreadMessagesStore } from '../model/unreadMessagesStore';
-import { ROUTES } from '../constants/routes';
+import type { WebSocketMessage } from '../model/types/webSocket';
+import { useRTCStore } from '../model/store/RTCStore';
+import { useAuthStore } from '../model/store/authStore';
+import { useChatStore } from '../model/store/chatStore';
+import { useModalStore } from '../model/store/modalStore';
+import { notificationStore } from '../model/store/notificationStore';
+import { ROUTES } from '../model/constants/routes';
 import { queryClient } from './queryClient';
 import { QUERY_KEYS } from './queryKeys';
-
-const isDMMessage = (data: WebSocketMessage['data']): data is ChatMessage | SendMessage => {
-  return 'userId' in data && 'recipientId' in data;
-};
-
-const isSendMessage = (data: WebSocketMessage['data']): data is SendMessage => {
-  return 'content' in data && 'createdAt' in data && 'name' in data;
-};
-
-const isUpdateMessage = (data: WebSocketMessage['data']): data is UpdateMessage => {
-  return 'chatId' in data && 'content' in data && !('createdAt' in data);
-};
-
-const isWebRTCSignalData = (data: WebSocketMessage['data']): data is WebRTCSignalData => {
-  return 'fromUserId' in data && 'toUserId' in data;
-};
+import { isDMMessage, isSendMessage, isUpdateMessage, isWebRTCSignalData } from './typeGuards';
 
 export const SocketService = {
   handleDM: (wsMessage: WebSocketMessage) => {
     const { operation, data } = wsMessage;
     const myUserId = useAuthStore.getState().user?.id;
-    // WebRTC 시그널링 메시지는 다른 핸들러로 처리
-    if (isWebRTCSignalData(data)) return;
 
     // DM 메시지가 아니면 처리하지 않음
     if (!isDMMessage(data)) return;
@@ -47,13 +24,13 @@ export const SocketService = {
     );
 
     if (isNotInCurrentChatRoom && operation === 'SEND' && isSendMessage(data)) {
-      if (otherUserId in useUnreadMessagesStore.getState().unreadUsers) {
+      if (otherUserId in notificationStore.getState().unreadUsers) {
         const audio = new Audio('/sounds/notification.mp3');
         audio.play().catch((error) => console.error('Audio play 실패:', error));
-        useUnreadMessagesStore.getState().increaseUnreadCount(otherUserId);
+        notificationStore.getState().increaseUnreadCount(otherUserId);
         return;
       }
-      useUnreadMessagesStore.getState().addUnreadUser(otherUserId, data.profileImageUrl);
+      notificationStore.getState().addUnreadUser(otherUserId, data.profileImageUrl);
     }
 
     if (isNotInCurrentChatRoom) {

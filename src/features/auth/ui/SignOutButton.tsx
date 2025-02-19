@@ -1,18 +1,16 @@
-import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { useAuthStore } from '@/shared/model/authStore';
-import { ROUTES } from '@/shared/constants/routes';
+import { useAuthStore } from '@/shared/model/store/authStore';
+import { ROUTES } from '@/shared/model/constants/routes';
 import { authQueries } from '../api/queries';
 
 export const SignOutButton = () => {
   const clearAuth = useAuthStore((state) => state.clearAuth);
-  const navigate = useNavigate();
 
   const { mutate } = useMutation({
     ...authQueries.signOut,
     onSuccess: () => {
       clearAuth();
-      navigate(ROUTES.ROOT);
+      window.location.href = ROUTES.ROOT;
     },
   });
 

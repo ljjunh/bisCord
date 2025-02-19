@@ -1,4 +1,4 @@
-import EmptyBgIcon from '../icons/EmptyBgIcon';
+import { EmptyBgIcon } from '../ui/icons/EmptyBgIcon';
 
 interface EmptyViewProps {
   icon?: React.ReactElement;

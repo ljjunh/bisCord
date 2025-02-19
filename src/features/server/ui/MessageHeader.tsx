@@ -1,10 +1,10 @@
-import ChannelUnlockedIcon from '@/shared/icons/ChannelUnlockedIcon';
+import { ChannelUnlockedIcon } from '@/shared/ui/icons/ChannelUnlockedIcon';
 
-interface Servername {
+interface ServernameProps {
   serverName: string | undefined;
 }
 
-const MessageHeader = ({ serverName }: Servername) => {
+export const MessageHeader = ({ serverName }: ServernameProps) => {
   return (
     <div className="flex h-[50px] w-full items-center border-b border-black px-4 py-2 shadow-sm">
       <ChannelUnlockedIcon size={20} />
@@ -12,5 +12,3 @@ const MessageHeader = ({ serverName }: Servername) => {
     </div>
   );
 };
-
-export { MessageHeader };

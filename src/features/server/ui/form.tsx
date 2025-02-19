@@ -1,7 +1,7 @@
 import { FormProvider, UseFormReturn, useFormContext } from 'react-hook-form';
 import { BaseSyntheticEvent, ReactNode } from 'react';
-import ChannelUnlockedIcon from '@/shared/icons/ChannelUnlockedIcon';
-import VoiceIcon from '@/shared/icons/VoiceIcon';
+import { ChannelUnlockedIcon } from '@/shared/ui/icons/ChannelUnlockedIcon';
+import { VoiceIcon } from '@/shared/ui/icons/VoiceIcon';
 import { FormType } from '../useModalForm';
 
 // Form input 컴포넌트

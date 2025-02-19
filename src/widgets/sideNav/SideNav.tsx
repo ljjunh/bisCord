@@ -1,25 +1,22 @@
 import { useQuery } from '@tanstack/react-query';
-import { MODAL, useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { UnreadMessageIndicator } from '@/features/directMessage/ui/UnreadMessageIndicator';
 import { serverQueries } from '@/features/server/api/queries';
-import CreateServerAvatar from '@/features/server/ui/CreateServerAvatar';
+import { CreateServerAvatar } from '@/features/server/ui/CreateServerAvatar';
 import { JoinServerAvatar } from '@/features/server/ui/JoinServerAvatar';
 import { JoinToServerModal } from '@/features/server/ui/JoinToServerModal';
-import { ROUTES } from '@/shared/constants/routes';
-import DMAvatar from '../../features/directMessage/ui/DMAvatar';
-import ServerAvatar from '../../features/server/ui/ServerAvatar';
-import CreateServerModal from './CreateServerModal';
+import { MODAL } from '@/shared/model/constants/modal';
+import { ROUTES } from '@/shared/model/constants/routes';
+import { DMAvatar } from '../../features/directMessage/ui/DMAvatar';
+import { ServerAvatar } from '../../features/server/ui/ServerAvatar';
+import { CreateServerModal } from './CreateServerModal';
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
-const SideNav = () => {
+export const SideNav = () => {
   const { data } = useQuery({ ...serverQueries.getServers });
   const { type, onOpenModal } = useModalStore((state) => state);
 
   const servers = data?.content;
-
-  // 모달 열기/닫기 핸들러
-
-  // localStorage.clear();
 
   return (
     <div className="flex h-[100vh] min-w-[60px] flex-col items-center gap-3 overflow-hidden bg-black py-3">
@@ -36,7 +33,6 @@ const SideNav = () => {
             <ServerAvatar
               key={server.serverUri}
               server={server}
-              link={ROUTES.CHAT.SERVER.DETAIL(server.serverUri)}
             ></ServerAvatar>
           ))}
       </div>
@@ -55,5 +51,3 @@ const SideNav = () => {
     </div>
   );
 };
-
-export default SideNav;

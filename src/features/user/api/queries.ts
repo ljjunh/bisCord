@@ -1,5 +1,5 @@
 import { queryOptions } from '@tanstack/react-query';
-import { GetOtherUserDTO } from './dto';
+import type { GetOtherUserDTO } from './dto';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { userService } from './service';
 

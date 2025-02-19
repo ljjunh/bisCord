@@ -1,13 +1,13 @@
-import { Servers } from '@/features/server/model/types';
+import type { Servers } from '@/features/server/model/types';
 import { ChannelMemberList } from '@/features/server/ui/ChannelMember';
 import { MessageHeader } from '@/features/server/ui/MessageHeader';
-import ChannelMessageDefault from '@/shared/ui/ChannelMessageDefault';
+import { ChannelMessageDefault } from '@/shared/ui/ChannelMessageDefault';
 
-interface ChannelMessage {
+interface ChannelMessageProps {
   server: Servers | undefined;
 }
 
-const ServerDefault = ({ server }: ChannelMessage) => {
+export const ServerDefault = ({ server }: ChannelMessageProps) => {
   return (
     <div className="flex h-full w-full flex-grow flex-col bg-mid-gray">
       <MessageHeader serverName={server?.name} />
@@ -24,5 +24,3 @@ const ServerDefault = ({ server }: ChannelMessage) => {
     </div>
   );
 };
-
-export default ServerDefault;

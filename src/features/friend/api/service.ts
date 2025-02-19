@@ -6,6 +6,7 @@ import type {
   PostFriendRequestDTO,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
+import { FRIEND_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const friendService = {
   getFriends: async ({
@@ -16,7 +17,7 @@ export const friendService = {
     size = 10,
   }: GetFriendsDTO): Promise<GetFriendsResponseDTO> => {
     const response = await apiClient.get<GetFriendsResponseDTO>({
-      url: '/user/friends',
+      url: FRIEND_ENDPOINT.GET_FRIENDS,
       params: {
         type,
         status,
@@ -30,17 +31,17 @@ export const friendService = {
   },
   postFriendRequest: async ({ invitedUserId }: PostFriendRequestDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: `/friendship/${invitedUserId}`,
+      url: FRIEND_ENDPOINT.POST_FRIEND_REQUEST(invitedUserId),
     });
   },
   postFriendAccept: async ({ invitingUserId }: PostFriendAcceptDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: `/friendship/${invitingUserId}/accept`,
+      url: FRIEND_ENDPOINT.POST_FRIEND_ACCEPT(invitingUserId),
     });
   },
   postFriendDecline: async ({ userId }: PostFriendDeclineDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: `/friendship/${userId}/decline`,
+      url: FRIEND_ENDPOINT.POST_FRIEND_DECLINE(userId),
     });
   },
 };

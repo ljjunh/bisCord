@@ -4,10 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import { channelQueries } from '../api/queries';
 import { queryClient } from '../../../shared/api/queryClient';
 import { QUERY_KEYS } from '../../../shared/api/queryKeys';
-// import { EditIcon } from '../../../shared/icons/EditIcon';
-import { WasteBasketIcon } from '../../../shared/icons/WasteBasketIcon';
-import { formatTime } from '../../../shared/lib/dayjs';
-import UserAvatar from '../../../shared/ui/UserAvatar';
+import { formatTime } from '../../../shared/lib/utils/dayjs';
+import { UserAvatar } from '../../../shared/ui/UserAvatar';
+import { WasteBasketIcon } from '../../../shared/ui/icons/WasteBasketIcon';
 
 interface Message extends PropsWithChildren {
   message: {
@@ -23,7 +22,7 @@ interface Message extends PropsWithChildren {
   channelId: number;
 }
 
-const MessageBox = ({ message, channelId }: Message) => {
+export const MessageBox = ({ message, channelId }: Message) => {
   const { mutate } = useMutation({
     ...channelQueries.deleteCHMessage,
     onSuccess: () => {
@@ -57,9 +56,6 @@ const MessageBox = ({ message, channelId }: Message) => {
       </div>
 
       <div className="ml-auto hidden group-hover:flex">
-        {/* <div className="p-1">
-          <EditIcon size={20} />
-        </div> */}
         <div
           className="p-1"
           onClick={handleDelete}
@@ -70,5 +66,3 @@ const MessageBox = ({ message, channelId }: Message) => {
     </div>
   );
 };
-
-export { MessageBox };

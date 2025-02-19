@@ -1,12 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { useUnreadMessagesStore } from '@/shared/model/unreadMessagesStore';
-import { ROUTES } from '@/shared/constants/routes';
-import DiscordIcon from '@/shared/icons/DiscordIcon';
-import { cn } from '@/shared/lib/utils';
+import { notificationStore } from '@/shared/model/store/notificationStore';
+import { cn } from '@/shared/lib/utils/utils';
+import { ROUTES } from '@/shared/model/constants/routes';
+import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
 
 export const UnreadMessageIndicator = () => {
-  const unreadUsers = useUnreadMessagesStore((state) => state.unreadUsers);
-  const { removeUnreadUser } = useUnreadMessagesStore();
+  const unreadUsers = notificationStore((state) => state.unreadUsers);
+  const { removeUnreadUser } = notificationStore();
 
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export const UnreadMessageIndicator = () => {
           {/* 프로필 컨테이너 */}
           <div
             className={cn(
-              'flex h-[48px] w-[48px] cursor-pointer items-center justify-center overflow-hidden rounded-[50%]',
+              'flex h-12 w-12 cursor-pointer items-center justify-center overflow-hidden rounded-[50%]',
               !userInfo.profileImage && 'bg-blue transition-all duration-200 hover:rounded-2xl',
             )}
           >

@@ -1,26 +1,27 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { MODAL, useModalStore } from '@/shared/model/modalStore';
-import PlusIcon from '@/shared/icons/PlusIcon';
-import EmptyList from '@/shared/ui/EmptyList';
+import { useModalStore } from '@/shared/model/store/modalStore';
+import { cn } from '@/shared/lib/utils/utils';
+import { MODAL } from '@/shared/model/constants/modal';
+import { EmptyList } from '@/shared/ui/EmptyList';
+import { PlusIcon } from '@/shared/ui/icons/PlusIcon';
 import { serverQueries } from '../api/queries';
-import ArrowDown from '../../../shared/icons/ArrowDown';
-import ArrowRight from '../../../shared/icons/ArrowRight';
-import ChannelAddBtn from './ChannelAddBtn';
-import ChannelItem from './ChannelItem';
-import CreateChannelModal from './modals/CreateChannelModal';
+import { ArrowDown } from '../../../shared/ui/icons/ArrowDown';
+import { ArrowRight } from '../../../shared/ui/icons/ArrowRight';
+import { ChannelAddBtn } from './ChannelAddBtn';
+import { ChannelItem } from './ChannelItem';
+import { CreateChannelModal } from './modals/CreateChannelModal';
 
-interface ChannelCategories {
+interface ChannelCategoriesProps {
   serverId: string;
 }
 
-const ChannelCategories = ({ serverId }: ChannelCategories) => {
+export const ChannelCategories = ({ serverId }: ChannelCategoriesProps) => {
   const [listOpen, setListOpen] = useState<boolean>(true);
   const [voiceListOpen, setVoiceListOpen] = useState<boolean>(true);
   const { onOpenModal } = useModalStore((state) => state);
 
   const { data: getChannels } = useQuery({ ...serverQueries.getChannels(serverId) });
-  // 채널을 type별로 분리
   const textChannels = getChannels?.content.filter((channel) => channel.type === 'TEXT');
   const voiceChannels = getChannels?.content.filter((channel) => channel.type === 'VOICE');
 
@@ -35,7 +36,7 @@ const ChannelCategories = ({ serverId }: ChannelCategories) => {
           <div className="flex w-[15px] items-center justify-center">
             {listOpen ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
           </div>
-          <div className={`flex-grow text-xs ${listOpen ? 'text-white' : ''}`}>채팅 채널</div>
+          <div className={cn('flex-grow text-xs', listOpen && 'text-white')}>채팅 채널</div>
         </div>
         <ChannelAddBtn
           locate="right"
@@ -64,7 +65,6 @@ const ChannelCategories = ({ serverId }: ChannelCategories) => {
       ) : (
         <></>
       )}
-      {/* <div className="flex cursor-pointer items-center py-1 text-light-gray hover:text-white"> */}
       <div className="flex cursor-pointer items-center py-1 text-light-gray hover:text-white">
         <div
           className="flex flex-grow gap-2"
@@ -73,11 +73,7 @@ const ChannelCategories = ({ serverId }: ChannelCategories) => {
           <div className="flex w-[15px] items-center justify-center">
             {voiceListOpen ? <ArrowDown size={12} /> : <ArrowRight size={12} />}
           </div>
-          {/* channel 카테고리 */}
-          <div className={`flex-grow text-xs ${listOpen ? 'text-white' : ''}`}>
-            {/* {channel?.name} */}
-            음성 채널
-          </div>
+          <div className={cn('flex-grow text-xs', listOpen && 'text-white')}>음성 채널</div>
         </div>
         <ChannelAddBtn
           locate="right"
@@ -104,9 +100,6 @@ const ChannelCategories = ({ serverId }: ChannelCategories) => {
       ) : (
         <></>
       )}
-      {/* </div> */}
     </div>
   );
 };
-
-export default ChannelCategories;

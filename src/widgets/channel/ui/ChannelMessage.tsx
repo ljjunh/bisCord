@@ -1,22 +1,24 @@
+import { invariant } from 'es-toolkit/compat';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
-import { Message } from '@/features/channel/model/types';
-import { Servers } from '@/features/server/model/types';
-import { useAuthStore } from '@/shared/model/authStore';
+import type { Message } from '@/features/channel/model/types';
+import type { Servers } from '@/features/server/model/types';
+import { useAuthStore } from '@/shared/model//store/authStore';
 import { channelQueries } from '@/features/channel/api/queries';
-import ChMessage from '@/features/channel/ui/ChMessage';
+import { ChMessage } from '@/features/channel/ui/ChMessage';
 import { MessageBox } from '@/features/channel/ui/MessageBox';
 import { ChannelMemberList } from '@/features/server/ui/ChannelMember';
 import { MessageHeader } from '@/features/server/ui/MessageHeader';
 import { MessageInput } from '@/features/server/ui/MessageInput';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
-import ChannelMessageDefault from '@/shared/ui/ChannelMessageDefault';
+import { env } from '@/shared/config/env';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
+import { ChannelMessageDefault } from '@/shared/ui/ChannelMessageDefault';
 
-interface ChannelMessage {
+interface ChannelMessageProps {
   server: Servers | undefined;
 }
 
@@ -34,12 +36,14 @@ interface ResChatData {
   data: ChatData;
 }
 
-const ChannelMessage = ({ server }: ChannelMessage) => {
-  // state or constant
+export const ChannelMessage = ({ server }: ChannelMessageProps) => {
   const [allMessage, setAllMessage] = useState<Message[]>([]);
   const [message, setMessage] = useState<string>('');
-  const { '*': channelId } = useParams();
-  const ChNumId = Number(channelId);
+
+  const chId = useParams()['*'];
+  invariant(chId, 'Channel ID is missing in URL parameters');
+  const ChNumId = Number(chId);
+
   const [stompClient, setStompClient] = useState<Client | null>(null);
 
   // store or socket
@@ -76,7 +80,7 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
     }
 
     const channelClient = new Client({
-      brokerURL: 'wss://kdt-pt-1-pj-1-team06.elicecoding.com/api/ws',
+      brokerURL: env.wsURL,
       connectHeaders: {
         Authorization: `Bearer ${token}`,
       },
@@ -152,5 +156,3 @@ const ChannelMessage = ({ server }: ChannelMessage) => {
     </div>
   );
 };
-
-export default ChannelMessage;

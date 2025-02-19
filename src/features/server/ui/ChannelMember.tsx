@@ -1,13 +1,13 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { serverQueries } from '../api/queries';
-import MemberList from './MemberList';
+import { MemberList } from './MemberList';
 
-interface ChannelMemberList {
+interface ChannelMemberListProps {
   serverUri: string | undefined;
 }
 
-const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
+export const ChannelMemberList = ({ serverUri }: ChannelMemberListProps) => {
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     ...serverQueries.getMembers({ serverUri: serverUri || '' }), // 올바른 객체 전달
   });
@@ -17,10 +17,6 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
     hasNextPage,
     isLoading: isFetchingNextPage,
   });
-  // useEffect(() => {
-  //   console.log(allMembers);
-  //   refetch();
-  // }, [allMembers]);
 
   return (
     <div className="h-full w-[250px] bg-dark-gray px-2 py-4">
@@ -48,5 +44,3 @@ const ChannelMemberList = ({ serverUri }: ChannelMemberList) => {
     </div>
   );
 };
-
-export { ChannelMemberList };

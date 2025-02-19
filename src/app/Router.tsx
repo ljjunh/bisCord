@@ -1,5 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { useAuthStore } from '@/shared/model/authStore';
+import { useAuthStore } from '@/shared/model/store/authStore';
 import AuthCallbackPage from '@/pages/auth';
 import ChannelPage from '@/pages/channels';
 import DirectMessagePage from '@/pages/directMessage';
@@ -8,7 +8,7 @@ import NotFound from '@/pages/notFound';
 import SigninPage from '@/pages/signin';
 import SignupPage from '@/pages/signup';
 import Layout from '@/widgets/layout/ui/MainLayout';
-import { ROUTES } from '@/shared/constants/routes';
+import { ROUTES } from '@/shared/model/constants/routes';
 
 interface AuthRouteProps {
   isPublic?: boolean;

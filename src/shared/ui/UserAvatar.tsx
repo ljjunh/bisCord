@@ -1,7 +1,7 @@
-import { LoginStatus } from '../model/types';
-import DiscordIcon from '../icons/DiscordIcon';
-import { cn } from '../lib/utils';
-import UserState from './UserState';
+import type { LoginStatus } from '../model/types/auth';
+import { cn } from '../lib/utils/utils';
+import { DiscordIcon } from '../ui/icons/DiscordIcon';
+import { UserState } from './UserState';
 
 interface UserAvatarProps {
   image?: string | null;
@@ -10,7 +10,7 @@ interface UserAvatarProps {
   bg?: string;
 }
 
-const UserAvatar = ({ image, size, state = 'OFFLINE', bg }: UserAvatarProps) => {
+export const UserAvatar = ({ image, size, state = 'OFFLINE', bg }: UserAvatarProps) => {
   return (
     <div
       className={cn(
@@ -39,5 +39,3 @@ const UserAvatar = ({ image, size, state = 'OFFLINE', bg }: UserAvatarProps) => 
     </div>
   );
 };
-
-export default UserAvatar;

@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { OverflowMenuIcon } from '@/shared/icons/OverflowMenuIcon';
 import { TooltipButton } from '@/shared/ui/TooltipButton';
 import {
   DropdownMenu,
@@ -9,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/shared/ui/dropdown-menu';
+import { OverflowMenuIcon } from '@/shared/ui/icons/OverflowMenuIcon';
 import { friendQueries } from '../api/queries';
 
 interface MoreActionsButtonProps {
@@ -36,11 +36,6 @@ export const MoreActionsButton = ({ userId }: MoreActionsButtonProps) => {
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-black">
-        {/* <DropdownMenuItem onClick={() => console.log('영상 통화 시작하기')}>
-          영상 통화 시작하기
-        </DropdownMenuItem>
-        <DropdownMenuItem>음성 통화 시작하기</DropdownMenuItem> */}
-
         {/* TODO : 기능이 추가되면 친구삭제 버튼도 분리 */}
         <DropdownMenuItem
           onClick={() => mutate({ userId })}

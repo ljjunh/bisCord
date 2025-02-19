@@ -1,34 +1,35 @@
-import { isEmpty } from 'es-toolkit/compat';
-import { useLocation } from 'react-router-dom';
+import { invariant, isEmpty } from 'es-toolkit/compat';
+import { useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
-import { useModalStore } from '@/shared/model/modalStore';
-import useGetParams from '@/entities/hooks/getParams';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import { useDebounce } from '@/shared/lib/useDebounce';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
+import { MODAL } from '@/shared/model/constants/modal';
 import { SearchInput } from '@/shared/ui/SearchInput';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { friendQueries } from '../../friend/api/queries';
 import { serverQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../../friend/model/constants';
 import { InviteUrlLink } from './InviteUrlLink';
-import MemberList from './MemberList';
+import { MemberList } from './MemberList';
 
-const InvitedMemberModal = () => {
-  const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
+export const InvitedMemberModal = () => {
+  const serverId = useParams().serverId;
+  invariant(serverId, 'Server ID is missing in URL parameters');
+
   const { type, onCloseModal } = useModalStore((state) => state);
   const [searchText, setSearchText] = useState('');
   const debouncedSearchText = useDebounce(searchText);
 
-  const validServerId = serverId ?? ''; // 기본값 설정
+  const validServerId = serverId ?? '';
 
   // 현재 서버 정보를 가져옴
   const { data: getServerData } = useQuery({
     ...serverQueries.getServerDetail(validServerId),
-    // enabled: !!serverId, // serverId가 있을 때만 쿼리 실행
   });
   const serverName = getServerData?.name;
 
@@ -55,7 +56,6 @@ const InvitedMemberModal = () => {
     isLoading: isFetchingNextPage,
   });
 
-  // 초대 코드를 받아옴 => 이거 하위로 넘김 필요하면 다시 쓸꺼임;;;;
   const { data: inviteUrl } = useQuery({
     ...serverQueries.postInvite(validServerId),
   });
@@ -70,32 +70,25 @@ const InvitedMemberModal = () => {
       });
     },
   });
-  // const { mutate: openDm } = useMutation({
-  //   ...serverQueries.postDMRoom,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: QUERY_KEYS.directMessage.members() });
-  //     // navigate(ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(selectedFriendId));
-  //   },
-  // });
 
-  const localtion = useLocation();
+  const location = useLocation();
   const handleInviteMember = (memberId: number, name: string) => {
     if (lastElement === undefined || null) {
       toast.error('초대 권한이 없습니다');
       return;
     }
-    // openDm({ recipientId: memberId });
+
     mutate({
       recipientId: memberId,
       content: `${getServerData?.name} 서버에서 초대를 보냈어요!  초대코드 : ${lastElement}`,
     });
     toast.success(`${name}님께 초대 메세지를 보냈습니다.`);
-    console.log(`${localtion.hash}님 초대`);
+    console.log(`${location.hash}님 초대`);
   };
 
   return (
     <ModalContainer
-      isOpen={type === 'INVIDE_MEMBER'}
+      isOpen={type === MODAL.INVIDE_MEMBER}
       onClose={onCloseModal}
       subTitle={`친구를 ${serverName}님의 서버 그룹으로 초대하기`}
       description=""
@@ -139,5 +132,3 @@ const InvitedMemberModal = () => {
     </ModalContainer>
   );
 };
-
-export default InvitedMemberModal;

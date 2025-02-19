@@ -1,12 +1,11 @@
-// import ChannelList from '../channel/ui/ChannelList';
 import { Outlet } from 'react-router-dom';
-import { useModalStore } from '@/shared/model/modalStore';
-import { SignOffModal } from '@/features/auth/ui/SignOffModal';
+import { useModalStore } from '@/shared/model/store/modalStore';
+import { WithdrawModal } from '@/features/auth/ui/WithdrawModal';
 import { UserProfileModal } from '@/features/user/ui/UserProfileModal';
-import ContentsContainer from '@/shared/ui/layout/ContentsContainer';
-import SideNav from '../../sideNav/SideNav';
+import { MODAL } from '@/shared/model/constants/modal';
+import { ContentsContainer } from '@/shared/ui/layout/ContentsContainer';
+import { SideNav } from '../../sideNav/SideNav';
 
-/** Main UI layout */
 const Layout = () => {
   const modalType = useModalStore((state) => state.type);
 
@@ -15,8 +14,8 @@ const Layout = () => {
       <SideNav />
       <ContentsContainer>
         <Outlet />
-        {modalType === 'USER_PROFILE' && <UserProfileModal />}
-        {modalType === 'USER_SIGNOFF' && <SignOffModal />}
+        {modalType === MODAL.USER_PROFILE && <UserProfileModal />}
+        {modalType === MODAL.USER_WITHDRAW && <WithdrawModal />}
       </ContentsContainer>
     </div>
   );

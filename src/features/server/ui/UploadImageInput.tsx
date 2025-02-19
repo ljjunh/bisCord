@@ -1,12 +1,13 @@
 import { PlusIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { cn } from '@/shared/lib/utils/utils';
 
 interface UploadImageInputProps {
   onChange: (imageData: string | File) => void;
   value?: File | string;
 }
 
-const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
+export const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
   const [imageFile, setImageFile] = useState<string | ArrayBuffer | null>('');
 
   useEffect(() => {
@@ -31,7 +32,10 @@ const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
 
   return (
     <div
-      className={`relative flex aspect-[1/1] w-[30%] cursor-pointer items-center justify-center rounded-[50%] ${imageFile ? 'overflow-hidden' : 'border-2 border-dashed border-light-gray'} `}
+      className={cn(
+        'relative flex aspect-[1/1] w-[30%] cursor-pointer items-center justify-center rounded-[50%]',
+        imageFile ? 'overflow-hidden' : 'border-2 border-dashed border-light-gray',
+      )}
     >
       <label className="flex h-full w-full cursor-pointer items-center justify-center">
         {imageFile ? (
@@ -64,5 +68,3 @@ const UploadImageInput = ({ onChange, value }: UploadImageInputProps) => {
     </div>
   );
 };
-
-export { UploadImageInput };

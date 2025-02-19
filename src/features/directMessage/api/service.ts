@@ -10,11 +10,12 @@ import type {
   PostDMRoomDTO,
 } from './dto';
 import { apiClient } from '@/shared/api/apiClient';
+import { DIRECT_MESSAGE_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const DMService = {
   getDM: async ({ otherUserId, page = 1, size = 12 }: GetDMDTO) => {
     const response = await apiClient.get<GetDMResponseDTO>({
-      url: `/chat/dm/${otherUserId}`,
+      url: DIRECT_MESSAGE_ENDPOINT.GET_DM(otherUserId),
       params: {
         page,
         size,
@@ -26,27 +27,27 @@ export const DMService = {
 
   postDM: async ({ recipientId, content }: PostDMDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: `/chat/dm/${recipientId}`,
+      url: DIRECT_MESSAGE_ENDPOINT.POST_DM(recipientId),
       data: { content },
     });
   },
 
   deleteDM: async ({ recipientId, chatId }: DeleteDMDTO): Promise<void> => {
     await apiClient.delete<void>({
-      url: `chat/dm/${recipientId}/chat/${chatId}`,
+      url: DIRECT_MESSAGE_ENDPOINT.DELETE_DM(recipientId, chatId),
     });
   },
 
   patchDM: async ({ recipientId, chatId, content }: PatchDMDTO): Promise<void> => {
     await apiClient.patch<void>({
-      url: `chat/dm/${recipientId}/chat/${chatId}`,
+      url: DIRECT_MESSAGE_ENDPOINT.PATCH_DM(recipientId, chatId),
       data: { content },
     });
   },
 
   getDMRooms: async ({ page = 1, size = 10 }: GetDMRoomsDTO) => {
     const response = await apiClient.get<GetDMRoomsResponseDTO>({
-      url: '/dm',
+      url: DIRECT_MESSAGE_ENDPOINT.GET_DM_ROOMS,
       params: {
         page,
         size,
@@ -58,13 +59,13 @@ export const DMService = {
 
   deleteDMRoom: async ({ recipientId }: DeleteDMRoomDTO): Promise<void> => {
     await apiClient.delete<void>({
-      url: `/dm/${recipientId}`,
+      url: DIRECT_MESSAGE_ENDPOINT.DELETE_DM_ROOM(recipientId),
     });
   },
 
   postDMRoom: async ({ recipientId }: PostDMRoomDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: `/dm/${recipientId}`,
+      url: DIRECT_MESSAGE_ENDPOINT.POST_DM_ROOM(recipientId),
     });
   },
 };

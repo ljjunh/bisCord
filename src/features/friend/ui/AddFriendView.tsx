@@ -2,11 +2,11 @@ import { isEmpty } from 'es-toolkit/compat';
 import { useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { userQueries } from '@/entities/user/api/queries';
-import { useDebounce } from '@/shared/lib/useDebounce';
-import { useInfiniteScroll } from '@/shared/lib/useInfiniteScroll';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce';
+import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
 import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
-import UserAvatar from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/shared/ui/command';
 import { AddFriendButton } from './AddFriendButton';
 

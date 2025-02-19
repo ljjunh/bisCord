@@ -1,7 +1,7 @@
 import { FriendRequestType } from '../model/types';
 import type { Friend } from '@/entities/friend/model/types';
 import { LOGIN_STATUS } from '@/entities/user/model/constants';
-import UserAvatar from '@/shared/ui/UserAvatar';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { AcceptFriendButton } from './AcceptFriendButton';
 import { CancelFriendButton } from './CancelFriendButton';

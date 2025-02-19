@@ -1,19 +1,22 @@
+import { invariant } from 'es-toolkit/compat';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { Servers } from '../model/types';
-import { useModalStore } from '@/shared/model/modalStore';
-import useGetParams from '@/entities/hooks/getParams';
+import type { Servers } from '../model/types';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { queryClient } from '@/shared/api/queryClient';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { MODAL } from '@/shared/model/constants/modal';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../api/queries';
 import { UploadImageInput } from './UploadImageInput';
 
-const EditServerModal = () => {
+export const EditServerModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
-  const { serverId } = useGetParams<{ serverId: string }>(); // `serverId`를 명시적으로 가져오기
-  const getServerId = serverId ?? ''; // 기본값 설정
+  const serverId = useParams().serverId;
+  invariant(serverId, 'Server ID is missing in URL parameters');
+
   const [imageData, setImageData] = useState<File | string>(''); // 초기값을 빈 문자열로 설정
   const [profileData, setProfileData] = useState<Servers>({
     name: '',
@@ -23,7 +26,7 @@ const EditServerModal = () => {
 
   // 현재 서버 정보를 가져옴
   const { data: serverData, refetch } = useQuery({
-    ...serverQueries.getServerDetail(getServerId),
+    ...serverQueries.getServerDetail(serverId),
   });
 
   // 서버 데이터 설정
@@ -68,9 +71,8 @@ const EditServerModal = () => {
 
   return (
     <ModalContainer
-      isOpen={type === 'EDIT_SERVER'}
+      isOpen={type === MODAL.EDIT_SERVER}
       onClose={onCloseModal}
-      // title="서버 개요"
       subTitle="서버 개요"
       description=""
     >
@@ -106,5 +108,3 @@ const EditServerModal = () => {
     </ModalContainer>
   );
 };
-
-export default EditServerModal;

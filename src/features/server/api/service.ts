@@ -1,4 +1,4 @@
-import {
+import type {
   Channel,
   ChannelDTO,
   DeleteChannel,
@@ -18,25 +18,17 @@ import {
   ServersDTO,
 } from '../model/types';
 import { apiClient } from '@/shared/api/apiClient';
-
-// 여기 엔티티
+import { SERVER_ENDPOINT } from '@/shared/model/constants/apiEndpoints';
 
 export const serverService = {
-  /** 전체 서버 목록을 가져옵니다 */
   getServers: async (): Promise<ServersDTO> => {
-    const response = await apiClient.get<ServersDTO>({ url: '/user/servers?page=1&size=100' });
-
-    const servers = response.data.content.map((server) => server.serverUri);
-    console.log(servers);
+    const response = await apiClient.get<ServersDTO>({ url: SERVER_ENDPOINT.GET_SERVERS });
 
     return response.data;
   },
 
-  // 서버를 추가할때 이미지가 File인 경우에만 s3업로드 실행
-  /** 서버를 추가합니다 */
   createServer: async (serverData: {
     name: string;
-    // serverUri: string;
     serverImageURL: string | File;
   }): Promise<Servers> => {
     let profileImageURL = serverData.serverImageURL;
@@ -47,7 +39,6 @@ export const serverService = {
         contentType: serverData.serverImageURL.type,
         contentLength: serverData.serverImageURL.size,
       });
-      console.log(imageData);
       await serverService.putImageToS3({
         presignedUrl: imageData.presignedUrl,
         file: serverData.serverImageURL,
@@ -59,11 +50,11 @@ export const serverService = {
     }
 
     const response = await apiClient.post<Servers>({
-      url: '/server',
+      url: SERVER_ENDPOINT.CREATE_SERVER,
       data: {
         name: serverData.name,
         serverImageURL: profileImageURL,
-      }, // 요청 본문에 데이터를 포함
+      },
     });
 
     return response.data;
@@ -71,14 +62,16 @@ export const serverService = {
 
   // params에 맞는 해당 서버 정보를 불러옵니다
   thisServer: async ({ serverUri }: { serverUri: string }): Promise<Servers> => {
-    const response = await apiClient.get<Servers>({ url: `/server/${serverUri}` });
+    const response = await apiClient.get<Servers>({ url: SERVER_ENDPOINT.GET_SERVER(serverUri) });
 
     return response.data;
   },
 
   // 해당 서버의 채널을 불러옵니다
   thisChannel: async ({ serverUri }: { serverUri: string }): Promise<ChannelDTO> => {
-    const response = await apiClient.get<ChannelDTO>({ url: `/server/${serverUri}/channel` });
+    const response = await apiClient.get<ChannelDTO>({
+      url: SERVER_ENDPOINT.GET_CHANNELS(serverUri),
+    });
 
     return response.data;
   },
@@ -91,7 +84,7 @@ export const serverService = {
     roleId: number;
   }): Promise<Channel> => {
     const response = await apiClient.post<Channel>({
-      url: `/server/${data.serverUri}/channel`,
+      url: SERVER_ENDPOINT.CREATE_CHANNEL(data.serverUri),
       data: {
         name: data.name,
         type: data.type,
@@ -119,8 +112,6 @@ export const serverService = {
         contentLength: serverData.serverImageURL.size,
       });
 
-      console.log(imageData);
-
       // 이미지 S3 업로드
       await serverService.putImageToS3({
         presignedUrl: imageData.presignedUrl,
@@ -137,7 +128,7 @@ export const serverService = {
 
     // 서버 프로필 정보 수정
     const updatedServer = await apiClient.put<Servers>({
-      url: `/server/${serverData.serverUri}`, // serverUri를 URL에 포함
+      url: SERVER_ENDPOINT.UPDATE_SERVER(serverData.serverUri), // serverUri를 URL에 포함
       data: {
         name: serverData.name,
         serverImageURL: typeof profileImageURL === 'string' ? profileImageURL : '', // 문자열로 변환
@@ -149,13 +140,15 @@ export const serverService = {
 
   // 해당 서버를 삭제합니다
   deleteServer: async (serverUri: string): Promise<Servers> => {
-    const response = await apiClient.delete<Servers>({ url: `/server/${serverUri}` });
+    const response = await apiClient.delete<Servers>({
+      url: SERVER_ENDPOINT.DELETE_SERVER(serverUri),
+    });
 
     return response.data;
   },
   deleteChannel: async (channelId: number): Promise<DeleteChannel> => {
     const response = await apiClient.delete<DeleteChannel>({
-      url: `/chat/channel/${channelId}`,
+      url: SERVER_ENDPOINT.DELETE_CHANNEL(channelId),
     });
 
     return response.data;
@@ -170,7 +163,7 @@ export const serverService = {
     size = 10,
   }: GetmemberDTO): Promise<MemberDTO> => {
     const response = await apiClient.get<MemberDTO>({
-      url: `/server/${serverUri}/server-user`,
+      url: SERVER_ENDPOINT.GET_SERVER_MEMBERS(serverUri),
       params: {
         serverUri,
         roleId,
@@ -186,7 +179,7 @@ export const serverService = {
   //  해당 서버 초대코드 생성
   postInviteServer: async ({ serverUri }: PostInviteServer): Promise<InviteServer> => {
     const response = await apiClient.post<InviteServer>({
-      url: `/server/${serverUri}/invite`,
+      url: SERVER_ENDPOINT.POST_INVITE_SERVER(serverUri),
     });
 
     return response.data;
@@ -194,17 +187,17 @@ export const serverService = {
   // 초대 코드로 서버 가입
   postJoinServer: async ({ inviteKey }: JoinServer) => {
     const response = await apiClient.post<JoinServer>({
-      url: `/server/join/${inviteKey}`,
+      url: SERVER_ENDPOINT.POST_JOIN_SERVER(inviteKey),
     });
 
     return response.data;
   },
 
-  /** ㅇ
-   * 이미지 관련
-   */
   postImage: async (data: PostImageDTO): Promise<PostImageResponseDTO> => {
-    const response = await apiClient.post<PostImageResponseDTO>({ url: '/image', data });
+    const response = await apiClient.post<PostImageResponseDTO>({
+      url: SERVER_ENDPOINT.POST_IMAGE,
+      data,
+    });
 
     return response.data;
   },
@@ -215,7 +208,7 @@ export const serverService = {
 
   getImageUrl: async ({ key }: GetImageUrlDTO): Promise<GetImageUrlResponseDTO> => {
     const response = await apiClient.get<GetImageUrlResponseDTO>({
-      url: '/image',
+      url: SERVER_ENDPOINT.GET_IMAGE_URL,
       params: {
         key,
       },
@@ -225,13 +218,13 @@ export const serverService = {
   },
   postDM: async ({ recipientId, content }: PostDMDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: `/chat/dm/${recipientId}`,
+      url: SERVER_ENDPOINT.POST_DM(recipientId),
       data: { content },
     });
   },
   postDMRoom: async ({ recipientId }: PostDMRoomDTO): Promise<void> => {
     await apiClient.post<void>({
-      url: `/dm/${recipientId}`,
+      url: SERVER_ENDPOINT.POST_DM_ROOM(recipientId),
     });
   },
 };

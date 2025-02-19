@@ -1,9 +1,10 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
-import { ApiResponse } from '@/shared/types/apiResponse';
+import type { ApiResponse } from '@/shared/model/types/apiResponse';
+import { env } from '../config/env';
 import { rejectInterceptor, requestInterceptor, responseInterceptor } from './interceptors';
 
 export const axiosInstance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: env.apiBaseURL,
   timeout: 10000,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,

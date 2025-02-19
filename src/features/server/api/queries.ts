@@ -1,5 +1,5 @@
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
-import { GetmemberDTO } from '../model/types';
+import type { GetmemberDTO } from '../model/types';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { serverService } from './service';
 

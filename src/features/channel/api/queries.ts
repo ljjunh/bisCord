@@ -1,5 +1,5 @@
 import { infiniteQueryOptions } from '@tanstack/react-query';
-import { GetChMessageDTO, PostSendMessageRequest } from './dto';
+import type { GetChMessageDTO, PostSendMessageRequest } from './dto';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { channelService } from './service';
 

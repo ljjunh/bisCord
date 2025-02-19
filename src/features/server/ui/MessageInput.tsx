@@ -5,7 +5,7 @@ interface MessageInputProps {
   onSubmit: (message: string) => void;
 }
 
-const MessageInput = ({ value, onChange, placeholder, onSubmit }: MessageInputProps) => {
+export const MessageInput = ({ value, onChange, placeholder, onSubmit }: MessageInputProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault(); // Prevent page reload
     onSubmit(value); // Pass the current message to the parent
@@ -29,5 +29,3 @@ const MessageInput = ({ value, onChange, placeholder, onSubmit }: MessageInputPr
     </div>
   );
 };
-
-export { MessageInput };

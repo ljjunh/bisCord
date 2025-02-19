@@ -1,9 +1,10 @@
-import { useAuthStore } from '@/shared/model/authStore';
-import { useModalStore } from '@/shared/model/modalStore';
-import { EditIcon } from '@/shared/icons/EditIcon';
-import UserAvatar from '@/shared/ui/UserAvatar';
-import { SignOffButton } from '../../auth/ui/SignOffButton';
+import { useAuthStore } from '@/shared/model/store/authStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
+import { MODAL } from '@/shared/model/constants/modal';
+import { UserAvatar } from '@/shared/ui/UserAvatar';
+import { EditIcon } from '@/shared/ui/icons/EditIcon';
 import { SignOutButton } from '../../auth/ui/SignOutButton';
+import { WithdrawButton } from '../../auth/ui/WithdrawButton';
 import { UserStatusMenu } from './UserStatusMenu';
 
 interface UserProfileCardProps {
@@ -16,7 +17,7 @@ export const UserProfileCard = ({ onCloseDropdown }: UserProfileCardProps) => {
   const currentStatus = user?.loginStatus ?? 'OFFLINE';
 
   const handleModal = () => {
-    onOpenModal('USER_PROFILE');
+    onOpenModal(MODAL.USER_PROFILE);
     onCloseDropdown(false);
   };
 
@@ -48,7 +49,7 @@ export const UserProfileCard = ({ onCloseDropdown }: UserProfileCardProps) => {
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">
-        <SignOffButton />
+        <WithdrawButton />
       </div>
 
       <div className="mt-3 rounded bg-dark-gray px-2 py-2 text-sm font-bold text-red">

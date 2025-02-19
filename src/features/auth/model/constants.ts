@@ -1,24 +1,18 @@
-import { GoogleIcon } from '@/shared/icons/GoogleIcon';
-import { KakaoIcon } from '@/shared/icons/KakaoIcon';
-import { NaverIcon } from '@/shared/icons/NaverIcon';
+import { env } from '@/shared/config/env';
 
-const SOCIAL_BASE_URL = import.meta.env.VITE_SOCIAL_BASE_URL;
+const SOCIAL_BASE_URL = env.socialBaseURL;
 
-// TODO : 소셜로그인 되면 실제 링크 상수에 넣고 import해오기
 export const SOCIAL_PROVIDERS = [
   {
     name: 'Google',
-    icon: GoogleIcon,
     href: `${SOCIAL_BASE_URL}/google`,
   },
   {
     name: 'Kakao',
-    icon: KakaoIcon,
     href: `${SOCIAL_BASE_URL}/kakao`,
   },
   {
     name: 'Naver',
-    icon: NaverIcon,
     href: `${SOCIAL_BASE_URL}/naver`,
   },
 ] as const;

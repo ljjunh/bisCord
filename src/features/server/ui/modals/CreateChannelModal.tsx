@@ -1,19 +1,18 @@
 import { toast } from 'react-toastify';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useModalStore } from '@/shared/model/modalStore';
+import { useModalStore } from '@/shared/model/store/modalStore';
 import { QUERY_KEYS } from '@/shared/api/queryKeys';
-import ModalContainer from '@/shared/ui/layout/ModalContainer';
+import { MODAL } from '@/shared/model/constants/modal';
+import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../../api/queries';
 import { FormType, MODAL_FORM_DEFAULT_VALUES, useModalForm } from '../../useModalForm';
 import { ModalForm } from '../form';
 
-// import { ReactNode } from 'react';
-
-interface CreateChannelModal {
+interface CreateChannelModalProps {
   serverId: string;
 }
 
-const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
+export const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
@@ -23,10 +22,10 @@ const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
     onSuccess: () => {
       toast.success('채널을 생성했습니다.');
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEYS.channel.detail(serverId), // 서버 ID 포함
+        queryKey: QUERY_KEYS.channel.detail(serverId),
       });
 
-      methods.reset(); // 폼 초기화
+      methods.reset();
       onCloseModal();
     },
     onError: (error) => {
@@ -35,7 +34,6 @@ const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
     },
   });
 
-  // 모달 submit
   const onSubmit = (data: FormType) => {
     const newChannel = {
       serverUri: serverId,
@@ -46,12 +44,12 @@ const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
     if (newChannel.name === '') {
       return;
     }
-    mutate(newChannel); // mutate 호출 시 데이터 전달
+    mutate(newChannel);
   };
 
   return (
     <ModalContainer
-      isOpen={type === 'CREATE_CHANNEL'}
+      isOpen={type === MODAL.CREATE_CHANNEL}
       onClose={onCloseModal}
       title="채널 만들기"
       description="서버는 나와 친구들이 함께 어울리는 공간입니다. 내 서버를 만들고 대화를 시작해 보세요."
@@ -84,5 +82,3 @@ const CreateChannelModal = ({ serverId }: CreateChannelModal) => {
     </ModalContainer>
   );
 };
-
-export default CreateChannelModal;

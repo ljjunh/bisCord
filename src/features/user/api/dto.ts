@@ -1,5 +1,5 @@
-import { Friend } from '@/entities/friend/model/types';
-import { LoginStatus } from '@/entities/user/model/types';
+import type { Friend } from '@/entities/friend/model/types';
+import type { LoginStatus } from '@/entities/user/model/types';
 
 export interface GetOtherUserDTO {
   userId: number;
