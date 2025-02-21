@@ -1,15 +1,18 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import { useAuthStore } from '@/shared/model/store/authStore';
 import AuthCallbackPage from '@/pages/auth';
 import ChannelPage from '@/pages/channels';
-import DirectMessagePage from '@/pages/directMessage';
 import MainPage from '@/pages/main';
-import NotFound from '@/pages/notFound';
-import SigninPage from '@/pages/signin';
-import SignupPage from '@/pages/signup';
 import Layout from '@/widgets/layout/ui/MainLayout';
 import { ROUTES } from '@/shared/model/constants/routes';
+import { AuthLayoutSkeleton } from '@/shared/ui/skeleton/AuthLayoutSkeleton';
+import { MainLayoutSkeleton } from '@/shared/ui/skeleton/MainLayoutSkeleton';
 
+const SigninPage = lazy(() => import('@/pages/signin'));
+const SignupPage = lazy(() => import('@/pages/signup'));
+const DirectMessagePage = lazy(() => import('@/pages/directMessage'));
+const NotFound = lazy(() => import('@/pages/notFound'));
 interface AuthRouteProps {
   isPublic?: boolean;
 }
@@ -42,7 +45,13 @@ export const Router = () => {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route element={<AuthRoute isPublic />}>
+      <Route
+        element={
+          <Suspense fallback={<AuthLayoutSkeleton />}>
+            <AuthRoute isPublic />
+          </Suspense>
+        }
+      >
         <Route
           path={ROUTES.AUTH.SIGN_IN}
           element={<SigninPage />}
@@ -65,7 +74,11 @@ export const Router = () => {
         />
         <Route
           path={ROUTES.CHAT.DIRECT_MESSAGE.ROOT}
-          element={<DirectMessagePage />}
+          element={
+            <Suspense fallback={<MainLayoutSkeleton />}>
+              <DirectMessagePage />
+            </Suspense>
+          }
         />
         <Route
           path={ROUTES.CHAT.SERVER.ROOT}
@@ -76,7 +89,11 @@ export const Router = () => {
       {/* NotFound */}
       <Route
         path={ROUTES.NOT_FOUND}
-        element={<NotFound />}
+        element={
+          <Suspense fallback={<MainLayoutSkeleton />}>
+            <NotFound />
+          </Suspense>
+        }
       />
     </Routes>
   );

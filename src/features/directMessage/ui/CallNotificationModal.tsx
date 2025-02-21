@@ -9,7 +9,7 @@ import { CallIcon } from '@/shared/ui/icons/CallIcon';
 import { DiscordIcon } from '@/shared/ui/icons/DiscordIcon';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/shared/ui/tooltip';
 
-export const CallNotificationModal = () => {
+const CallNotificationModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const { inComingCall, handleIncomingCall, clearIncomingCall, endCall, setLocalStream } =
     useRTCStore();
@@ -116,3 +116,5 @@ export const CallNotificationModal = () => {
     </ReactModal>
   );
 };
+
+export default CallNotificationModal;

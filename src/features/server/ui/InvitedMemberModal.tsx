@@ -17,7 +17,7 @@ import { FRIEND_REQUEST_TYPE } from '../../friend/model/constants';
 import { InviteUrlLink } from './InviteUrlLink';
 import { MemberList } from './MemberList';
 
-export const InvitedMemberModal = () => {
+const InvitedMemberModal = () => {
   const serverId = useParams().serverId;
   invariant(serverId, 'Server ID is missing in URL parameters');
 
@@ -132,3 +132,5 @@ export const InvitedMemberModal = () => {
     </ModalContainer>
   );
 };
+
+export default InvitedMemberModal;

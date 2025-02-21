@@ -16,7 +16,7 @@ interface DeleteModalProps {
   serverUri?: string | undefined;
 }
 
-export const DeleteModal = ({ getServerData }: DeleteModalProps) => {
+const DeleteModal = ({ getServerData }: DeleteModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
@@ -92,3 +92,5 @@ export const DeleteModal = ({ getServerData }: DeleteModalProps) => {
     </ModalContainer>
   );
 };
+
+export default DeleteModal;
