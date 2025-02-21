@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import type { Servers } from '../model/types';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/shared/ui/dropdown-menu';
 import { ArrowDown } from '@/shared/ui/icons/ArrowDown';
 import { CloseIcon } from '@/shared/ui/icons/CloseIcon';
+import { ModalSkeleton } from '@/shared/ui/skeleton/ModalSkeleton';
 import { ServerDropDownMenu } from './ServerDropDownMenu';
-import { CreateChannelModal } from './modals/CreateChannelModal';
-import { DeleteModal } from './modals/DeleteModal';
+
+const CreateChannelModal = lazy(() => import('./modals/CreateChannelModal'));
+const DeleteModal = lazy(() => import('./modals/DeleteModal'));
 
 interface ChannelHeaderProps {
   getServerData: Servers | undefined;
@@ -35,11 +37,13 @@ export const ChannelHeader = ({ getServerData, serverUri }: ChannelHeaderProps) 
           <ServerDropDownMenu />
         </DropdownMenuContent>
       </DropdownMenu>
-      <DeleteModal
-        getServerData={getServerData}
-        serverUri={serverUri}
-      />
-      <CreateChannelModal serverId={serverUri} />
+      <Suspense fallback={<ModalSkeleton />}>
+        <DeleteModal
+          getServerData={getServerData}
+          serverUri={serverUri}
+        />
+        <CreateChannelModal serverId={serverUri} />
+      </Suspense>
     </>
   );
 };

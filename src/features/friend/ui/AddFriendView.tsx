@@ -1,14 +1,16 @@
 import { isEmpty } from 'es-toolkit/compat';
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { userQueries } from '@/entities/user/api/queries';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce';
 import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll';
-import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
 import { UserAvatar } from '@/shared/ui/UserAvatar';
 import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/shared/ui/command';
+import { EmptyViewSkeleton } from '@/shared/ui/skeleton/EmptyViewSkeleton';
 import { AddFriendButton } from './AddFriendButton';
+
+const EmptyView = lazy(() => import('@/shared/ui/EmptyView'));
 
 export const AddFriendView = () => {
   const [searchText, setSearchText] = useState('');
@@ -91,7 +93,9 @@ export const AddFriendView = () => {
         </div>
       </div>
       <div>
-        <EmptyView message="비슷코드는 친구를 기다리고 있어요." />
+        <Suspense fallback={<EmptyViewSkeleton />}>
+          <EmptyView message="비슷코드는 친구를 기다리고 있어요." />
+        </Suspense>
       </div>
     </section>
   );

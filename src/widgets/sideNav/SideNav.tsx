@@ -1,15 +1,18 @@
+import { Suspense, lazy } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/store/modalStore';
 import { UnreadMessageIndicator } from '@/features/directMessage/ui/UnreadMessageIndicator';
 import { serverQueries } from '@/features/server/api/queries';
 import { CreateServerAvatar } from '@/features/server/ui/CreateServerAvatar';
 import { JoinServerAvatar } from '@/features/server/ui/JoinServerAvatar';
-import { JoinToServerModal } from '@/features/server/ui/JoinToServerModal';
 import { MODAL } from '@/shared/model/constants/modal';
 import { ROUTES } from '@/shared/model/constants/routes';
+import { ModalSkeleton } from '@/shared/ui/skeleton/ModalSkeleton';
 import { DMAvatar } from '../../features/directMessage/ui/DMAvatar';
 import { ServerAvatar } from '../../features/server/ui/ServerAvatar';
-import { CreateServerModal } from './CreateServerModal';
+
+const JoinToServerModal = lazy(() => import('@/features/server/ui/JoinToServerModal'));
+const CreateServerModal = lazy(() => import('./CreateServerModal'));
 
 /** 화면 제일 왼 쪽 서버 아이콘 리스트 UI */
 export const SideNav = () => {
@@ -46,8 +49,10 @@ export const SideNav = () => {
       </div>
 
       {/* 모달입니당 */}
-      {type === MODAL.CREATE_SERVER && <CreateServerModal />}
-      {type === MODAL.JOIN_SERVER && <JoinToServerModal />}
+      <Suspense fallback={<ModalSkeleton />}>
+        {type === MODAL.CREATE_SERVER && <CreateServerModal />}
+        {type === MODAL.JOIN_SERVER && <JoinToServerModal />}
+      </Suspense>
     </div>
   );
 };

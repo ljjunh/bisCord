@@ -10,7 +10,7 @@ import { QUERY_KEYS } from '@/shared/api/queryKeys';
 import { MODAL } from '@/shared/model/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 
-export const CreateServerModal = () => {
+const CreateServerModal = () => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const [imageData, setImageData] = useState<File | string>('');
@@ -79,3 +79,5 @@ export const CreateServerModal = () => {
     </ModalContainer>
   );
 };
+
+export default CreateServerModal;

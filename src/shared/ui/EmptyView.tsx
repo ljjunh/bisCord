@@ -5,7 +5,7 @@ interface EmptyViewProps {
   message: string;
 }
 
-export const EmptyView = ({ icon = <EmptyBgIcon />, message }: EmptyViewProps) => {
+const EmptyView = ({ icon = <EmptyBgIcon />, message }: EmptyViewProps) => {
   return (
     <div className="flex h-full flex-col items-center justify-center text-super-light-gray">
       <div className="space-y-12 text-center">
@@ -15,3 +15,5 @@ export const EmptyView = ({ icon = <EmptyBgIcon />, message }: EmptyViewProps) =
     </div>
   );
 };
+
+export default EmptyView;

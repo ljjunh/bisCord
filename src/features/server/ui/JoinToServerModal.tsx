@@ -8,7 +8,7 @@ import { MODAL } from '@/shared/model/constants/modal';
 import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../api/queries';
 
-export const JoinToServerModal = () => {
+const JoinToServerModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const [inviteKey, setInviteKey] = useState('');
 
@@ -68,3 +68,5 @@ export const JoinToServerModal = () => {
     </ModalContainer>
   );
 };
+
+export default JoinToServerModal;
