@@ -12,7 +12,7 @@ interface CreateChannelModalProps {
   serverId: string;
 }
 
-export const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
+const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
   const methods = useModalForm({ defaultValues: MODAL_FORM_DEFAULT_VALUES });
   const { type, onCloseModal } = useModalStore((state) => state);
   const queryClient = useQueryClient();
@@ -82,3 +82,5 @@ export const CreateChannelModal = ({ serverId }: CreateChannelModalProps) => {
     </ModalContainer>
   );
 };
+
+export default CreateChannelModal;

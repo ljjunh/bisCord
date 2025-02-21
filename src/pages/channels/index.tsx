@@ -1,10 +1,13 @@
+import { Suspense, lazy } from 'react';
 import { useModalStore } from '@/shared/model/store/modalStore';
 import { ChannelList } from '@/widgets/channel/ui/ChannelList';
-import { EditServerModal } from '@/features/server/ui/EditServerModal';
-import { InvitedMemberModal } from '@/features/server/ui/InvitedMemberModal';
 import { MODAL } from '@/shared/model/constants/modal';
 import { SEO_CONFIG } from '@/shared/model/constants/seo';
 import { Seo } from '@/shared/ui/Seo';
+import { ModalSkeleton } from '@/shared/ui/skeleton/ModalSkeleton';
+
+const EditServerModal = lazy(() => import('@/features/server/ui/EditServerModal'));
+const InvitedMemberModal = lazy(() => import('@/features/server/ui/InvitedMemberModal'));
 
 const ChannelPage = () => {
   const { type } = useModalStore((state) => state);
@@ -20,8 +23,10 @@ const ChannelPage = () => {
         <ChannelList />
         {/* <ChannelMessage /> */}
       </div>
-      {type === MODAL.INVIDE_MEMBER && <InvitedMemberModal />}
-      {type === MODAL.EDIT_SERVER && <EditServerModal />}
+      <Suspense fallback={<ModalSkeleton />}>
+        {type === MODAL.INVIDE_MEMBER && <InvitedMemberModal />}
+        {type === MODAL.EDIT_SERVER && <EditServerModal />}
+      </Suspense>
     </>
   );
 };

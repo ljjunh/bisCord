@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useModalStore } from '@/shared/model/store/modalStore';
 import { cn } from '@/shared/lib/utils/utils';
 import { MODAL } from '@/shared/model/constants/modal';
 import { EmptyList } from '@/shared/ui/EmptyList';
 import { PlusIcon } from '@/shared/ui/icons/PlusIcon';
+import { ModalSkeleton } from '@/shared/ui/skeleton/ModalSkeleton';
 import { serverQueries } from '../api/queries';
 import { ArrowDown } from '../../../shared/ui/icons/ArrowDown';
 import { ArrowRight } from '../../../shared/ui/icons/ArrowRight';
 import { ChannelAddBtn } from './ChannelAddBtn';
 import { ChannelItem } from './ChannelItem';
-import { CreateChannelModal } from './modals/CreateChannelModal';
+
+const CreateChannelModal = lazy(() => import('./modals/CreateChannelModal'));
 
 interface ChannelCategoriesProps {
   serverId: string;
@@ -27,7 +29,9 @@ export const ChannelCategories = ({ serverId }: ChannelCategoriesProps) => {
 
   return (
     <div className="flex flex-grow flex-col px-2">
-      <CreateChannelModal serverId={serverId} />
+      <Suspense fallback={<ModalSkeleton />}>
+        <CreateChannelModal serverId={serverId} />
+      </Suspense>
       <div className="flex cursor-pointer items-center py-1 text-light-gray hover:text-white">
         <div
           className="flex flex-grow gap-2"

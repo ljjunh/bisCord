@@ -12,7 +12,7 @@ import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { serverQueries } from '../api/queries';
 import { UploadImageInput } from './UploadImageInput';
 
-export const EditServerModal = () => {
+const EditServerModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const serverId = useParams().serverId;
   invariant(serverId, 'Server ID is missing in URL parameters');
@@ -108,3 +108,5 @@ export const EditServerModal = () => {
     </ModalContainer>
   );
 };
+
+export default EditServerModal;

@@ -11,7 +11,7 @@ import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { authQueries } from '../api/queries';
 import { type WithdrawFormData, withdrawSchema } from '../model/schema';
 
-export const WithdrawModal = () => {
+const WithdrawModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const clearAuth = useAuthStore((state) => state.clearAuth);
 
@@ -83,3 +83,5 @@ export const WithdrawModal = () => {
     </ModalContainer>
   );
 };
+
+export default WithdrawModal;

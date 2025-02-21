@@ -10,7 +10,7 @@ import { ModalContainer } from '@/shared/ui/layout/ModalContainer';
 import { userQueries as userMutations } from '../api/queries';
 import { UserImageUploader } from './UserImageUploader';
 
-export const UserProfileModal = () => {
+const UserProfileModal = () => {
   const { type, onCloseModal } = useModalStore((state) => state);
   const { user, setAuth } = useAuthStore((state) => state);
   const [profileData, setProfileData] = useState<UserProfile>({
@@ -101,3 +101,5 @@ export const UserProfileModal = () => {
     </ModalContainer>
   );
 };
+
+export default UserProfileModal;

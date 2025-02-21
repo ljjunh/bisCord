@@ -1,12 +1,14 @@
 import { isEmpty } from 'es-toolkit/compat';
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce';
-import { EmptyView } from '@/shared/ui/EmptyView';
 import { SearchInput } from '@/shared/ui/SearchInput';
+import { EmptyViewSkeleton } from '@/shared/ui/skeleton/EmptyViewSkeleton';
 import { friendQueries } from '../api/queries';
 import { FRIEND_REQUEST_TYPE } from '../model/constants';
 import { FriendList } from './FriendList';
+
+const EmptyView = lazy(() => import('@/shared/ui/EmptyView'));
 
 export const AllFriendsView = () => {
   const [keyword, setKeyword] = useState('');
@@ -32,7 +34,9 @@ export const AllFriendsView = () => {
         aria-labelledby="all-tab"
         className="bg-darker-gray flex h-full flex-col items-center justify-center"
       >
-        <EmptyView message="아무도 비슷코드와 놀고 싶지 않은가 봐요." />
+        <Suspense fallback={<EmptyViewSkeleton />}>
+          <EmptyView message="아무도 비슷코드와 놀고 싶지 않은가 봐요." />
+        </Suspense>
       </section>
     );
   }
@@ -64,7 +68,9 @@ export const AllFriendsView = () => {
             aria-labelledby="all-tab"
             className="bg-darker-gray flex h-full flex-col items-center justify-center"
           >
-            <EmptyView message="Biscord가 찾아봤지만 이 이름을 쓰는 이용자는 없어요." />
+            <Suspense fallback={<EmptyViewSkeleton />}>
+              <EmptyView message="Biscord가 찾아봤지만 이 이름을 쓰는 이용자는 없어요." />
+            </Suspense>
           </section>
         </div>
       ) : (
