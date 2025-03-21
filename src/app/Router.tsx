@@ -1,8 +1,6 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { useAuthStore } from '@/shared/model/store/authStore';
-import AuthCallbackPage from '@/pages/auth';
-import ChannelPage from '@/pages/channels';
 import MainPage from '@/pages/main';
 import Layout from '@/widgets/layout/ui/MainLayout';
 import { ROUTES } from '@/shared/model/constants/routes';
@@ -11,7 +9,9 @@ import { MainLayoutSkeleton } from '@/shared/ui/skeleton/MainLayoutSkeleton';
 
 const SigninPage = lazy(() => import('@/pages/signin'));
 const SignupPage = lazy(() => import('@/pages/signup'));
+const AuthCallbackPage = lazy(() => import('@/pages/auth'));
 const DirectMessagePage = lazy(() => import('@/pages/directMessage'));
+const ChannelPage = lazy(() => import('@/pages/channels'));
 const NotFound = lazy(() => import('@/pages/notFound'));
 interface AuthRouteProps {
   isPublic?: boolean;
@@ -82,7 +82,11 @@ export const Router = () => {
         />
         <Route
           path={ROUTES.CHAT.SERVER.ROOT}
-          element={<ChannelPage />}
+          element={
+            <Suspense fallback={<MainLayoutSkeleton />}>
+              <ChannelPage />
+            </Suspense>
+          }
         />
       </Route>
 
