@@ -13,6 +13,7 @@ export const AudioToggleButton = ({ isMuted, onToggle }: AudioToggleButtonProps)
       icon={isMuted ? <UnDeafenIcon size={19} /> : <DeafenIcon size={19} />}
       tooltipText={isMuted ? '오디오 켜기' : '오디오 끄기'}
       onClick={onToggle}
+      aria-label="오디오 토글 버튼"
     />
   );
 };

@@ -15,6 +15,7 @@ export const DMAvatar = ({ link }: DMAvatar) => {
           <NavLink
             to={link}
             className={'relative flex items-center px-[15px]'}
+            aria-label="다이렉트 메세지"
           >
             {({ isActive }) => (
               <>

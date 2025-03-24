@@ -23,8 +23,6 @@ export const FriendTabs = ({ activeTab, onTabChange }: FriendTabsProps) => {
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
-          aria-selected={activeTab === tab.id}
-          aria-controls={`${tab.id}-panel`}
           id={`${tab.id}-tab`}
           className={cn(
             'text-md rounded px-2 py-0.5 font-bold',
