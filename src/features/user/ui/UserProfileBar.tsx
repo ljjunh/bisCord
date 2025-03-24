@@ -22,7 +22,7 @@ export const UserProfileBar = () => {
         onOpenChange={setIsDropdownOpen}
       >
         <DropdownMenuTrigger asChild>
-          <div className="group flex flex-1 cursor-pointer items-center gap-2 rounded-sm hover:bg-mid-gray">
+          <button className="group flex flex-1 cursor-pointer items-center gap-2 rounded-sm hover:bg-mid-gray">
             <div className="h-[35px] w-[35px]">
               <UserAvatar
                 size={20}
@@ -32,7 +32,7 @@ export const UserProfileBar = () => {
               />
             </div>
             <div className="w-full">
-              <div className="font-bold text-white">{user?.name}</div>
+              <div className="text-start font-bold text-white">{user?.name}</div>
               <div className="relative h-4 overflow-hidden">
                 <div className="absolute transition-transform duration-200 group-hover:-translate-y-full">
                   <span className="block text-xs leading-4 text-super-light-gray">
@@ -46,7 +46,7 @@ export const UserProfileBar = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent
           align="start"

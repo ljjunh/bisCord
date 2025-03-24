@@ -37,6 +37,7 @@ export const CallButton = ({ otherUserId }: CallButtonProps) => {
             onClick={handleButtonClick}
             disabled={isCallInProgress}
             className={cn(isCallInProgress && 'cursor-not-allowed opacity-50')}
+            aria-label="통화하기 버튼"
           >
             <CallIcon
               width={26}

@@ -11,7 +11,7 @@ export const getTabClassName = (tabId: string, activeTab: FriendTab) => {
 
   // 친구 추가하기 탭
   if (tabId === 'add') {
-    return 'bg-green text-white';
+    return 'bg-dark-green text-white';
   }
 
   // 기본 탭

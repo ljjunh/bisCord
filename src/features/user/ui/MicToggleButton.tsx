@@ -13,6 +13,7 @@ export const MicToggleButton = ({ isMuted, onToggle }: MicToggleButtonProps) => 
       icon={isMuted ? <UnMuteIcon size={20} /> : <MuteIcon size={20} />}
       tooltipText={isMuted ? '마이크 켜기' : '마이크 끄기'}
       onClick={onToggle}
+      aria-label="마이크 토글 버튼"
     />
   );
 };

@@ -11,7 +11,10 @@ export const CreateDMRoomButton = () => {
         <DropdownMenu>
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
-              <button className="disabled:cursor-not-allowed disabled:opacity-50">
+              <button
+                aria-label="DM 생성 버튼"
+                className="disabled:cursor-not-allowed disabled:opacity-50"
+              >
                 <PlusIcon size={15} />
               </button>
             </DropdownMenuTrigger>

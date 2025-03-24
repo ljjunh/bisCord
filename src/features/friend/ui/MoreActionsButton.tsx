@@ -33,6 +33,7 @@ export const MoreActionsButton = ({ userId }: MoreActionsButtonProps) => {
           icon={<OverflowMenuIcon />}
           tooltipText="기타"
           delayDuration={100}
+          aria-label="기타 기능 버튼"
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-black">

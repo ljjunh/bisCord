@@ -32,6 +32,7 @@ export const SendMessageButton = ({ friendId }: SendMessageButtonProps) => {
       delayDuration={100}
       onClick={handleButtonClick}
       disabled={isPending}
+      aria-label="메시지 보내기 버튼"
     />
   );
 };
