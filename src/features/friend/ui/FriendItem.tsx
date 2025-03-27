@@ -44,7 +44,7 @@ export const FriendItem = ({ mode, friend }: FriendItemProps) => {
           <span className="hidden text-super-light-gray group-hover:inline">{friend.email}</span>
         </div>
 
-        <div className="font-regular text-super-light-gray">{getStatusText()}</div>
+        <p className="font-regular text-super-light-gray">{getStatusText()}</p>
       </div>
       <nav
         className="flex gap-3"

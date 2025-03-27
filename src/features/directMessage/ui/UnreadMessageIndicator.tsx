@@ -16,18 +16,21 @@ export const UnreadMessageIndicator = () => {
   };
 
   return (
-    <div className="mt-2 flex flex-col items-center gap-2">
+    <nav
+      className="mt-2 flex flex-col items-center gap-2"
+      aria-label="읽지 않은 메시지"
+    >
       {Object.entries(unreadUsers).map(([userId, userInfo]) => (
-        <div
+        <button
           key={userId}
           className="group relative flex items-center px-[15px]"
           onClick={() => handleProfileClick(Number(userId))}
         >
           {/* 왼쪽의 알림 점/바 */}
-          <div className="absolute left-0 h-2 w-[6px] rounded-r-full bg-white transition-all duration-200 group-hover:h-[20px]" />
+          <span className="absolute left-0 h-2 w-[6px] rounded-r-full bg-white transition-all duration-200 group-hover:h-[20px]" />
 
           {/* 프로필 컨테이너 */}
-          <div
+          <figure
             className={cn(
               'flex h-12 w-12 cursor-pointer items-center justify-center overflow-hidden rounded-[50%]',
               !userInfo.profileImage && 'bg-blue transition-all duration-200 hover:rounded-2xl',
@@ -45,17 +48,17 @@ export const UnreadMessageIndicator = () => {
                 color="#fff"
               />
             )}
-          </div>
+          </figure>
           {/* 읽지 않은 메시지 카운트 */}
           {userInfo.unreadCount && (
-            <div className="absolute -bottom-1 right-3 flex items-center justify-center rounded-full bg-black p-1 text-xs text-white">
-              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-red">
+            <span className="absolute -bottom-1 right-3 flex items-center justify-center rounded-full bg-black p-1 text-xs text-white">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-red">
                 {userInfo.unreadCount}
-              </div>
-            </div>
+              </span>
+            </span>
           )}
-        </div>
+        </button>
       ))}
-    </div>
+    </nav>
   );
 };

@@ -25,15 +25,17 @@ export const OAuthCallback = () => {
   }, [searchParams]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
-      <div className="flex flex-col items-center">
-        <div className="animate-avatarHover relative flex h-20 w-20 items-center justify-center rounded-full bg-gray-600">
+    <main className="flex min-h-screen flex-col items-center justify-center bg-black text-white">
+      <section className="flex flex-col items-center">
+        <figure className="animate-avatarHover relative flex h-20 w-20 items-center justify-center rounded-full bg-gray-600">
           <div className="absolute h-16 w-16 animate-ping rounded-full bg-blue-purple"></div>
           <div className="absolute h-12 w-12 rounded-full bg-gray"></div>
-        </div>
-        <p className="mt-6 text-xl font-semibold text-white">인증 중...</p>
+        </figure>
+        <header className="mt-6">
+          <h1 className="text-xl font-semibold text-white">인증 중...</h1>
+        </header>
         <p className="mt-2 text-sm text-light-gray">잠시만 기다려 주세요.</p>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };

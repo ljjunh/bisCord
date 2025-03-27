@@ -17,10 +17,9 @@ export const MessageGroup = ({ group, editingId, setEditingId }: MessageGroupPro
   const userId = useAuthStore((state) => state.user?.id);
 
   return (
-    <div className="py-3">
+    <article className="py-3">
       <div className="flex items-start">
-        {/* 프로필 사진 */}
-        <div className="relative mr-4 flex aspect-[1/1] h-10 h-full min-h-[35px] w-10 items-center justify-center rounded-[50%] bg-blue">
+        <figure className="relative mr-4 flex aspect-[1/1] h-10 h-full min-h-[35px] w-10 items-center justify-center rounded-[50%] bg-blue">
           {group.user.profileImageURL ? (
             <img
               src={group.user.profileImageURL}
@@ -38,21 +37,23 @@ export const MessageGroup = ({ group, editingId, setEditingId }: MessageGroupPro
               size={20}
             />
           )}
-        </div>
+        </figure>
 
         <div className="flex-1">
-          {/* 이름,  시간 */}
-          <div className="mb-1 flex items-center gap-2">
-            <span>{group.user.name}</span>
-            <span className="text-sm text-super-light-gray">
+          <header className="mb-1 flex items-center gap-2">
+            <h3>{group.user.name}</h3>
+            <time
+              className="text-sm text-super-light-gray"
+              dateTime={group.timestamp}
+            >
               {formatMessageDate(group.timestamp)}
-            </span>
-          </div>
+            </time>
+          </header>
 
           {/* 메시지들 */}
-          <div className="space-y-0.5">
+          <ul className="space-y-0.5">
             {group.messages.map((message) => (
-              <div
+              <li
                 className={cn(
                   'group flex justify-between py-0.5 pr-4',
                   editingId === null && 'hover:bg-dark-gray',
@@ -80,11 +81,11 @@ export const MessageGroup = ({ group, editingId, setEditingId }: MessageGroupPro
                     )}
                   </>
                 )}
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
