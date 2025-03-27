@@ -43,39 +43,41 @@ export const DMItem = ({
   };
 
   return (
-    <Link
-      to={ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(userId)}
-      className={cn(
-        'group mx-2 flex cursor-pointer items-center rounded px-2 py-1 hover:bg-mid-gray',
-        location.pathname === userDMPath && 'bg-gray',
-      )}
-    >
-      <div className="flex flex-1 items-center">
-        <div className="relative">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full">
-            <UserAvatar
-              image={profileImageURL}
-              size={20}
-              state={loginStatus}
-            />
-          </div>
-        </div>
-        <span
-          className={cn(
-            'text-md ml-3 group-hover:text-white',
-            read ? 'text-super-light-gray' : 'text-white',
-            location.pathname === userDMPath && 'text-white',
-          )}
-        >
-          {name}
-        </span>
-      </div>
+    <li>
+      <Link
+        to={ROUTES.CHAT.DIRECT_MESSAGE.DETAIL(userId)}
+        className={cn(
+          'group mx-2 flex cursor-pointer items-center rounded px-2 py-1 hover:bg-mid-gray',
+          location.pathname === userDMPath && 'bg-gray',
+        )}
+      >
+        <article className="flex flex-1 items-center">
+          <figure className="relative">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full">
+              <UserAvatar
+                image={profileImageURL}
+                size={20}
+                state={loginStatus}
+              />
+            </div>
+          </figure>
+          <h3
+            className={cn(
+              'text-md ml-3 group-hover:text-white',
+              read ? 'text-super-light-gray' : 'text-white',
+              location.pathname === userDMPath && 'text-white',
+            )}
+          >
+            {name}
+          </h3>
+        </article>
 
-      <button
-        onClick={handleRemove}
-        disabled={isPending}
-        className="hidden h-4 w-4 items-center justify-center text-super-light-gray after:content-['×'] hover:text-white disabled:cursor-not-allowed disabled:opacity-50 group-hover:flex"
-      />
-    </Link>
+        <button
+          onClick={handleRemove}
+          disabled={isPending}
+          className="hidden h-4 w-4 items-center justify-center text-super-light-gray after:content-['×'] hover:text-white disabled:cursor-not-allowed disabled:opacity-50 group-hover:flex"
+        />
+      </Link>
+    </li>
   );
 };

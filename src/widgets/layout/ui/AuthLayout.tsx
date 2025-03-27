@@ -27,7 +27,7 @@ export const AuthLayout = ({ children, title, subTitle }: AuthLayoutProps) => {
       <section className="w-full max-w-md rounded-md bg-mid-gray p-8">
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-bold text-white">{title}</h1>
-          {subTitle && <p className="text-sm text-light-gray">{subTitle}</p>}
+          {subTitle && <p className="text-sm text-white">{subTitle}</p>}
         </div>
         {children}
       </section>

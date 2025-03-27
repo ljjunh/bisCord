@@ -44,8 +44,16 @@ export const EditDMForm = ({ content, chatId, recipientId, onCancel }: EditDMFor
     <form
       onSubmit={handleSubmit}
       className="flex-1"
+      aria-label="메시지 수정 폼"
     >
-      <div>
+      <fieldset>
+        <legend className="sr-only">메시지 편집</legend>
+        <label
+          htmlFor="edit-message"
+          className="sr-only"
+        >
+          메시지 수정
+        </label>
         <input
           type="text"
           value={editedContent}
@@ -53,8 +61,9 @@ export const EditDMForm = ({ content, chatId, recipientId, onCancel }: EditDMFor
           className="w-full rounded-xl bg-gray px-4 py-3 focus:outline-none"
           autoFocus
           disabled={isPending}
+          aria-required="true"
         />
-        <p className="mt-2 text-xs">
+        <footer className="mt-2 text-xs">
           ESC 키로{' '}
           <button
             type="button"
@@ -71,8 +80,8 @@ export const EditDMForm = ({ content, chatId, recipientId, onCancel }: EditDMFor
           >
             저장
           </button>
-        </p>
-      </div>
+        </footer>
+      </fieldset>
     </form>
   );
 };
