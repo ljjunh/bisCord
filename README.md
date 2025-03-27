@@ -65,7 +65,7 @@ FSD 도입은 단기적으로는 학습 곡선이 있었지만, 중장기적으�
 무엇보다 "어떤 컴포넌트가 어디 있을지 예측 가능해져서 더 빨리 찾을 수 있고, 그만큼 중복 로직이 줄어든" 경험은 FSD 도입의 가장 큰 성과였습니다.
 
 # 타입스크립트와 인터셉터를 활용한 네트워크 에러 처리
-<img width="730" alt="Image" src="https://github.com/user-attachments/assets/b3be356d-8675-4d8f-bf14-bbe0b12c97c1" />
+<img width="735" alt="Image" src="https://github.com/user-attachments/assets/2c2f5bc0-17fc-42cc-80fb-57a8dc43ee0e" />
 
 ### 1. 중앙집중식 에러 처리 레이어 : 
 네트워크 통신 중 발생하는 다양한 에러 상황을 효율적으로 관리하기 위해 Axios 인터셉터 기반의 중앙집중식 에러 처리 레이어를 구축했습니다.
