@@ -225,6 +225,8 @@ if (isNothingSearched) {
 - 접근성 점수: 86점 → 100점
 
 # 배포 자동화 및 인프라 구성
+<img width="725" alt="Image" src="https://github.com/user-attachments/assets/bcdf4307-c0ce-4754-a61c-19d508b6d57f" />
+
 ### 1. CI/CD 파이프라인 구축 : 
 개발 및 배포 프로세스의 일관성과 효율성을 위해 GitHub Actions 기반 CI/CD 파이프라인을 구축했습니다. 이를 통해 main 브랜치 병합 시 자동 빌드 및 배포가 이루어지도록 설정했으며, 수동 배포 과정에서 발생할 수 있는 인적 오류를 최소화했습니다.
 
