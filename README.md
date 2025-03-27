@@ -181,12 +181,12 @@ if (isNothingSearched) {
 
 ### 5. 성과
 로딩 성능 향상:
-- FCP(First Contentful Paint): 1.9초 → 1.0초 (39% 개선)
-- LCP(Largest Contentful Paint): 2.0초 → 1.4초 (32% 개선)
+- FCP(First Contentful Paint): 1.9초 → 1.0초 (47.4% 개선)
+- LCP(Largest Contentful Paint): 2.0초 → 1.4초 (30% 개선)
 
 파일 크기 감소:
-- 메인 번들 크기: 787KB → 541KB (26% 감소)
-- 폰트 파일 크기: 2.1MB → 163KB (92.4% 축소)
+- 메인 번들 크기: 787KB → 541KB (31.3% 감소)
+- 폰트 파일 크기: 2.1MB → 163KB (92.2% 축소)
 
 품질 지표 향상:
 - Lighthouse 성능 점수: 77점 → 93점
