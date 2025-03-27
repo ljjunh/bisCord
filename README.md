@@ -20,7 +20,7 @@ FSD 도입은 단기적으로는 학습 곡선이 있었지만, 중장기적으�
 # 타입스크립트와 인터셉터를 활용한 네트워크 에러 처리 
 ### 중앙집중식 에러 처리 레이어
 네트워크 통신 중 발생하는 다양한 에러 상황을 효율적으로 관리하기 위해 Axios 인터셉터 기반의 중앙집중식 에러 처리 레이어를 구축했습니다.
-```
+``` javascript
 // 인터셉터 설정
 axiosInstance.interceptors.request.use(requestInterceptor);
 axiosInstance.interceptors.response.use(responseInterceptor, rejectInterceptor);
@@ -49,7 +49,7 @@ export const rejectInterceptor = async (error: AxiosError) => {
 
 ### 타입 가드 기반 런타임 에러 식별
 각 에러 유형을 정확하게 식별하고 타입 안정성을 보장하기 위해 타입스크립트의 사용자 정의 타입 가드와 커스텀 에러 클래스를 결합한 에러 식별 체계를 구현했습니다.
-```
+``` javascript
 // 서버 에러 식별 타입 가드
 export const isServerError = (error: unknown): error is AxiosError<ApiErrorResponse> => {
   return (
@@ -77,7 +77,7 @@ export const isTokenExpiredError = (error: Error): error is AxiosError<ApiErrorR
 
 ### 백엔드 협업을 통한 사용자 친화적 에러 메시지
 백엔드 팀원과 협업을 통해 API 응답에 사용자 친화적인 에러 메시지를 포함하도록 설계했으며, 이를 TanstackQuery의 전역 에러 핸들러와 통합하여, 비즈니스 로직 관련 에러를 자동으로 사용자에게 표시하도록 했습니다.
-```
+``` javascript
 export const queryClient = new QueryClient({
   mutationCache: new MutationCache({
     onError: (error, _requestData, _context, mutation) => {
@@ -97,7 +97,7 @@ export const queryClient = new QueryClient({
 # 선언적 프로그래밍과 추상화를 통한 코드 가독성 향상
 ### 의미 중심 유틸리티 함수 도입
 코드의 의도와 가독성을 향상시키기 위해 유틸리티 함수를 도입했습니다.
-```
+``` javascript
 // 개선 전: 직접적인 길이 확인
 if (allFriends.length === 0) {
   return <EmptyView />;
@@ -112,7 +112,7 @@ null, undefined, 빈 배열, 빈 객체 등 다양한 "빈"상태를 일관되�
 
 ### 선언적 변수 추출 패턴
 복잡한 조건부 렌더링 로직의 가독성을 개선하기 위해 조건식을 의미하는 의미 있는 변수로 추출했습니다.
-```
+``` javascript
 // 개선 전: 복잡한 인라인 조건식
 if (Boolean(debouncedKeyword) && isEmpty(allFriends) && !isFetching) {
   return <EmptySearchResults />;
@@ -130,7 +130,7 @@ if (isNothingSearched) {
 
 ### 제네릭 SwitchCase 컴포넌트
 탭 전환 및 조건부 렌더링이 필요한 여러 화면에서 동일한 패턴이 반복되는 문제를 발견했습니다. 반복적인 조건부 렌더링 패턴을 추상화하기 위해 타입스크립트의 제네릭을 활용한 SwitchCase 컴포넌트를 개발했습니다.
-```
+``` javascript
 // 개선 전: 중첩된 조건문을 사용한 탭 전환 로직
 {activeTab === 'online' && <OnlineFriendsView />}
 {activeTab === 'all' && <AllFriendsView />}
