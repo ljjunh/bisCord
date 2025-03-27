@@ -20,11 +20,13 @@ export const DMHeader = () => {
   if (!data || isLoading) return null;
 
   return (
-    <div className="relative flex items-center justify-between border-b border-dark-gray px-4 py-3">
+    <header className="relative flex items-center justify-between border-b border-dark-gray px-4 py-3">
       {(inComingCall || isCallInProgress) && <CallView profileImageURL={data.profileImageURL} />}
-      <div className="flex gap-3">
-        {/* 프로필 이미지 */}
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-blue">
+      <section
+        className="flex gap-3"
+        aria-labelledby="user-name"
+      >
+        <figure className="flex h-7 w-7 items-center justify-center rounded-full bg-blue">
           {data?.profileImageURL ? (
             <img
               src={data.profileImageURL}
@@ -37,12 +39,19 @@ export const DMHeader = () => {
               color="#fff"
             />
           )}
-        </div>
+        </figure>
 
-        {/* 유저 정보 */}
-        <span className="font-bold text-white">{data.name}</span>
-      </div>
-      <CallButton otherUserId={otherUserId} />
-    </div>
+        <h1
+          id="user-name"
+          className="font-bold text-white"
+        >
+          {data.name}
+        </h1>
+      </section>
+
+      <nav aria-label="통화 제어">
+        <CallButton otherUserId={otherUserId} />
+      </nav>
+    </header>
   );
 };

@@ -55,8 +55,8 @@ export const CallView = ({ profileImageURL }: CallViewProps) => {
   };
 
   return (
-    <div className="absolute left-0 top-0 z-10 flex h-[250px] w-full flex-col items-center justify-center gap-5 rounded-md bg-black p-4">
-      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-blue">
+    <section className="absolute left-0 top-0 z-10 flex h-[250px] w-full flex-col items-center justify-center gap-5 rounded-md bg-black p-4">
+      <figure className="flex h-20 w-20 items-center justify-center rounded-full bg-blue">
         {profileImageURL ? (
           <img
             src={profileImageURL}
@@ -69,11 +69,12 @@ export const CallView = ({ profileImageURL }: CallViewProps) => {
             color="#fff"
           />
         )}
-      </div>
-      <p className="text-center text-xl text-white">
+      </figure>
+      <h2 className="text-center text-xl text-white">
         {isCallInProgress ? '통화중...' : `${inComingCall?.userName}님이 통화를 요청했습니다.`}
-      </p>
-      <div className="flex gap-4">
+      </h2>
+
+      <nav className="flex gap-4">
         {!isCallInProgress && (
           <TooltipProvider>
             <Tooltip delayDuration={0.1}>
@@ -114,7 +115,7 @@ export const CallView = ({ profileImageURL }: CallViewProps) => {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      </div>
-    </div>
+      </nav>
+    </section>
   );
 };

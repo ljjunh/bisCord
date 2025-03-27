@@ -26,9 +26,17 @@ export const MessageInput = ({ otherUserId }: MessageInputProps) => {
     <form
       onSubmit={handleSubmit}
       className="p-4"
+      aria-label="메시지 전송 폼"
     >
       <div className="flex items-center gap-2">
+        <label
+          htmlFor="new-message"
+          className="sr-only"
+        >
+          메시지 입력
+        </label>
         <input
+          id="new-message"
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}

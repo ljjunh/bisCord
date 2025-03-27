@@ -49,36 +49,51 @@ const WithdrawModal = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="space-y-4 pb-4"
       >
-        <span className="text-sm">"회원탈퇴"를 입력해주세요</span>
-        <div className="space-y-2">
-          <input
-            {...register('confirmText')}
-            placeholder="회원탈퇴"
-            type="text"
-            aria-required
-            aria-invalid={errors.confirmText ? 'true' : 'false'}
-            className="rounded bg-mid-gray p-2 focus:outline-none"
-          />
-          <ErrorMessage
-            errors={errors}
-            name="confirmText"
-            render={({ message }) => <p className="text-sm text-red">{message}</p>}
-          />
-        </div>
-        <button
-          type="button"
-          onClick={onCloseModal}
-          className="mr-2 rounded bg-dark-gray px-3 py-1.5"
-        >
-          취소
-        </button>
-        <button
-          type="submit"
-          disabled={!isValid || isPending}
-          className="rounded bg-red px-3 py-1.5 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          탈퇴
-        </button>
+        <fieldset>
+          <legend className="sr-only">회월 탈퇴 확인</legend>
+
+          <p className="text-sm">"회원탈퇴"를 입력해주세요</p>
+
+          <fieldset className="space-y-2">
+            <label
+              htmlFor="confirmText"
+              className="sr-only"
+            >
+              회원탈퇴 확인 텍스트
+              <span className="sr-only">필수 입력</span>
+            </label>
+            <input
+              {...register('confirmText')}
+              placeholder="회원탈퇴"
+              type="text"
+              aria-required="true"
+              aria-invalid={errors.confirmText ? 'true' : 'false'}
+              className="rounded bg-mid-gray p-2 focus:outline-none"
+            />
+            <ErrorMessage
+              errors={errors}
+              name="confirmText"
+              render={({ message }) => <p className="text-sm text-red">{message}</p>}
+            />
+          </fieldset>
+        </fieldset>
+
+        <section>
+          <button
+            type="button"
+            onClick={onCloseModal}
+            className="mr-2 rounded bg-dark-gray px-3 py-1.5"
+          >
+            취소
+          </button>
+          <button
+            type="submit"
+            disabled={!isValid || isPending}
+            className="rounded bg-red px-3 py-1.5 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            탈퇴
+          </button>
+        </section>
       </form>
     </ModalContainer>
   );

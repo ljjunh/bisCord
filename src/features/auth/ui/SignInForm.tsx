@@ -38,97 +38,100 @@ export const SignInForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-2"
     >
-      <div className="space-y-0.5">
-        <label
-          htmlFor="email"
-          className={AUTH_FORM_STYLES.label}
-        >
-          이메일
-          <span
-            className="text-red"
-            aria-hidden="true"
-          >
-            *
-          </span>
-          <span className="sr-only">필수 입력</span>
-        </label>
-        <input
-          {...register('email')}
-          id="email"
-          type="email"
-          autoComplete="email"
-          aria-required
-          aria-invalid={errors.email ? 'true' : 'false'}
-          aria-describedby={errors.email ? 'email-error' : undefined}
-          className={AUTH_FORM_STYLES.input}
-        />
-        <div className="h-[17px] overflow-hidden">
-          <ErrorMessage
-            errors={errors}
-            name="email"
-            render={({ message }) => (
-              <p
-                id="email-error"
-                role="alert"
-                className={AUTH_FORM_STYLES.errorMessage}
-              >
-                {message}
-              </p>
-            )}
-          />
-        </div>
-      </div>
+      <fieldset className="space-y-0.5">
+        <legend className="sr-only">로그인 정보</legend>
 
-      <div className="space-y-0.5">
-        <label
-          htmlFor="password"
-          className={AUTH_FORM_STYLES.label}
-        >
-          비밀번호
-          <span
-            className="text-red"
-            aria-hidden="true"
+        <fieldset className="space-y-0.5">
+          <label
+            htmlFor="email"
+            className={AUTH_FORM_STYLES.label}
           >
-            *
-          </span>
-          <span className="sr-only">필수 입력</span>
-        </label>
-        <input
-          {...register('password')}
-          id="password"
-          type="password"
-          autoComplete="current-password"
-          aria-required
-          aria-invalid={errors.password ? 'true' : 'false'}
-          aria-describedby={errors.password ? 'password-error' : undefined}
-          className={AUTH_FORM_STYLES.input}
-        />
-        <div className="h-[17px] overflow-hidden">
-          <ErrorMessage
-            errors={errors}
-            name="password"
-            render={({ message }) => (
-              <p
-                id="password-error"
-                role="alert"
-                className={AUTH_FORM_STYLES.errorMessage}
-              >
-                {message}
-              </p>
-            )}
+            이메일
+            <span
+              className="text-red"
+              aria-hidden="true"
+            >
+              *
+            </span>
+            <span className="sr-only">필수 입력</span>
+          </label>
+          <input
+            {...register('email')}
+            id="email"
+            type="email"
+            autoComplete="email"
+            aria-required="true"
+            aria-invalid={errors.email ? 'true' : 'false'}
+            aria-describedby={errors.email ? 'email-error' : undefined}
+            className={AUTH_FORM_STYLES.input}
           />
-        </div>
-      </div>
+          <p className="h-[17px] overflow-hidden">
+            <ErrorMessage
+              errors={errors}
+              name="email"
+              render={({ message }) => (
+                <span
+                  id="email-error"
+                  role="alert"
+                  className={AUTH_FORM_STYLES.errorMessage}
+                >
+                  {message}
+                </span>
+              )}
+            />
+          </p>
+        </fieldset>
 
-      <div className="mb-6 mt-2">
-        {/** 비밀번호 찾기 기능 할지 안할지 미정 */}
+        <fieldset className="space-y-0.5">
+          <label
+            htmlFor="password"
+            className={AUTH_FORM_STYLES.label}
+          >
+            비밀번호
+            <span
+              className="text-red"
+              aria-hidden="true"
+            >
+              *
+            </span>
+            <span className="sr-only">필수 입력</span>
+          </label>
+          <input
+            {...register('password')}
+            id="password"
+            type="password"
+            autoComplete="current-password"
+            aria-required="true"
+            aria-invalid={errors.password ? 'true' : 'false'}
+            aria-describedby={errors.password ? 'password-error' : undefined}
+            className={AUTH_FORM_STYLES.input}
+          />
+          <p className="h-[17px] overflow-hidden">
+            <ErrorMessage
+              errors={errors}
+              name="password"
+              render={({ message }) => (
+                <span
+                  id="password-error"
+                  role="alert"
+                  className={AUTH_FORM_STYLES.errorMessage}
+                >
+                  {message}
+                </span>
+              )}
+            />
+          </p>
+        </fieldset>
+      </fieldset>
+
+      <nav className="mb-6 mt-2">
         <Link
           to="/forgotPassword"
-          className="text-sm text-sky-blue hover:underline"
+          className="text-sm text-white hover:underline"
         >
           비밀번호를 잊으셨나요?
         </Link>
-      </div>
+      </nav>
 
       <button
         type="submit"
@@ -138,15 +141,15 @@ export const SignInForm = () => {
         로그인
       </button>
 
-      <p className="mb-6 text-sm text-super-light-gray">
+      <footer className="mb-6 text-sm text-white">
         계정이 필요하신가요?{' '}
         <Link
           to={ROUTES.AUTH.SIGN_UP}
-          className="text-sky-blue hover:underline"
+          className="text-white hover:underline"
         >
           가입하기
         </Link>
-      </p>
+      </footer>
     </form>
   );
 };

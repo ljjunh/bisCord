@@ -76,7 +76,6 @@ export const DMView = () => {
 
     const cleanup = detector.on('active', () => {
       if (latestChatId !== lastSentReadIdRef.current) {
-        console.log('디텍터 실행');
         socketClient?.publish({
           destination: `/app/dm/${otherUserId}/chat/${latestChatId}`,
         });
@@ -98,14 +97,18 @@ export const DMView = () => {
 
   return (
     <div className="flex h-full flex-col px-4 py-2 text-white">
-      <div
+      <section
         ref={messageContainerRef}
         className="flex-1 overflow-y-auto"
+        aria-label="메시지 대화"
+        role="log"
+        aria-live="polite"
       >
         {hasNextPage && (
           <div
             ref={observerRef}
             className="py-2 text-center text-sm text-white"
+            aria-hidden="true"
           />
         )}
         {messageGroups.map((group) => (
@@ -116,8 +119,10 @@ export const DMView = () => {
             setEditingId={setEditingId}
           />
         ))}
-      </div>
-      <MessageInput otherUserId={otherUserId} />
+      </section>
+      <footer>
+        <MessageInput otherUserId={otherUserId} />
+      </footer>
     </div>
   );
 };

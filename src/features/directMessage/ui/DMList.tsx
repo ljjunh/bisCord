@@ -28,7 +28,7 @@ export const DMList = () => {
 
   return (
     <div className="flex h-full flex-col rounded-tl-lg bg-dark-gray pt-5">
-      <div className="flex-1 overflow-y-auto">
+      <nav className="flex-1 overflow-y-auto">
         <Link
           to={ROUTES.ROOT}
           className={cn(
@@ -39,38 +39,51 @@ export const DMList = () => {
           <FriendsIcon />
           <h2 className="text-lg text-super-light-gray">친구</h2>
         </Link>
-        <div className="mb-2 flex items-center justify-between px-4">
-          <h2 className="text-xs text-super-light-gray">다이렉트 메시지</h2>
-          <CreateDMRoomButton />
-        </div>
-        <div className="flex min-w-64 flex-col space-y-1">
-          {!isEmpty(allFriends) &&
-            allFriends.map((friend) => (
-              <DMItem
-                key={friend.userId}
-                userId={friend.userId}
-                name={friend.name}
-                profileImageURL={friend.profileImageURL}
-                loginStatus={friend.loginStatus}
-                read={friend.read}
+
+        <section aria-labelledby="dm-heading">
+          <header className="mb-2 flex items-center justify-between px-4">
+            <h2
+              id="dm-heading"
+              className="text-xs text-super-light-gray"
+            >
+              다이렉트 메시지
+            </h2>
+            <CreateDMRoomButton />
+          </header>
+          <ul
+            className="flex min-w-64 flex-col space-y-1"
+            aria-label="다이렉트 메시지 목록"
+          >
+            {!isEmpty(allFriends) &&
+              allFriends.map((friend) => (
+                <DMItem
+                  key={friend.userId}
+                  userId={friend.userId}
+                  name={friend.name}
+                  profileImageURL={friend.profileImageURL}
+                  loginStatus={friend.loginStatus}
+                  read={friend.read}
+                />
+              ))}
+            {isFetchingNextPage && (
+              <li aria-live="polite">
+                <LoadingSpinner />
+              </li>
+            )}
+            {hasNextPage && (
+              <div
+                ref={observerRef}
+                className="h-20"
+                aria-hidden="true"
               />
-            ))}
-          {isFetchingNextPage && (
-            <li aria-live="polite">
-              <LoadingSpinner />
-            </li>
-          )}
-          {hasNextPage && (
-            <div
-              ref={observerRef}
-              className="h-20"
-            />
-          )}
-        </div>
-      </div>
-      <div className="bg-black px-2 py-3">
+            )}
+          </ul>
+        </section>
+      </nav>
+
+      <footer className="bg-black px-2 py-3">
         <UserProfileBar />
-      </div>
+      </footer>
     </div>
   );
 };
